@@ -28,5 +28,9 @@ public interface EmployeerAppplicationConstant {
 	String PLAN_DETAILS="planDetails";
 	String COMPANY_PROFILE="companyProfile";
 	String EmployerDownloadResume="employerDownloadResume";
+	String UPDATE_COMPANY_DETAILS="updateCompanyDetails";
+	String CREATE_USERS="createusers";
+	String MANAGE_USERS="manageusers";
+	String NEW_PASSWORD="newpassword";
 
 }

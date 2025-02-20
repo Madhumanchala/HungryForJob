@@ -32,6 +32,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     	String roleType=session.getAttribute("roletype")!=null?session.getAttribute("roletype").toString():null;
     	String rolestatus=session.getAttribute("rolestatus")!=null?session.getAttribute("rolestatus").toString():null;
     	String planstatus=session.getAttribute("planstatus")!=null?session.getAttribute("planstatus").toString():null;
+    	String newemployer = session.getAttribute("newemployer")!=null?session.getAttribute("newemployer").toString():null;
 //    	response.sendRedirect("candidateDashboard");
     	if(roleType.equals("employer"))
     	{
@@ -49,13 +50,34 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 	rd.forward(request, response);
     			}
     			
-    		}else if(rolestatus.equals("user"))
+    		}else if(rolestatus.equals("employeradmin"))
+    		{
+    			if(planstatus.equals("1"))
+    			{
+            		RequestDispatcher rd=request.getRequestDispatcher("companydashboard");
+                	rd.forward(request, response);
+    			}else
+    			{
+            		RequestDispatcher rd=request.getRequestDispatcher("pricing-plan");
+                	rd.forward(request, response);
+    			}
+    		}
+    		else if(rolestatus.equals("user"))
     		{
     			if(planstatus.equals("1"))
     			{
 //    				System.out.println("role ========= "+roleType);
-            		RequestDispatcher rd=request.getRequestDispatcher("searchCandidates");
-                	rd.forward(request, response);
+    				if(newemployer.equals("1"))
+    				{
+    					RequestDispatcher rd=request.getRequestDispatcher("resetpassword");
+                    	rd.forward(request, response);
+                    	
+    				}else
+    				{
+    					RequestDispatcher rd=request.getRequestDispatcher("searchCandidates");
+                    	rd.forward(request, response);
+    				}
+            		
     			}else
     			{
 //    				System.out.println("role ========= "+roleType);

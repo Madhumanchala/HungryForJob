@@ -1,5 +1,9 @@
 package com.comunus.hungryForJob.employeer.Model;
 
+import java.util.List;
+
+import com.comunus.hungryForJob.model.DropDown;
+
 import lombok.Data;
 
 @Data
@@ -24,4 +28,5 @@ public class companyProfiledetails {
 	private String companyName;
 	private String companyId;
 	private String credits;
+	private List<DropDown> industryMaster;
 }

@@ -1919,3 +1919,111 @@ margin: 3px 0 30px; word-break: break-all;}
 .navtabs{ margin-top:0px;}
 .navtabs .nav-pills .nav-link.active{background:var(--secondary-color); border-radius:50px;}
 .navtabs .nav-link{color:var(--secondary-color);}
+
+
+/*sachin css manage users*/
+.adminBtn{
+  margin-left: auto;
+}
+.adminBtn span{
+  padding:8px 15px;
+  background-color: #FCF0DB;
+  color: #E76813;
+  border-radius: 5px;
+}
+.billing-profile .profileImg img {
+  width: 52px;
+  height: 52px;
+}
+.add-userBtn{
+  background-color: #3861A3;
+  color: #fff;
+}
+.add-userBtn:hover{
+  border:1px solid #3861A3;
+  color: #3861A3;
+}
+.profileImg.UserIcon{
+  display: flex;
+  align-items: center;
+}
+.profileImg.UserIcon img{
+  width: 35px;
+  height: 35px;
+  margin-left: 0;
+}
+.profileImg.UserIcon p{
+ margin-bottom: 0;
+}
+.NameUser{
+  padding-left: 20px;
+}
+tr.UserDetails{
+  
+  line-height: 3;
+  background: #F5F5F9;
+}
+.UserDetailsList{
+  line-height: 4;
+  border-bottom: 1px solid #EEEEEE;
+}
+.pencil{
+  margin-right: 10px;
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.UserDetails th {
+  text-align: left;
+  background-color: #f4f4f4;
+  padding: 10px;
+}
+.UserDetailsList {
+  border-bottom: 1px solid #ddd;
+}
+.UserDetailsList td {
+  padding: 10px;
+}
+.profileImg {
+  display: flex;
+  align-items: center;
+}
+.profileImg img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.profileImg p{
+  margin-bottom: 0;
+}
+.actions span {
+  cursor: pointer;
+  margin-right: 10px;
+}
+@media (max-width: 1024px) {
+  .user-table, .UserDetails, .UserDetailsList, tbody {
+      display: block;
+      width: 100%;
+  }
+  .UserDetails {
+      display: none;
+  }
+  .UserDetailsList {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      background: #fff;
+  }
+  .UserDetailsList td {
+      display: flex;
+      justify-content:flex-start;
+      padding: 5px 0;
+  }
+  .UserDetailsList td:first-child {
+      flex-direction: column;
+  }
+}

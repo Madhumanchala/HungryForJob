@@ -811,10 +811,10 @@ String companyId = (String) session.getAttribute("companyId");
 													<ul>
 														<li><img src="employer/img/location.svg">
 															${item.searchCurrentLocation}&nbsp;</li>
-														<li><img src="employer/img/years.svg">${item.searchMinExp}
-															- ${item.searchMaxExp}</li>
-														<li><img src="employer/img/salary.svg">${item.searchMinSal}
-															- ${item.searchMaxSal}</li>
+														<li><img src="employer/img/years.svg"><%-- ${item.searchMinExp} - --%>
+															${item.searchMaxExp}</li>
+														<li><img src="employer/img/salary.svg"><%-- ${item.searchMinSal} - --%>
+															 ${item.searchMaxSal}</li>
 													</ul>
 												</div>
 											</div>

@@ -20,13 +20,24 @@ String empoyerCompanyName=session.getAttribute("employerCompanyName").toString()
                 <div class="content-txt">
                   <div class="row">
                     <div class="vertical-menu">
-                      <a onclick="route" class="active"> <img src="" alt=""> Company Profile</a>
+                      <a onclick="route('companydashboard')" class="active"> <img src="" alt=""> Company Profile</a>
                       <a href="#"><img src="" alt=""> My Subscription</a>
                       <a href="#"><img src="" alt=""> Settting </a>
+                      <a onclick="route('manageuser')">Manage users</a>
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
+<script>
+function route(value)
+{
+  	 	let url = value;
+			let form = document.createElement('form');
+			form.method = 'POST'; 
+			form.action = url;
+			document.body.appendChild(form);
+			form.submit(); 
+}
+</script>

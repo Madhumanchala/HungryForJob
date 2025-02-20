@@ -52,5 +52,7 @@ public class ResponseModel {
 	
 	private List<FolderDetails> folderDetails;
 	private List<FolderDetails> folderCandidateDetais;
+	private Dashboard userdetails;
+	private List<Dashboard> manageUserDetails;
 	
 }

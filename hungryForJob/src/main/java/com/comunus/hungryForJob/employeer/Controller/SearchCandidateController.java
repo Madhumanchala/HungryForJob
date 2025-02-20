@@ -74,13 +74,28 @@ public class SearchCandidateController {
 
 		log.info("Inside searchCandidates ");
 		WebClientResponse response = null;
+		WebClientResponse response1 = null;
 		try {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.SEARCH_CANDIDATES).getUrl();
+			String Url1 = Configs.urls.get(EmployeerAppplicationConstant.FETCH_MENU).getUrl();
 			log.info("@@@@ searchCandidates " + Url);
-			response = myWebClient.post(Url, null).block();
+			String userid=null;
+			if(session.getAttribute("userId")!=null)
+			{
+				userid=session.getAttribute("userId").toString();
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			response = myWebClient.post(Url, userid).block();
 			if(response.getToken()!=null) {
 				  log.info("s.getToken() :"+response.getToken());
 				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
+			response1= myWebClient.post(Url1, null).block();
+			if(response1.getToken()!=null) {
+				  log.info("s.getToken() :"+response1.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response1.getToken());
 	    	 }
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
@@ -96,12 +111,27 @@ public class SearchCandidateController {
 					log.info("=============");
 					log.info("phd courses" + responsemodel.getData().getFetchCompany());
 					model.addAttribute("company", responsemodel.getData().getFetchCompany());
+					session.setAttribute("companyId", responsemodel.getData().getUserdetails().getCompanyId());
+					session.setAttribute("fullName", responsemodel.getData().getUserdetails().getUserName());
+					session.setAttribute("employerEmailId", responsemodel.getData().getUserdetails().getEmailId());
+					session.setAttribute("employerCompanyName", responsemodel.getData().getUserdetails().getCompanyName());
+					session.setAttribute("credit", responsemodel.getData().getUserdetails().getCredits());
 
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
-
 			}
+			if (response1.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response1.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
+					model.addAttribute("menuDetails", responsemodel.getData().getMenudetails());
+					model.addAttribute("status", "1");
+					log.info("menudetails==============" + responsemodel.getData().getMenudetails());
+				}
+			}
+			
 
 		} catch (Exception e1) {
 			e1.printStackTrace();

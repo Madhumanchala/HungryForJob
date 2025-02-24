@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.comunus.hungryForJob.employeer.Model.FolderDetails;
 import com.comunus.hungryForJob.employeer.Model.Menu;
+import com.comunus.hungryForJob.employeer.Model.PricingDetails;
 
 import lombok.Data;
 
@@ -54,5 +55,7 @@ public class ResponseModel {
 	private List<FolderDetails> folderCandidateDetais;
 	private Dashboard userdetails;
 	private List<Dashboard> manageUserDetails;
+	private List<Dashboard> plandetails;
+	private List<PricingDetails> pricingDetails;
 	
 }

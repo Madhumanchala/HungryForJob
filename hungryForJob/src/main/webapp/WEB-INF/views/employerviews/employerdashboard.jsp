@@ -21,8 +21,8 @@ String empoyerCompanyName=session.getAttribute("employerCompanyName").toString()
                   <div class="row">
                     <div class="vertical-menu">
                       <a onclick="route('companydashboard')" class="active"> <img src="" alt=""> Company Profile</a>
-                      <a href="#"><img src="" alt=""> My Subscription</a>
-                      <a href="#"><img src="" alt=""> Settting </a>
+                      <a onclick="route('mysubscription')"><img src="" alt=""> My Subscription</a>
+                      <!-- <a href="#"><img src="" alt=""> Settting </a> -->
                       <a onclick="route('manageuser')">Manage users</a>
                     </div>
                   </div>

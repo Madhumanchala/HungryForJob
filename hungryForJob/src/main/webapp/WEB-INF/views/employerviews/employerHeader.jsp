@@ -1,6 +1,9 @@
 <%@ page session="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@page import="java.util.List"%>
+<%
+	String rolestatus=session.getAttribute("rolestatus").toString();
+%>
 <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
       <div class="">
@@ -25,6 +28,15 @@
             <li> <i class="bi bi-bell"></i></li>
           </ul>
         </div> -->
+        <div class="adminEmp" id="employeradminheader">  
+			 <div class="switcher">
+			  <input type="radio" name="balance" value="Admin" id="Admin" class="switcher-input switcher-input--adm"  onchange="route('companydashboard')">
+			  <label for="Admin" class="switcher-label">Admin</label>			  
+			  <input type="radio" name="balance" value="Employer" id="Employer" class="switcher-input switcher-input--emp" onchange="route('searchCandidates')" checked>
+			  <label for="Employer" class="switcher-label">Employer</label>			  
+			  <span class="switcher-toggle"></span>
+			</div> 
+	  </div>
         <div class="availableCredits">
 
           <div class=" dropdown">
@@ -77,13 +89,11 @@
 
     </div>
   </header><!-- End Header -->
+   <script src=	"employer/js/jquery.min.js"></script>
   <script>
 <%--   <%
   	List<Menu> menudetails= (List<Menu>) session.getAttribute("menuDetails");
   %> --%>
-  var status='${status}'
-  if(status === "1")
-	{
 	  var menuDetails1 = [
 	      <c:forEach items="${menuDetails}" var="menu" varStatus="status">
 	          {
@@ -95,9 +105,8 @@
 	      </c:forEach>
 	  ]; 
 	  sessionStorage.setItem('menuDetails', JSON.stringify(menuDetails1));
-	}
+	
   var menuDetails = JSON.parse(sessionStorage.getItem('menuDetails'));
-  console.log(menuDetails);
   var menuContainer = document.getElementById('menuContainer');
 
 //Function to create the menu
@@ -174,5 +183,15 @@ function route(value) {
 	document.body.appendChild(form);
 	form.submit();
 }
+$(document).ready(function() {
+	 var flag="<%=rolestatus%>";
+	if(flag === "employeradmin")
+	{
+		 $("#employeradminheader").show();
+	}else
+	{
+		 $("#employeradminheader").hide();
+	}
+});
 </script>
 <script src="employer/js/popper.min.js"></script>

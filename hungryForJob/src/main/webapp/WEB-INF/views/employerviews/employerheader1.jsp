@@ -1,5 +1,8 @@
 <%@ page session="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%
+	String rolestatus=session.getAttribute("rolestatus").toString();
+%>
 <%@page import="java.util.List"%>
 <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -17,6 +20,15 @@
         </div>
       </div>
       <div class=" d-flex">
+      <div class="adminEmp" id="employeradminheader">  
+			 <div class="switcher">
+			  <input type="radio" name="balance" value="Admin" id="Admin" class="switcher-input switcher-input--adm" onchange="route('companydashboard')" checked>
+			  <label for="Admin" class="switcher-label">Admin</label>			  
+			  <input type="radio" name="balance" value="Employer" id="Employer" class="switcher-input switcher-input--emp" onchange="route('searchCandidates')">
+			  <label for="Employer" class="switcher-label">Employer</label>			  
+			  <span class="switcher-toggle"></span>
+			</div> 
+	</div>
         <div class="profileBtn">
           <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -38,6 +50,25 @@
           </div>
         </div>
       </div>
-
     </div>
   </header>
+  <script src="employer/js/jquery.min.js"></script>
+ <script>
+ $(document).ready(function() {
+	 var flag="<%=rolestatus%>";
+		if(flag === "employeradmin")
+		{
+			 $("#employeradminheader").show();
+		}else
+		{
+			 $("#employeradminheader").hide();
+		}
+	});
+ function route(value) {
+		let form = document.createElement('form');
+		form.method = 'POST';
+		form.action = value;
+		document.body.appendChild(form);
+		form.submit();
+	}
+ </script>

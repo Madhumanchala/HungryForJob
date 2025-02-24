@@ -32,5 +32,9 @@ public interface EmployeerAppplicationConstant {
 	String CREATE_USERS="createusers";
 	String MANAGE_USERS="manageusers";
 	String NEW_PASSWORD="newpassword";
+	String MY_SUBSCRIPTION="mySubscription";
+	String UPDATE_GSTNUMBER="updategstnumber";
+	String Renewal_PLANDETAILS="renewalPlan";
+	String UPDATE_PLANDETAILS="updatePlanDetails";
 
 }

@@ -1,5 +1,6 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -88,7 +89,6 @@ public class DashboardController {
 						});
 				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
 					model.addAttribute("menuDetails", responsemodel.getData().getMenudetails());
-					model.addAttribute("status", "1");
 					log.info("menudetails==============" + responsemodel.getData().getMenudetails());
 				}
 			}
@@ -101,9 +101,43 @@ public class DashboardController {
 		return "employerviews/companydashboard";
 	}
 	
-	@GetMapping("mySubscriptoin")
-	public String Subscription(HttpSession session,HttpServletRequest request)
+	@PostMapping("mysubscription")
+	public String Subscription(HttpSession session,HttpServletRequest request,Dashboard dashboard,Model model)
 	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in userid");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				dashboard.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("session is not set in companyId");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.MY_SUBSCRIPTION).getUrl();
+			response=myWebClient.post(url,dashboard).block();
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				if(responsemodel.getErrors().getErrorCode().equals("0000"))
+				{
+					model.addAttribute("plandetails", responsemodel.getData().getPlandetails());
+					model.addAttribute("statustype", dashboard.getType());
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured ==== "+e.getMessage());
+		}
 		return "employerviews/mySubscription";
 	}
 	
@@ -279,4 +313,141 @@ public class DashboardController {
 		return null;
 	}
 	
+	@PostMapping("/updategstnumber")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> updategstnumber(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in userid");
+
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				dashboard.setCompanyId(session.getAttribute("companyId").toString());
+				
+			}else
+			{
+				log.info("session is not set in companyid");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.UPDATE_GSTNUMBER).getUrl();
+			response=myWebClient.post(url, dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				
+				return responsemodel;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is ocuured ===== "+e.getMessage());
+		}
+		return null;
+	}
+	
+	@PostMapping("/renewalplan")
+	public String renewalplan(HttpSession session,Model model,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		Dashboard dashboard = new Dashboard();
+		String planid=request.getParameter("planId").toString();
+		try {
+			if(session.getAttribute("userId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("user is not set in session");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				dashboard.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("companyId is not set in session");
+			}
+			dashboard.setId(planid);
+			String url=Configs.urls.get(EmployeerAppplicationConstant.Renewal_PLANDETAILS).getUrl();
+			response=myWebClient.post(url, dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				if(responsemodel.getErrors().getErrorCode().equals("0000"))
+				{
+					model.addAttribute("renewalplandetails", responsemodel.getData().getUserdetails());
+					double gstRate = 18.0;
+					double amount = Double.parseDouble(responsemodel.getData().getUserdetails().getPlanPrice().replace(",", ""));
+					double gstAmount = (amount * gstRate) / 100;
+				    double totalAmount = amount + gstAmount;
+				    model.addAttribute("totalamount", totalAmount);
+				    model.addAttribute("gstamount", gstAmount);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occurred === "+e.getMessage());
+		}
+		return "employerviews/renewalplan";
+	}
+	
+	@PostMapping("/updateplandetails")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> updateplandetails(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("user is not set in session");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				dashboard.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("companyId is not set in session");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.UPDATE_PLANDETAILS).getUrl();
+			response=myWebClient.post(url, dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured ==== "+e.getMessage());
+		}
+		return null;
+	}
 }

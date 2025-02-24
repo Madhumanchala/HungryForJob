@@ -1814,6 +1814,8 @@ p.walkInterview{ font-size:13px; margin-top:5px; color:var(--lgrey-color);}
 .billing-history .form-group1 { margin-bottom: 0px;}
 .status {font-size: 13px;max-width: 150px;padding: 5px 8px;border-radius: 5px;text-align: center;display: block;font-weight: 500;}
 .pending{background:#ffe8c5; color:#ff9800;}
+.success { background: #c8e6c9;  color: #4caf50;}
+.failure{ background: #ffcdd2;  color: #f44336;}
 .dt-search .form-control {min-height: 35px;}
 .company-profile .profileImg img {width: 40px;height: 40px;}
 /* left menu */
@@ -1921,7 +1923,7 @@ margin: 3px 0 30px; word-break: break-all;}
 .navtabs .nav-link{color:var(--secondary-color);}
 
 
-/*sachin css manage users*/
+/*sachin css manage users  start*/
 .adminBtn{
   margin-left: auto;
 }
@@ -2027,3 +2029,11 @@ tr.UserDetails{
       flex-direction: column;
   }
 }
+/*  end*/
+.adminEmp{ margin-right:10px; }
+ .switcher{display:inline-block;height:40px;margin-top:3px;padding:4px;background:#fff;border-radius:2px;width:170px;border-radius:30px;border:solid 1px #ddd;position:relative}
+.switcher-input{display:none}
+.switcher-label{float:left;width:50%;font-size:12px;line-height:30px;color:var(--black-color);text-align:center;cursor:pointer;position:inherit;z-index:10;transition:color .2s cubic-bezier(.4, 0, .2, 1);will-change:transform}
+.switcher-toggle{position:absolute;float:left;height:30px;width:50%;font-size:12px;line-height:30px;cursor:pointer;background-color:var(--secondary-color);border-radius:30px;left:5px;top:4px;transition:left .25s cubic-bezier(.4, 0, .2, 1);will-change:transform}
+.switcher-input:checked+.switcher-label{color:#fff}
+.switcher-input--emp:checked~.switcher-toggle{left:80px}

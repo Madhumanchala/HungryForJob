@@ -35,11 +35,11 @@ String role=session.getAttribute("rolestatus").toString();
 		if(role.equals("employeradmin"))
 		{
 %>
-	<%@include file="employerHeader.jsp"%>
+	<%@include file="employerheader1.jsp"%>
 <%
 		}else{
 %>
-<%@include file="employerheader1.jsp"%>
+<%@include file="employerheader2.jsp"%>
 <%} %>
 	<%@include file="toaster.jsp"%>
 	<main id="main">

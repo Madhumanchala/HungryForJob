@@ -1,5 +1,9 @@
 package com.comunus.hungryForJob.model;
 
+import java.util.List;
+
+import com.comunus.hungryForJob.employeer.Model.PricingDetails;
+
 import lombok.Data;
 
 @Data
@@ -40,6 +44,25 @@ public class Dashboard {
 	public String credits;
 	public String password;
 	public String userAccess;
+	
+	public String date;
+	public String time;
+	public String plandetails;
+	public String expireOn;
+	public String amount;
+	public String status;
+	public String action;
+	
+	public String utrNo;
+	public String utrDate;
+	public String planName;
+	public String planPrice;
+	public String planUser;
+	public String planJobPost;
+	public String planSearch;
+	public String planCV;
+	public String planValidity;
+	
 	
 	
 }

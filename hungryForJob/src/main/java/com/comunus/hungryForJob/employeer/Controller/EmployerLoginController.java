@@ -173,6 +173,7 @@ public class EmployerLoginController {
 			int id=Integer.parseInt(id1);
 			SignUp signup = new SignUp();
 			signup.setUserId(session.getAttribute("userId")!=null?session.getAttribute("userId").toString():null);
+//			signup.setId(id);
 			log.info("Inside industrylist Method :::::::::::::"+id);
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.PLAN_DETAILS).getUrl();
 			response = myWebClient.post(Url,signup).block();

@@ -69,3 +69,40 @@ function checkPassword(input, id) {
         $("#" + id).text("Password must be at least 8 characters, include an uppercase letter, a lowercase letter, a number, and a special character.");
     }
 }
+function validateGST(gstin) {
+    let gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+    return gstPattern.test(gstin)
+}
+function checkgst(input,id)
+{
+	if(validateGST(input.value))
+	{
+		$("#"+id).text("");
+	}else
+	{
+		$("#"+id).text("Invalid GST Number format.");
+	}
+}
+function findroute(value)
+{
+	let form = document.createElement('form');
+	form.method = 'POST'; 
+	form.action = value;
+	document.body.appendChild(form);
+	form.submit(); 
+}
+function validateUTR(utr) {
+    const utrPattern = /^[A-Za-z0-9]{16,22}$/; // UTR must be 16-22 alphanumeric characters
+    return utrPattern.test(utr);
+}
+function checkutr(input,id)
+{
+	if(validateUTR(input.value))
+	{
+		$("#"+id).text("");
+	}else
+	{
+		$("#"+id).text("enter the valid utr not");
+		$("#"+id).show();
+	}
+}

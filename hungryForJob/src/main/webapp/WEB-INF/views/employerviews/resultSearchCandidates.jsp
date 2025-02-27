@@ -38,7 +38,6 @@ String companyId = (String) session.getAttribute("companyId");
 	<%@include file="toaster.jsp"%>
 	<%@include file="employerheader1.jsp"%>
 	<!-- End Header -->
-
 	<div class="advanced-search-bread">
 		<div class="container">
 			<div class="row">
@@ -468,38 +467,38 @@ String companyId = (String) session.getAttribute("companyId");
 												<div id="noticeperiodOpen-collapse1"
 													class="accordion-collapse collapse">
 													<div class="accordion-body">
-														<div class="form-check">
+														<!-- <div class="form-check">
 															<input class="form-check-input" type="radio" value=""
 																id="anyNotice" name="noticePeriod"> <label
 																class="form-check-label" for="anyNotice"> Any </label>
-														</div>
+														</div> -->
 
 														<div class="form-check">
-															<input class="form-check-input" type="radio" value="15"
+															<input class="form-check-input" type="checkbox" value="15"
 																name="noticeperiod" id="15noticeperiod"> <label
 																class="form-check-label" for="15noticeperiod"> 0
 																- 15 days </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="radio" value="30"
+															<input class="form-check-input" type="checkbox" value="30"
 																id="30noticeperiod" name="noticeperiod"> <label
 																class="form-check-label" for="30noticeperiod"> 1
 																month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="radio" value="60"
+															<input class="form-check-input" type="checkbox" value="60"
 																id="60noticeperiod" name="noticeperiod"> <label
 																class="form-check-label" for="60noticeperiod"> 2
 																month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="radio" value="90"
+															<input class="form-check-input" type="checkbox" value="90"
 																id="90noticeperiod" name="noticeperiod"> <label
 																class="form-check-label" for="90noticeperiod"> 3
 																month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="radio" value="365"
+															<input class="form-check-input" type="checkbox" value="365"
 																id="365noticeperiod" name="noticeperiod"> <label
 																class="form-check-label" for="365noticeperiod">
 																Currently Serving Notice Period </label>
@@ -910,9 +909,12 @@ String companyId = (String) session.getAttribute("companyId");
 											<div class="line2"></div>
 											<div class="similardetail d-flex justify-content-between">
 												<span> <a href="#" target="_blank"
-													title="Similar Profiles">${item.searchSimilarProfiles }</a></span>
+													title="Similar Profiles"></a></span>   <%-- ${item.searchSimilarProfiles } --%>
 												<div class="">
-													<span> <a href="#" title="Comment"> Comment</a></span>
+													<!-- <span> <a href="#" title="Comment"> Comment</a></span> -->
+													 <span>
+                          <a data-bs-toggle="collapse" href="#viewComment" role="button" aria-expanded="false"
+                            aria-controls="viewComment">Comment</a></span>
 													<!-- <span
 														class="pipe"> | </span> <span> <a href="#"
 														data-bs-toggle="tooltip" data-bs-placement="top"
@@ -922,6 +924,45 @@ String companyId = (String) session.getAttribute("companyId");
 													</a></span> -->
 												</div>
 											</div>
+											  <div class="collapse" id="viewComment">
+                      <div class="card card-body viewCommentbody mt-3">
+                        <div class="row">
+                          <div class="col-lg-9 col-md-9 col-sm-12">
+                            <div class="form-group addcommentfrom">
+                              <label for="addcomment" class="form-label">Comment</label>
+                              <textarea id="addcomment" class="form-control" rows="2"> </textarea>
+                            </div>
+                          </div>
+                          <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="addsubmitcom">
+                              <button type="submit" class="btn-blue ">Add Comment</button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="viewComment">
+                          <div class="profile-img">
+                            <img src="employer/img/profile-img.jpg">
+                          </div>
+                          <div class="">
+                            <p> Current location Matching</p>
+                            <p class="date"> 24-Feb-2025 06:30pm</p>
+                          </div>
+                        </div>
+
+                        <div class="viewComment">
+                          <div class="profile-img">
+                            <img src="employer/img/profile-img.jpg">
+                          </div>
+                          <div class="">
+                            <p>Interested</p>
+                            <p class="date"> 24-Feb-2025 04:30pm</p>
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
 										</div>
 									</div>
 									<div class="download-list">

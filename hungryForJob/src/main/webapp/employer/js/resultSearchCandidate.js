@@ -440,6 +440,16 @@ function filtersValidation()
 	} else {
 	    $("select[name='activein']").val(lastactive).trigger('change');
 	}
+	
+	let noticeperiod = sessionStorage.getItem("NoticePeriod"); 
+
+if (noticeperiod) {
+    let noticevalues = noticeperiod.split(","); // Split in case of multiple values
+    noticevalues.forEach(noticevalues => {
+        $("input[name='noticeperiod'][value='" + noticevalues + "']").prop("checked", true);
+    });
+}
+
 
 }
 function submitSearchCandidate()
@@ -452,7 +462,9 @@ function submitSearchCandidate()
 	var filtermaxsal=$('#filtersalaryFigureMax').val();
 	var filtergender=$("input[name='workmode']:checked").val();
 	var filtercompany=$("select[name='company'] option:selected").val();
-	var filternoticePeriod=$("input[name='noticePeriod']:checked").val();
+	var filternoticePeriod=$("input[name='noticeperiod']:checked").map(function () {
+    	return this.value;
+	}).get().join(",");;
 	var filterhighestqualification=$("input[name='highestqualification']:checked").val();
 	var filtercourse=$("select[name='coursename'] option:selected").val();
 	var filterspecialization=$("select[name='specializationname'] option:selected").val();
@@ -775,7 +787,9 @@ function getSpecialization(){
 	var deferred = $.Deferred();
 	var id=$("select[name='coursename'] option:selected").val(); 
 	value="specialization";
-	$.ajax({
+	if(id!=="" && id == undefined && id==null)
+	{
+		$.ajax({
 		url: "getCourseDetails",
 		method: "POST",
 		data: {
@@ -816,6 +830,8 @@ function getSpecialization(){
 			deferred.reject(error);
 		}
 	})
+	}
+	
 return deferred.promise();
 }
 

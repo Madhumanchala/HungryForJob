@@ -257,11 +257,11 @@ String companyId = (String) session.getAttribute("companyId");
 															<select class="form-select form-control selet2Single"
 																id="filtersearchMinSalary" style="width: 100%">
 																<option value="">Min</option>
-																<option value="50000">50,000</option>
+																<!-- <option value="50000">50,000</option>
 																<option value="60000">60,000</option>
 																<option value="70000">70,000</option>
 																<option value="80000">80,000</option>
-																<option value="90000">90,000</option>
+																<option value="90000">90,000</option> -->
 																<option value="100000">1 lac</option>
 																<option value="125000">1.25 lacs</option>
 																<option value="150000">1.5 lacs</option>
@@ -324,11 +324,11 @@ String companyId = (String) session.getAttribute("companyId");
 															<select class="form-select form-control selet2Single "
 																id="filtersalaryFigureMax" style="width: 100%">
 																<option value="">Max</option>
-																<option value="50000">50,000</option>
+																<!-- <option value="50000">50,000</option>
 																<option value="60000">60,000</option>
 																<option value="70000">70,000</option>
 																<option value="80000">80,000</option>
-																<option value="90000">90,000</option>
+																<option value="90000">90,000</option> -->
 																<option value="100000">1 lac</option>
 																<option value="125000">1.25 lacs</option>
 																<option value="150000">1.5 lacs</option>
@@ -1210,29 +1210,44 @@ String companyId = (String) session.getAttribute("companyId");
         $("#addExistingfolder1").hide();
       });
       
-      let keySkills = sessionStorage.getItem('keySkills');
-      document.getElementById('keySkillsSearch').innerText = keySkills || '';
-      document.getElementById('valueSearchResult').innerText = keySkills || '';
-      let Exp=sessionStorage.getItem('Experience');
-      document.getElementById('experienceSearch').innerText = Exp || '';
-      let ctc= sessionStorage.getItem('CTC');
-      if(ctc === "Min-Max" ||  ctc === null)
-    	{
-    	  document.getElementById('ctcSearch').innerText = '';
-    	}else
-    	{
-      	  document.getElementById('ctcSearch').innerText = ctc;
-    	}
-      let location=sessionStorage.getItem('Locations');
-      document.getElementById('locationSearch').innerText = location || '';
-      let noticePeriod=sessionStorage.getItem('NoticePeriod');
-      if(noticePeriod === null || noticePeriod === "null")
-    	{
-    	  document.getElementById('noticePeriodSearch').innerText="";
-    	}else
-    	{
-    		document.getElementById('noticePeriodSearch').innerText=noticePeriod+" days" || '';
-    	}
+      let keySkills = $("#iTSkills option:selected").map(function() {
+    	    return $(this).text(); // Get the text of the selected options
+    	}).get();
+        document.getElementById('keySkillsSearch').innerText = keySkills || '';
+        document.getElementById('valueSearchResult').innerText = keySkills || '';
+        let Exp=sessionStorage.getItem('Experience');
+        let minExp=$("#filterMinExp").val();
+        let maxExp=$("#filterMaxExp").val();
+        if(minExp === "" || maxExp === "")
+    		{
+      	  document.getElementById('experienceSearch').innerText = '';
+    		}else
+    		{
+    			 document.getElementById('experienceSearch').innerText = minExp+" - "+maxExp+" years";
+    		}
+      
+        let minctc= $("#filtersearchMinSalary option:selected").text();
+        let maxctc=$("#filtersalaryFigureMax option:selected").text();
+        if(minctc === "" ||  maxctc === "")
+      	{
+      	  document.getElementById('ctcSearch').innerText = '';
+      	}else
+      	{
+      		 document.getElementById('ctcSearch').innerText = minctc+" - "+maxctc;
+      	}
+        let location = $("#filterLocation option:selected").map(function() {
+      	    return $(this).text(); // Get the text of each selected option
+      	}).get().join(", ");
+        document.getElementById('locationSearch').innerText = location || '';
+        
+        let noticePeriod=sessionStorage.getItem('saveSearchNoticePeriod');
+        if(noticePeriod === null || noticePeriod === "null")
+      	{
+      	  document.getElementById('noticePeriodSearch').innerText="";
+      	}else
+      	{
+      		document.getElementById('noticePeriodSearch').innerText=noticePeriod+" days" || '';
+      	}
       
       $('#phoneNumber').hide();
       $('#viewPhoneNumber').text("View phone number");

@@ -157,7 +157,10 @@ function updateusers(id)
 					showToast("success","updated  successfully");
 					setTimeout(function() {
     					window.location.reload(true); // Reload with cache bypass
-				}, 2000); // 2000ms = 2 seconds
+					}, 2000); // 2000ms = 2 seconds
+				}else if(response.errors.errorCode === "1010")
+				{
+					showToast("info","Email is Already Existed");
 				}
 				else
 				{

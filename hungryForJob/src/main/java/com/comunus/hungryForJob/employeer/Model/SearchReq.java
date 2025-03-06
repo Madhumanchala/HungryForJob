@@ -51,5 +51,7 @@ public class SearchReq {
 	private String folderId;
 	private String candidateId;
 	private String folderName;
+	
+	private String comments;
 
 }

@@ -839,3 +839,41 @@ function getcoursetypestatus()
 {
 	$('#universityAccordian').show(); 
 }
+function addcomments(id)
+{
+	var comments=$("#addcomment").val();
+	if(checkval)
+	{
+		
+	}
+	if(isvalid)
+	{
+		$.ajax({
+			url:"editCompanyDashboard",
+			type:'post',
+			contentType: 'application/json',
+			data: JSON.stringify({
+                name: userName,
+                emailId: emailForCommunication,
+                mobileNo: mobileNumber,
+            }),
+            success: function(response) {
+                // Success callback
+                if(response.errors.errorCode === "0000")
+                {
+					showToast("success","Sucessfully updated");
+					$("#Company-Profile-edit").modal("hide");
+				}else
+				{
+					showToast("info","please try again");
+					$("#Company-Profile-edit").modal("hide");
+				}
+            },
+            error: function(xhr, status, error) {
+                // Error callback
+                console.log("error ocurred"+error)
+                showToast("error","failed to update");
+            }
+		})
+	}
+}

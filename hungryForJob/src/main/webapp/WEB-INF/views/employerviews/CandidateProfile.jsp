@@ -380,9 +380,23 @@
 
 
 							</div>
-							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+							
+							<div class="tab-pane fade" id="nav-attached" role="tabpanel"
+							aria-labelledby="nav-attached-tab">
+							<!-- <iframe src="img/cv.pdf" width="100%" height="600px" style="border:none"></iframe> 
+				<object data="img/cv.pdf" type="application/pdf" width="100%" height="100%"> </object>-->
+							<object type="application/pdf" width="100%" height="600px"
+								data="data:application/pdf;base64,${careerDetails.cvDetails}"></object>
+						</div>
+							
+							
+						</div>
+						
+					</div>
+					
+						<!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 								<div class="featuredJoblist search-similar-profile  ">
-									<!-- <div class="row">
+									 <div class="row">
 								<div class="col-xl-12 col-lg-12 col-md-12 ">
 									<h4>161 similar profiles</h4>
 								</div>
@@ -423,18 +437,9 @@
 									</div>
 								</div>
 
-							</div> -->
+							</div>  
 								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="nav-attached" role="tabpanel"
-							aria-labelledby="nav-attached-tab">
-							<!-- <iframe src="img/cv.pdf" width="100%" height="600px" style="border:none"></iframe> 
-				<object data="img/cv.pdf" type="application/pdf" width="100%" height="100%"> </object>-->
-							<object type="application/pdf" width="100%" height="600px"
-								data="data:application/pdf;base64,${careerDetails.cvDetails}"></object>
-						</div>
-					</div>
+							</div> -->
 
 				</div>
 			</div>

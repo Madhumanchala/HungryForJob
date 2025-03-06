@@ -107,16 +107,23 @@ function submitSearchCandidates() {
 	var minSalary = document.getElementById("searchMinSalary").value;
 	var maxSalary = document.getElementById("salaryFigureMax").value;
 	var company = document.getElementById("company").value;
-	var isNoticePeriod = document.getElementsByName("noticePeriod");
+	/*var isNoticePeriod = document.getElementsByName("noticePeriod");*/
 	var noticePeriod = null;
-	if (isNoticePeriod != null) {
+	 let selectedValues = $("input[name='noticePeriod']:checked").map(function (){
+		 return  this.value;
+	 }).get();
+	 if(selectedValues)
+	 {
+		  noticePeriod=selectedValues;
+	 }
+	/*if (isNoticePeriod != null) {
 		for (var i = 0; i < isNoticePeriod.length; i++) {
 			if (isNoticePeriod[i].checked) {
 				noticePeriod = isNoticePeriod[i].value;
 				break;
 			}
 		}
-	}
+	}*/
 	var isEducationPeriod = document.getElementsByName("highestQualification");
 	var educationDetails = null;
 	var course = null;
@@ -490,7 +497,10 @@ $(document).ready(function() {
 	  let noticeperiod=sessionStorage.getItem("saveSearchNoticePeriod");
 	  if(noticeperiod !== null && noticeperiod !== "null")
 	  {
-		  	  $("input[name='noticePeriod'][value='" + noticeperiod + "']").prop("checked",true);
+		    let noticevalues = noticeperiod.split(","); // Split in case of multiple values
+		    noticevalues.forEach(noticevalues => {
+		        $("input[name='noticePeriod'][value='" + noticevalues + "']").prop("checked", true);
+		    });
 	  }
 	  
 	  let highestQualificationValue=sessionStorage.getItem("saveSearchHighestQualification");
@@ -623,6 +633,9 @@ $(document).ready(function() {
 	  if(readyTolocate === 'YES')
 		{
 			$('#includeCandidates').prop('checked',true);
+		}else
+		{
+			$("#includeCandidates").prop('checked',false);
 		}
 	  sessionStorage.removeItem("modifyClicked");
 	  

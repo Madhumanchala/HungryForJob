@@ -24,7 +24,6 @@
 <link href="employer/css/daterangepicker.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
 </head>
-
 <body>
 	<div class="loader">
 		<img src="employer/img/loader.gif">
@@ -164,9 +163,17 @@
 														<option value="${location.id}">${location.name}</option>
 													</c:forEach>
 												</select>
+												<div class="form-check relocate">
+													<input class="form-check-input" type="checkbox" value=""
+														id="includeCandidates" value="YES" checked> <label
+														class="form-check-label" for="includeCandidates">
+														Include candidates ready to relocate to the above location
+													</label>
+												</div>
 												<span class="errors" id="location_error"></span>	
 											</div>
 										</div>
+										
 
 										<div class="col-lg-10 col-md-12 col-sm-12">
 											<div class="form-group">
@@ -181,11 +188,11 @@
 													<div class="col-lg-4 col-md-4 col-sm-4 col-5">
 														<select class="form-select form-control selet2Single" id="searchMinSalary">
 															<option value="" >Min</option>
-															<option value="50000">50,000</option>
+														<!-- 	<option value="50000">50,000</option>
 															<option value="60000">60,000</option>
 															<option value="70000">70,000</option>
 															<option value="80000">80,000</option>
-															<option value="90000">90,000</option>
+															<option value="90000">90,000</option> -->
 															<option value="100000">1 lac</option>
 															<option value="125000">1.25 lacs</option>
 															<option value="150000">1.5 lacs</option>
@@ -249,11 +256,11 @@
 														<select class="form-select form-control selet2Single "
 															id="salaryFigureMax">
 															<option value="">Max</option>
-															<option value="50000">50,000</option>
+															<!-- <option value="50000">50,000</option>
 															<option value="60000">60,000</option>
 															<option value="70000">70,000</option>
 															<option value="80000">80,000</option>
-															<option value="90000">90,000</option>
+															<option value="90000">90,000</option> -->
 															<option value="100000">1 lac</option>
 															<option value="125000">1.25 lacs</option>
 															<option value="150000">1.5 lacs</option>
@@ -605,27 +612,27 @@
 													to join </label>
 												<div class="formchecks">
 													<ul>
-														<li><input type="radio" class="btn-check"
+														<!-- <li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="Any" value="0"> <label
-															class="btn" for="Any"><span>Any</span> </label></li>
-														<li><input type="radio" class="btn-check"
+															class="btn" for="Any"><span>Any</span> </label></li> -->
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="015days" value="15"> <label
 															class="btn" for="015days"><span>0 - 15
 																	days</span> </label></li>
-														<li><input type="radio" class="btn-check"
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="1month" value="30"> <label
 															class="btn" for="1month"><span>1 month </span> </label></li>
-														<li><input type="radio" class="btn-check"
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="2month" value="60"> <label
 															class="btn" for="2month"><span>2 month </span> </label></li>
-														<li><input type="radio" class="btn-check"
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="3month" value="90"> <label
 															class="btn" for="3month"><span>3 month </span> </label></li>
-														<li><input type="radio" class="btn-check"
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="morethan3months" value="365"> <label
 															class="btn" for="morethan3months"><span>More
 																	than 3 months </span> </label></li>
-														<li><input type="radio" class="btn-check"
+														<li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="currentlyserving" value="365"> <label
 															class="btn" for="currentlyserving"><span>Currently
 																	serving notice period</span> </label></li>
@@ -719,7 +726,7 @@
 														<div class="form-group">
 															<label for="university">University/ Institute </label> <select
 																class="form-select form-control selet2Single"
-																id="university1">
+																id="university1" style="width:100%">
 																<option value="">Select</option>
 																<c:forEach items="${insitiute}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -850,7 +857,7 @@
 														<div class="form-group">
 															<label for="university">University/ Institute </label> <select
 																class="form-select form-control selet2Single"
-																id="university3">
+																id="university3" style="width:100%">
 																<option value="">Select</option>
 																<c:forEach items="${insitiute}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -895,7 +902,7 @@
 											</div>
 										</div>
 
-										<div class="col-lg-12">
+										<!-- <div class="col-lg-12">
 											<div class="form-group">
 												<div class="form-check relocate">
 													<input class="form-check-input" type="checkbox" value=""
@@ -905,8 +912,7 @@
 													</label>
 												</div>
 											</div>
-										</div>
-
+										</div> -->
 										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="candidateCategory">Candidate Category </label>
@@ -953,11 +959,6 @@
                             </select>
                           </div>
                         </div>
-
-
-
-
-
                       </div>
                     </div>-->
 

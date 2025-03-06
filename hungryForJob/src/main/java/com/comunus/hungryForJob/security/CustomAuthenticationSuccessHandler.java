@@ -87,8 +87,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     		}else
     		{
 //    			System.out.println("role ========= "+roleType);
-        		RequestDispatcher rd=request.getRequestDispatcher("employerlogin");
-            	rd.forward(request, response);
+				
+				  RequestDispatcher rd=request.getRequestDispatcher("employerlogin");
+				  rd.forward(request, response);
+				 
     		}
     		
     	}

@@ -62,6 +62,14 @@ public class Dashboard {
 	public String planSearch;
 	public String planCV;
 	public String planValidity;
+	public String planId;
+	
+	public String post;
+	public String usedPost;
+	public String search;
+	public String usedSearch;
+	public String cvViews;
+	public String usedViews;
 	
 	
 	

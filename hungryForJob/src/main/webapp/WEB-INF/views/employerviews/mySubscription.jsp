@@ -109,7 +109,7 @@
 																	${plandetails.status} </span></td>
 															<c:choose>
 																<c:when test="${plandetails.action eq 'Renewal'}">
-																	<td data-title="Action"><a href="#" onclick="plandetails(${plandetails.id},'verifyDetails')">${plandetails.action}</a></td>
+																	<td data-title="Action"><a href="#" onclick="plandetails(${plandetails.planId},'verifyDetails')">${plandetails.action}</a></td>
 																</c:when>
 																<c:when test="${plandetails.status eq 'failure'}">
 																	<td data-title="Action"><a href="#" onclick="plandetails(${plandetails.id},'renewalplan')">${plandetails.action}

@@ -61,7 +61,7 @@ public class SignUpControllers {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	@GetMapping("/employerlogin")
+	@RequestMapping(path = "/employerlogin", method = {RequestMethod.GET, RequestMethod.POST})  
 	public String EmployerSingin(Model model, HttpServletRequest httpServletRequest,HttpSession session)
 			throws RestClientException, JsonProcessingException, URISyntaxException {
 		try {

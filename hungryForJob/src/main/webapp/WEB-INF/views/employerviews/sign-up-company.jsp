@@ -54,7 +54,7 @@
           </div>
 
           <div class="col-xl-4 col-lg-6 col-md-6  ">
-            <div class="card-register">
+            <div class="card-register floatinglabel">
               <div class="shape02"><img src="/employer/img/shape02.svg"> </div>
               <form autocomplete="off" action="SaveCompanydetails"   onSubmit="return validateEmployerDetailsForm()" method="post"  >
               
@@ -71,7 +71,7 @@
                   </div>
                 </div>
 
-                <div class="card-registerinner  ">
+                <div class="card-registerinner">
                   <div class="row">
                   
                    <div class="col-lg-12 col-md-12 col-sm-12">
@@ -511,7 +511,7 @@
 		                        disabled: true,
 		                        value: postOffices[0].Name
 		                    });
-		                    $('#currentlocationModal .form-group').append($input);
+		                    $('#currentlocationModal .form-group').prepend($input);
 		                    
 		                    // Add the error span after the input
 		                    var $errorSpan = $('<span>', {

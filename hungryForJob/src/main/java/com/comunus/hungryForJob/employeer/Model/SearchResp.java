@@ -12,5 +12,5 @@ public class SearchResp {
 	private List<SearchReq> resultSearch;
 	private ResponseModel responseModel;
 	private List<SearchReq> folderDetails;
-
+	private List<managesearchmodel> manageSearchDetails;
 }

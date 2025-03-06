@@ -36,5 +36,8 @@ public interface EmployeerAppplicationConstant {
 	String UPDATE_GSTNUMBER="updategstnumber";
 	String Renewal_PLANDETAILS="renewalPlan";
 	String UPDATE_PLANDETAILS="updatePlanDetails";
+	String MANAGE_SAVESEARCHDETAIL = "managesearchdetails";
+	String UPDATE_SEARCHDETAILS = "updatesavesearchdetails";
+	String ADD_COMMENTS="addComments";
 
 }

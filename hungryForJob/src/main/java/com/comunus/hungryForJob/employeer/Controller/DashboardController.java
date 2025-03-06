@@ -123,6 +123,11 @@ public class DashboardController {
 			}
 			String url=Configs.urls.get(EmployeerAppplicationConstant.MY_SUBSCRIPTION).getUrl();
 			response=myWebClient.post(url,dashboard).block();
+			if(response.getToken()!=null)
+			{
+				 log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
 			if(response.getStatusCode() == 200)
 			{
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});

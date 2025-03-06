@@ -134,7 +134,7 @@
 												<label for="uTRDate" class="required">UTR Date</label> <input
 													type="text" class="form-control datepicker" id="uTRDate"
 													placeholder="Enter UTR Date"> <span class="errors"
-													id="utrDate"></span>
+													id="utrDate_error"></span>
 											</div>
 										</div>
 
@@ -187,7 +187,7 @@
 						<div class="card-register">
 							<div class="planPlatinum ">
 								<ul class="plan-discount">
-									<li>${selectedPlan.name}<span><i class="fa fa-inr"
+									<li id="planname">${selectedPlan.name}<span><i class="fa fa-inr"
 											aria-hidden="true"></i> ${selectedPlan.price} </span>
 									</li>
 									<%--  <li> Discount (-10%) <span>- <i class="fa fa-inr" aria-hidden="true"></i> ${discount} </span> </li> --%>
@@ -199,7 +199,7 @@
 									</li>
 								</ul>
 								<ul class="plan-total">
-									<li><span> Total <small>(Inc tax)</small></span> <span><i
+									<li><span> Total <small>(Inc tax)</small></span> <span id="totalprice"><i
 											class="fa fa-inr" aria-hidden="true"></i> ${total}</span></li>
 								</ul>
 							</div>
@@ -235,7 +235,7 @@
 			<h5>Success </h5>
             <p>Our account team will verify this transfer within two working days. account will activities & you will
               receive the confirmation email from our side.</p>
-			  <div ><a href="/" class="btns mt-2 mb-5  text-center ">Back to Home</a> </div>
+			  <div ><a href="/" class="btns mt-2 mb-5  text-center " id="redirectvalue">Back to Home</a> </div>
           </div>
         </div>
       </div>
@@ -249,6 +249,7 @@
 	<script src="/employer/js/main.js"></script>
 	<script src="js/bootstrap-datepicker.min.js"></script>
 	<script src="employer/js/verify-details.js"></script>
+	<script src="js/commonvalidation.js"></script>
 	<script>
     $(document).ready(function () {
       $(".selet2Multiple").select2({
@@ -314,6 +315,7 @@ function validateGSTIN() {
         errorElement.textContent = '';  // Clear the error message if UTR is valid
     }
 } 
+ var selectedPlaned="${idss}";
 </script>
 </body>
 

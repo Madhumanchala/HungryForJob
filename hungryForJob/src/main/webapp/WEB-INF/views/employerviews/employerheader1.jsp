@@ -24,7 +24,7 @@
 			 <div class="switcher">
 			  <input type="radio" name="balance" value="Admin" id="Admin" class="switcher-input switcher-input--adm" onchange="route('companydashboard')" checked>
 			  <label for="Admin" class="switcher-label">Admin</label>			  
-			  <input type="radio" name="balance" value="Employer" id="Employer" class="switcher-input switcher-input--emp" onchange="route('searchCandidates')">
+			  <input type="radio" name="balance" value="Employer" id="Employer" class="switcher-input switcher-input--emp" onchange="route('searchCandidates')" >
 			  <label for="Employer" class="switcher-label">Employer</label>			  
 			  <span class="switcher-toggle"></span>
 			</div> 

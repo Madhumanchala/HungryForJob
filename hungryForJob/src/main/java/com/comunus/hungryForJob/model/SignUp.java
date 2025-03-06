@@ -32,4 +32,5 @@ public class SignUp {
 	private String newCompany;
 	private String email;
 	private String userId;
+	private String companyId;
 }

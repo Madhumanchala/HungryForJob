@@ -686,7 +686,7 @@ function fetchCities(id)
 	            if (response[0].PostOffice !=null) {
 	            	isValidPincode=true
 	                var postOffices = response[0].PostOffice;
-	                if (postOffices.length == 1) {
+	                if (postOffices.length > 0) {					/*if (postOffices.length == 1) {*/
 	                    $('#current_location').remove();
 	                    $('#currentlocationModal').find('span').remove();
 	                    $('#current_location').select2('destroy');
@@ -703,11 +703,11 @@ function fetchCities(id)
 	                        class: 'form-control',
 	                        placeholder: 'Enter other city',
 	                        disabled: true,
-	                        value: postOffices[0].Name
+	                        value: postOffices[0].Region
 	                    });
 	                    $('#currentlocationModal .form-group').append($input);
 	                    
-	                    // Add the error span after the input
+	                    // Add the error span after the inp	ut
 	                    var $errorSpan = $('<span>', {
 	                        class: 'errorfield',
 	                        id: 'current_location_error'

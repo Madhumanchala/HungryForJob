@@ -159,7 +159,7 @@
 							<div
 								class="plan-head d-flex justify-content-between align-items-center">
 								<div class="planTxt ">
-									<h5>${renewalplandetails.planName}</h5>
+									<h5 id="planName">${renewalplandetails.planName}</h5>
 									<h4>
 										<i class="fa fa-inr" aria-hidden="true"></i>
 										${renewalplandetails.planPrice}
@@ -199,7 +199,7 @@
 									</li>
 								</ul>
 								<ul class="plan-total">
-									<li><span> Total <small>(Inc tax)</small></span> <span><i
+									<li><span> Total <small>(Inc tax)</small></span> <span id="totalPrice"><i
 											class="fa fa-inr" aria-hidden="true"></i> ${totalamount}</span></li>
 								</ul>
 							</div>
@@ -222,7 +222,7 @@
 			<h5>Success </h5>
             <p>Our account team will verify this transfer within two working days. account will activities & you will
               receive the confirmation email from our side.</p>
-			  <div ><a href="#" onclick="findroute('mysubscription')" class="btns mt-2 mb-5  text-center ">Back to Home</a> </div>
+			  <div ><a href="#" onclick="findroute('mysubscription')" class="btns mt-2 mb-5  text-center ">Back to Subscription Page</a> </div>
           </div>
         </div>
       </div>
@@ -251,6 +251,12 @@ function updateplandetails(id)
 	var gstno=$("#GSTnumber").val();
 	var utrno=$("#uTRNo").val();
 	var utrdate=$("#uTRDate").val();
+	var contactname=$("#contactName").val();
+	var mobileno=$("#mobileNo").val();
+	var companyname=$("#companyName").val();
+	var emailId=$("#emailId").val();
+	var planName=$("#planName").text();
+	var planAmount=$("#totalPrice").text().trim();
 	var isvalid=true;
 	if(checkvalidation(gstno))
 	{
@@ -294,10 +300,17 @@ function updateplandetails(id)
 			type:'post',
 			contentType: 'application/json',
 			data: JSON.stringify({
-				utrDate:utrdate,
-				utrNo:utrno,
-                gstno:gstno,
-               	id:id
+				"utrDate":utrdate,
+				"utrNo":utrno,
+                "gstno":gstno,
+               	"id":id,
+               	"userName":contactname,
+               	"mobileNo":mobileno,
+               	"companyName":companyname,
+               	"emailId":emailId,
+               	"planName":planName,
+               	"planPrice":planAmount,
+               	
             }),
             success: function(response) {
                 // Success callback
@@ -305,7 +318,12 @@ function updateplandetails(id)
                 {
 					showToast("success","Sucessfully updated");
 					$("#verifySubmit").modal("show");
-				}else
+				}else if(response.errors.errorCode === "1010")
+				{
+					showToast("success","Email error ");
+					$("#verifySubmit").modal("hide");
+				}
+                else
 				{
 					showToast("info","please try again");
 					$("#verifySubmit").modal("hide");

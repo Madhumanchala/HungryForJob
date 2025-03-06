@@ -20,10 +20,10 @@ String empoyerCompanyName=session.getAttribute("employerCompanyName").toString()
                 <div class="content-txt">
                   <div class="row">
                     <div class="vertical-menu">
-                      <a onclick="route('companydashboard')" class="active"> <img src="" alt=""> Company Profile</a>
-                      <a onclick="route('mysubscription')"><img src="" alt=""> My Subscription</a>
+                      <a onclick="route('companydashboard')" class="active" id="companydashboard"> <img src="employer/img/company-profile.svg" alt=""> Company Profile</a>
+                      <a onclick="route('mysubscription')" id="mysubscription"><img src="employer/img/my-subscription.svg" alt=""> My Subscription</a>
                       <!-- <a href="#"><img src="" alt=""> Settting </a> -->
-                      <a onclick="route('manageuser')">Manage users</a>
+                      <a onclick="route('manageuser')" id="manageuser"><img src="employer/img/manage-users.svg" alt="">Manage users</a>
                     </div>
                   </div>
                 </div>
@@ -33,6 +33,7 @@ String empoyerCompanyName=session.getAttribute("employerCompanyName").toString()
 <script>
 function route(value)
 {
+		sessionStorage.setItem("companydashroute", value);
   	 	let url = value;
 			let form = document.createElement('form');
 			form.method = 'POST'; 
@@ -40,4 +41,17 @@ function route(value)
 			document.body.appendChild(form);
 			form.submit(); 
 }
+$(document).ready(function() {
+	
+  var value=sessionStorage.getItem("companydashroute").toString();
+  if(value)
+	{
+	  $(".active").removeClass("active");
+	  $("#" + value).attr('class', 'active');
+	  
+	}else
+	{
+		 $("#companydashboard").attr('class', 'active');
+	}
+});
 </script>

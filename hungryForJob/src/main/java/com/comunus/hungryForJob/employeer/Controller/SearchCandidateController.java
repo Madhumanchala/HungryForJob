@@ -1,6 +1,5 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
-import java.net.URISyntaxException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +32,7 @@ import com.comunus.hungryForJob.employeer.Model.JobPosting;
 import com.comunus.hungryForJob.employeer.Model.SearchReq;
 import com.comunus.hungryForJob.employeer.Model.SearchRequest;
 import com.comunus.hungryForJob.employeer.Model.SearchResp;
+import com.comunus.hungryForJob.employeer.Model.managesearchmodel;
 import com.comunus.hungryForJob.model.CareerDetails;
 import com.comunus.hungryForJob.model.ResponseModel;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
@@ -115,8 +115,12 @@ public class SearchCandidateController {
 					session.setAttribute("fullName", responsemodel.getData().getUserdetails().getUserName());
 					session.setAttribute("employerEmailId", responsemodel.getData().getUserdetails().getEmailId());
 					session.setAttribute("employerCompanyName", responsemodel.getData().getUserdetails().getCompanyName());
-					session.setAttribute("credit", responsemodel.getData().getUserdetails().getCredits());
-
+					session.setAttribute("clicks", responsemodel.getData().getUserdetails().getCredits());
+					session.setAttribute("search", responsemodel.getData().getUserdetails().getSearch());
+					session.setAttribute("posting", responsemodel.getData().getUserdetails().getPost());
+					session.setAttribute("usedpost",responsemodel.getData().getUserdetails().getUsedPost());
+					session.setAttribute("usedsearch", responsemodel.getData().getUserdetails().getUsedSearch());
+					session.setAttribute("usedclicks", responsemodel.getData().getUserdetails().getUsedViews());
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
@@ -143,13 +147,17 @@ public class SearchCandidateController {
 
 	@PostMapping("/getRole")
 	@ResponseBody
-	public ServiceResponseWrapperModel<ResponseModel> getRole(@RequestBody JobPosting jobpost) {
+	public ServiceResponseWrapperModel<ResponseModel> getRole(@RequestBody JobPosting jobpost,HttpServletRequest request) {
 		log.info("Inside fetchSkillsFramework " + jobpost);
 		WebClientResponse response = null;
 		try {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.FETCH_SKILL_FRAMEWORK).getUrl();
 			log.info("@@@@ fetchSkillsFramework " + Url);
 			response = myWebClient.post(Url, jobpost).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
@@ -439,5 +447,128 @@ public class SearchCandidateController {
 		return null;
 	}
 	// sharhrukh
+	
+	@PostMapping("managesearch")
+	public String managesearch(HttpSession session,HttpServletRequest request,Model model)
+	{
+		WebClientResponse response= null;
+		try {
+			managesearchmodel managesearch = new managesearchmodel();
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				managesearch.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				managesearch.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("session is not set in companyId");
+			}
+			
+			String Url=Configs.urls.get(EmployeerAppplicationConstant.MANAGE_SAVESEARCHDETAIL).getUrl();
+			response=myWebClient.post(Url,managesearch).block();
+			if(response.getToken()!=null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken()); 
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<SearchResp> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<SearchResp>>() {});
+				if(responsemodel.getErrors().getErrorCode().equals("0000"))
+				{
+					model.addAttribute("savesearchdetails", responsemodel.getData().getManageSearchDetails());
+					System.out.println("data is ==="+responsemodel.getData().getManageSearchDetails());
+				}
+			}
+			
+		} catch (Exception e ) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("exception is occured === "+e.getMessage());
+		}
+		return "employerviews/managesearch";
+	}
+	
+	@PostMapping("modifydeletesearch")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> editsearch(@RequestBody  managesearchmodel savesearch,HttpSession session,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				savesearch.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				savesearch.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("session is not set in companyId");
+			}
+			
+			String Url=Configs.urls.get(EmployeerAppplicationConstant.UPDATE_SEARCHDETAILS).getUrl();
+			response=myWebClient.post(Url,savesearch).block();
+			if(response.getToken()!=null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken()); 
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occcured ==== "+e.getMessage());
+		}
+		return null;
+	}
+	
+	@PostMapping("/addcomments")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> addcomments(@RequestBody SearchReq searchreq,HttpSession session)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				searchreq.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				searchreq.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("session is not set in companyId");
+			}
+			
+			String Url=Configs.urls.get(EmployeerAppplicationConstant.ADD_COMMENTS).getUrl();
+			response=myWebClient.post(Url,searchreq).block();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured === "+e.getMessage());
+		}
+		return null;
+	}
 	
 }

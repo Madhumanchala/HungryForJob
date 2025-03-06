@@ -7,17 +7,39 @@ function saveplanDetails()
 	let utrNo=$('#uTRNo').val();
 	let utrDate=$('#uTRDate').val();
 	let reversedDate = utrDate.split("-").reverse().join("-");
+	let contactname=$("#contactName").val();
+	let mobileno=$("#mobileNo").val();
+	let companyname=$("#companyName").val();
+	let emailId=$("#emailId").val();
+	var planName = document.querySelector("#planname").firstChild.nodeValue.trim();
+	let planPrice=$("#totalprice").text().trim();
 	let isvalid=true
-	if(utrNo === "")
+	if(checkvalidation(planId))
+	{
+		if(checkvalidation(selectedPlaned))
+		{
+			showToast("info","error occured any value is missing");
+			isvalid=false;
+			return
+		}else
+		{
+			planId=selectedPlaned;
+			$("#redirectvalue").attr("href","#");
+			$("#redirectvalue").attr("onclick","findroute('/mysubscription')");
+			$("#redirectvalue").text("Back to Subscription page");
+		}
+		
+	}
+	if(checkvalidation(utrNo))
 	{
 		$('#utrNo_error').text("Enter the Below text");
 		$('#utrNo_error').show();
 		isvalid=false;
 	}
-	if(utrDate === "")
+	if(checkvalidation(utrDate))
 	{
-		$('#uTRDate').text("Enter the Below text");
-		$('#uTRDate').show();
+		$('#utrDate_error').text("Enter the Below text");
+		$('#utrDate_error').show();
 		isvalid=false;
 	}
 	if(isvalid)
@@ -31,7 +53,13 @@ function saveplanDetails()
 				"companyId":companyId,
 				"gstNo":gstNo,
 				"utrNo":utrNo,
-				"utrDate":reversedDate
+				"utrDate":reversedDate,
+				"contactname":contactname,
+				"mobileno":mobileno,
+				"emailId":emailId, 
+				"companyname":companyname,
+				"planName":planName,
+				"planPrice":planPrice,
 			}),
 			success:function(response){
 				if(response === "sucess")

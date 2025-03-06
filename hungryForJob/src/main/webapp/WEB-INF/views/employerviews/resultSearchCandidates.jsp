@@ -474,33 +474,33 @@ String companyId = (String) session.getAttribute("companyId");
 														</div> -->
 
 														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="15"
-																name="noticeperiod" id="15noticeperiod"> <label
-																class="form-check-label" for="15noticeperiod"> 0
-																- 15 days </label>
+															<input class="form-check-input" type="checkbox"
+																value="15" name="noticeperiod" id="15noticeperiod">
+															<label class="form-check-label" for="15noticeperiod">
+																0 - 15 days </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="30"
-																id="30noticeperiod" name="noticeperiod"> <label
-																class="form-check-label" for="30noticeperiod"> 1
-																month </label>
+															<input class="form-check-input" type="checkbox"
+																value="30" id="30noticeperiod" name="noticeperiod">
+															<label class="form-check-label" for="30noticeperiod">
+																1 month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="60"
-																id="60noticeperiod" name="noticeperiod"> <label
-																class="form-check-label" for="60noticeperiod"> 2
-																month </label>
+															<input class="form-check-input" type="checkbox"
+																value="60" id="60noticeperiod" name="noticeperiod">
+															<label class="form-check-label" for="60noticeperiod">
+																2 month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="90"
-																id="90noticeperiod" name="noticeperiod"> <label
-																class="form-check-label" for="90noticeperiod"> 3
-																month </label>
+															<input class="form-check-input" type="checkbox"
+																value="90" id="90noticeperiod" name="noticeperiod">
+															<label class="form-check-label" for="90noticeperiod">
+																3 month </label>
 														</div>
 														<div class="form-check">
-															<input class="form-check-input" type="checkbox" value="365"
-																id="365noticeperiod" name="noticeperiod"> <label
-																class="form-check-label" for="365noticeperiod">
+															<input class="form-check-input" type="checkbox"
+																value="365" id="365noticeperiod" name="noticeperiod">
+															<label class="form-check-label" for="365noticeperiod">
 																Currently Serving Notice Period </label>
 														</div>
 													</div>
@@ -810,10 +810,10 @@ String companyId = (String) session.getAttribute("companyId");
 													<ul>
 														<li><img src="employer/img/location.svg">
 															${item.searchCurrentLocation}&nbsp;</li>
-														<li><img src="employer/img/years.svg"><%-- ${item.searchMinExp} - --%>
+														<li><img src="employer/img/years.svg"> <%-- ${item.searchMinExp} - --%>
 															${item.searchMaxExp}</li>
-														<li><img src="employer/img/salary.svg"><%-- ${item.searchMinSal} - --%>
-															 ${item.searchMaxSal}</li>
+														<li><img src="employer/img/salary.svg"> <%-- ${item.searchMinSal} - --%>
+															${item.searchMaxSal}</li>
 													</ul>
 												</div>
 											</div>
@@ -909,12 +909,13 @@ String companyId = (String) session.getAttribute("companyId");
 											<div class="line2"></div>
 											<div class="similardetail d-flex justify-content-between">
 												<span> <a href="#" target="_blank"
-													title="Similar Profiles"></a></span>   <%-- ${item.searchSimilarProfiles } --%>
+													title="Similar Profiles"></a></span>
+												<%-- ${item.searchSimilarProfiles } --%>
 												<div class="">
 													<!-- <span> <a href="#" title="Comment"> Comment</a></span> -->
-													 <span>
-                          <a data-bs-toggle="collapse" href="#viewComment" role="button" aria-expanded="false"
-                            aria-controls="viewComment">Comment</a></span>
+													<span> <a data-bs-toggle="collapse"
+														href="#viewComment_${item.searchId}" role="button"
+														aria-expanded="false" aria-controls="viewComment">Comment</a></span>
 													<!-- <span
 														class="pipe"> | </span> <span> <a href="#"
 														data-bs-toggle="tooltip" data-bs-placement="top"
@@ -924,45 +925,46 @@ String companyId = (String) session.getAttribute("companyId");
 													</a></span> -->
 												</div>
 											</div>
-											  <div class="collapse" id="viewComment">
-                      <div class="card card-body viewCommentbody mt-3">
-                        <div class="row">
-                          <div class="col-lg-9 col-md-9 col-sm-12">
-                            <div class="form-group addcommentfrom">
-                              <label for="addcomment" class="form-label">Comment</label>
-                              <textarea id="addcomment" class="form-control" rows="2"> </textarea>
-                            </div>
-                          </div>
-                          <div class="col-lg-3 col-md-3 col-sm-12">
-                            <div class="addsubmitcom">
-                              <button type="submit" class="btn-blue ">Add Comment</button>
-                            </div>
-                          </div>
-                        </div>
+											<div class="collapse" id="viewComment_${item.searchId}">
+												<div class="card card-body viewCommentbody mt-3">
+													<div class="row">
+														<div class="col-lg-9 col-md-9 col-sm-12">
+															<div class="form-group addcommentfrom">
+																<label for="addcomment" class="form-label">Comment</label>
+																<textarea id="addcomment_${item.searchId}" class="form-control" rows="2"> </textarea>
+															</div>
+														</div>
+														<div class="col-lg-3 col-md-3 col-sm-12">
+															<div class="addsubmitcom">
+																<button type="button" class="btn-blue" onclick="addcomments('addcomment_${item.searchId}','${item.searchId}')">Add
+																	Comment</button>
+															</div>
+														</div>
+													</div>
+													<c:forEach items="${item.detailsComment}" var="commentdetails">
+														<div class="viewComment">
+															<div class="profile-img">
+																<img src="employer/img/profile-img.jpg">
+															</div>
+															<div class="">
+																<p>${commentdetails.comment}</p>
+																<p class="date">${commentdetails.date}</p>
+															</div>
+														</div>
+													</c:forEach>
+													<!-- <div class="viewComment">
+														<div class="profile-img">
+															<img src="employer/img/profile-img.jpg">
+														</div>
+														<div class="">
+															<p>Interested</p>
+															<p class="date">24-Feb-2025 04:30pm</p>
+														</div>
+													</div> -->
 
-                        <div class="viewComment">
-                          <div class="profile-img">
-                            <img src="employer/img/profile-img.jpg">
-                          </div>
-                          <div class="">
-                            <p> Current location Matching</p>
-                            <p class="date"> 24-Feb-2025 06:30pm</p>
-                          </div>
-                        </div>
 
-                        <div class="viewComment">
-                          <div class="profile-img">
-                            <img src="employer/img/profile-img.jpg">
-                          </div>
-                          <div class="">
-                            <p>Interested</p>
-                            <p class="date"> 24-Feb-2025 04:30pm</p>
-                          </div>
-                        </div>
-
-
-                      </div>
-                    </div>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="download-list">
@@ -1140,6 +1142,7 @@ String companyId = (String) session.getAttribute("companyId");
 	<script src="employer/js/bootstrap-datepicker.min.js"></script>
 	<script src="employer/js/jquery.richtext.js"></script>
 	<script src="employer/js/main.js"></script>
+	<script src="js/commonvalidation.js"></script>
 	<script src="employer/js/resultSearchCandidate.js"></script>
 	<script>
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -1186,6 +1189,17 @@ String companyId = (String) session.getAttribute("companyId");
     		 $('#isSubmit').text("Create");
     	} else {
     		 $('#isSubmit').text("Submit");
+    	}
+    	
+    	var value=sessionStorage.getItem("draweropen").toString();
+    	if(value)
+    	{
+    		var $target= $("#"+value).addClass("show");
+    		sessionStorage.removeItem("draweropen");
+    		$("#"+value).addClass("show");
+    		$('html, body').animate({
+                scrollTop: $target.offset().top - 100 // Adjust scroll position
+            }, 500);
     	}
       });
 

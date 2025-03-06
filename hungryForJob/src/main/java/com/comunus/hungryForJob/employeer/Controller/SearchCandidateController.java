@@ -540,7 +540,7 @@ public class SearchCandidateController {
 	
 	@PostMapping("/addcomments")
 	@ResponseBody
-	public ServiceResponseWrapperModel<ResponseModel> addcomments(@RequestBody SearchReq searchreq,HttpSession session)
+	public ServiceResponseWrapperModel<ResponseModel> addcomments(@RequestBody SearchReq searchreq,HttpSession session,HttpServletRequest request)
 	{
 		WebClientResponse response=null;
 		try {
@@ -562,6 +562,16 @@ public class SearchCandidateController {
 			
 			String Url=Configs.urls.get(EmployeerAppplicationConstant.ADD_COMMENTS).getUrl();
 			response=myWebClient.post(Url,searchreq).block();
+			if(response.getToken()!=null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken()); 
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception

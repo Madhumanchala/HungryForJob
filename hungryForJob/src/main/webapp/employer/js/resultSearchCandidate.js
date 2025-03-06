@@ -839,40 +839,52 @@ function getcoursetypestatus()
 {
 	$('#universityAccordian').show(); 
 }
-function addcomments(id)
+function addcomments(id,candidateId)
 {
-	var comments=$("#addcomment").val();
-	if(checkval)
+	var comments=$("#"+id).val().trim();
+	var isvalid=true;
+	if(checkvalidation(comments))
 	{
-		
+		showToast("info","please enter the comment ");
+		isvalid=false;
+		return
 	}
 	if(isvalid)
 	{
+		$('.loader').show();
 		$.ajax({
-			url:"editCompanyDashboard",
+			url:"addcomments",
 			type:'post',
 			contentType: 'application/json',
 			data: JSON.stringify({
-                name: userName,
-                emailId: emailForCommunication,
-                mobileNo: mobileNumber,
+                "candidateId": candidateId,
+               "comments":comments
             }),
             success: function(response) {
                 // Success callback
                 if(response.errors.errorCode === "0000")
                 {
 					showToast("success","Sucessfully updated");
-					$("#Company-Profile-edit").modal("hide");
+					$("#"+id).val("");
+				setTimeout(function() {
+    					window.location.reload(true); // Reload with cache bypass
+				}, 2000); // 2000ms = 2 seconds
+				$('.loader').hide();
+				var collapseId = "viewComment_" + candidateId;
+				sessionStorage.setItem("draweropen",collapseId);
 				}else
 				{
 					showToast("info","please try again");
-					$("#Company-Profile-edit").modal("hide");
+					$('.loader').hide();
+					
 				}
+				$('.loader').hide();
             },
             error: function(xhr, status, error) {
                 // Error callback
                 console.log("error ocurred"+error)
                 showToast("error","failed to update");
+                $('.loader').hide();
             }
 		})
 	}

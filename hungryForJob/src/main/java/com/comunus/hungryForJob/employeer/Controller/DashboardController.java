@@ -284,6 +284,12 @@ public class DashboardController {
 		return "employerviews/newuserpassword";
 	}
 	
+	@PostMapping("/changepassword")
+	public String changepassword()
+	{
+		return "employerviews/changepassword";
+	}
+	
 	@PostMapping("/newpassword")
 	@ResponseBody
 	public ServiceResponseWrapperModel<ResponseModel> newpassworadded(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)

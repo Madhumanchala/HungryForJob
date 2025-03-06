@@ -40,9 +40,9 @@
                 <strong><%= session.getAttribute("fullName") %></strong>
                 <p></p>
               </div>
-              <a class="dropdown-item myProfLink" href="#"> <i class="bi bi-person"></i>
+              <a class="dropdown-item myProfLink" href="#" id="myprofilemenu"> <i class="bi bi-person"></i>
                 My Profile</a>
-              <a class="dropdown-item myProfLink" href="#"> <i class="bi bi-lock"></i>
+              <a class="dropdown-item myProfLink" href="#" onclick="route('changepassword')"> <i class="bi bi-lock"></i>
                 Change Password</a>
               <a class="dropdown-item logOutLink" href="#"> <i class="bi bi-box-arrow-right"></i>
                 Logout</a>
@@ -71,4 +71,16 @@
 		document.body.appendChild(form);
 		form.submit();
 	}
+ $(document).ready(function() {
+	 var flag="<%=rolestatus%>";
+	if(flag === "employeradmin")
+	{
+		 $("#employeradminheader").show();
+		 $("#myprofilemenu").attr('onclick',"route('companydashboard')")
+	}else
+	{
+		 $("#employeradminheader").hide();
+		 $("#myprofilemenu").attr('onclick',"route('searchCandidates')")
+	}
+});
  </script>

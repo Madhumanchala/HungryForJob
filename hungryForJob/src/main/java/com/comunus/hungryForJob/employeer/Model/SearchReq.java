@@ -1,6 +1,9 @@
 package com.comunus.hungryForJob.employeer.Model;
 
 
+import java.util.List;
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
@@ -53,5 +56,5 @@ public class SearchReq {
 	private String folderName;
 	
 	private String comments;
-
+	private List<Map<String, String>> detailsComment;
 }

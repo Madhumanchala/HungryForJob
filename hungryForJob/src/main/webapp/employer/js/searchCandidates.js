@@ -329,6 +329,12 @@ function submitSearchCandidates() {
 		  formSkills.value = skills;   // Set the value of the input
 		 form.appendChild(formSkills);
 		 
+		/*  var formSkills = document.createElement('input');
+		  formSkills.type = 'hidden'; // Use hidden inputs for data
+		  formSkills.name = 'requiredSkills';      // Set the name of the input
+		  formSkills.value = "94,96";   // Set the value of the input
+		 form.appendChild(formSkills);*/
+		 
 		  var formMinExp = document.createElement('input');
 		  formMinExp.type = 'hidden'; // Use hidden inputs for data
 		  formMinExp.name = 'minExp';      // Set the name of the input

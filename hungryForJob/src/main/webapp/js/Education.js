@@ -198,10 +198,17 @@ $('#marks').on('keyup', function() {
 	$(".marks_error").hide();
 	const gradingValue = $("#grading").val();
 	const qualificationValue=$("#degree").val();
-	const value=parseInt($("#marks").val());
+	let value=$("#marks").val();
 	var editGrade = document.getElementById('marks');
 	if(gradingValue == 78)
 	{
+		if(value.endsWith("."))
+		{
+			return ;
+		}else
+		{
+			value=parseFloat($("#marks").val());
+		}
 		if (value > 0 && value <= 10) {
 			editGrade.value = value;
 		} else if (value == NaN) {

@@ -408,6 +408,7 @@ String workStatus = (String) session.getAttribute("workStatus");
 			 setTimeout(function () {
 	    	        $('body').addClass('loaded');
 	    	      }, 1000);
+			 $(".loader").hide();
 		}); 
 	</script>
 

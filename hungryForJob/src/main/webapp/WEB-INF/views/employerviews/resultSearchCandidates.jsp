@@ -36,7 +36,7 @@ String companyId = (String) session.getAttribute("companyId");
 	</div>
 	<!-- ======= Header ======= -->
 	<%@include file="toaster.jsp"%>
-	<%@include file="employerheader1.jsp"%>
+	<%@include file="employerHeader.jsp"%>
 	<!-- End Header -->
 	<div class="advanced-search-bread">
 		<div class="container">

@@ -80,12 +80,12 @@ function work_from_home() {
 }
 function ready_to_relocate() {
 	if ($("#relocate-yes").is(":checked")) {
-		$(".pref_location").hide();
+		$(".pref_location").show();
 		// $(".last_working_date").show();  
 	}
 	else {
 		// $(".notice_period").show();
-		$(".pref_location").show();
+		$(".pref_location").hide();
 	}
 }
 
@@ -244,7 +244,7 @@ function workdetailsSubmit() {
 	});
 
 	const selectedValueofwfh = $('input[name="wfh-option"]:checked').val();
-	if (selectedValueofwfh === "NO") {
+	if (selectedValueofwfh === "YES") {
 		if (!$('input[name="relocate-option"]:checked').length) {
 			$('#relocateerror').text('please fill out this field').css("color", "red");
 			$('#relocateerror').show();
@@ -475,7 +475,7 @@ function workdetailsSubmit() {
 		var total_exp_months = $("#total_exp_months").val();
 		var sessionData = document.getElementById("sessionData");
 		var username =  sessionData.getAttribute("data-candidateid");
-		$(".loader").css("display", "");
+		$(".loader").css("display", "flex");
 		$(".loader").show();
 		$.ajax({
 			url: "/candiateExperienceRegistered",
@@ -515,7 +515,6 @@ function workdetailsSubmit() {
 				console.log("result: ", result);
 			},
 			error: function(xhr, status, error) {
-				$(".loader").css("display", "block");
 				$(".loader").hide();
 				console.log("Error: ", xhr.responseText);
 				console.log("Error: ", error);

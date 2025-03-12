@@ -31,25 +31,21 @@ String candidateId = (String) session.getAttribute("candidateId");
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb">
 			<div class="bgtop"></div>
-			<div class="container">
+			<div class="container d-flex justify-content-between align-items-center mt-1">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
 					<li class="breadcrumb-item"><a href="#">Recommended Job</a></li>
 					<li class="breadcrumb-item active" aria-current="page">Recommended
 						Job Details</li>
 				</ol>
+				<a class=" btn-goBack" onclick="goBack()">
+			        <i class="bi bi-arrow-left-short"></i> Back
+			    </a>
 			</div>
 		</nav>
 		<section class="jobcareers-details pt-0  ">
 			<div class="" id="myHeader">
-			<div class="container d-flex justify-content-end mb-3">
-				<div class="right-nav">
-    <a class="btn btn-secondary add-new btn-primary" onclick="goBack()">
-        <i class="bi bi-arrow-left-short"></i> Back
-    </a>
-</div>
-				
-               </div>
+			
 				<div class="container">
 					<div class="content-banner job-banner">
 						<div class="jobdetails-header ">
@@ -81,7 +77,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 											<a href="#" class="applyNow" id="applyJob" onclick="appliedJob(${id})"> Apply Now </a>
 										</c:if>
 										<c:if test="${appliedOrNot == 1}">
-											<a href="#" class="applyNow" id="Appliedjob" style="background:#38a50e !important; color:#002a54 !important">Applied</a>
+											<a href="#" class="applyNow" id="Appliedjob" style="">Applied</a>
 										</c:if>
 										</div>
 
@@ -165,7 +161,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 
 								<c:forEach items="${similiarJobs}" var="jobs">
 									<c:if test="${id != jobs.id}">
-										<div class="col-xl-12 col-lg-12 col-md-12 ">
+										<div class="col-xl-12 col-lg-12 col-md-12 mt-4">
 											<div class="listbox">
 												<div class="d-flex justify-content-between ">
 													<div class="company-details">
@@ -186,9 +182,11 @@ String candidateId = (String) session.getAttribute("candidateId");
 
 													</ul>
 												</div>
-												<p>
-													<img src="img/txt-details.svg">${jobs.jobDescription}
-												</p>
+												<div class="desc">
+													<img src="img/txt-details.svg">
+													${jobs.jobDescription}
+												</div>
+												
 												<div class="daytxt">
 											<c:set var="startingDate" value="${jobs.createdDate}" ></c:set>
 										<%
@@ -234,18 +232,6 @@ String candidateId = (String) session.getAttribute("candidateId");
 	</main>
 	<!-- End #main -->
 
-	<main id="main" class="maincontent">
-		<nav aria-label="breadcrumb" class="breadcrumb">
-			<div class="bgtop"></div>
-			<div class="container">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Recommended
-						Job</li>
-				</ol>
-			</div>
-		</nav>
-	</main>
 	<%@include file="footer.jsp"%>
 	
 	<script src="js/jquery.min.js"></script>

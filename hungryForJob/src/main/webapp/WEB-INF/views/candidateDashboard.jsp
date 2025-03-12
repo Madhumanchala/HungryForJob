@@ -50,7 +50,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 							</div>
 
 							 <c:forEach items="${jobPostingDetails}" var="jobPosting">
-								<div class="col-xl-6 col-lg-6 col-md-6 ">
+								<div class="col-xl-6 col-lg-6 ">
 									<div class="listbox">
 										<div class="d-flex justify-content-between ">
 											<div class="company-details">
@@ -71,14 +71,14 @@ String candidateId = (String) session.getAttribute("candidateId");
 											</ul>
 										</div>
 										<div class="desc">
-										<p>
 											<img src="img/txt-details.svg">
 											${jobPosting.jobDescription}
 											
-										</p>
 										</div>
 										<div class="daytxt">
+										
 										<c:set var="startingDate" value="${jobPosting.createdDate}" ></c:set>
+										
 										<%
     // Assuming similar_job is an object with a createdDate property
     String createdDateString = (String) pageContext.getAttribute("startingDate");; // Fetching the created date string
@@ -102,6 +102,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 %>
 										
 											<p><%= postedDays %> </p>
+											<p class="appliedjob"><img src="img/appliedjob.png"> Applied</p>
 											<div class="applyNow">
 												<a href="#" onclick="viewDetails(${jobPosting.id})"> View Details
 												</a>
@@ -111,11 +112,19 @@ String candidateId = (String) session.getAttribute("candidateId");
 								</div>
 							</c:forEach>
 						</div>
+								<ul class="pagination justify-content-end">
+								    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+								    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+								    <li class="page-item"><a class="page-link" href="#">2</a></li>
+								    <li class="page-item"><a class="page-link" href="#">3</a></li>
+								    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+							  </ul>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- End Featured Job List Section -->
+		
 	</main>
 	<%@include file="footer.jsp"%>
 	<script src="js/jquery.min.js"></script>

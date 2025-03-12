@@ -54,7 +54,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 									<div class="listbox">
 										<div class="d-flex justify-content-between ">
 											<div class="company-details">
-												<a href="">
+												<a href="#" onclick="viewDetails(${jobPosting.id})">
 													<h4>${jobPosting.jobHeading}</h4>
 													<p>${jobPosting.companyName}</p>
 												</a>
@@ -66,7 +66,15 @@ String candidateId = (String) session.getAttribute("candidateId");
 										<div class="list-price">
 											<ul>
 												<li><img src="img/year.svg">${jobPosting.fromYearExp} to ${jobPosting.toYearExp}</li>
-												<li><img src="img/inr.svg">${jobPosting.fromCtc} - ${jobPosting.toCtc}</li>
+												<c:choose>
+													<c:when test="${empty jobPosting.fromCtc or jobPosting.fromCtc eq 'null' or empty jobPosting.toCtc or jobPosting.toCtc eq 'null'}">
+														<li><img src="img/inr.svg">Not disclosed</li>
+													</c:when>
+													<c:otherwise>
+														<li><img src="img/inr.svg">${jobPosting.fromCtc} - ${jobPosting.toCtc}</li>
+													</c:otherwise>
+												</c:choose>
+												
 												<li><img src="img/map.svg">${jobPosting.location}</li>
 											</ul>
 										</div>

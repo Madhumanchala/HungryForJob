@@ -9,7 +9,7 @@ String header3candidateId = (String) session.getAttribute("candidateId");
 		class="container-fluid container-xl d-flex align-items-center justify-content-between">
 		<nav id="navbar" class="navbar">
 			<div class="d-flex align-items-center">
-				<i class="bi bi-list mobile-nav-toggle"></i> <a href="/"
+				<i class="bi bi-list mobile-nav-toggle"></i> <a href="#" onclick="route('/candidateDashboard')"
 					class="logo"> <img src="img/logo.svg" alt="Logo">
 				</a>
 				<ul>
@@ -24,9 +24,9 @@ String header3candidateId = (String) session.getAttribute("candidateId");
 				<div class="classic-search-box">
 					<div class="form-group">
 						<div class="input-with-icon" data-bs-toggle="modal"
-							data-bs-target="#searchModal">
+							data-bs-target="#searchModal" >
 							<input type="text" class="form-control"
-								placeholder="Search by job, company or skills"> <span
+								placeholder="" id="searchvalue"> <span
 								class="fa-icon"><img src="img/search.svg"></span>
 						</div>
 					</div>
@@ -222,12 +222,20 @@ $(document).ready(function() {
     
     let storedJobTitle = sessionStorage.getItem('jobTitle');
     let storedExperience = sessionStorage.getItem('experience');
-    let storedLocation = sessionStorage.getItem('location').toString();
+    let storedLocation = sessionStorage.getItem('location');
+    let flattenedValue=[];
+    if(storedLocation)
+    {
+    	let storedLocation = sessionStorage.getItem('location').toString();
+        
+        let parsedValue = JSON.parse(storedLocation.replace(/\\+/g, ''));
+        
+        // Flatten the array if it’s nested
+     	flattenedValue = parsedValue[0].map(item => parseInt(item, 10));
+    }
     
-    let parsedValue = JSON.parse(storedLocation.replace(/\\+/g, ''));
 
- // Flatten the array if it’s nested
- 	let flattenedValue = parsedValue[0].map(item => parseInt(item, 10));
+
     
     // Set jobTitle field and trigger change for Select2
     if (storedJobTitle) {
@@ -252,6 +260,17 @@ $(document).ready(function() {
         var isSelected = storedLocation1.includes(allCities[i].id) ? ' selected' : '';
         preferredlocation.append('<option value="' + allCities[i].id + '"' + isSelected + '>' + allCities[i].name + '</option>');
     }
+    if(storedJobTitle)
+    {
+    	let selectedText = $("#selectLocation option:selected").map(function() {
+    	    return $(this).text();
+    	}).get();
+    	$("#searchvalue").attr("placeholder",storedJobTitle+", "+storedExperience+" years, "+selectedText);
+    }else
+    {
+    	 $("#searchvalue").attr("placeholder","Search by job, company or skills");
+    }
+
 });
 
 </script>

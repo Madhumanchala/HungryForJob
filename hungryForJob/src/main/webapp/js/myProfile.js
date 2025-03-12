@@ -1696,7 +1696,7 @@ function fetchCities(id) {
 							class: 'form-control',
 							placeholder: 'Enter other city',
 							disabled: true,
-							value: postOffices[0].Name
+							value: postOffices[0].Region
 						});
 						$('#currentlocationModal .form-group').append($input);
 

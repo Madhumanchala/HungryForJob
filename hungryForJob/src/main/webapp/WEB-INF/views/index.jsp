@@ -136,7 +136,9 @@
                     <li><img src="img/map.svg" alt="Location">${jobdetails.location}</li>
                 </ul>
             </div>
-            <p><img src="img/txt-details.svg" alt="Details">${jobdetails.jobDescription}</p>
+            <div class="desc">
+           	 <img src="img/txt-details.svg" alt="Details">${jobdetails.jobDescription}
+            </div>
             <div class="daytxt">
                 <p></p>
                 <div class="save">

@@ -31,7 +31,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb">
 			<div class="bgtop"></div>
-			<div class="container d-flex justify-content-between align-items-center mt-1">
+			<div class="container d-flex justify-content-between align-items-center mt-2">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="#">Home</a></li>
 					<li class="breadcrumb-item"><a href="#">Recommended Job</a></li>

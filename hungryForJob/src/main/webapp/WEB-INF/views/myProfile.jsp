@@ -1259,6 +1259,10 @@ int yearInt = Integer.parseInt(year);
 			$("#edityearsExp").select2({
 				dropdownParent : $("#EditCarrerModal")
 			});
+			$("#editmonthsExp").select2({
+				dropdownParent : $("#EditCarrerModal")
+			});
+			
 			$("#editpreferredlocation").select2({
 				dropdownParent : $("#EditCarrerModal")
 			});

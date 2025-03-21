@@ -3,6 +3,7 @@ package com.comunus.hungryForJob.controller;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Year;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,13 +74,15 @@ public class CandidateController {
 			 log.info("Session expired or candidateId is not set.");
 		 }
 		 CareerDetails career = new CareerDetails();  //changed
-		 String jobtittle=request.getParameter("jobTitle")!=null?request.getParameter("jobTitle").toString():null;  //changed
-		 String location=request.getParameter("location")!=null?request.getParameter("location").toString():null;  //changed
-		 String experience=request.getParameter("experience")!=null?request.getParameter("experience").toString():null;  //changed
+		 String jobtittle=request.getParameter("jobTitle")!=null?request.getParameter("jobTitle").toString():null;  
+		 String location=request.getParameter("location")!=null?request.getParameter("location").toString():null;  
+		 String experience=request.getParameter("experience")!=null?request.getParameter("experience").toString():null;  
+		 String offsetvalue=request.getParameter("paginationOffSet")!=null?request.getParameter("paginationOffSet").toString():"0";		
 		 career.setCandidateId(username);  //changed
 		 career.setJobTitleSearch(jobtittle);  //changed
 		 career.setLocationSearch(location);  //changed
 		 career.setExperienceSearch(experience);  //changed
+		 career.setPaginationOffSet(offsetvalue);
 		 String loginSucessMessage=(String)request.getSession().getAttribute("loginSucessMessage");
 		 log.info("====== candidateDashboard ===========");
 	 	 WebClientResponse response1=null;
@@ -116,7 +119,13 @@ public class CandidateController {
 							 totalpointsint= (int) totalpoints;
 							 session.setAttribute("totalpoints",String.valueOf(totalpointsint));
 						 }
-						 
+						 int paginationpages = 0;
+						 if(responsemodel.getData().getPaginationTotalPages()!=null)
+						 {
+							 paginationpages= Integer.parseInt(responsemodel.getData().getPaginationTotalPages());
+						 }
+						 modelMap.addAttribute("totalpages",paginationpages);
+						 modelMap.addAttribute("currentpage", offsetvalue);
 						 modelMap.addAttribute("cities", responsemodel.getData().getAllCities());
 				 }
 			 }else
@@ -158,6 +167,7 @@ public class CandidateController {
 				 {
 					 model.addAttribute("jobPostingDetails", responsemodel.getData().getSinglejobPostViewDetails());
 					 model.addAttribute("similiarJobs", responsemodel.getData().getJobPostingDetails());
+					 log.info(" smiliar jobs ===== "+responsemodel.getData().getJobPostingDetails());
 					 model.addAttribute("id",  responsemodel.getData().getSinglejobPostViewDetails().getId());
 					 model.addAttribute("appliedOrNot",responsemodel.getData().getFlag());
 					 model.addAttribute("cities", responsemodel.getData().getAllCities());

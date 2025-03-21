@@ -221,6 +221,7 @@
 			form.method = 'POST';
 			form.action = url;
 			document.body.appendChild(form);
+			sessionStorage.setItem("sessionforgetpassword","candidate");
 			form.submit();
 		}
 		$(".toggle-password").click(

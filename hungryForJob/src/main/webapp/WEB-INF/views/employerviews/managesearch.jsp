@@ -176,7 +176,7 @@
                       </div>
                     </div>
                     <div class="candidatesTxt ">
-                      <h5 onclick='callResultSearchCandidates({
+                      <h5 class="resultcandidate" onclick='callResultSearchCandidates({
     "foldername": "${details.foldername}",
     "skills": "${details.skills}",
     "id": "${details.id}",
@@ -233,6 +233,34 @@
       setTimeout(function () {
         $('body').addClass('loaded');
       }, 1000);
+      
+      $.ajax({
+			url:"checkingpoints",
+			type:'post',
+			contentType: 'application/json',
+	        success: function(response) {
+	            // Success callback
+	            console.log(response.data.userdetails);
+	            if(response.errors.errorCode === "0000")
+	            {
+	            	
+	            	let usedSearch= parseInt(response.data.userdetails.usedSearch,10);
+	            	let totalSearch=parseInt(response.data.userdetails.totalSearches,10);
+	            	
+	            	if(usedSearch == totalSearch)
+	            	{
+	            		$(".resultcandidate").hide();
+					}
+				}else
+				{
+					console.log("error ocurred in service"+error)	
+				}
+	        },
+	        error: function(xhr, status, error) {
+	            // Error callback
+	            console.log("error ocurred"+error)
+	        }
+		})
     }); 
     $(".loader").hide();
   </script>

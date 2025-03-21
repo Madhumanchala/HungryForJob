@@ -3,22 +3,6 @@
 <%@page import="java.util.List"%>
 <%
 	String rolestatus=session.getAttribute("rolestatus").toString();
-
-	float usedPost = (session.getAttribute("usedpost") != null) ? Float.parseFloat(session.getAttribute("usedpost").toString().trim()) : 0;
-	float Post = (session.getAttribute("posting") != null) ? Float.parseFloat(session.getAttribute("posting").toString().trim()) : 0;
-	float postprogressPercentage = (Post > 0) ? (usedPost * 100) / Post : 0;
-	int leftpost = (int) (Post - usedPost);
-	
-	float Search = (session.getAttribute("search")!=null)?Float.parseFloat(session.getAttribute("search").toString().trim()):0;
-	float usedSearch = (session.getAttribute("usedsearch")!=null)?Float.parseFloat(session.getAttribute("usedsearch").toString().trim()):0;
-	float searchprogressPercentage= (Search > 0)? (usedSearch * 100)/Search:0;
-	int leftsearch = (int) (Search - usedSearch);
-	
-	float click = (session.getAttribute("clicks")!=null) ? Float.parseFloat(session.getAttribute("clicks").toString().trim()):0;
-	float usedclick = (session.getAttribute("usedclicks")!=null)?Float.parseFloat(session.getAttribute("usedclicks").toString().trim()):0;
-	float clickProgressPercentage = (click > 0 )? (usedclick * 100)/click:0;
-	int leftclick =  (int) (click - usedclick);
-	 
 %>
 <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
@@ -103,8 +87,7 @@
 
     </div>
   </header><!-- End Header -->
-  <button class="availablebtn  btn-blue" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-    aria-controls="offcanvasRight"> Available Credits</button>
+  <button class="availablebtn  btn-blue" type="button" onclick="checkAllPoints()"> Available Credits</button>
 
   <div class="offcanvas offcanvas-end availablehead" tabindex="-1" id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel">
@@ -130,15 +113,15 @@
                   stroke="#3AA086" stroke-width="1.7" stroke-miterlimit="22.9256" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg> Postings</h4>
-            <h4><%=Post %> </h4>
+            <h4 id="totalpost"></h4>
           </div>
           <div class="d-flex align-items-center justify-content-between">
-            <p><%= usedPost %> used</p>
-            <h5><%= leftpost %> left</h5>
+            <p id="usedpost"></p>
+            <h5 id="leftpost"></h5>
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-width-1" role="progressbar"
-              style="width:<%=postprogressPercentage%>%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+              id="progresspost" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
             </div>
           </div>
         </div>
@@ -157,16 +140,16 @@
                   </clipPath>
                 </defs>
               </svg> Searches</h4>
-            <h4><%= Search %> </h4>
+            <h4 id="totalsearch"></h4>
           </div>
 
           <div class="d-flex align-items-center justify-content-between">
-            <p><%=usedSearch%> used</p>
-            <h5><%= leftsearch %> left</h5>
+            <p id="usedsearch"></p>
+            <h5 id="leftsearch"></h5>
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-width-1" role="progressbar"
-              style="width:<%=usedSearch%>%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              id="progresssearch" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
             </div>
           </div>
         </div>
@@ -184,16 +167,16 @@
                   d="M13.8517 13.5391C13.9536 13.4115 14.1019 13.3297 14.2641 13.3116C14.4263 13.2934 14.589 13.3404 14.7165 13.4422L16.7678 15.0833C16.831 15.1337 16.8835 15.1962 16.9226 15.267C16.9616 15.3378 16.9863 15.4156 16.9952 15.4959C17.0042 15.5763 16.9972 15.6576 16.9747 15.7352C16.9523 15.8129 16.9147 15.8853 16.8642 15.9485C16.8137 16.0116 16.7513 16.0642 16.6805 16.1032C16.6097 16.1422 16.5319 16.1669 16.4516 16.1759C16.3712 16.1848 16.2899 16.1779 16.2123 16.1554C16.1346 16.1329 16.0621 16.0954 15.999 16.0449L13.9477 14.4039C13.8203 14.3019 13.7386 14.1535 13.7206 13.9913C13.7026 13.8292 13.7498 13.6665 13.8517 13.5391ZM4.28125 5.71792C4.28125 5.55471 4.34608 5.39819 4.46149 5.28278C4.5769 5.16737 4.73342 5.10254 4.89663 5.10254H13.1018C13.265 5.10254 13.4215 5.16737 13.5369 5.28278C13.6523 5.39819 13.7171 5.55471 13.7171 5.71792C13.7171 5.88113 13.6523 6.03766 13.5369 6.15307C13.4215 6.26847 13.265 6.33331 13.1018 6.33331H4.89663C4.73342 6.33331 4.5769 6.26847 4.46149 6.15307C4.34608 6.03766 4.28125 5.88113 4.28125 5.71792ZM4.28125 8.99998C4.28125 8.83676 4.34608 8.68024 4.46149 8.56483C4.5769 8.44943 4.73342 8.38459 4.89663 8.38459H8.17869C8.3419 8.38459 8.49842 8.44943 8.61383 8.56483C8.72924 8.68024 8.79407 8.83676 8.79407 8.99998C8.79407 9.16319 8.72924 9.31971 8.61383 9.43512C8.49842 9.55052 8.3419 9.61536 8.17869 9.61536H4.89663C4.73342 9.61536 4.5769 9.55052 4.46149 9.43512C4.34608 9.31971 4.28125 9.16319 4.28125 8.99998Z"
                   fill="#357A9D" stroke="#357A9D" stroke-width="0.4" />
               </svg> CV Views</h4>
-            <h4><%= click %> </h4>
+            <h4 id="totalcv"> </h4>
           </div>
 
           <div class="d-flex align-items-center justify-content-between">
-            <p><%= usedclick %> used</p>
-            <h5><%= leftclick %> left</h5>
+            <p id="usedcv"></p>
+            <h5 id="leftcv"></h5>
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-width-1" role="progressbar"
-              style="width:<%=clickProgressPercentage%>%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+              id="progesscv" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
             </div>
           </div>
         </div>
@@ -319,5 +302,61 @@ $(document).ready(function() {
 		 $("#myprofilemenu").attr('onclick',"route('searchCandidates')")
 	}
 });
+function checkAllPoints()
+{
+	$.ajax({
+		url:"checkingpoints",
+		type:'post',
+		contentType: 'application/json',
+        success: function(response) {
+            // Success callback
+            console.log(response.data.userdetails);
+            if(response.errors.errorCode === "0000")
+            {
+            	let usedViews= parseInt(response.data.userdetails.usedViews,10);
+            	let usedSearch= parseInt(response.data.userdetails.usedSearch,10);
+            	let usedPost= parseInt(response.data.userdetails.usedPost,10);
+            	
+            	let totalPost=parseInt(response.data.userdetails.totalPosting,10);
+            	let totalSearch=parseInt(response.data.userdetails.totalSearches,10);
+            	let totalViews=parseInt(response.data.userdetails.totalClicks,10);
+            	
+            	$("#totalcv").text(totalViews);
+            	$("#usedcv").text(usedViews+" used");
+            	$("#leftcv").text((totalViews - usedViews) +' left');
+            	let progressPercentagecv = (usedViews / totalViews) * 100;
+            	$("#progesscv").css("width",progressPercentagecv+"%");
+            	
+            	$("#totalsearch").text(totalSearch);
+            	$("#usedsearch").text(usedSearch+" used");
+            	$("#leftsearch").text((totalSearch - usedSearch) + ' left');
+            	let progressPercentagesearch = (usedSearch / totalSearch) * 100;
+            	$("#progresssearch").css("width",progressPercentagesearch+"%")
+            	
+            	$("#totalpost").text(totalPost);
+            	$("#usedpost").text(usedPost+" used");
+            	$("#leftpost").text((totalPost - usedPost) + ' left');
+            	let progressPercentagepost = (usedPost / totalPost) * 100;
+            	$("#progresspost").css("width",progressPercentagepost+"%")
+            		
+				var offcanvasElement = document.getElementById("offcanvasRight");
+			     var offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+			     offcanvas.show();
+			}else
+			{
+				console.log("error ocurred in service"+error)
+				var offcanvasElement = document.getElementById("offcanvasRight");
+			    var offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+			    offcanvas.hide();
+			}
+        },
+        error: function(xhr, status, error) {
+            // Error callback
+            	console.log("error ocurred in service http "+error)
+            console.log("error ocurred"+error)
+        }
+	})
+
+}
 </script>
 <script src="employer/js/popper.min.js"></script>

@@ -18,4 +18,6 @@ public class LoginRequest {
 	
 	private String roleType;
 	
+	private String sessionForgetRole;
+	
 }

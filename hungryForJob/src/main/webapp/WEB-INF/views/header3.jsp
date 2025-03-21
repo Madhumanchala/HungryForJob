@@ -144,6 +144,7 @@ $(document).ready(function () {
       placeholder: "Experience",
       dropdownParent: $("#searchModal")
     });
+    
     $("#selectLocation").select2({
       placeholder: "Location",
       dropdownParent: $("#searchModal")
@@ -152,6 +153,11 @@ $(document).ready(function () {
   });
   
 	function route(value) {
+		
+		$('#selectTittle').val("");
+		$('#selectexp').val("");
+		$('#selectLocation').val("")
+		
 		let form = document.createElement('form');
 		form.method = 'POST';
 		form.action = value;
@@ -201,6 +207,12 @@ $(document).ready(function () {
 			locationInput.name = 'location';
 			locationInput.value = locationArray;
 			form.appendChild(locationInput);
+			
+			let paginationInput = document.createElement('input');
+			paginationInput.type = 'hidden';
+			paginationInput.name = 'paginationOffSet';
+			paginationInput.value = '1';
+			form.appendChild(paginationInput);
 
 			document.body.appendChild(form);
 			form.submit();

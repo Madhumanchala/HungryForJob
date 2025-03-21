@@ -303,7 +303,6 @@ $("#employmentRegisterSubmit").click(function() {
 			},
 			success: function(response) {
 				$(".loader").hide();
-				$(".loader").css("display", "block");
 				if (response.errorCode === "0000") {
 					let url = "education";
 					let form = document.createElement('form');
@@ -313,6 +312,7 @@ $("#employmentRegisterSubmit").click(function() {
 					form.submit();
 				}
 				else {
+					$(".loader").hide();
 					showToast("info","Failed in response");
 				}
 			},

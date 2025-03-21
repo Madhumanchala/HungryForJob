@@ -202,7 +202,6 @@ function updatesearch(id)
                 if(response.errors.errorCode === "0000")
                 {
 					showToast("success","Sucessfully updated");
-					/*$("#KYC-Compliance-details").modal("hide");*/
 					setTimeout(function() {
     					window.location.reload(true); // Reload with cache bypass
 					}, 2000); // 2000ms = 2 seconds
@@ -210,7 +209,6 @@ function updatesearch(id)
 				}else
 				{
 					showToast("info","please try again");
-					/*$("#KYC-Compliance-details").modal("hide");*/
 				}
 				$('.loader').hide();
             },

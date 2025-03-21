@@ -55,7 +55,7 @@ public class IndexController {
 		    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
 		    	 if(responsemodel.getErrors().getErrorCode().equals("0000"))
 		    	 {
-		    		 	log.info("message ======="+responsemodel.getData().getJobPostingDetails());
+//		    		 	log.info("message ======="+responsemodel.getData().getJobPostingDetails());
 		    			model.addAttribute("jobDetails", responsemodel.getData().getJobPostingDetails());
 		    			model.addAttribute("Location", responsemodel.getData().getCareerDetails().getAllCities());
 		    	 }

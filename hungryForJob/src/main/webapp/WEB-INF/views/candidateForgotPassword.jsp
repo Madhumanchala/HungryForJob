@@ -17,15 +17,19 @@
   <link href="css/style.css" rel="stylesheet">
 
 <script type="text/javascript">
-	$(function() {
+	/* $(function() {
 		if ($("p.text-danger").is(":visible")) {
 			$("p.text-danger").css('text-align', 'center');
 		}
-	});
+	}); */
 </script>
 </head>
 <body class="login">
 	<%@include file="header.jsp"%>
+	<%@include file="toaster.jsp" %>
+	<div class="loader">
+		<img src="employer/img/loader.gif">
+	</div>
 	<main id="main">
 
     <section class="section-inner login-bg">
@@ -34,7 +38,7 @@
 
          <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-8">
             <div class="card-register">
-              <form:form autocomplete="off" method="post" action="/forgotPassVerifyEmail">
+              <%-- <form:form autocomplete="off" method="post" action="/forgotPassVerifyEmail" onsubmit="return validateForm()"> --%>
                 <div class="card-registerinner otp-section">
                   <div class="row">
 
@@ -47,23 +51,25 @@
                         <label for="emailInput" class="required">Email ID </label>
                         <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Enter Email ID">
                        	<!-- <span class="error_email"> Please enter your Email ID</span> -->
+                       	
+                       	<input type="hidden" name="sessionForgetRole" id="sessionValue"/>
                       </div>
                     </div>
                     
 
                     <div class="col-lg-12 text-center">
-                      <button type="submit" class="btns"> Get OTP </button>
+                      <button type="button" class="btns" onclick="validateForm()"> Get OTP </button>
                     </div>
                     
                     <div class="col-md-12 text-center mt-3">
-                      <a class="text-primary" href="login">Back to Login</a>
+                      <a class="text-primary" id="backtologin">Back to Login</a>
                     </div>
-
+			
 
                   </div>
 
                 </div>
-              </form:form>
+             <%--  </form:form> --%>
             </div>
           </div>
         </div>
@@ -74,14 +80,92 @@
 <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/commonvalidation.js"></script>
   <script>
 		$(document).ready(function() {
 			var errorMsg = '${errorMsg}';
 			console.log('errorMsg:' + errorMsg)
 			if (errorMsg != null && errorMsg != '') {
-				toastr.error(errorMsg)
+				showToast("error",errorMsg);
 			}
+			let sessionData = sessionStorage.getItem("sessionforgetpassword");
+			$("#sessionValue").val(sessionData);
+			if(sessionData === "candidate")
+			{
+				$("#backtologin").attr("href","/login");
+			}else
+			{
+				$("#backtologin").attr("href","/employerlogin");
+			}
+			$(".loader").hide();
 		});
+		
+		function validateForm()
+		{
+			let value=$("#sessionValue").val();
+			let emailInput=$("#emailInput").val();
+			let isvalid=true;
+			if(checkvalidation(value))
+			{
+				isvalid=false;
+				return 
+				
+			}
+			if(checkvalidation(emailInput))
+			{
+				isvalid=false;
+				showToast("info","please enter the email");
+				return 
+			}
+			if(isvalid)
+			{
+				$(".loader").show();
+				$.ajax({
+					url:"forgotPassVerifyEmail",
+					type:'post',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						"emailInput": emailInput,
+						"sessionForgetRole": value,
+		            }),
+		            success: function(response) {
+		                // Success callback
+		                console.log(response);
+		                sessionStorage.setItem("forgetemail", emailInput);
+		                if(response.errorCode === "0000")
+		                {
+							showToast("success","otp is sent to your emailId");
+							setTimeout(function() {
+		    					findroute('forgetpasswordotp');
+						}, 2000); // 2000ms = 2 seconds
+						$('.loader').hide();
+						}else if(response.errorCode === "1010")
+						{
+							showToast("info","email is not existed");
+							
+						}else if(response.errorCode === "1100")
+						{
+							showToast("info","please try again");
+						}else if(response.errorCode === "0101")
+						{
+							showToast("info","please contact admin ");
+						}
+		                else
+						{
+							showToast("info","please try again");
+						}
+		                $('.loader').hide();
+						
+		            },
+		            error: function(xhr, status, error) {
+		                // Error callback
+		                console.log("error ocurred"+error)
+		                showToast("error","failed to update");
+		                $('.loader').hide();
+		            }
+				})
+			}
+		}
 	</script>
 </body>
 </html>

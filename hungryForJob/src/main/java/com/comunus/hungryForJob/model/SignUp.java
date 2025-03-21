@@ -33,4 +33,5 @@ public class SignUp {
 	private String email;
 	private String userId;
 	private String companyId;
+	private String sessionForgetRole;
 }

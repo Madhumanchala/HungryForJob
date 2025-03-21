@@ -29,7 +29,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 <link href="css/toastr.css" rel="stylesheet" />
 </head>
 <body>
-<div class="loader"><img src="employer/img/loader.gif"></div> 
+<div class="loader" style="display: flex !important"><img src="employer/img/loader.gif"></div> 
 <%@include file="toaster.jsp"%>
 <input type="hidden" id="sessionRole" value="<%= session.getAttribute("role") != null ? session.getAttribute("role") : " " %>" />
 <header id="header" class="header fixed-top">
@@ -177,7 +177,7 @@ offset-xl-2 ">
 	<script src="js/main.js" type="text/javascript"></script>
 	<script>
 	setTimeout(function () {
-        $('body').addClass('loaded');
+        $(".loader").hide();
       }, 1000);
 	</script>
 </body>

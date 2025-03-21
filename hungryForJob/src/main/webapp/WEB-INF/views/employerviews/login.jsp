@@ -62,8 +62,7 @@
 											<div class="form-group">
 												<div class="d-flex justify-content-between">
 													<label for="Password" class="required">Password</label> <a
-														href="#" data-bs-toggle="modal"
-														data-bs-target="#forgotpasswordModal"> Forgot Password
+														href="#"  onclick="forgetpassword()"> Forgot Password
 													</a>
 												</div>
 												<input type="password" class="form-control" id="Password"
@@ -313,7 +312,7 @@
 	<!-- End Footer -->
 
 	<!-- forgotpasswordModal   -->
-	<div class="modal fade" id="forgotpasswordModal" tabindex="-1"
+	<!-- <div class="modal fade" id="forgotpasswordModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog  ">
 			<div class="modal-content">
@@ -342,9 +341,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- forgotpasswordModal   -->
-	<div class="modal fade" id="forgotpasswordModal" tabindex="-1"
+	<!-- <div class="modal fade" id="forgotpasswordModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog  ">
 			<div class="modal-content">
@@ -367,7 +366,7 @@
 
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div class="toast1 progress-info">
@@ -674,6 +673,15 @@ function EmployerLogin2() {
     {
     	$('#'+id).hide();
     }
+    function forgetpassword() {
+		let url = "forgotPasswordVerifyEmail";
+		let form = document.createElement('form');
+		form.method = 'POST';
+		form.action = url;
+		document.body.appendChild(form);
+		sessionStorage.setItem("sessionforgetpassword","employer");
+		form.submit();
+	}
   </script>
 
 </body>

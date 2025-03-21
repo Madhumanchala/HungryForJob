@@ -733,6 +733,45 @@ String userId= (String) session.getAttribute("userId");
 				$('.salaryTypehideshow').hide();
 				$('#' + $(this).val()).show();
 			});
+			
+				$.ajax({
+					url:"checkingpoints",
+					type:'post',
+					contentType: 'application/json',
+			        success: function(response) {
+			            // Success callback
+			            console.log(response.data.userdetails);
+			            if(response.errors.errorCode === "0000")
+			            {
+			            	let totalPost=parseInt(response.data.userdetails.totalPosting,10);
+			            	let usedPost= parseInt(response.data.userdetails.usedPost,10);
+			            	
+			            	if(totalPost == usedPost)
+			            	{
+			            		setTimeout(function() {
+			            			
+			            				let form = document.createElement('form');
+			            				form.method = 'POST'; 
+			            				form.action = 'searchCandidates';
+			            				document.body.appendChild(form);
+			            				form.submit(); 
+			            			
+								}, 2000); // 
+								showToast("info","please upgrade your plan");
+								
+							}
+						}else
+						{
+							console.log("error ocurred in service"+error)
+							
+						}
+			        },
+			        error: function(xhr, status, error) {
+			            // Error callback
+			            console.log("error ocurred"+error)
+			        }
+				})
+			
 		});
 		var companyId="<%=companyId%>";
 		var userId="<%=userId%>";

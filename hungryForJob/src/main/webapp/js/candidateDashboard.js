@@ -30,3 +30,59 @@ function viewDetails(id)
         // Submit the form
         form.submit();
 }
+function jobpostingdetails(page)
+{
+        
+		let jobTittle = $('#selectTittle').val();
+		let experience = $('#selectexp').val();
+		let locationValue = $('#selectLocation').val();
+		let locationArray = []; // Initialize an empty array
+		locationArray.push(locationValue); // Push the value into the array
+		var isvalid=true;
+		if(jobTittle === "")
+		{
+			isvalid=false;
+			$('#error_field').text("please Enter job tittle");
+			$('#error_field').show();
+		}
+		if(isvalid)
+		{
+			sessionStorage.setItem('jobTitle', jobTittle);
+		    sessionStorage.setItem('experience', experience);
+		    sessionStorage.setItem('location', JSON.stringify(locationArray));
+		    
+			let form = document.createElement('form');
+			form.method = 'POST';
+			form.action = "candidateDashboard";
+
+			// Add input fields for the selected values
+			let jobTitleInput = document.createElement('input');
+			jobTitleInput.type = 'hidden';
+			jobTitleInput.name = 'jobTitle';
+			jobTitleInput.value = jobTittle;
+			form.appendChild(jobTitleInput);
+
+			let experienceInput = document.createElement('input');
+			experienceInput.type = 'hidden';
+			experienceInput.name = 'experience';
+			experienceInput.value = experience;
+			form.appendChild(experienceInput);
+
+			let locationInput = document.createElement('input');
+			locationInput.type = 'hidden';
+			locationInput.name = 'location';
+			locationInput.value = locationArray;
+			form.appendChild(locationInput);
+			
+			let paginationInput = document.createElement('input');
+			paginationInput.type = 'hidden';
+			paginationInput.name = 'paginationOffSet';
+			paginationInput.value = page;
+			form.appendChild(paginationInput);
+
+			document.body.appendChild(form);
+			form.submit();
+		}
+		
+	
+}

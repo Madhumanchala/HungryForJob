@@ -276,7 +276,7 @@
 	    });
 	  $(document).ready(function() {
 			 setTimeout(function () {
-	    	        $('body').addClass('loaded');
+	    	       $(".loader").hide()
 	    	      }, 1000);
 		}); 
 	</script>

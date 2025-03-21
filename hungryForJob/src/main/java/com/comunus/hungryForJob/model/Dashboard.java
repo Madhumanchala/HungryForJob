@@ -71,6 +71,12 @@ public class Dashboard {
 	public String cvViews;
 	public String usedViews;
 	
+	public String isJobApplied;
+	
+	public String totalPosting;
+	public String totalClicks;
+	public String totalSearches;
+	
 	
 	
 }

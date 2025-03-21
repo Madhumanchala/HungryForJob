@@ -98,6 +98,11 @@ function changeEducation(id) {
 }
 
 function submitSearchCandidates() {
+	
+	checkspoints().then(isPointsSufficient => {
+	if(isPointsSufficient)
+	{
+		
 	var skills = $('#iTSkills').val();
 	skills = skills.join(",");
 	var minExp = document.getElementById("workExperienceMin").value;
@@ -426,7 +431,9 @@ function submitSearchCandidates() {
 		
 		
 	}
-
+	
+	}
+});
 }
 function allChange(id) {
 	$('#' + id).hide();
@@ -678,3 +685,47 @@ $(document).ready(function() {
 	sessionStorage.removeItem("saveSearchUniversity");
 	sessionStorage.removeItem("isReadyToLocate");
 });
+
+
+function checkspoints()
+{
+	var deferred = $.Deferred(); 
+	$.ajax({
+		url:"checkingpoints",
+		type:'post',
+		contentType: 'application/json',
+        success: function(response) {
+            // Success callback
+            console.log(response.data.userdetails);
+            if(response.errors.errorCode === "0000")
+            {
+            	let usedSearch= parseInt(response.data.userdetails.usedSearch,10);
+            	let totalSearch=parseInt(response.data.userdetails.totalSearches,10);
+            	
+            	if(usedSearch == totalSearch)
+            	{
+					showToast("info","please upgrade your plan");
+					deferred.resolve(false); 
+					return false;
+				}else
+				{
+					deferred.resolve(true); 
+					return true;
+					
+				}
+			}else
+			{
+				console.log("error ocurred in service"+error)
+				 deferred.reject(false);
+				return false;
+			}
+        },
+        error: function(xhr, status, error) {
+            // Error callback
+            console.log("error ocurred"+error)
+            deferred.reject(false);
+            return false;
+        }
+	})
+	return deferred.promise();
+}

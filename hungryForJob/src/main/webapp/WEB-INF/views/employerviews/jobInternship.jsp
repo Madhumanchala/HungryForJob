@@ -28,22 +28,8 @@ String userId= (String) session.getAttribute("userId");
 
 <body>
   <div class="loader"><img src="employer/img/loader.gif"></div>
-  <!-- ======= Header ======= -->
-  <!-- <header id="header" class="header fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="employer/img/logo.svg" alt="">
-      </a>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="getstarted" href="#">Candidate Login</a></li>
-          <li><a class="getstarted" href="#">Employer Login</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>.navbar
-    </div>
-  </header>End Header -->
   <%@include file="employerHeader.jsp"%> 
+  <%@include file="toaster.jsp"%>
   <main id="main">
     <section class="section-inner sign-bg postNewJob ">
       <div class="container">
@@ -531,6 +517,44 @@ String userId= (String) session.getAttribute("userId");
       $(".selet2Single").select2({
         placeholder: "Select"
       });
+      
+      $.ajax({
+			url:"checkingpoints",
+			type:'post',
+			contentType: 'application/json',
+	        success: function(response) {
+	            // Success callback
+	            console.log(response.data.userdetails);
+	            if(response.errors.errorCode === "0000")
+	            {
+	            	let totalPost=parseInt(response.data.userdetails.totalPosting,10);
+	            	let usedPost= parseInt(response.data.userdetails.usedPost,10);
+	            	
+	            	if(totalPost == usedPost)
+	            	{
+	            		setTimeout(function() {
+	            			
+	            				let form = document.createElement('form');
+	            				form.method = 'POST'; 
+	            				form.action = 'searchCandidates';
+	            				document.body.appendChild(form);
+	            				form.submit(); 
+	            			
+						}, 2000); // 
+						showToast("info","please upgrade your plan");
+						
+					}
+				}else
+				{
+					console.log("error ocurred in service"+error)
+					
+				}
+	        },
+	        error: function(xhr, status, error) {
+	            // Error callback
+	            console.log("error ocurred"+error)
+	        }
+		})
     });
 
     $(document).ready(function () {

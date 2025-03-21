@@ -74,14 +74,12 @@ String candidateId = (String) session.getAttribute("candidateId");
 														<li><img src="img/inr.svg">${jobPosting.fromCtc} - ${jobPosting.toCtc}</li>
 													</c:otherwise>
 												</c:choose>
-												
 												<li><img src="img/map.svg">${jobPosting.location}</li>
 											</ul>
 										</div>
 										<div class="desc">
 											<img src="img/txt-details.svg">
 											${jobPosting.jobDescription}
-											
 										</div>
 										<div class="daytxt">
 										
@@ -110,7 +108,9 @@ String candidateId = (String) session.getAttribute("candidateId");
 %>
 										
 											<p><%= postedDays %> </p>
-											<p class="appliedjob"><img src="img/appliedjob.png"> Applied</p>
+											<c:if test="${jobPosting.isJobApplied eq 'applied'}">
+												<p class="appliedjob"><img src="img/appliedjob.png"> Applied</p>
+											</c:if>
 											<div class="applyNow">
 												<a href="#" onclick="viewDetails(${jobPosting.id})"> View Details
 												</a>
@@ -120,12 +120,9 @@ String candidateId = (String) session.getAttribute("candidateId");
 								</div>
 							</c:forEach>
 						</div>
-								<ul class="pagination justify-content-end">
-								    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-								    <li class="page-item"><a class="page-link" href="#">2</a></li>
-								    <li class="page-item"><a class="page-link" href="#">3</a></li>
-								    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+								<ul class="pagination justify-content-end" id="pagination">
+								   <!--  <li class="page-item"><a class="page-link" href="#" id="prevpage">Previous</a></li>
+								    <li class="page-item"><a class="page-link" href="#" id="nextpage">Next</a></li> -->
 							  </ul>
 					</div>
 				</div>
@@ -143,14 +140,102 @@ String candidateId = (String) session.getAttribute("candidateId");
   	<script src="js/jquery.min.js"></script>
   	<script src="js/select2.min.js"></script>
 	<script>
-
+		
+	/* let totalPages=${totalpages}; */
+ 	let totalPages="${totalpages}";	
+	let currentPage="${currentpage}";
+	if(totalPages)
+	{
+		totalPages=parseInt(totalPages, 10);
+	}
+	if(currentPage)
+	{
+		currentPage=parseInt(currentPage, 10);
+	}
 		$(document).ready(function() {
 			var sucessMsg = '${loginSucessMessage}';
 			if (sucessMsg != null && sucessMsg != '') {
 				showToast('success',sucessMsg);
 			}
+			generatePagination(currentPage);
 		});
 		var candidateId="<%=candidateId%>";
+		function generatePagination(selectedPage)
+		{
+			if(selectedPage != 0)
+			{
+				let $pagination = $("#pagination");
+				$pagination.empty();
+				let startPage = Math.max(1, selectedPage - 5);
+			    let endPage = Math.min(totalPages, startPage + 9);
+			    if (endPage - startPage < 9) {
+		            startPage = Math.max(1, endPage - 9);
+		        }
+				$pagination.append(`<li class="page-item"><a class="page-link" href="#" id="prevpage" onclick="changePage('prev')">Previous</a></li>`);
+				let p=0;
+				for(let i=startPage;i<=endPage;i++)
+				{
+					if(startPage !== 1 && p == 0)
+					{
+						p=1;
+						let $li = $("<li>").addClass("page-item");
+					    let $a = $("<a>")
+					        .addClass("page-link")
+					        .attr("href", "#")
+					        .text(1)
+					        .on("click", function () {
+					            changePage(1);
+					        });
+
+					    if (i === selectedPage) {
+					        $li.addClass("active");
+					    }
+
+					    $li.append($a);
+					    
+					    let $li2 = $("<li>").addClass("page-item");
+					    let $a1 = $("<a>")
+				        .addClass("page-link")
+				        .attr("href", "#")
+				        .text('...')
+				      	 $li2.append($a1);
+					    
+					    $pagination.append($li);
+					    $pagination.append($li2);
+						
+					}
+					let $li = $("<li>").addClass("page-item");
+				    let $a = $("<a>")
+				        .addClass("page-link")
+				        .attr("href", "#")
+				        .text(i)
+				        .on("click", function () {
+				            changePage(i);
+				        });
+
+				    if (i === selectedPage) {
+				        $li.addClass("active");
+				    }
+
+				    $li.append($a);
+				    $pagination.append($li);
+				}
+				$pagination.append(`<li class="page-item"><a class="page-link" href="#" id="nextpage" onclick="changePage('next')">Next</a></li>`)
+			}
+			
+		}
+		function changePage(page) {
+	        if (page === "prev" && currentPage > 1) {
+	            currentPage--;
+	        } else if (page === "next" && currentPage < totalPages) {
+	            currentPage++;
+	        } else if (typeof page === "number") {
+	            currentPage = page;
+	        }
+	        jobpostingdetails(currentPage);
+	        generatePagination(currentPage);
+	       	
+	    }
 	</script>
 
 </body>

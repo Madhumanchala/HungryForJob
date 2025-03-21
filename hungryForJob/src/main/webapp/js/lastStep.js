@@ -58,7 +58,6 @@ function saveLastDetails() {
 							setTimeout(function () {
        								window.location.href="/login";
        								 $(".loader").hide();
-       								 $(".loader").css("display", "block");
       						}, 2000);
       						 showToast('success',"Successfully saved details");
 							 

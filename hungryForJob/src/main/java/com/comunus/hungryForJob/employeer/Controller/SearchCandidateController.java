@@ -118,9 +118,6 @@ public class SearchCandidateController {
 					session.setAttribute("clicks", responsemodel.getData().getUserdetails().getCredits());
 					session.setAttribute("search", responsemodel.getData().getUserdetails().getSearch());
 					session.setAttribute("posting", responsemodel.getData().getUserdetails().getPost());
-					session.setAttribute("usedpost",responsemodel.getData().getUserdetails().getUsedPost());
-					session.setAttribute("usedsearch", responsemodel.getData().getUserdetails().getUsedSearch());
-					session.setAttribute("usedclicks", responsemodel.getData().getUserdetails().getUsedViews());
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
@@ -180,6 +177,15 @@ public class SearchCandidateController {
 		try {
 			
 			String companyId=session.getAttribute("companyId")!=null?session.getAttribute("companyId").toString():null;
+			String userId=null;
+			if(session.getAttribute("userId")!=null)
+			{
+				userId=session.getAttribute("userId").toString();
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			req.setUserId(userId);
 			req.setCompanyId(companyId);
 			req.setMinSal(Optional.ofNullable(req.getMinSal()).filter(s -> !s.isEmpty()).orElse(null));
 		    req.setMaxSal(Optional.ofNullable(req.getMaxSal()).filter(s -> !s.isEmpty()).orElse(null));
@@ -581,4 +587,47 @@ public class SearchCandidateController {
 		return null;
 	}
 	
+	@ResponseBody
+	@PostMapping("/checkingpoints")
+	public ServiceResponseWrapperModel<ResponseModel> checkingpoints(HttpSession session,HttpServletRequest request) 
+	{
+		SearchReq searchreq = new SearchReq();
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				searchreq.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in it ");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				searchreq.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("session is not set in companyId");
+			}
+			
+			String Url=Configs.urls.get(EmployeerAppplicationConstant.CHECK_POINTS).getUrl();
+			response=myWebClient.post(Url,searchreq).block();
+			if(response.getToken()!=null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken()); 
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured === "+e.getMessage());
+		}
+		return null;
+	}
 }

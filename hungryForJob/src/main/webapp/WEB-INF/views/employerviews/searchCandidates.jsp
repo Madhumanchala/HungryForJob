@@ -29,6 +29,7 @@
 		<img src="employer/img/loader.gif">
 	</div>
 	<%@include file="employerHeader.jsp"%> 
+	<%@include file="toaster.jsp"%>
 	<!-- ======= Header ======= -->
 	<!-- End Header -->
 	<main id="main">

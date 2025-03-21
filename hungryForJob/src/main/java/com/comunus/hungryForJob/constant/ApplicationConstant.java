@@ -43,5 +43,6 @@ public interface ApplicationConstant {
 	String getRegisterCompanyDetails = "registerCompanyDetails";
 	String getVerificationPendingDetails = "verificationPendingDetails";
 	String AdminIndex = "AdminIndex";
+	String FORGETPASSWORDVERIFY="ForgotPassVerifyEmail";
 
 }

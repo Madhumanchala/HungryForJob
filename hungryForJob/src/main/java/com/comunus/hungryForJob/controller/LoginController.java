@@ -14,10 +14,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.comunus.hungryForJob.config.Configs;
 import com.comunus.hungryForJob.config.WebClientConfig;
 import com.comunus.hungryForJob.config.WebClientResponse;
+import com.comunus.hungryForJob.constant.ApplicationConstant;
+import com.comunus.hungryForJob.model.APIErrorModel;
 import com.comunus.hungryForJob.model.ForgotPasswordResponse;
 import com.comunus.hungryForJob.model.LoginRequest;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
@@ -119,33 +123,23 @@ public class LoginController {
 	}
  	
 	@PostMapping("/forgotPassVerifyEmail")
-	public String forgotPassword(ModelMap modelMap,@ModelAttribute SignUp signUp) throws JsonProcessingException {
+	@ResponseBody
+	public APIErrorModel forgotPassword(ModelMap modelMap,@RequestBody SignUp signUp) throws JsonProcessingException {
 		try {
 			
 			log.info("In forgotPassVerifyEmail Post : "+signUp.getEmailInput());
-			 String forgotPassVerifyEmailUrl= Configs.urls.get("ForgotPassVerifyEmail").getUrl();
+			 String forgotPassVerifyEmailUrl= Configs.urls.get(ApplicationConstant.FORGETPASSWORDVERIFY).getUrl();
 			 log.info("@@@@ ForgotPassVerifyEmail @@@@"+forgotPassVerifyEmailUrl);
 			 WebClientResponse response=myWebClient.post(forgotPassVerifyEmailUrl, signUp).block();
 			 log.info(response);
 			 String body=response.getBody();
 			 JSONObject json=new JSONObject(body);
 			 json.getJSONObject("data");
-			 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
-	    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
-			 ForgotPasswordResponse forgotPasswordResponse=responsemodel.getData();
-			 if(forgotPasswordResponse.getEmailExist() !=null && forgotPasswordResponse.getEmailExist()) {
-				 if(forgotPasswordResponse.getOtpSent()==null || !forgotPasswordResponse.getOtpSent()) {
-					 modelMap.put("errorMsg", "Error while sending otp");
-				     return "candidateForgotPassword";
-				 }else {
-					 //return "redirect:otpVerification?id="+forgotPasswordResponse.getId();
-					 modelMap.addAttribute("emailInput",forgotPasswordResponse.getEmail());
-					 return "verifyCandidateOtp";
-				 }
-				 
-			 }else {
-				 modelMap.put("errorMsg", "This User/Email not exists in system !!");
-			     return "candidateForgotPassword";
+			 if(response.getStatusCode() == 200)
+			 {
+				 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
+		    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
+				 return responsemodel.getErrors();
 			 }
 			
 		} catch (Exception e) {
@@ -155,9 +149,17 @@ public class LoginController {
 		}
 		 return null;
 	}
-		
+	
+	
+	@PostMapping("/forgetpasswordotp")
+	public String otp()
+	{
+		return "verifyCandidateOtp";
+	}
+	
 	@PostMapping("/forgotPassVerifyOtp")
-	public String otpVerification(ModelMap modelMap,@ModelAttribute SignUp signUp) throws JsonProcessingException {
+	@ResponseBody
+	public APIErrorModel otpVerification(ModelMap modelMap,@RequestBody SignUp signUp) throws JsonProcessingException {
 		try {
 			
 			log.info("In otpVerification POST : ");
@@ -165,22 +167,27 @@ public class LoginController {
 			 log.info("@@@@ ForgotPassVerifyOtp @@@@"+forgotPassVerifyOtpUrl);
 			 WebClientResponse response=myWebClient.post(forgotPassVerifyOtpUrl, signUp).block();
 			 log.info(response);
-			 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
-	    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
-			 ForgotPasswordResponse forgotPasswordResponse=responsemodel.getData();
-			 if(forgotPasswordResponse.getOtpVerified()!=null && forgotPasswordResponse.getOtpVerified()) {
-				 modelMap.addAttribute("username",forgotPasswordResponse.getEmail());
-				 return "candidateNewPassword";
-			 }else {
-				 modelMap.addAttribute("emailInput",forgotPasswordResponse.getEmail());
-				 if(forgotPasswordResponse.getOtpExpired()!=null && forgotPasswordResponse.getOtpExpired()) {
-				   modelMap.put("errorMsg", "OTP Expired !!");
-				 }
-				 else if(forgotPasswordResponse.getOtpVerified()==null || !forgotPasswordResponse.getOtpVerified()) {
-					   modelMap.put("errorMsg", "OTP Invalid !!");
-				 }
-				 return "verifyCandidateOtp";
+			 
+			 if(response.getStatusCode() == 200)
+			 {
+				 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
+		    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
+				 return responsemodel.getErrors();
 			 }
+			 
+//			 if(forgotPasswordResponse.getOtpVerified()!=null && forgotPasswordResponse.getOtpVerified()) {
+//				 modelMap.addAttribute("username",forgotPasswordResponse.getEmail());
+//				 return "candidateNewPassword";
+//			 }else {
+//				 modelMap.addAttribute("emailInput",forgotPasswordResponse.getEmail());
+//				 if(forgotPasswordResponse.getOtpExpired()!=null && forgotPasswordResponse.getOtpExpired()) {
+//				   modelMap.put("errorMsg", "OTP Expired !!");
+//				 }
+//				 else if(forgotPasswordResponse.getOtpVerified()==null || !forgotPasswordResponse.getOtpVerified()) {
+//					   modelMap.put("errorMsg", "OTP Invalid !!");
+//				 }
+//				 return "verifyCandidateOtp";
+//			 }
 			 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -190,29 +197,25 @@ public class LoginController {
 		return null; 
 	}
 	
+	@PostMapping("/forgetnewpasswordchange")
+	public String forgetnewpassword()
+	{
+		return "candidateNewPassword";
+	}
 	@PostMapping("/forgotPassChangePassword")
-	public String forgotPassChangePassword(ModelMap modelMap,@ModelAttribute LoginRequest loginRequest) throws JsonProcessingException {
+	@ResponseBody
+	public APIErrorModel forgotPassChangePassword(ModelMap modelMap,@RequestBody LoginRequest loginRequest) throws JsonProcessingException {
 		try {
 			 log.info("In forgotPassChangePassword POST : ");
 			 String forgotPassChangePassword= Configs.urls.get("ForgotPassChangePassword").getUrl();
 			 log.info("@@@@ ForgotPassChangePassword @@@@"+forgotPassChangePassword);
 			 WebClientResponse response=myWebClient.post(forgotPassChangePassword, loginRequest).block();
 			 log.info(response);
-			 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
-	    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
-			 ForgotPasswordResponse forgotPasswordResponse=responsemodel.getData();
-			 modelMap.addAttribute("userName",forgotPasswordResponse.getEmail());
-			 if(forgotPasswordResponse.getPasswordUpdated()!=null && !forgotPasswordResponse.getPasswordUpdated()) {
-				 if(forgotPasswordResponse.getPasswordMatch()!=null && !forgotPasswordResponse.getPasswordMatch()) {
-					 modelMap.put("errorMsg", "Password do not match !!");
-					 return "candidateNewPassword";
-				 }else {
-					 modelMap.put("errorMsg", "Please contact system admin !!");
-					 return "candidateNewPassword";
-				 }
-			 }else {
-				 modelMap.put("sucessMsg", "Password changed sucessfully !!");
-				 return "login";
+			 if(response.getStatusCode() == 200)
+			 {
+				 ServiceResponseWrapperModel<ForgotPasswordResponse> responsemodel= myObjectMapper.readValue(
+		    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ForgotPasswordResponse>>() {});
+				 return responsemodel.getErrors();
 			 }
 			 
 		} catch (Exception e) {

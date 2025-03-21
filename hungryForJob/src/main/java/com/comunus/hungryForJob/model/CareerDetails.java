@@ -64,6 +64,8 @@ public class CareerDetails {
 	public String candidateViews;
 	public String candidateDownload;
 	public String lastActive;
+	public String paginationOffSet;
+	public String paginationTotalPages;
 	
 	
 }

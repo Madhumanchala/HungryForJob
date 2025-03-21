@@ -19,6 +19,10 @@
 
 <body>
   <%@include file="header.jsp"%>
+  <%@include file="toaster.jsp"%>
+  <div class="loader">
+		<img src="employer/img/loader.gif">
+	</div>
   <main id="main">
     <section class="section-inner login-bg">
       <div class="container">
@@ -67,92 +71,8 @@
 
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/commonvalidation.js"></script>
   <script>
-    var cd;
-    $(function () {
-      CreateCaptcha();
-    });
-
-    // Create Captcha
-    function CreateCaptcha() {
-      //$('#InvalidCapthcaError').hide();
-      var alpha = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
-
-      var i;
-      for (i = 0; i < 4; i++) {
-        var a = alpha[Math.floor(Math.random() * alpha.length)];
-        var b = alpha[Math.floor(Math.random() * alpha.length)];
-        var c = alpha[Math.floor(Math.random() * alpha.length)];
-        var d = alpha[Math.floor(Math.random() * alpha.length)];
-        /* var e = alpha[Math.floor(Math.random() * alpha.length)];
-        var f = alpha[Math.floor(Math.random() * alpha.length)];*/
-      }
-      cd = a + ' ' + b + ' ' + c + ' ' + d;
-      $('#CaptchaImageCode').empty().append('<canvas id="CapCode" class="capcode" width="100" height="48"></canvas>')
-
-      var c = document.getElementById("CapCode"),
-        ctx = c.getContext("2d"),
-        x = c.width / 2,
-        img = new Image();
-
-      img.src = "https://hungryforjob.com/assets/images/captcha-bg.png";
-      img.onload = function () {
-        var pattern = ctx.createPattern(img, "repeat");
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, c.width, c.height);
-        ctx.font = "22px Roboto Slab";
-        ctx.fillStyle = '#1d2946';
-        ctx.textAlign = 'center';
-        /* ctx.setTransform (1, -0.12, 0, 1, 0, 15);*/
-        ctx.fillText(cd, x, 28);
-      };
-
-    }
-
-    // Validate Captcha
-    function ValidateCaptcha() {
-      var string1 = removeSpaces(cd);
-      var string2 = removeSpaces($('#UserCaptchaCode').val());
-      // console.log(string2);
-      if (string1 == string2) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    // Remove Spaces
-    function removeSpaces(string) {
-      return string.split(' ').join('');
-    }
-
-    // Check Captcha
-    function CheckCaptcha() {
-      var result = ValidateCaptcha();
-      var created_captcha = removeSpaces(cd);
-      var entered_captcha = removeSpaces($('#UserCaptchaCode').val());
-
-      if (entered_captcha.length >= 4) {
-        if ($("#UserCaptchaCode").val() == "" || $("#UserCaptchaCode").val() == null || $("#UserCaptchaCode").val() == "undefined") {
-          $('#WrongCaptchaError').text('Please enter code given below in a picture.').show();
-          $('#UserCaptchaCode').focus();
-        } else {
-          if (result == false) {
-            $('#UserCaptchaCode').val('').attr('place-holder', 'Enter Captcha - Case Sensitive');
-            $('#WrongCaptchaError').text('Invalid Captcha! Please try again.').show();
-            CreateCaptcha();
-            $('#UserCaptchaCode').focus().select();
-          } else {
-            // $('#UserCaptchaCode').val('').attr('place-holder','Enter Captcha - Case Sensitive');
-            // CreateCaptcha();
-            $('#WrongCaptchaError').fadeOut(100);
-            $('#SuccessMessage').fadeIn(500).css('display', 'block').delay(5000).fadeOut(250);
-          }
-        }
-      }
-    }
-	
-	
 	   //OTP Modal
     $(document).ready(function () {
       $('.otp-input').on('input', function () {
@@ -173,6 +93,8 @@
           e.preventDefault();
         }
       });
+      
+      $(".loader").hide();
     });
 
 	   function otpSubmit()
@@ -181,34 +103,71 @@
 		   var otp2=$('#otp2').val();
 		   var otp3=$('#otp3').val();
 		   var otp4=$('#otp4').val();
+		   var sessionvalue=sessionStorage.getItem("sessionforgetpassword");
+		   var emailId=sessionStorage.getItem("forgetemail");
+		   let isvalid=true;
 		   
 		   if (!otp1 || !otp2 || !otp3 || !otp4) {
-		        $('.error_otp').text("Enter the otp").css('color','red');
-		        $('.error_otp').show();
+			   showToast("info","please enter otp")
+			   isvalid=false
 		        return;
 		    }
+		   if(!sessionvalue)
+			{
+			   console.log("session value is not present")
+			    isvalid=false
+			   return;
+			}
+		   if(!emailId)
+			{
+			   console.log("session value is not present")
+			    isvalid=false
+			   return;
+			}
 		   var otp=otp1+otp2+otp3+otp4;
 		   
-		   var url = "/forgotPassVerifyOtp";
-			
-			var form = document.createElement('form');
-			form.method = 'POST'; 
-			form.action = url;
-			
-			var idInput = document.createElement('input');
-			idInput.type = 'hidden';
-			idInput.name = 'otpInput';
-			idInput.value = otp;
-			form.appendChild(idInput);
-			
-			var idInput1 = document.createElement('input');
-			idInput1.type = 'hidden';
-			idInput1.name = 'emailInput';
-			idInput1.value = "${emailInput}";
-			form.appendChild(idInput1);
-			
-			document.body.appendChild(form);
-			form.submit();
+		   if(isvalid)
+			{
+				$(".loader").show();
+				$.ajax({
+					url:"forgotPassVerifyOtp",
+					type:'post',
+					contentType: 'application/json',
+					data: JSON.stringify({
+						"otpInput": otp,
+						"emailInput": emailId,
+						"sessionForgetRole":sessionvalue
+		            }),
+		            success: function(response) {
+		                // Success callback
+		                if(response.errorCode === "0000")
+		                {
+		                	$('.loader').hide();
+		                	findroute('forgetnewpasswordchange');
+						
+						}else if(response.errorCode === "1010")
+						{
+							showToast("info","ot is expired");
+							
+						}else if(response.errorCode === "1111")
+						{
+							showToast("info","failure");
+						}
+		                else
+						{
+							showToast("info","please try again");
+						}
+		                $('.loader').hide();
+						
+		            },
+		            error: function(xhr, status, error) {
+		                // Error callback
+		                console.log("error ocurred"+error)
+		                showToast("error","failed to update");
+		                $('.loader').hide();
+		            }
+				})
+			}
 	   }
 	   $('.otp-input').on('keyup', function() {
 		   $('.error_otp').hide();

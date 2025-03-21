@@ -874,6 +874,8 @@ a.btn-goBack:hover{opacity:.7}
 .navbar a.logo:focus{padding: 0px 0 0px 0px;}
  .select2-container--default .select2-selection--single .select2-selection__placeholder {color: #999;padding-left: 30px;}
  .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field{padding-left: 35px;}
+/* .select2-container .select2-selection--single .select2-selection__rendered{padding-left:40px !important;}*/
+ 
  @media (min-width: 992px) and (max-width:1024px) {
  .applyNow{white-space: nowrap;}
 .featuredJoblist .listbox .daytxt {flex-wrap: wrap;}

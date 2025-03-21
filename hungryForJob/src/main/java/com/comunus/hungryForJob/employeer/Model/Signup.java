@@ -24,5 +24,5 @@ public class Signup {
 	private String companyaddress;
 	private String current_location;
 	private String userId;
-
+	private String sessionForgetRole;
 }

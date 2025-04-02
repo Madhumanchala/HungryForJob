@@ -101,7 +101,7 @@
 	            	showToast('info','Otp is Expire');
 	            }else if(result.errorCode === "1111")
 	            {
-	            	showToast('info','please Try Again to Send Otp');
+	            	showToast('info', 'OTP expired or invalid. Please try sending it again.')
 	            }else
 	            {
 	            	showToast('error','Failure');

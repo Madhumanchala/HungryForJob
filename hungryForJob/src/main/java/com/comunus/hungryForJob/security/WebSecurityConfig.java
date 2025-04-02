@@ -30,7 +30,7 @@ public class WebSecurityConfig {
 	    
 	    @Bean
 	    WebSecurityCustomizer configureWebSecurity() {
-	        return (web) -> web.ignoring().antMatchers("/img/**", "/css/**", "/js/**","/plugins/**","/images/**", "/fonts/**","/WEB-INF/views/**","/employer/**","/candidatecss/**");
+	        return (web) -> web.ignoring().antMatchers("/img/**", "/css/**", "/js/**","/plugins/**","/images/**", "/fonts/**","/WEB-INF/views/**","/employer/**","/candidatecss/**","/admin/**");
 	    }
 
 	    @Bean
@@ -76,6 +76,14 @@ public class WebSecurityConfig {
 					.antMatchers("/getCandidateById").permitAll()
 					.antMatchers("/empportalRegister").permitAll()
 					.antMatchers("/logout").permitAll()
+					
+					
+					.antMatchers("/admindashboard").permitAll()
+					.antMatchers("/updatePlanStatus").permitAll()
+					.antMatchers("/adminpricingplandetails").permitAll()
+					.antMatchers("/registerplanDetails").permitAll()
+					.antMatchers("/updateplanpriority").permitAll()
+					.antMatchers("/updateadminplandetails").permitAll()
 					.anyRequest().authenticated()
 			)
 			.csrf(csrf->csrf.disable())

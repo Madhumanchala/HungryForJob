@@ -141,9 +141,10 @@ public class EmployerLoginController {
 	
 	public List<PricingDetails> getAllPrice(HttpServletRequest request)
 			throws RestClientException, URISyntaxException, JsonProcessingException {
-
+		WebClientResponse response=null;
 		try {
-			WebClientResponse response = myWebClient.post(Configs.urls.get("getAllPriceData").getUrl(), "").block();
+			String url = Configs.urls.get(EmployeerAppplicationConstant.GetAllPriceData).getUrl();
+			response =   myWebClient.post(url,"").block();
 			if(response.getToken()!=null) {
 				  log.info("s.getToken() :"+response.getToken());
 				  request.getSession().setAttribute("token","Bearer "+response.getToken());

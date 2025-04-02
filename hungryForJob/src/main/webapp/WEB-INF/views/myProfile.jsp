@@ -22,20 +22,15 @@ int yearInt = Integer.parseInt(year);
 <link href="fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 <link href="css/select2.min.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap-datepicker.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-	<!-- <div id="preloader">
-		<div id="loader" class="loader">
-			<div class="loader-container">
-				<div class="loader-icon">
-					<img src="/img/logo/preloader.svg" alt="Preloader">
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<%@include file="header3.jsp"%>
+	<div class="loader">
+		<img src="employer/img/loader.gif">
+	</div>
+	<%@include file="header2.jsp"%>
 	<%@include file="toaster.jsp" %>
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb">
@@ -90,7 +85,7 @@ int yearInt = Integer.parseInt(year);
 														Resume
 													</a>
 												</h4>
-												<span>Uploaded on Jul 03, 2024</span>
+												<span>${cvDate}</span>
 											</div>
 										</div>
 									</div>
@@ -257,7 +252,7 @@ int yearInt = Integer.parseInt(year);
 													<h5>${skills.techName}</h5>
 												</div>
 												<div class="col-lg-7 col-md-4 col-sm-3 col-3">
-													<h5>${skills.years}.${skills.months}Yrs</h5>
+													<h5>${skills.years}.${skills.months} Yrs</h5>
 												</div>
 
 												<div class="col-lg-1 col-md-2 col-sm-1 col-3 ">
@@ -479,7 +474,7 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editpincode" class="form-label">Pincode</label> <input
 									type="text" name="editpincode" id="editpincode"
-									class="form-control" placeholder="Enter pincode">
+									class="form-control" placeholder="Enter pincode" maxlength="6" onkeyup="checkOnlyNumbers(this,'editpincode_error')">
 								<span class="editpincode_error errorfield"></span>
 							</div>
 						</div>
@@ -487,7 +482,7 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editstate" class="form-label">State</label> <input
 									type="text" name="editstate" id="editstate"
-									class="form-control" placeholder="Enter State">
+									class="form-control" placeholder="Enter State" disabled="disabled">
 								<span class="editstate_error errorfield"></span>
 							</div>
 						</div> 
@@ -612,7 +607,7 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editgrade" class="form-label" id="marksLabel"></label>
 								<input type="text" name="editgrade" id="editgrade"
-									class="form-control" placeholder=""><span
+									class="form-control" placeholder="" maxlength="3"><span
 									class="editgrade_error errorfield"></span>
 							</div>
 						</div>
@@ -957,7 +952,7 @@ int yearInt = Integer.parseInt(year);
 								<label for="Name" class="form-label required">Current
 									CTC </label> <input type="text" name="editCurrentCtc"
 									id="editCurrentCtc" class="form-control"
-									placeholder="Enter Current Ctc "><span
+									placeholder="Enter Current Ctc " onkeyup="checkOnlyNumbers(this,'editCurrentCtc_error')" maxlength="20"><span
 									class="editCurrentCtc_error errorfield" style="color:red"></span>
 							</div>
 						</div>
@@ -967,7 +962,7 @@ int yearInt = Integer.parseInt(year);
 								<label for="Name" class="form-label required">Expected
 									CTC </label> <input type="text" name="editExpectedCtc"
 									id="editExpectedCtc" class="form-control"
-									placeholder="Enter Expected Ctc"><span
+									placeholder="Enter Expected Ctc" onkeyup="checkOnlyNumbers(this,'editExpectedCtc_error')" maxlength="20"><span
 									class="editExpectedCtc_error errorfield" style="color:red"></span>
 							</div>
 						</div>
@@ -1000,7 +995,7 @@ int yearInt = Integer.parseInt(year);
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="editServingNoticePeriod" class="form-label required">Serving
-									Notice Period</label>
+									Notice Period</label><br>
 								<div class="workstatus row">
 									<div class="col-lg-6 col-md-6 col-sm-12 col-6">
 										<input type="radio" name="editServingNoticePeriod"
@@ -1023,7 +1018,7 @@ int yearInt = Integer.parseInt(year);
 								<label for="editNoticePeriod" class="form-label"> Notice
 									Period(in Days) </label> <input type="text" name="editNoticePeriod"
 									id="editNoticePeriod" class="form-control"
-									placeholder="Enter Notice Period" onkeyup="removeDisableLastWorkDate()"> <span
+									placeholder="Enter Notice Period" onkeyup="checkOnlyNumbers(this,'editNoticePeriod_error'); removeDisableLastWorkDate()" maxlength="2"> <span
 									class="editNoticePeriod_error errorfield"></span>
 							</div>
 						</div>
@@ -1084,7 +1079,7 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editOfferCtc" class="form-label">Offer CTC</label> <input
 									type="text" name="editOfferCtc" id="editOfferCtc"
-									class="form-control" placeholder="Enter Offer Ctc"> <span
+									class="form-control" placeholder="Enter Offer Ctc" onkeyup="checkOnlyNumbers(this,'editOfferCtc_error')" maxlength="40"> <span
 									class="editOfferCtc_error errorfield" style="color:red"></span>
 							</div>
 						</div>
@@ -1140,7 +1135,7 @@ int yearInt = Integer.parseInt(year);
 							</div>
 						</div> -->
 						<div class="col-lg-6 col-md-6 col-sm-12" id="showHidePerferedLocation">
-							<div class="form-group">
+							<div class="form-group preferdLocation">
 								<label for="editpreferredlocation" class="form-label">Preferred
 									Work Location</label> <select name="editpreferredlocation"
 									id="editpreferredlocation" class="form-control selet2Multiple"
@@ -1172,6 +1167,7 @@ int yearInt = Integer.parseInt(year);
 	<script src="js/myProfile.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/bootstrap-datepicker.min.js"></script>
+	<script src="js/commonvalidation.js"></script>
 
 	<script>
 		$(".selet2Multiple").select2({});
@@ -1333,6 +1329,7 @@ int yearInt = Integer.parseInt(year);
 	    if (skillsCount >= 5) {
 	        addSkillsBtn.style.display = 'none'; // Hide the button
 	    }
+	    $(".loader").hide();
 	});
 	let lastworkingDate="${careerDetails.lastWorkingDate}";
 	let pincode="${careerDetails.pincode}";
@@ -1342,6 +1339,8 @@ int yearInt = Integer.parseInt(year);
         autoclose: true,
         changeYear: true,  // Enables year selection
         changeMonth: true, // Enables month selection
+        startDate: new Date(new Date().getFullYear(), 0, 1), // Disable previous years
+        todayHighlight: true
       });
 	$('#editjoiningDate').datepicker({
         format: 'dd-mm-yyyy',

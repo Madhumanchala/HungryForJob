@@ -509,9 +509,10 @@ function updateEducationDetails() {
 		}
 	}
 	if (highestQualification == 72) {
+		const gradevalue=parseFloat(grade);
 		EducationDetails = {
 			"highestQualification": highestQualification,
-			"score": grade,
+			"score": gradevalue,
 			"courseEndYear": courseEndYear
 		}
 
@@ -520,13 +521,15 @@ function updateEducationDetails() {
 			"highestQualification": highestQualification,
 		}
 	} else if (highestQualification == 73) {
+		const gradevalue=parseFloat(grade);
 		EducationDetails = {
 			"highestQualification": highestQualification,
-			"score": grade,
+			"score": gradevalue,
 			"courseEndYear": courseEndYear
 		}
 
 	} else {
+		const gradevalue=parseFloat(grade);
 		EducationDetails = {
 			"highestQualification": highestQualification,
 			"course": course,
@@ -536,7 +539,7 @@ function updateEducationDetails() {
 			"courseEndYear": courseEndYear,
 			"institute": institute,
 			"gradingSystem": gradingSystem,
-			"score": grade,
+			"score": gradevalue,
 			"newUniversity": newInstitute
 		}
 	}
@@ -569,12 +572,11 @@ $('#editgrade').on('keyup', function() {
 	const questionStatus = $("#editgradingsystem").val();
 	const qualification = $("#editQualification").val();
 	const value = $("#editgrade").val();
-	const value1 = parseInt(value)
 	var editGrade = document.getElementById('editgrade');
 	if (questionStatus == 78) {
-
+		const value1 = parseFloat(value);
 		if (value1 > 0 && value1 <= 10) {
-			editGrade.value = value1;
+			editGrade.value = value;
 		} else if (value1 == NaN) {
 			editGrade.value = "";
 			$(".editgrade_error").text("please enter between 1 to 10").css("color", "red");
@@ -585,8 +587,9 @@ $('#editgrade').on('keyup', function() {
 			$(".editgrade_error").show();
 		}
 	} else if (questionStatus == 79) {
+		const value1 = parseInt(value);
 		if (value1 > 0 && value <= 4) {
-			editGrade.value = value1;
+			editGrade.value = value;
 		} else if (value1 == NaN) {
 			editGrade.value = "";
 			$(".editgrade_error").text("please enter between 1 to 4").css("color", "red");
@@ -597,8 +600,9 @@ $('#editgrade').on('keyup', function() {
 			$(".editgrade_error").show();
 		}
 	} else if (questionStatus == 80) {
+		const value1 = parseInt(value);
 		if (value1 >= 1 && value1 <= 100) {
-			editGrade.value = value1;
+			editGrade.value = value;
 		} else if (value1 == NaN) {
 			editGrade.value = "";
 			$(".editgrade_error").text("please enter between 1 to 100").css("color", "red");
@@ -609,8 +613,9 @@ $('#editgrade').on('keyup', function() {
 			$(".editgrade_error").show();
 		}
 	} else if (qualification == 72) {
+		const value1 = parseInt(value);
 		if (value1 >= 1 && value1 <= 100) {
-			editGrade.value = value1;
+			editGrade.value = value;
 		} else if (value1 == NaN) {
 			editGrade.value = "";
 			$(".editgrade_error").text("please enter between 1 to 100").css("color", "red");
@@ -621,8 +626,9 @@ $('#editgrade').on('keyup', function() {
 			$(".editgrade_error").show();
 		}
 	} else if (qualification == 73) {
+		const value1 = parseInt(value);
 		if (value1 >= 1 && value1 <= 100) {
-			editGrade.value = value1;
+			editGrade.value = value;
 		} else if (value1 == NaN) {
 			editGrade.value = "";
 			$(".editgrade_error").text("please enter between 1 to 100").css("color", "red");
@@ -699,47 +705,59 @@ function updatePersonalDetails() {
 	if(state == "")
 	{
 		isvalid=false
-		$('.editstate_error').text("Please Enter the fiels").css("color","red");
+		$('.editstate_error').text("Please Enter the field").css("color","red");
 		$(".editstate_error").show();
 	}
 	if(currentlocation == "")
 	{
 		isvalid=false
-		$('.editcurrentlocation_error').text("Please Enter the fiels").css("color","red");
+		$('.editcurrentlocation_error').text("Please Enter the field").css("color","red");
 		$(".editstate_error").show();
 	}
-	var personalDetails = {
-		"name": name,
-		"mobileno": mobileno,
-		"workStatus": workStatus,
-		"pincode":pincode,
-		"state":state,
-		"currentlocation":currentlocation
-	}
-	if (isvalid) {
-		$.ajax({
-			url: "updateCandidateDetails",
-			method: "POST",
-			data: {
-				"educationDetails": personalDetails,
-				"type": "personalDetails"
-			},
-			success: function(response) {
-				if (response.errorCode == "0000") {
-					showToast("info","Updated Sucessfully");
-					location.reload();
-				} else {
-					console.log("error in repsonse");
-					showToast("info","please try again");
-
-				}
-			},
-			error: function(response) {
-				console.log("error reponse", response);
-				showToast("error","error occurred");
+	if(pincode !== "")
+	{
+		validpincode(pincode).then((message)=>{
+			if(message)
+			{
+				isvalid=false;
+			}else
+			{
+					var personalDetails = {
+						"name": name,
+						"mobileno": mobileno,
+						"workStatus": workStatus,
+						"pincode":pincode,
+						"state":state,
+						"currentlocation":currentlocation
+					}
+					if (isvalid) {
+						$.ajax({
+							url: "updateCandidateDetails",
+							method: "POST",
+							data: {
+								"educationDetails": personalDetails,
+								"type": "personalDetails"
+							},
+							success: function(response) {
+								if (response.errorCode == "0000") {
+									showToast("info","Updated Sucessfully");
+									location.reload();
+								} else {
+									console.log("error in repsonse");
+									showToast("info","please try again");
+				
+								}
+							},
+							error: function(response) {
+								console.log("error reponse", response);
+								showToast("error","error occurred");
+							}
+						})
+					}
 			}
-		})
+		});	
 	}
+	
 
 }
 $('#Name').on('keyup', function() {
@@ -903,9 +921,15 @@ function getTechnologyDetails() {
 				console.error("Unexpected response format:", response);
 				$('#errorContainer').text("Unexpected response format.");
 			}
-			let splitArray = exp.split(".");
-			var years = parseInt(splitArray[0]);
-			console.log(splitArray);
+			let splitArray=[];
+			if(exp !== 0)
+			{
+				splitArray = exp.split(".");
+			}
+			var years = splitArray.length>0 ? parseInt(splitArray[0]):0;
+			$('#addexperienceYears').empty();
+			$('#addexperienceYears').append(
+					$('<option></option>').val("").text("Select"));
 			for (var year = 0; year <= years; year++) {
 				$('#addexperienceYears').append(
 					$('<option></option>').val(year).text(year));
@@ -919,9 +943,13 @@ function getTechnologyDetails() {
 $('#addexperienceYears').on('change', function() {
 	$('.addexperienceYears_error').hide();
 	var value = parseInt($('#addexperienceYears').val());
-	let splitArray = exp.split(".");
-	var years = parseInt(splitArray[0]);
-	var months = parseInt(splitArray[1]);
+	let splitArray = [] 
+	if(exp!==0)
+	{
+		exp.split(".");
+	}
+	var years = splitArray.length > 0?parseInt(splitArray[0]):0;
+	var months = splitArray.length > 0 ? parseInt(splitArray[1]):0;
 	$('#addexperienceMonth').empty();
 	if (value == years) {
 		for (var year = 0; year <= months; year++) {
@@ -998,7 +1026,7 @@ function addSkills() {
 	}
 }
 function editSkillsDetails(id, experience, name) {
-	var ids = null;;
+	var ids = null;
 	$.ajax({
 		url: "getTechnologyDetails",
 		method: "POST",
@@ -1028,6 +1056,13 @@ function editSkillsDetails(id, experience, name) {
 			var months = parseInt(splitArray[1]);
 			$('#editexperienceYears').empty();
 			$('#editexperienceMonths').empty();
+			/*var workStatus = document.querySelector("input[name='work_status']:checked");
+			if (workStatus) {
+				    console.log(workStatus.value); // Gets the checked value
+			} else {
+				    console.log("No option selected");
+			}*/
+
 			if (realYears == years) {
 				for (var year = 0; year <= realYears; year++) {
 					$('#editexperienceYears').append(
@@ -1038,7 +1073,7 @@ function editSkillsDetails(id, experience, name) {
 						$('<option></option>').val(year).text(year));
 				}
 			} else {
-				for (var year = 0; year <= 40; year++) {
+				for (var year = 0; year <= realYears; year++) {
 					$('#editexperienceYears').append(
 						$('<option></option>').val(year).text(year));
 				}
@@ -1387,7 +1422,7 @@ function getCarrerDetails() {
 	}
 	var experiencemonths = $('#editmonthsExp');
 	experiencemonths.empty();
-	experiencemonths.append('<option value="" class="experience">Select Years</option>');
+	experiencemonths.append('<option value="" class="experience">Select Months</option>');
 	for (var i = 0; i <= 11; i++) {
 		experiencemonths.append('<option value="' + i + '">' + i + '</option>');
 	}
@@ -1404,6 +1439,16 @@ function getCarrerDetails() {
 		$("#editServingNoticePeriodNo").prop('checked', true);
 		$('#hideShowLastWorkingDate').hide();
 		$('#hideShowNoticePeriod').hide();
+	}
+	
+	const locationString = $('#preferedlocation').text(); // Get the text content
+	const locationArray = locationString.split(',').map(location => location.trim()); // Trim spaces
+
+	var preferredlocation = $('#editpreferredlocation');
+	preferredlocation.empty();
+	for (var i = 0; i < allCities.length; i++) {
+		var isSelected = locationArray.includes(allCities[i].name) ? ' selected' : '';
+		preferredlocation.append('<option value="' + allCities[i].id + '"' + isSelected + '>' + allCities[i].name + '</option>');
 	}
 	var lastworkingDate1 = lastworkingDate;
 	let formattedDate = lastworkingDate1.split("-").reverse().join("-");
@@ -1442,19 +1487,10 @@ function getCarrerDetails() {
 		$('#showHideReadyToLocate').show();
 		$('#editWorkfromhomeNo').prop('checked', true);
 	}
-	const locationString = $('#preferedlocation').text(); // Get the text content
-	const locationArray = locationString.split(',').map(location => location.trim()); // Trim spaces
-	console.log(locationArray);
-
-	var preferredlocation = $('#editpreferredlocation');
-	preferredlocation.empty();
-	for (var i = 0; i < allCities.length; i++) {
-		var isSelected = locationArray.includes(allCities[i].name) ? ' selected' : '';
-		preferredlocation.append('<option value="' + allCities[i].id + '"' + isSelected + '>' + allCities[i].name + '</option>');
-	}
+	
 	var editResumeHeadline = $("#resmeHeadlineFetch").text();
 	$('#resumeHeadline').val(editResumeHeadline);
-	$("#editjoiningDate").val(carrerJoiningDate);
+	$("#editjoiningDate").val(reverseDate(carrerJoiningDate));
 
 }
 function convertDate(inputDate) {
@@ -1473,7 +1509,7 @@ function updateCareerDetails() {
 	var lastWorkingDate = $('#editlastworkingDate').val();
 	var formattedDate = lastWorkingDate.split("-").reverse().join("-");
 	var lastWorkingDate=formattedDate;
-	var offerInHand = document.querySelector('input[name="editOfferInHand"]:checked')?.value;;
+	var offerInHand = document.querySelector('input[name="editOfferInHand"]:checked')?.value;
 	var offerCtc = $('#editOfferCtc').val();
 	var joiningDate = $('#editjoiningDate').val();
 	joiningDate=convertDate(joiningDate);
@@ -1489,7 +1525,7 @@ function updateCareerDetails() {
 		readyToRelocate="";
 		preferedLocation="";
 	}
-	if(readyToRelocate.toUpperCase()=="YES")
+	if(readyToRelocate.toUpperCase()=="NO")
 	{
 		preferedLocation="";
 	}
@@ -1505,27 +1541,27 @@ function updateCareerDetails() {
 	}
 	if(currentCtc == "")
 	{
-		$('.editCurrentCtc_error').text("Enter the field below");
+		$('.editCurrentCtc_error').text("Enter the field below").css("color","red");
 		isValid=false;
 	}
 	if(ExpectedCtc == "")
 	{
-		$('.editExpectedCtc_error').text("Enter the field below");
+		$('.editExpectedCtc_error').text("Enter the field below").css("color","red");
 		isValid=false;
 	}
 	if(totalYears == "")
 	{
-		$('.edityearsExp_error').text("Enter the field below")
+		$('.edityearsExp_error').text("Enter the field below").css("color","red");
 		isValid=false;	
 	}
 	if(totalMonths == "")
 	{
-		$('.editmonthsExp_error').text("Enter the field below")
+		$('.editmonthsExp_error').text("Enter the field below").css("color","red");
 		isValid=false;	
 	}
 	if(servingNoticePeriod == "")
 	{
-		$('.editServingNoticePeriod_error').text("Enter the field below");
+		$('.editServingNoticePeriod_error').text("Enter the field below").css("color","red");
 		isValid=false;
 	}else 
 	{
@@ -1533,12 +1569,12 @@ function updateCareerDetails() {
 		{
 			if(noticePeriod == "")
 			{
-				$('.editNoticePeriod_error').text("Enter the field below");
+				$('.editNoticePeriod_error').text("Enter the field below").css("color","red");
 				isValid=false;
 			}
 			if(lastWorkingDate == "")
 			{
-				$('.editlastworkingDate_error').text("Enter the field below");
+				$('.editlastworkingDate_error').text("Enter the field below").css("color","red");
 				isValid=false;
 			}
 		}
@@ -1547,13 +1583,21 @@ function updateCareerDetails() {
 	{
 		if(joiningDate == "")
 		{
-			$('.editjoiningDate_error').text("Enter the field below");
+			$('.editjoiningDate_error').text("Enter the field below").css("color","red");
 			isValid=false;
 		}
 		if(offerCtc == "")
 		{
-			$('.editOfferCtc_error').text("Enter the field below");
+			$('.editOfferCtc_error').text("Enter the field below").css("color","red");
 			isValid=false;
+		}
+	}
+	if(readyToRelocate.toUpperCase()=="YES")
+	{
+		if(preferedLocation === "" || preferedLocation.length == 0)
+		{
+			isValid=false;
+			$(".editCurrentLocation_error").text("Enter the field below").css("color","red");
 		}
 	}
 	console.log(readyToRelocate.toUpperCase());
@@ -1602,6 +1646,9 @@ function updateCareerDetails() {
 			}, success: function(response) {
 				if (response.errorCode == "0000") {
 					showToast("success","Updated Sucessfully");
+					setTimeout(function() {
+    					location.reload();
+					}, 2000);
 				} else {
 					console.log("error in repsonse");
 					showToast("info","please try again");
@@ -1666,6 +1713,9 @@ function updateCv() {
 		contentType: false,
 		success: function(response) {
 			showToast("success","Resume uploaded successfully!");
+			setTimeout(function() {
+  				  window.location.reload();
+			}, 2000); // Reloads the page after 3 seconds
 		},
 		error: function(xhr, status, error) {
 			console.log("Error uploading file: " + xhr.responseText);
@@ -1707,6 +1757,7 @@ function fetchCities(id) {
 						});
 
 						$('#editstate').val(postOffices[0].State);
+						$('.editpincode_error').hide();
 
 					}else
 					{
@@ -1751,7 +1802,8 @@ function fetchCities(id) {
 
 				} 
 				else {
-					$('.pincode_error').text('It is invalid pincode').css("color", "red").show();
+					$('.editpincode_error').text('It is invalid pincode').css("color", "red").show();
+					$("#current_location").prop("disabled", true);
 					isValidPincode = false
 				}
 			} else {
@@ -1798,7 +1850,7 @@ document.querySelectorAll('input[name="editWorkfromhome"]').forEach
 				$('#showHidePerferedLocation').hide();
 				$('#showHideReadyToLocate').hide();
 			} else {
-				$('#showHidePerferedLocation').show();
+				$('#showHidePerferedLocation').hide();
 				$('#showHideReadyToLocate').show();
 			}
 		})
@@ -1807,9 +1859,9 @@ document.querySelectorAll('input[name="editRelocate"]').forEach
 	(radio => {
 		radio.addEventListener('change', function() {
 			if (this.value === "Yes") {
-				$('#showHidePerferedLocation').hide();
-			} else {
 				$('#showHidePerferedLocation').show();
+			} else {
+				$('#showHidePerferedLocation').hide();
 			}
 		})
 	})

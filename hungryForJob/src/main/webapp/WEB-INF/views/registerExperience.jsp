@@ -128,8 +128,8 @@ String workStatus = (String) session.getAttribute("workStatus");
 												<li><input type="radio"
 													class="btn-check ready_to_relocate_class"
 													name="relocate-option" id="relocate-yes"
-													style="margin: 5px" autocomplete="off"> <label
-													class="btn" for="relocate-yes" value="YES"><span>Yes</span></label></li>
+													style="margin: 5px" autocomplete="off" value="YES"> <label
+													class="btn" for="relocate-yes" ><span>Yes</span></label></li>
 												<li><input type="radio"
 													class="btn-check ready_to_relocate_class"
 													name="relocate-option" id="relocate-no" style="margin: 5px"
@@ -203,7 +203,7 @@ String workStatus = (String) session.getAttribute("workStatus");
 											style="display: none;">
 											<div class="form-group">
 												<label for="lastWorkingDate" class="form-label required">Last
-													Working Date </label> <input type="text" name="lastWorkingDate"
+													Working Date </label><br> <input type="text" name="lastWorkingDate"
 													id="last_working_date" class="form-control"
 													placeholder="DD/MM/YYYY"><span
 													class="errorfield" id="lastWorkingDayError"
@@ -238,7 +238,7 @@ String workStatus = (String) session.getAttribute("workStatus");
 											style="display: none;">
 											<div class="form-group">
 												<label for="noticePeriod" class="form-label required">Offered
-													CTC</label> <input type="text" name="offered_ctc" id="offered_ctc"
+													CTC</label><br> <input type="text" name="offered_ctc" id="offered_ctc"
 													maxlength="12" min="1" max="99999999"
 													class="form-control" placeholder="Enter Offered CTC">
 												<span class="errorfield" id="offeredCtcError"

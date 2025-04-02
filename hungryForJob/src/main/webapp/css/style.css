@@ -57,12 +57,12 @@ section{padding:40px 0;}
 .header .logo span{font-size:30px;font-weight:700;letter-spacing:1px;color:var(--secondary-color);margin-top:3px}
 .header a.logo { padding:0px;}
 @media screen and (max-width: 768px) {
-.header .logo img{ max-height:40px}
+.header .logo img{ width: 190px;}
 
 }
 
 @media screen and (max-width: 560px) {
-.header .logo img{ max-height:35px; margin-right:2px;}
+.header .logo img{ margin-right:2px; width: 190px;}
 
 }
 /*--------------------------------------------------------------
@@ -113,7 +113,7 @@ section{padding:40px 0;}
 .mobile-nav-toggle.bi-x{color:#fff}
 @media (max-width:1023px) {
 .mobile-nav-toggle{display:block; }
- .navbar ul{display:none}  
+ /* .navbar ul{display:none}   */
 
 }
 
@@ -178,7 +178,7 @@ section{padding:40px 0;}
 .hero{height:auto;padding:120px 0 60px; }
 }
 @media (max-width: 768px) {
-.hero{text-align:center; padding:70px 0px ; margin-top:50px;}
+.hero{text-align:center; padding:70px 0px ; margin-top:15px;}
 .hero-search-content{ border-radius:10px; padding:15px 10px;}
  
 .hero-search-content input:focus{border-bottom:1px solid #ddd !important; box-shadow:none !important;}
@@ -205,7 +205,7 @@ section{padding:40px 0;}
 @media (max-width: 768px) {
 .work .workbox{ margin:0px;}  
 .work .arrow-up{ display:none;}
-
+.header-inner{flex-wrap:wrap;gap:15px;}
 }
 @media (max-width: 1024px) {
   .work .arrow-up img{ width:65%;}
@@ -416,12 +416,12 @@ li.stepvisited {color:#009347!important}
 #stepindicator{width:100%;padding-bottom:20px;margin-left:20px}
 }
  
-.select2-container, .select2-container .select2-selection--single  { height:50px !important;}
+.select2-container, .select2-container .select2-selection--single  { height:50px;}
 .select2-container--default .select2-selection--single{ border:none !important;}
 .select2-container .select2-selection--single .select2-selection__rendered {  height:50px; border-radius:5px; margin-bottom:2px; font-weight:500;  color: var(--black-color); font-size:14px;  box-shadow: 0 1px 2px 0 rgba(141, 141, 141, 0.2);  border: solid 1px #ddd !important;  background-color: #ffffff;}
 .select2-container--default .select2-selection--single .select2-selection__rendered{line-height:50px !important;}
 .select2-container--default .select2-selection--single .select2-selection__arrow b{top:86% !important;  margin-left: -15px !important; } 
-.select2-container--default .select2-selection--multiple{ height: 50px;   border-radius: 5px;  margin-bottom:2px;  font-weight:500;  color:var(--black-color); font-size:15px;    box-shadow: 0 1px 2px 0 rgba(141, 141, 141, 0.2);  border: solid 1px #ddd !important;  background-color:#ffffff;}
+.select2-container--default .select2-selection--multiple{ min-height: 50px !important;   border-radius: 5px;  margin-bottom:2px;  font-weight:500;  color:var(--black-color); font-size:15px;    box-shadow: 0 1px 2px 0 rgba(141, 141, 141, 0.2);  border: solid 1px #ddd !important;  background-color:#ffffff;}
 .select2-container--default .select2-selection--multiple .select2-selection__choice{ background-color: #fff !important;   border: 1px solid #ccc !important;    margin-left: 8px !important;  margin-top: 8px !important;   padding:1px !important;}
 .select2-container--default .select2-selection--multiple .select2-selection__choice__display{ font-size:13px;}
 .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{ background-color: #002955 !important;   color: white;}
@@ -432,7 +432,7 @@ li.stepvisited {color:#009347!important}
 .form-check .form-check-input{  border: solid 1px #ccc;   margin-left: -2em;}
 .form-check-input{  width:1.5em; height: 1.5em; margin-top:0px;}
 .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{ background:#023367; color:#fff;}
-.serving label{ margin-top:8px; font-size:14px; text-align:left; color:#555; font-weight:400; box-shadow:0 1px 2px 0 rgba(141,141,141,0.2); padding:7px 18px !important; border:1px solid #ddd; border-radius:100px;}
+.serving label{ margin-top:8px; font-size:14px; text-align:left; color:#555; font-weight:400; box-shadow:0 1px 2px 0 rgba(141,141,141,0.2) !important; padding:7px 18px !important; border:1px solid #ddd; border-radius:100px;}
 .serving label span{ display: block; font-weight: 600;  }
 .serving label:hover{ border:1px solid #777 !important; background:#eee; }
 .serving ul{ margin:0px; padding:0px;}
@@ -602,7 +602,7 @@ label.required::after{content:"*";color:#ee0505fd;margin-left:2px}
 
 .searchboxtop{width:380px; margin:0px auto;    } 
 .searchboxtop .hero-search-content .fa-icon img{ right:15px !important; left: auto; top:4px; cursor: pointer; }
-.searchboxtop .input-with-icon .form-control{ padding-left:20px;}
+.searchboxtop .input-with-icon .form-control{ padding-left:20px;padding-right: 45px;}
 .searchboxtop .hero-search-content .form-control{height:30px; min-height: auto; margin:0px;}
 .searchboxtop .hero-search-content{padding:5px;  border:1px solid #ddd; box-shadow:none}
 .searchbox .select2-container .select2-search--inline .select2-search__field {margin-top:13px !important;}
@@ -854,7 +854,7 @@ ul.popovers{list-style:none; margin:0px; padding:0px;}
 
 
 /*Sachin CSS*/
-.desc div{display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;    height: 40px;}
+.desc div{display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;height:25px;}
 .desc{display: flex;align-items: start;gap: 5px;}
 .desc img{margin-top: 4px;}
 .featuredJoblist .listbox .list-price ul{display:flex;justify-content: space-between;flex-wrap: wrap;}
@@ -862,24 +862,40 @@ ul.popovers{list-style:none; margin:0px; padding:0px;}
 .slick-initialized .slick-slide .listbox{min-height: 220px;padding-bottom:10px;position:relative;}
 .featuredJoblist .listbox .daytxt{gap:10px;}
 .slick-initialized .slick-slide .listbox .save{position: absolute;right: 20px;bottom: 10px;cursor:pointer;}
-.appliedjob{margin-right: auto !important;padding: 3px 10px;border: 1px solid #44bc74;border-radius: 85px;color: #44bc74;}
+.appliedjob{margin-right: auto !important;padding: 3px 10px;color: #44bc74;}
 .appliedjob img{ width: 15px;}
 .page-item .page-link{color: var(--secondary-color);}
 .active>.page-link, .page-link.active{background-color: var(--secondary-color);color:#fff}
 .page-link:hover, .page-link:focus{background-color:var(--white-color);box-shadow:none;}
-a.btn-goBack{color:#222b35;cursor:pointer;border: 1px solid #1c3968;padding: 5px 10px;border-radius: 4px;min-width: 85px;}
-a.btn-goBack:hover{opacity:.7}
+a.btn-goBack{color:#222b35;cursor:pointer;border: 1px solid #1c3968;padding: 5px 10px;border-radius: 44px;min-width: 85px;}
+a.btn-goBack:hover{background-color:#1c3968;color:#fff;}
 :not(.btn-check)+.btn-goBack:active, .btn-goBack:focus, .btn:focus-visible {background: transparent !important;border:none;outline:0;}
 #Appliedjob {background:#38a50e;color:var(--white-color);border-color:#38a50e;padding: 8px 30px;}
+/* .applyNow.appliedjob{background:#38a50e;color:var(--white-color);border-color:#38a50e;padding: 8px 30px;} */
 .navbar a.logo:focus{padding: 0px 0 0px 0px;}
- .select2-container--default .select2-selection--single .select2-selection__placeholder {color: #999;padding-left: 30px;}
- .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field{padding-left: 35px;}
-/* .select2-container .select2-selection--single .select2-selection__rendered{padding-left:40px !important;}*/
- 
+ .modal-body .select2-container--default .select2-selection--single .select2-selection__placeholder {color: #999;padding-left: 30px;}
+ .modal-body .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field{padding-left: 35px;}
+ .btn-check:focus-visible+.btn{border-color:#ddd !important;}
+ .serving label:focus-visible, .serving label:focus{border:1px solid #777 !important;box-shadow: 0 1px 2px 0 rgba(141, 141, 141, 0.2);}
+ .preferdLocation .select2-container{    height: auto !important;z-index: 99;}
+ .searchbox .hero-search-content .select2-container{height:auto;}
+ .searchbox .hero-search-content .select2-container--default .select2-selection--multiple {text-align: left;white-space: nowrap;width: 210px;display: inline-block;overflow-x: scroll;}
+ .modal-body .searchbox .hero-search-content .select2-container--default .select2-selection--multiple .select2-selection__choice:first-child{margin-left: 35px !important;}
+ .select2-container--default .select2-selection--single .select2-selection__rendered{}
+ .countdown{position: absolute;top: 52%;right: 100px; transform: translateY(-59%);cursor: pointer;}
+ /* Search box scroll bar */
+ .searchbox .hero-search-content .select2-container--default .select2-selection--multiple::-webkit-scrollbar {width: 5px;height:7px;}
+.searchbox .hero-search-content .select2-container--default .select2-selection--multiple::-webkit-scrollbar-thumb {border-radius: 10px;}
+.modal-body .searchbox .select2-container .select2-selection--single .select2-selection__rendered{padding-left: 38px;} 
+.searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field {padding-left: 30px;}
+.searchbox .hero-search-content .select2-container--default{padding-left: 30px;}
+
+
+
  @media (min-width: 992px) and (max-width:1024px) {
  .applyNow{white-space: nowrap;}
-.featuredJoblist .listbox .daytxt {flex-wrap: wrap;}
-.featuredJoblist .listbox .list-price ul{flex-wrap: wrap;}
+.featuredJoblist .listbox .daytxt {flex-wrap: wrap;}	
+.featuredJoblist .listbox .list-price ul{flex-wrap: wrap;} 
 }
  @media screen and (max-width:768px){
 	.featuredJoblist .listbox p{font-size: 13px;}
@@ -888,3 +904,12 @@ a.btn-goBack:hover{opacity:.7}
 	.searchbox .hero-search-content .select2-container .select2-selection--single .select2-selection__rendered{text-align:start;}
 	.searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field {padding-left: 40px;}
 }
+ @media screen and (max-width:475px){
+ .featuredJoblist .listbox {
+    padding: 8px;
+ }
+ .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field {
+        padding-left: 20px;
+    }
+   .section{padding: 0px 0;}
+ }

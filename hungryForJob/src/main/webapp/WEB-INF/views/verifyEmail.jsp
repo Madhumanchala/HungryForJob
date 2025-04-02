@@ -69,18 +69,18 @@
                       </div>
                     </div>
                     <div id="messageContainer"></div>
-                    <div class="col-lg-12 col-md-12 col-sm-12" style="display:none;" id="otpInputContainer">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-2" style="display:none;" id="otpInputContainer">
                         <div class="form-group">
                             <div class="text-center">
-                                <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP">
-                                <span id="resendOtp" style="position:absolute; top:50%; right:10px; transform:translateY(-50%); cursor:pointer; color:blue;" onclick="checkValidation()">Resend OTP</span>
-                                <button id="verifyOTPBtn" class="btns mt-4" onclick="verifyOtp()">Verify OTP</button>
+                                <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP" onkeyup="checkOnlyNumbers(this,'')" maxlength="4">
+                                 <span class="countdown"></span> <span id="resendOtp" style="position:absolute; top:50%; right:10px; transform:translateY(-50%); cursor:pointer; color:blue;" onclick="checkValidation()">Resend OTP</span>
+                                <button id="verifyOTPBtn" class="btns mt-5" onclick="verifyOtp()">Verify OTP</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12 text-center" id="verifyemail">
-                      <button class="btns" onclick="checkValidation()">Verify Email </button>
+                      <button class="btns" onclick="checkValidation()" id='verify_email_1'>Verify Email </button>
                     </div>
 
                     <div class="col-md-12 text-center mt-4">
@@ -101,6 +101,7 @@
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/verifyEmail.js"></script>
+  <script src="js/commonvalidation.js"></script>
   <!-- <script src="js/toastr.min.js" type="text/javascript"></script> -->
   <script>
     var cd;
@@ -187,6 +188,93 @@
       }
     }
   </script>
+  <script>
+  
+  document.getElementById("verify_email_1").addEventListener("click", () => {
+	  	checkValidation();
+	  	countdownfun();
+	});
+  
+  function countdownfun()
+  {
+	  const timerDisplay = document.querySelector(".countdown");
+
+	    if (!timerDisplay) {
+	        console.error("Countdown element not found!");
+	        return;
+	    }
+
+	    let timeLeft = 180; // 3 minutes in seconds
+
+	    function formatTime(time) {
+	    	console.log(time);
+	    	//const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+	        //const seconds = String(time % 60).padStart(2, '0');
+	        // return `${minutes}:${seconds}`;
+	        
+	        let minutes = Math.floor(time / 60);
+  		let remainingSeconds = time % 60;
+  		
+  		let minStr = minutes < 10 ? "0" + minutes : minutes;
+  	    let secStr = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+  	    
+  	    return minStr + ":" + secStr;
+	        
+	        //return minutes +":"+ seconds;
+	    }
+
+	    timerDisplay.textContent = formatTime(timeLeft);
+
+	    const timerInterval = setInterval(() => {
+	        if (timeLeft > 0) {
+	            timeLeft--;
+	            timerDisplay.textContent = formatTime(timeLeft);
+	        } else {
+	            clearInterval(timerInterval);
+	        }
+	    }, 1000);
+  }
+  
+  /* document.addEventListener("DOMContentLoaded", function () {
+	    const timerDisplay = document.querySelector(".countdown");
+
+	    if (!timerDisplay) {
+	        console.error("Countdown element not found!");
+	        return;
+	    }
+
+	    let timeLeft = 180; // 3 minutes in seconds
+
+	    function formatTime(time) {
+	    	console.log(time);
+	    	//const minutes = String(Math.floor(time / 60)).padStart(2, '0');
+	        //const seconds = String(time % 60).padStart(2, '0');
+	        // return `${minutes}:${seconds}`;
+	        
+	        let minutes = Math.floor(time / 60);
+    		let remainingSeconds = time % 60;
+    		
+    		let minStr = minutes < 10 ? "0" + minutes : minutes;
+    	    let secStr = remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds;
+    	    
+    	    return minStr + ":" + secStr;
+	        
+	        //return minutes +":"+ seconds;
+	    }
+
+	    timerDisplay.textContent = formatTime(timeLeft);
+
+	    const timerInterval = setInterval(() => {
+	        if (timeLeft > 0) {
+	            timeLeft--;
+	            timerDisplay.textContent = formatTime(timeLeft);
+	        } else {
+	            clearInterval(timerInterval);
+	        }
+	    }, 1000);
+	}); */
+    </script>
+  
 </body>
 
 </html>

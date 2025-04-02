@@ -84,7 +84,7 @@
 													</div>
 													<div
 														class="col-xxl-5 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
-														<div class='CaptchaWrap'>
+														<div class='CaptchaWrap employerlogin'>
 															<div id="CaptchaImageCode" class="CaptchaTxtField">
 																<canvas id="CapCode" class="capcode"></canvas>
 															</div>

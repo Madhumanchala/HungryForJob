@@ -30,7 +30,7 @@
 		  <li><a class="register" href="/verifyEmail">Register</a></li>
           <li><a href="/employerlogin">Employer Login</a></li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+<!--         <i class="bi bi-list mobile-nav-toggle"></i> -->
       </nav><!-- .navbar -->
     </div>
   </header><!-- End Header -->

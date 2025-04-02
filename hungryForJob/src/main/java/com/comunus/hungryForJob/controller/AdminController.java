@@ -1,5 +1,11 @@
 package com.comunus.hungryForJob.controller;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.comunus.hungryForJob.config.Configs;
 import com.comunus.hungryForJob.config.WebClientConfig;
 import com.comunus.hungryForJob.config.WebClientResponse;
-import com.comunus.hungryForJob.constant.ApplicationConstant;
+import com.comunus.hungryForJob.constant.AdminApplicationConstant;
 import com.comunus.hungryForJob.model.AdminModel;
+import com.comunus.hungryForJob.model.Dashboard;
 import com.comunus.hungryForJob.model.ResponseModel;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
 //import com.comunus.hungryForJobs.config.Configs;
@@ -40,241 +47,192 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @Log4j2
 public class AdminController {
-    @Autowired
-    private WebClientConfig myWebClient;
+	@Autowired
+	private WebClientConfig myWebClient;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-    @GetMapping("/businessUsersDetails")
-    public String getBusinessUsersDetails(Model model, HttpSession session, HttpServletRequest request) {
-        log.info("===== Entering getBusinessUsersDetails =====");
-        WebClientResponse response = null;
-
-        try {
-            String username = null;
-            if (session.getAttribute("candidateId") != null) {
-                username = session.getAttribute("candidateId").toString();
-                log.info("Session candidateId: {}", username);
-            } else {
-                log.warn("Session expired or candidateId is not set.");
-            }
-
-            if (username != null && !username.matches("\\d+")) {
-                throw new IllegalArgumentException("Invalid candidateId: " + username);
-            }
-
-            String url = Configs.urls.get(ApplicationConstant.getBusinessUsersDetails).getUrl();
-            log.info("Requesting URL: {}", url);
-
-            response = myWebClient.post(url, username).block();
-            log.info("Response status code: {}", response.getStatusCode());
-
-            if (response.getToken() != null) {
-                request.getSession().setAttribute("token", "Bearer " + response.getToken());
-            }
-
-            if (response.getStatusCode() == 200) {
-                ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(
-                        response.getBody(),
-                        new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
-
-                if ("0000".equals(responseModel.getErrors().getErrorCode())) {
-                    log.info("Fetched business user details successfully");
-//                    model.addAttribute("CompanyDetails", responseModel.getData().getFetchBusinessUsersDetails());
-                    model.addAttribute("CompanyDetails", responseModel.getData().getFetchBusinessUsersDetails());
-
-                } else {
-                    log.warn("Error in response: {}", responseModel.getErrors());
-                }
-            }
-        } catch (Exception e) {
-            log.error("An unexpected error occurred: ", e);
-        }
-        return "businessUsers";
-    }
-    
-    @ResponseBody
-    @PostMapping("/updatePlanStatus")
-    public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(
-            @RequestParam("gst_no") String gst_no, 
-            @RequestParam("currentStatus") int currentStatus, 
-            HttpServletRequest request, 
-            HttpSession session) {
-        
-        String status = String.valueOf(currentStatus); // Convert currentStatus to string
-        
-        AdminModel companyplanDetails = new AdminModel();
-        companyplanDetails.setGst_no(gst_no);
-        companyplanDetails.setStatus(status); // Set the new status (0 or 1)
-        
-        log.info("====== updatePlanStatus ======");
-
-        WebClientResponse response = null;
-
-        try {
-            String username = null;
-            if (session.getAttribute("candidateId") != null) {
-                username = session.getAttribute("candidateId").toString();
-            } else {
-                log.info("Session expired or candidateId is not set.");
-            }
-            
-            // Prepare the URL for the service
-            String Url = Configs.urls.get(ApplicationConstant.UpdatePlanStatus).getUrl();
-            log.info("======= updatePlanStatus ====== " + Url);
-            
-            // Send the request
-            response = myWebClient.post(Url, companyplanDetails).block();
-
-            // Handle the response token (if any)
-            if (response.getToken() != null) {
-                log.info("s.getToken(): " + response.getToken());
-                request.getSession().setAttribute("token", "Bearer " + response.getToken());
-            }
-
-            // Check if the response is successful
-            if (response.getStatusCode() == 200) {
-                // Parse the response
-                ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(
-                        response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
-
-                // Check if there was an error in the response
-                if ("0000".equals(responseModel.getErrors().getErrorCode())) {
-                    return responseModel; // Success case
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Exception in updatePlanStatus: " + e.getMessage());
-        }
-
-        return null; // Return null in case of an error
-    }
-    
-    @GetMapping("/registerCompanyDetails")
-    public String getRegisterCompanyDetails(Model model, HttpSession session, HttpServletRequest request) {
-        log.info("===== Entering registerCompanyDetails =====");
-        WebClientResponse response = null;
-
-        try {
-            String username = null;
-            if (session.getAttribute("candidateId") != null) {
-                username = session.getAttribute("candidateId").toString();
-                log.info("Session candidateId: {}", username);
-            } else {
-                log.warn("Session expired or candidateId is not set.");
-            }
-
-            if (username != null && !username.matches("\\d+")) {
-                throw new IllegalArgumentException("Invalid candidateId: " + username);
-            }
-
-            String url = Configs.urls.get(ApplicationConstant.getRegisterCompanyDetails).getUrl();
-            log.info("Requesting URL: {}", url);
-
-            response = myWebClient.post(url, username).block();
-            log.info("Response status code: {}", response.getStatusCode());
-
-            if (response.getToken() != null) {
-                request.getSession().setAttribute("token", "Bearer " + response.getToken());
-            }
-
-            if (response.getStatusCode() == 200) {
-                ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(
-                        response.getBody(),
-                        new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
-
-                if ("0000".equals(responseModel.getErrors().getErrorCode())) {
-                    log.info("Fetched Register Company Details successfully");
-//                    model.addAttribute("CompanyDetails", responseModel.getData().getFetchBusinessUsersDetails());
-                    model.addAttribute("registerCompanyDetails", responseModel.getData().getRegisterCompanyDetails());
-
-                } else {
-                    log.warn("Error in response: {}", responseModel.getErrors());
-                }
-            }
-        } catch (Exception e) {
-        	e.printStackTrace();
-            log.error("An unexpected error occurred: ", e);
-        }
-        return "registerCompanyDetails";
-    }
-    
-    @GetMapping("/verificationPendingDetails")
-    public String getVerificationPendingDetails(Model model, HttpSession session, HttpServletRequest request) {
-        log.info("===== Entering getVerificationPendingDetails =====");
-        WebClientResponse response = null;
-
-        try {
-            String username = null;
-            if (session.getAttribute("candidateId") != null) {
-                username = session.getAttribute("candidateId").toString();
-                log.info("Session candidateId: {}", username);
-            } else {
-                log.warn("Session expired or candidateId is not set.");
-            }
-
-            if (username != null && !username.matches("\\d+")) {
-                throw new IllegalArgumentException("Invalid candidateId: " + username);
-            }
-
-            String url = Configs.urls.get(ApplicationConstant.getVerificationPendingDetails).getUrl();
-            log.info("Requesting URL: {}", url);
-
-            response = myWebClient.post(url, username).block();
-            log.info("Response status code: {}", response.getStatusCode());
-
-            if (response.getToken() != null) {
-                request.getSession().setAttribute("token", "Bearer " + response.getToken());
-            }
-
-            if (response.getStatusCode() == 200) {
-                ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(
-                        response.getBody(),
-                        new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
-
-                if ("0000".equals(responseModel.getErrors().getErrorCode())) {
-                    log.info("Fetched Verification Pending Details successfully");
-//                    model.addAttribute("CompanyDetails", responseModel.getData().getFetchBusinessUsersDetails());
-                    model.addAttribute("PendingDetails", responseModel.getData().getVerificationPendingDetails());
-
-                } else {
-                    log.warn("Error in response: {}", responseModel.getErrors());
-                }
-            }
-        } catch (Exception e) {
-        	e.printStackTrace();
-            log.error("An unexpected error occurred: ", e);
-        }
-        return "verificationPendingDetails";
-    }
-    
-
-	@GetMapping("/adminIndex")
-	public String getIndex(Model model) {
-		log.info("=====  getAdminIndex    ======");
-		WebClientResponse response=null;
+	@PostMapping("/updateplanpriority")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> getBusinessUsersDetails(Model model, HttpSession session,
+			HttpServletRequest request, @RequestBody Dashboard dash) {
+		log.info("===== Entering getBusinessUsersDetails =====");
+		WebClientResponse response = null;
 		try {
-		     String Url=Configs.urls.get(ApplicationConstant.AdminIndex).getUrl();
-		     log.info("@@@@ searched job "+Url);
-		     response = myWebClient.post(Url,null).block();
-//		     if(response.getStatusCode() == 200)
-//		     {
-//		    	 ServiceResponseWrapperModel<ResponseModel> responsemodel= objectMapper.readValue(
-//		    			 response.getBody(),new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
-//		    	 if(responsemodel.getErrors().getErrorCode().equals("0000"))
-//		    	 {
-//		    			model.addAttribute("jobDetails", responsemodel.getData().getJobPostingDetails());
-//		    	 }
-//		     }
-		}catch (Exception e1) { 
-			e1.printStackTrace();
-			log.info("Exception in adminIndex"+e1.getMessage());
+
+			String url = Configs.urls.get(AdminApplicationConstant.UpdatePlanPriority).getUrl();
+			log.info("Requesting URL: {}", url);
+
+			response = myWebClient.post(url, dash).block();
+			log.info("Response status code: {}", response.getStatusCode());
+
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+
+				return responseModel;
+			}
+		} catch (Exception e) {
+			log.error("An unexpected error occurred: ", e);
 		}
-		    	 
-		return "adminIndex";
+		return null;
+	}
+
+	@ResponseBody
+	@PostMapping("/updatePlanStatus")
+	public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(@RequestBody AdminModel adminmodel) {
+		log.info("====== updatePlanStatus ======");
+		WebClientResponse response = null;
+		try {
+
+			String Url = Configs.urls.get(AdminApplicationConstant.UpdatePlanStatus).getUrl();
+			log.info("======= updatePlanStatus ====== " + Url);
+
+			response = myWebClient.post(Url, adminmodel).block();
+
+			if (response.getStatusCode() == 200) {
+				// Parse the response
+				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+
+				return responseModel;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Exception in updatePlanStatus: " + e.getMessage());
+		}
+
+		return null; // Return null in case of an error
+	}
+
+	@PostMapping("/registerplandetails")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> addregisterplandetails(Model model, HttpSession session,
+			HttpServletRequest request, @RequestBody Dashboard dash) {
+		log.info("===== Entering registerCompanyDetails =====");
+		WebClientResponse response = null;
+
+		try {
+
+			String url = Configs.urls.get(AdminApplicationConstant.RegisterPlanDetails).getUrl();
+
+			response = myWebClient.post(url, dash).block();
+			log.info("Response status code: {}", response.getStatusCode());
+
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+
+				return responseModel;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("An unexpected error occurred: ", e);
+		}
+		return null;
+	}
+
+	@GetMapping("/adminpricingplandetails")
+	public String adminpricingplandetails(Model model, HttpSession session, HttpServletRequest request,
+			AdminModel adminmodel) {
+		log.info("===== Entering getVerificationPendingDetails =====");
+		WebClientResponse response = null;
+
+		try {
+
+			String url = Configs.urls.get(AdminApplicationConstant.adminpricingplandetails).getUrl();
+			log.info("Requesting URL: {}", url);
+
+			response = myWebClient.post(url, adminmodel).block();
+			log.info("Response status code: {}", response.getStatusCode());
+
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+
+				if ("0000".equals(responseModel.getErrors().getErrorCode())) {
+					log.info("Fetched Verification Pending Details successfully");
+					model.addAttribute("plandetails", responseModel.getData().getPlandetails());
+					model.addAttribute("plansize", responseModel.getData().getPlandetails().size());
+					List<Integer> priorities = responseModel.getData().getPlandetails().stream()
+							.map(plandetail -> Integer.parseInt(plandetail.getPlanPriority()))
+							.filter(priority -> priority != null) // Exclude 0 and null
+							.collect(Collectors.toList());
+					model.addAttribute("planpriority", priorities);
+					log.info(" prority === " + priorities);
+
+				} else {
+					log.warn("Error in response: {}", responseModel.getErrors());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("An unexpected error occurred: ", e);
+		}
+		return "adminpricingplandetails";
+	}
+
+	@GetMapping("/admindashboard")
+	public String getIndex(Model model, HttpServletRequest request) {
+		log.info("=====  getAdminIndex    ======");
+		WebClientResponse response = null;
+		AdminModel admin = new AdminModel();
+		try {
+			String Url = Configs.urls.get(AdminApplicationConstant.admindashboard).getUrl();
+			String statusvalue = Optional.ofNullable(request.getParameter("statusvalue")).orElse("");
+			log.info("@@@@ searched job " + Url);
+			admin.setAdminstatus(statusvalue);
+			response = myWebClient.post(Url, admin).block();
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
+
+					model.addAttribute("companydetails", responsemodel.getData().getRegisterCompanyDetails());
+					model.addAttribute("countOfCompanyDetails", responsemodel.getData().getCountOfCompanyDetails());
+					model.addAttribute("statusvalue", statusvalue);
+					model.addAttribute("plandetails", responsemodel.getData().getPlandetails());
+				}
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			log.info("Exception in adminIndex" + e1.getMessage());
+		}
+
+		return "admindashboard";
 	}
 	
+	@PostMapping("/updateadminplandetails")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> updateadminplandetails(Model model, HttpSession session,
+			HttpServletRequest request, @RequestBody Dashboard dash) {
+		log.info("===== Entering updateadminplandetails =====");
+		WebClientResponse response = null;
+		try {
+
+			String url = Configs.urls.get(AdminApplicationConstant.UpdatePlanDetails).getUrl();
+
+			response = myWebClient.post(url, dash).block();
+			log.info("Response status code: {}", response.getStatusCode());
+
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				return responseModel;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("An unexpected error occurred: ", e);
+		}
+		return null;
+	}
+
 }

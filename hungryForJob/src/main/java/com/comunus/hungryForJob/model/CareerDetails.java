@@ -66,6 +66,6 @@ public class CareerDetails {
 	public String lastActive;
 	public String paginationOffSet;
 	public String paginationTotalPages;
-	
+	public String cvUploadedDate;
 	
 }

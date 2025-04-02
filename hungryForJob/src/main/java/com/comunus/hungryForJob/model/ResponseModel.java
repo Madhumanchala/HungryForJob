@@ -47,9 +47,8 @@ public class ResponseModel {
 	
 	private List<Menu> menudetails;
 	
-	private List<AdminModel> fetchBusinessUsersDetails;
 	private List<AdminModel> registerCompanyDetails;
-	private List<AdminModel> verificationPendingDetails;
+	private AdminModel countOfCompanyDetails;
 	
 	private List<FolderDetails> folderDetails;
 	private List<FolderDetails> folderCandidateDetais;

@@ -40,5 +40,6 @@ public interface EmployeerAppplicationConstant {
 	String UPDATE_SEARCHDETAILS = "updatesavesearchdetails";
 	String ADD_COMMENTS="addComments";
 	String CHECK_POINTS="checkPoints";
+	String GetAllPriceData="getAllPriceData";
 
 }

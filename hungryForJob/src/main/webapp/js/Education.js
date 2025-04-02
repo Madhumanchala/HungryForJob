@@ -223,6 +223,13 @@ $('#marks').on('keyup', function() {
 		
 	}else if(gradingValue == 79)
 	{
+		if(value.endsWith("."))
+		{
+			return ;
+		}else
+		{
+			value=parseFloat($("#marks").val());
+		}
 		if (value > 0 && value <= 4) {
 			editGrade.value = value;
 		} else if (value == NaN) {
@@ -237,6 +244,13 @@ $('#marks').on('keyup', function() {
 		
 	}else if(gradingValue == 80)
 	{
+		if(value.endsWith("."))
+		{
+			return ;
+		}else
+		{
+			value=parseFloat($("#marks").val());
+		}
 		if (value > 0 && value <= 100) {
 			editGrade.value = value;
 		} else if (value == NaN) {

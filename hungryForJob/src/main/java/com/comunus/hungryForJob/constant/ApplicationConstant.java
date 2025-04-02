@@ -37,12 +37,6 @@ public interface ApplicationConstant {
 	String ADD_NEW_COMPANY="addNewCompany";
 	String GET_CANDIDATE_BY_ID="getCandidateById";
 	String EMPLOYER_ADD_CANDIDATES="empaddCandidates";
-	
-	String getBusinessUsersDetails = "businessUsersDetails";
-	String UpdatePlanStatus = "updatePlanStatus";
-	String getRegisterCompanyDetails = "registerCompanyDetails";
-	String getVerificationPendingDetails = "verificationPendingDetails";
-	String AdminIndex = "AdminIndex";
 	String FORGETPASSWORDVERIFY="ForgotPassVerifyEmail";
 
 }

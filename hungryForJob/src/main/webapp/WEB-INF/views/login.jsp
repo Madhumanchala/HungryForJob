@@ -26,7 +26,7 @@
 		<section class="section-inner login-bg">
 			<div class="container">
 				<div class="row ">
-					<div class="col-xl-7 col-lg-6 col-md-6 ">
+					<div class="col-xl-8 col-lg-6 col-md-6 ">
 						<div class="login-img">
 							<img src="img/login-img.svg">
 						</div>
@@ -34,7 +34,7 @@
 
 					<div class="col-xl-4 col-lg-6 col-md-6  ">
 						<div class="card-register">
-							<form:form autocomplete="off" action="/login">
+							<form:form autocomplete="off" action="/login" onsubmit="return validationform()">
 								<div class="card-registerinner  ">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 text-center">
@@ -44,16 +44,19 @@
 											<div class="form-group">
 												<label for="emailInput" class="required">Email ID </label> <input
 													type="email" class="form-control" id="emailInput"
-													placeholder="Enter Email ID" name="username">
-												<!-- <span class="errors"> Please enter your Email ID</span>-->
+													placeholder="Enter Email ID" name="username" onkeyup="hideErrorByClass('email_error')"
+													maxlength="30">
+												<span class="email_error errors"></span>
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label for="password" class="required">Password </label> <input
 													type="password" class="form-control" id="password"
-													placeholder="Enter Password" name="password"> <i
+													placeholder="Enter Password" name="password" onkeyup="hideErrorByClass('password_error')"
+													maxlength="30"> <i
 													class="toggle-password passwordeye bi-eye-slash-fill"></i>
+												<span class="password_error errors"></span>
 											</div>
 										</div>
 										<input type="hidden" name="roletype" value="candidate"/>
@@ -63,8 +66,9 @@
 													<div class="col-lg-6 col-md-6 col-sm-6 col-5">
 														<input type="text" id="UserCaptchaCode" name="captcha"
 															class=" form-control" placeholder='Enter Captcha'
-															autocomplete="off" onkeyup="CheckCaptcha()" minlength="4"
-															required>
+															autocomplete="off" onkeyup="CheckCaptcha()" maxlength="4"
+															>
+														<span class="captcha_error errors"></span>
 													</div>
 													<div class="col-lg-6 col-md-6 col-sm-6 col-7">
 														<div class='CaptchaWrap'>
@@ -82,11 +86,11 @@
 										<div class="col-lg-12 text-center">
 											<button type="submit" class="btns">Login</button>
 										</div>
-										<div class="col-md-12 text-center mt-3">
+										<div class="col-md-12 text-center mt-2">
 											<a class="text-primary forgot" href="#"
 												onclick="forgetpassword()">Forgot Password ?</a>
 										</div>
-										<div class="col-md-12 text-center mt-3">
+										<div class="col-md-12 text-center mt-2">
 											Don't have an account? <a class="text-primary"
 												href="verifyEmail">Click Here</a>
 										</div>
@@ -107,6 +111,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/menu.js"></script>
+	<script src="js/commonvalidation.js"></script>
 	<script>
 
 		var cd;
@@ -175,6 +180,7 @@
 
 		// Check Captcha
 		function CheckCaptcha() {
+			$(".captcha_error").hide();
 			var result = ValidateCaptcha();
 			var created_captcha = removeSpaces(cd);
 			var entered_captcha = removeSpaces($('#UserCaptchaCode').val());
@@ -237,6 +243,35 @@
 								"bi-eye-slash-fill");
 					}
 				});
+	</script>
+	<script>
+	function validationform()
+	{
+		var isvalid=true;
+		var emailId=$("#emailInput").val();
+		var password=$("#password").val();
+		var UserCaptchaCode = $("#UserCaptchaCode").val();
+		if(emailId == "")
+		{
+			isvalid=false;
+			 $(".email_error").text("Field is required").css("color", "red");
+		}
+		if(password == "")
+		{
+			isvalid=false;
+			$(".password_error").text("field is required").css("color",'red');
+		}
+		if(UserCaptchaCode == "")
+		{
+			isvalid=false;
+			$(".captcha_error").text("field is required").css("color",'red')
+		}
+		if(isvalid)
+		{
+			sessionStorage.setItem("loginsucess", "1");
+		}
+		return isvalid;
+	}
 	</script>
 </body>
 

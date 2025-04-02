@@ -63,6 +63,10 @@ public class Dashboard {
 	public String planCV;
 	public String planValidity;
 	public String planId;
+	public String planDays;
+	public String planNumber;
+	public String planStatus;
+	public String planPriority;
 	
 	public String post;
 	public String usedPost;

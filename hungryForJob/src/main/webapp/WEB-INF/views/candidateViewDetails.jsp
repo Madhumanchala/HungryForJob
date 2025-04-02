@@ -152,8 +152,8 @@ String candidateId = (String) session.getAttribute("candidateId");
 						<div id="featuredJoblist"
 							class="featuredJoblist recommendedJob similarjobs  ">
 							<div class="row">
-								<div class="col-xl-12 col-lg-12 col-md-12 text-center">
-									<div class="jobdetails-content">
+								<div class="col-xl-12 col-lg-12 col-md-12 mt-4">
+									<div class="">
     <h4>Similar jobs</h4>
 </div>
 								</div>
@@ -161,7 +161,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 
 								<c:forEach items="${similiarJobs}" var="jobs">
 									<c:if test="${id != jobs.id}">
-										<div class="col-xl-12 col-lg-12 col-md-12 mt-4">
+										<div class="col-xl-12 col-lg-12 col-md-12">
 											<div class="listbox">
 												<div class="d-flex justify-content-between ">
 													<div class="company-details">
@@ -177,7 +177,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 												<div class="list-price">
 													<ul>
 														<li><img src="img/year.svg">${jobs.fromYearExp}.${jobs.fromMonthExp}-${jobs.toYearExp}.${jobs.toMonthExp} years</li>
-														<li><img src="img/inr.svg"> Up to ${jobs.fromCtc}.${jobs.toCtc} Lacs</li>
+														<li><img src="img/inr.svg"> ${jobs.fromCtc} - ${jobs.toCtc} Lacs</li>
 														<li><img src="img/map.svg">${jobs.areaName}</li>
 
 													</ul>

@@ -2,6 +2,7 @@
 <%
 String header3candidateName = (String) session.getAttribute("candidateName");
 String header3candidateId = (String) session.getAttribute("candidateId");
+String candidateImage1 = (String) session.getAttribute("profileImage");
 %>
 <link href="css/select2.min.css" rel="stylesheet" />
 <header id="header" class="header fixed-top">
@@ -41,7 +42,7 @@ String header3candidateId = (String) session.getAttribute("candidateId");
 						id="dropdownMenuButton" data-bs-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
 						<div class="profile-img">
-							<img src="images/profile.jpg"> <i
+							<img style="background-image: url('data:image/jpeg;base64,<%=candidateImage1%>'); border: 2px solid #fff; background-color: #e6e6e6;"> <i
 								class="bi bi-chevron-down"></i>
 						</div>
 					</button>
@@ -277,7 +278,7 @@ $(document).ready(function() {
     	let selectedText = $("#selectLocation option:selected").map(function() {
     	    return $(this).text();
     	}).get();
-    	$("#searchvalue").attr("placeholder",storedJobTitle+", "+storedExperience+" years, "+selectedText);
+    	$("#searchvalue").val(storedJobTitle+", "+storedExperience+" years, "+selectedText);
     }else
     {
     	 $("#searchvalue").attr("placeholder","Search by job, company or skills");

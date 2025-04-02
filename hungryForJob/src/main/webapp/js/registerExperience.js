@@ -213,11 +213,11 @@ function workdetailsSubmit() {
 		isValid = false;
 	}
 	if ($('#pincode').val() == "" || $('#pincode').val() == null) {
-		$('.pincode_error').text('please fill out this field').css("color", "red").show();
+		$('.pincode_error').text('Please fill out this field').css("color", "red").show();
 	}
 
 	if ($('#current_ctc').val() == "" || $('#current_ctc').val() == null) {
-		$('#current_ctc_error').text('please fill out this field').css("color", "red");
+		$('#current_ctc_error').text('Please fill out this field').css("color", "red");
 		$('#current_ctc_error').show();
 		isValid = false;
 	}
@@ -226,7 +226,7 @@ function workdetailsSubmit() {
 	});
 
 	if ($('#expected_ctc').val() == "" || $('#expected_ctc').val() == null) {
-		$('#expected_ctc_error').text('please fill out this field').css("color", "red");
+		$('#expected_ctc_error').text('Please fill out this field').css("color", "red");
 		$('#expected_ctc_error').show();
 		isValid = false;
 	}
@@ -235,7 +235,7 @@ function workdetailsSubmit() {
 	});
 
 	if (!$('input[name="wfh-option"]:checked').length) {
-		$('#wfherror').text('please fill out this field').css("color", "red");
+		$('#wfherror').text('Please fill out this field').css("color", "red");
 		$('#wfherror').show();
 		isValid = false;
 	}
@@ -244,9 +244,9 @@ function workdetailsSubmit() {
 	});
 
 	const selectedValueofwfh = $('input[name="wfh-option"]:checked').val();
-	if (selectedValueofwfh === "YES") {
+	if (selectedValueofwfh === "NO") {
 		if (!$('input[name="relocate-option"]:checked').length) {
-			$('#relocateerror').text('please fill out this field').css("color", "red");
+			$('#relocateerror').text('Please fill out this field').css("color", "red");
 			$('#relocateerror').show();
 			isValid = false;
 		}
@@ -257,7 +257,7 @@ function workdetailsSubmit() {
 	});
 
 	if ($('#current_location').val() == "" || $('#current_location').val() == null) {
-		$('#current_location_error').text('please fill out this field').css("color", "red");
+		$('#current_location_error').text('Please fill out this field').css("color", "red");
 		$('#current_location_error').show();
 		isValid = false;
 	}
@@ -265,7 +265,7 @@ function workdetailsSubmit() {
 		$('#current_location_error').hide();
 	});
 	if ($('#total_exp_years').val() == "" || $('#total_exp_years').val() == null) {
-		$('#total_exp_years_error').text('please fill out this field').css("color", "red");
+		$('#total_exp_years_error').text('Please fill out this field').css("color", "red");
 		$('#total_exp_years_error').show();
 		isValid = false;
 	}
@@ -273,7 +273,7 @@ function workdetailsSubmit() {
 		$('#total_exp_years_error').hide();
 	});
 	if ($('#total_exp_months').val() == "" || $('#total_exp_months').val() == null) {
-		$('#total_exp_months_error').text('please fill out this field');
+		$('#total_exp_months_error').text('Please fill out this field');
 		$('#total_exp_months_error').show();
 		isValid = false;
 	}
@@ -281,28 +281,28 @@ function workdetailsSubmit() {
 		$('#total_exp_months_error').hide();
 	});
 	const selectedValueofrelocate = $('input[name="relocate-option"]:checked').val();
-	if (selectedValueofrelocate === "NO") {
+	if (selectedValueofrelocate === "YES") {
 		if ($('#pref_location').val() == "" || $('#pref_location').val() == null) {
-			$('#pref_location_error').text('please fill out this field');
+			$('#pref_location_error').text('Please fill out this field');
 			$('#pref_location_error').show();
 			isValid = false;
 		}
 	}
 
 	if (!$('input[name="notice-period-option"]:checked').length) {
-		$('#servingnNoticePeriodError').text('please fill out this field').css("color", "red");
+		$('#servingnNoticePeriodError').text('Please fill out this field').css("color", "red");
 		$('#servingnNoticePeriodError').show();
 		isValid = false;
 	}
 	const selectedValueofnoticepriod = $('input[name="notice-period-option"]:checked').val();
 	if (selectedValueofnoticepriod === "YES") {
 		if ($('#notice_period').val() == "" || $('#notice_period').val() == null) {
-			$('#noticePeriodDaysError').text('please fill out this field');
+			$('#noticePeriodDaysError').text('Please fill out this field');
 			$('#noticePeriodDaysError').show();
 			isValid = false;
 		}
 		if ($('#last_working_date').val() == "" || $('#last_working_date').val() == null) {
-			$('#lastWorkingDayError').text('please fill out this field');
+			$('#lastWorkingDayError').text('Please fill out this field');
 			$('#lastWorkingDayError').show();
 			isValid = false;
 		}
@@ -318,19 +318,19 @@ function workdetailsSubmit() {
 	});
 
 	if (!$('input[name="offer-option"]:checked').length) {
-		$('#offerinhanderror').text('please fill out this field').css("color", "red");
+		$('#offerinhanderror').text('Please fill out this field').css("color", "red");
 		$('#offerinhanderror').show();
 		isValid = false;
 	}
 	const selectedValueofofferinhand = $('input[name="offer-option"]:checked').val();
 	if (selectedValueofofferinhand === "YES") {
 		if ($("#offered_ctc").val() == "" || $("#offered_ctc").val() == null) {
-			$('#offeredCtcError').text('please fill out this field').css("color", "red");
+			$('#offeredCtcError').text('Please fill out this field').css("color", "red");
 			$('#offeredCtcError').show();
 
 		}
 		if ($('#joining_date').val() == "" || $('#joining_date').val() == null) {
-			$('#joindateError').text('please fill out this field').css("color", "red");
+			$('#joindateError').text('Please fill out this field').css("color", "red");
 			$('#joindateError').show();
 
 		}
@@ -349,7 +349,7 @@ function workdetailsSubmit() {
 	});
 	$('#stateLocation').prop("disabled", false);
 	if ($('#stateLocation').val() == "" || $('#stateLocation').val() == null) {
-		$('#state_location_error').text('please fill out this field');
+		$('#state_location_error').text('Please fill out this field');
 		$('#state_location_error').show();
 		isValid = false;
 	}
@@ -727,6 +727,7 @@ function fetchCities(id)
 	                    var $select = $('<select>', {
 	                        id: 'current_location',
 	                        class: 'form-control selet2Single',
+	                        disabled: true,
 	                        css: { width: '100%' }
 	                    });
 
@@ -764,6 +765,9 @@ function fetchCities(id)
 	            }else
 	            {
 	            	$('.pincode_error').text('It is invalid pincode').css("color","red").show();
+	            	$("#current_location").attr("disabled",true);
+	            	$("#stateLocation").val("");
+	            	$("#current_location").val("");
 	            	isValidPincode=false
 	            }
 	        }else

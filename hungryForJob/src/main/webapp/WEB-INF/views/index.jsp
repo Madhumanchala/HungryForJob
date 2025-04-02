@@ -109,7 +109,7 @@
     <section id="featuredJoblist" class="featuredJoblist featuredwhitebg">
       <div class="container">
         <header class="section-header">
-          <h2>FeaturedÂ Job List</h2>
+          <h2>Featured Job List</h2>
           <p>Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over
             3000+ companies worldwide.</p>
         </header>
@@ -263,7 +263,7 @@
     <section id="work" class="work">
       <div class="container">
         <header class="section-header">
-          <h2> How itâ€™sÂ work?</h2>
+          <h2> How it's work?</h2>
           <p>To choose your trending job dream & to make future bright.</p>
         </header>
         <div class="row">

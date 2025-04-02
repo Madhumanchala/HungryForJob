@@ -106,3 +106,50 @@ function checkutr(input,id)
 		$("#"+id).show();
 	}
 }
+function validateOnlyNumber(phone) {
+    phone = phone.replace(/\D/g, ""); // Remove all non-numeric characters
+    return phone;
+}
+function checkOnlyNumbers(input,id)
+{
+	let checknumber=validateOnlyNumber(input.value);
+	input.value=checknumber;
+}
+function hideErrorByClass(id)
+{
+	$("."+id).hide();
+}
+function hideErrorById(id)
+{
+	$("#"+id).hide();
+}
+function validpincode(id) {
+	var deferred = $.Deferred();
+		$.ajax({
+		url: "getPoastalCode",
+		method: "POST",
+		data: {
+			"pincode": id
+		},
+		success: function(response) {
+			console.log(response);
+			if (response[0].Message === "No records found") {
+				deferred.reject(true);
+				showToast("info","please enter the valid pincode");
+			} 
+			else {
+				deferred.resolve(false);
+			}
+		},
+		error: function(response) {
+			console.log("error", response);
+			deferred.reject(true);
+		}
+	})
+	
+	return deferred.promise();
+}
+function reverseDate(carrerJoiningDate) {
+    let parts = carrerJoiningDate.split("-");
+    return parts.reverse().join("-");
+}

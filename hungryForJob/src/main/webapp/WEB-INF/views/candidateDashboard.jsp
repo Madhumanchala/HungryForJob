@@ -154,8 +154,10 @@ String candidateId = (String) session.getAttribute("candidateId");
 	}
 		$(document).ready(function() {
 			var sucessMsg = '${loginSucessMessage}';
-			if (sucessMsg != null && sucessMsg != '') {
+			let value = sessionStorage.getItem("loginsucess") ? sessionStorage.getItem("loginsucess") : "";
+			if (sucessMsg != null && sucessMsg != '' && value !== "") {
 				showToast('success',sucessMsg);
+				sessionStorage.removeItem("loginsucess");
 			}
 			generatePagination(currentPage);
 		});

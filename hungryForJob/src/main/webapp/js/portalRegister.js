@@ -39,6 +39,7 @@ $("#contact").on("keyup", function () {
 
   $("#password").keyup(function(){
 	  $("#confirm_password").prop("disabled", false);
+	  $(".passwordError").hide();
 	  var password = $(this).val();
 	// Define the regular expression pattern
 	var passwordPattern = /^(?=.*[!@#$%^&*()_+|{}[\]:";'<>?,./])(?=.*\d)(?=.*[A-Z]).{8,}$/;
@@ -47,7 +48,6 @@ $("#contact").on("keyup", function () {
 	if (!passwordPattern.test(password)) {
 	    // Show error message or apply error styling
 	    $(".password_error").html("<span style='color:red;font-weight:500;font-size:12px;line-height:12px;'>Password should be minimum 8 characters</span>");
-	  
 	}else {
 	    // Clear error message or reset error styling
 	    $(".password_error").text("");
@@ -59,7 +59,7 @@ $("#contact").on("keyup", function () {
 	    // Show error message or apply error styling
 	    $(".password_error").html("<span style='color:red;font-weight:500;font-size:12px;line-height:12px;'>Password should be minimum 8 characters	</span>");
 	    // Alternatively, you can apply error styling to the input field
-	    $("#password").val("");
+	   /* $("#password").val("");*/
 	    $("#confirm_password").prop("disabled", true);
 	    // $(this).addClass("error");
 	    }else {
@@ -71,6 +71,7 @@ $("#contact").on("keyup", function () {
   
 	$("#confirm_password").keyup(function(){
 		var password = $("#password").val();
+		$(".confirmPasswordError").hide();
 	    var confirm_password = $("#confirm_password").val();
 	    if(password!=confirm_password){
 	      $(".confirm_password_error").html("<span style='color:red;font-weight:500;font-size:12px;line-height:12px;'>Passwords does not match</span>");
@@ -79,74 +80,81 @@ $("#contact").on("keyup", function () {
 	      $(".confirm_password_error").html("");
 	    }
 	});
-  
 function validateForm()
 {
+	var isvalid=true;
 	var name = $("#name").val();
     var email = $("#email").val();
     var contact = $("#contact").val();
     var password = $("#password").val();
     var confirm_password = $("#confirm_password").val();
     var workStatus = $("input[name='work_status']:checked").val();
+    var gender = $("input[name='gender']:checked").val();
     var dateofBirth=$('#dateofBirth').val();
     var UserCaptchaCode = $("#UserCaptchaCode").val();
     // console.log("Name is "+name+" email is "+email+" contact is "+contact+" password "+password+" workStatus "+workStatus);
     
-    if(name == ""){
-      $(".nameError").text("Name is required");
-      $(".nameError").show();
-      $(".nameError").fadeOut(6000);
-      return false;
-    }
-    else if(contact == ""){
-      $(".contactError").text("Contact is required");
+    if(name == "")
+   	{
+		$(".nameError").text("field is required");
+     	 $(".nameError").show();
+     	 isvalid=false;
+	}
+    if(contact == ""){
+      $(".contactError").text("field is required");
       $(".contactError").show();
-      $(".contactError").fadeOut(6000);
-      return false;
+      isvalid= false;
     }
     else if(contact.length !== 10){
       $(".contactError").text("contact number should be 10 digit number");
       $(".contactError").show();
-      $(".contactError").fadeOut(6000);
-      return false;
+      isvalid= false;
     }
-    else if(password == ""){
-      $(".passwordError").text("Password is required");
+    
+    if(password == ""){
+      $(".passwordError").text("field is required");
       $(".passwordError").show();
-      $(".passwordError").fadeOut(6000);
-      return false;
-    }
-    else if(confirm_password == ""){
-      $(".confirmPasswordError").text("Please confirm the password");
+      isvalid= false;
+    }else if(!validatePassword(password))
+    {
+		isvalid=false;
+	}
+    if(confirm_password == ""){
+      $(".confirmPasswordError").text("field is required");
       $(".confirmPasswordError").show();
-      $(".confirmPasswordError").fadeOut(6000);
-      return false;
+      isvalid= false;
     }else if(password !== confirm_password)
     {
     	 $(".confirmPasswordError").text("Please enter the correct password");
     	 $(".confirmPasswordError").show();
          $(".confirmPasswordError").fadeOut(6000);
-         return false;
+        isvalid= false;
     }
-    else if (!workStatus) {
-      $(".workStatusError").text("Please select your work status");
+    
+    if (workStatus == undefined) {
+      $(".workStatusError").text("field is required");
       $(".workStatusError").show();
-      $(".workStatusError").fadeOut(6000);
-        event.preventDefault(); // Prevent form submission
-        return false;
+       isvalid= false;
+    }
+    
+    if (gender == undefined) {
+      $(".genderError").text("field is required");
+      $(".genderError").show();
+       isvalid= false;
     }
 
     if(UserCaptchaCode === ""){
-      showToast("info","please Enter captcha");
-      return false;
+      $("#WrongCaptchaError").text("field is required");
+      isvalid= false;
     }
     
     if(dateofBirth === "")
     {
-		 $(".dateofBirthError").text("Please select your work status");
+		 $(".dateofBirthError").text("field is required");
      	 $(".dateofBirthError").show();
-     	 return false;
+     	 isvalid=false;
 	}
+	return isvalid;
 }
  $("#resume_doc").change(function() {
 	  var file = $(this)[0].files[0];

@@ -47,14 +47,14 @@ String username = session.getAttribute("username").toString();
                     <div class="col-lg-6 col-md-6 col-sm-12">
                       <div class="form-group">
                         <label for="fullName" class="required">Full Name </label>
-                        <input type="text" class="form-control" id="name" name="fullName" placeholder="Enter Full Name" autocomplete="off" required maxlength="60">
+                        <input type="text" class="form-control" id="name" name="fullName" placeholder="Enter Full Name" autocomplete="off" maxlength="60">
                         <span class="nameError" style="color:red;font-weight:500;font-size:12px;"></span>
                       </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                       <div class="form-group">
                         <label for="mobileNumber" class="required">Mobile Number </label>
-                        <input type="text" class="form-control" id="contact" name="mobileNumber" placeholder="Enter Mobile Number"  autocomplete="off" required>
+                        <input type="text" class="form-control" id="contact" name="mobileNumber" placeholder="Enter Mobile Number"  autocomplete="off" maxlength="10">
                         <span class="contactError" style="color:red;font-weight:500;font-size:12px;"></span>
                       </div>
                     </div>
@@ -73,25 +73,25 @@ String username = session.getAttribute("username").toString();
                       <ul>
                         <li>
                           <input type="radio" class="btn-check" name="gender" id="male" value="male" style="margin:5px"
-                            autocomplete="off">
+                            autocomplete="off" onchange="hideErrorByClass('genderError')">
                           <label class="btn" for="male"><span>Male</span>
                           </label>
                         </li>
                         <li>
                           <input type="radio" class="btn-check" name="gender" id="female" value="female"
-                            style="margin:5px" autocomplete="off">
+                            style="margin:5px" autocomplete="off" onchange="hideErrorByClass('genderError')">
                           <label class="btn" for="female"><span>Female</span>
                           </label>
                         </li>
                       </ul>
-                      <span class="genderError errorfield"></span>
+                      <span class="genderError errorfield" style="color:red;font-weight:500;font-size:12px;"></span>
                     </div>
                   </div>
                 </div>
                  <div class="col-lg-6 col-md-6 col-sm-12">
                       <div class="form-group">
                         <label for="dateofBirth" class="required ">Date of Birth</label>
-                        <input type="text" id="dateofBirth" name="dateofBirth" class="form-control datepicker" placeholder="Enter Date Of Birth"  autocomplete="false"  required>
+                        <input type="text" id="dateofBirth" name="dateofBirth" class="form-control datepicker" placeholder="Enter Date Of Birth"  autocomplete="false"  onchange="hideErrorByClass('dateofBirthError')">
                         <span class="dateofBirthError" style="color:red;font-weight:500;font-size:12px;"></span>
                       </div>
                     </div>
@@ -106,7 +106,7 @@ String username = session.getAttribute("username").toString();
                      <i class="bi bi-info-circle-fill"></i>
                     </span> </label>
                       <div style="position:relative;">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" autocomplete="off" maxlength="20" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" autocomplete="off" maxlength="20">
                         <span id="toggle-password" class="toggle-password passwordeye bi bi-eye-slash-fill" 
                         style="font-size: 13px;top-right: 43px;position: absolute;right: 10px;top: 0;bottom: 0;margin-top: auto;margin-bottom: auto;height: 15px;"></span>
                       </div>
@@ -119,7 +119,7 @@ String username = session.getAttribute("username").toString();
                       <div class="form-group">
                         <label for="confirm_password" class="required">Confirm Password </label>
                         <div style="position:relative">
-                          <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" maxlength="20" required>
+                          <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password" maxlength="20">
                           <span id="toggle-password" class="fa fa-eye field-icon toggle-password-candidate passwordeye bi-eye-slash-fill" 
                           style="font-size: 13px;top-right: 43px;position: absolute;right: 10px;top: 0;bottom: 0;margin-top: auto;margin-bottom: auto;height: 15px;"></span>
                         </div>
@@ -133,13 +133,13 @@ String username = session.getAttribute("username").toString();
                   <label for="confirmpassword" class="form-label required">Work Status</label>
                   <div class="workstatus row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-6">
-                      <input type="radio" name="work_status" id="experienced" autocomplete="off" value="exp" class="btn-check">
+                      <input type="radio" name="work_status" id="experienced" autocomplete="off" value="exp" class="btn-check" onchange="hideErrorByClass('workStatusError')">
                       <label class="btn" for="experienced"><span> I'm experienced</span>
                       </label>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-6">
 
-                      <input type="radio" name="work_status" value="fresher" id="fresher" autocomplete="off" class="btn-check">
+                      <input type="radio" name="work_status" value="fresher" id="fresher" autocomplete="off" class="btn-check" onchange="hideErrorByClass('workStatusError')">
                       <label class="btn" for="fresher"><span>I'm a fresher </span>
                        </label>
                     </div>
@@ -163,11 +163,6 @@ String username = session.getAttribute("username").toString();
                       <div class="form-group">
                         <div class="row">
                           <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                            <input type="text" id="UserCaptchaCode" name="captcha" class=" form-control"
-                              placeholder='Enter Captcha' autocomplete="off" onkeyup="CheckCaptcha()" minlength="4"
-                              required>
-                          </div>
-                          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                             <div class='CaptchaWrap'>
                               <div id="CaptchaImageCode" class="CaptchaTxtField">
                                 <canvas id="CapCode" class="capcode"></canvas>
@@ -175,6 +170,12 @@ String username = session.getAttribute("username").toString();
                               <input type="button" class="ReloadBtn" onclick='CreateCaptcha();'>
                             </div>
                           </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                            <input type="text" id="UserCaptchaCode" name="captcha" class=" form-control"
+                              placeholder='Enter Captcha' autocomplete="off" onkeyup="CheckCaptcha()" minlength="4"
+                              >
+                          </div>
+                          
                         </div>
                         <div id="WrongCaptchaError" class="text-danger" alignment="center"></div>
                       </div>
@@ -205,6 +206,7 @@ String username = session.getAttribute("username").toString();
    <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/portalRegister.js"></script>
+   <script src="js/commonvalidation.js"></script>
   <script src="js/bootstrap-datepicker.min.js"></script>
    <script>
    

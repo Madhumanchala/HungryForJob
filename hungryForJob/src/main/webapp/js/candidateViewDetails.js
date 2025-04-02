@@ -27,6 +27,7 @@ function viewDetails(id)
 
 function appliedJob(id)
 {
+	$("#appliedJob").removeAttr("onclick");
 	$.ajax({
 		url:"appliedJobs",
 		method:"POST",
@@ -41,12 +42,14 @@ function appliedJob(id)
 				 showToast('success',"Successfully Job is applied");
 			}else
 			{
+				$("#appliedJob").attr("onclick","appliedJob("+id+")");
 				showToast('info',"Job is not applied, please try again");
 				console.log("error in saving data ",response);
 			}
 		},
 		error:function(response)
 		{
+			$("#appliedJob").attr("onclick","appliedJob("+id+")");
 			console.log("error",response);
 		}
 	});

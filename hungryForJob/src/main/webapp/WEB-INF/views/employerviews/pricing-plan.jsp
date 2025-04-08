@@ -16,6 +16,7 @@
   <!-- Vendor CSS Files -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="/employer/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/slick.css" rel="stylesheet">
   <link href="/employer/fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="/employer/css/style.css" rel="stylesheet">
 </head>
@@ -68,7 +69,8 @@
         <div class="pricing-wrapper comparison-table clearfix">
           <div class="icon-pri"><img src="/employer/img/icon-pri.svg"> </div>
           <div class="row clearfix">
-            <div class="col-md-2 col-12 pricing-col list-feature">
+          
+            <div class="col-md-2 col-12 pricing-col list-feature d-none d-sm-block">
               <div class="pricing-card">
                 <div class="pricing-header">
                   <h5>Choose a <span>plan</span> </h5>
@@ -85,7 +87,11 @@
               </div>
             </div>
            <%-- Assume pricingList contains list of plans where each plan has id, name, price, userAccess, jobPostings, searches, cvViews, validity fields --%>
-			
+	<div class="col-md-10 col-12">
+	 <div class="pricing-header">
+                  <h5>Choose a <span>plan</span> </h5>
+                </div>
+	<div class="pricingSlider">
 			<c:forEach var="plan" items="${pricingList}">
     <div class="col-md-2 col-12 pricing-col">
         <div class="pricing-card">
@@ -204,6 +210,8 @@
                 </div>
               </div>
             </div> -->
+            </div>
+            </div>
           </div>
 
         </div>
@@ -329,6 +337,7 @@
 
   <script src="/employer/js/jquery.min.js"></script>
   <script src="/employer/js/bootstrap.min.js"></script>
+    <script src="js/slick.min.js"></script>
   <script src="/employer/js/main.js"></script>
   <script>
     $(document).ready(function () {
@@ -339,6 +348,112 @@
     function storeplanId(planId) {
         sessionStorage.setItem('selectedPlanId', planId);
     }
+    
+    
+   </script>
+   <script>
+   $(".pricingSlider").slick({
+	      dots: false,
+	      margin: 60,
+	      infinite: false,
+	      arrows: true,
+	      autoplay: false,
+	      slidesToShow: 5,
+	      
+	      slidesToScroll: 1,
+	      responsive: [
+	        {
+	          breakpoint: 1100,
+	          settings: {
+	            slidesToShow: 5,
+	            infinite: false,
+	            arrows: false,
+	            autoplay: false,
+	          },
+	        },
+	        {
+	          breakpoint: 1028,
+	          settings: {
+	            slidesToShow: 3,
+	            infinite: false,
+	            arrows: true,
+
+	          },
+	        },
+	        {
+	          breakpoint: 768,
+	          settings: {
+	            slidesToShow: 2,
+	            arrows: false,
+	            autoplay: false,
+	          },
+	        },
+	        ,
+	        {
+	          breakpoint: 640,
+	          settings: {
+	            slidesToShow: 2,
+	            arrows: false,
+	            autoplay: false,
+
+	          },
+	        },
+	        {
+	          breakpoint: 480,
+	          settings: {
+	            slidesToShow: 1,
+	            arrows: true,
+	            autoplay: false,
+	            dots: false,
+	            infinite: true,
+	          },
+	        },
+	      ],
+	    });
+
+   </script>
+   
+   <script type="text/javascript">
+// jQuery Slick + toggleArrows setup
+   $(document).ready(function() {
+     const $slider = $('.pricingSlider');
+
+     $slider.slick({
+       arrows: true,
+       infinite: false // Needed to detect first/last
+     });
+
+     // Define toggleArrows function
+     function toggleArrows(current, total) {
+       // Hide prev arrow on first slide
+       if (current === 0) {
+         $('.slick-prev').hide();
+       } else {
+         $('.slick-prev').show();
+       }
+
+       // Hide next arrow on last slide
+       if (current === total - 1) {
+         $('.slick-next').hide();
+       } else {
+         $('.slick-next').show();
+       }
+     }
+
+     // Run toggleArrows on init
+     $slider.on('init', function(event, slick) {
+       toggleArrows(slick.currentSlide, slick.slideCount);
+     });
+
+     // Run toggleArrows after each slide change
+     $slider.on('afterChange', function(event, slick, currentSlide) {
+       toggleArrows(currentSlide, slick.slideCount);
+     });
+
+     // Trigger initial check (in case 'init' doesn't fire due to async content)
+     $slider.slick('setPosition');
+   });
+
    </script>
 </body>
 

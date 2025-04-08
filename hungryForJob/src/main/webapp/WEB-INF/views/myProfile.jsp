@@ -62,7 +62,7 @@ int yearInt = Integer.parseInt(year);
 								<div class="content-txt">
 									<div class="row">
 
-										<div class="col-xl-5 col-lg-6 col-md-9 col-sm-12 ">
+										<div class="col-xl-6 col-lg-6 col-md-9 col-sm-12 ">
 											<div class="form-group">
 												<label for="resume_doc" class="form-label">Upload
 													your resume here.</label> <input type="file" name="resume_doc"
@@ -77,7 +77,7 @@ int yearInt = Integer.parseInt(year);
 												<a class="btns" id="cvUpload" onclick="updateCv()">Upload</a>
 											</div>
 										</div>
-										<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 ">
+										<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
 											<div class="downloadResume">
 												<h4>
 													<a onclick="downloadResume()" style="color: white"> <i

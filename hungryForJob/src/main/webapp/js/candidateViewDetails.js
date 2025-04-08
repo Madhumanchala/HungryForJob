@@ -38,7 +38,7 @@ function appliedJob(id)
 		{
 			if(response.errorCode === "0000")
 			{
-				$("#applyJob").html('Applied').css({"background-color": "#38a50e","color":"#002a54"});
+				$("#applyJob").html('Applied').css({"background-color": "#38a50e","color":"#fff","border-color":"#38a50e", "padding":"8px 30px" });
 				 showToast('success',"Successfully Job is applied");
 			}else
 			{

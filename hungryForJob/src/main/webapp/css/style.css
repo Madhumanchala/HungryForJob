@@ -858,7 +858,7 @@ ul.popovers{list-style:none; margin:0px; padding:0px;}
 .desc{display: flex;align-items: start;gap: 5px;}
 .desc img{margin-top: 4px;}
 .featuredJoblist .listbox .list-price ul{display:flex;justify-content: space-between;flex-wrap: wrap;}
-.featuredJoblist .listbox{ min-height: 240px;}
+.featuredJoblist .listbox{ min-height: 200px;}
 .slick-initialized .slick-slide .listbox{min-height: 220px;padding-bottom:10px;position:relative;}
 .featuredJoblist .listbox .daytxt{gap:10px;}
 .slick-initialized .slick-slide .listbox .save{position: absolute;right: 20px;bottom: 10px;cursor:pointer;}
@@ -870,8 +870,7 @@ ul.popovers{list-style:none; margin:0px; padding:0px;}
 a.btn-goBack{color:#222b35;cursor:pointer;border: 1px solid #1c3968;padding: 5px 10px;border-radius: 44px;min-width: 85px;}
 a.btn-goBack:hover{background-color:#1c3968;color:#fff;}
 :not(.btn-check)+.btn-goBack:active, .btn-goBack:focus, .btn:focus-visible {background: transparent !important;border:none;outline:0;}
-#Appliedjob {background:#38a50e;color:var(--white-color);border-color:#38a50e;padding: 8px 30px;}
-/* .applyNow.appliedjob{background:#38a50e;color:var(--white-color);border-color:#38a50e;padding: 8px 30px;} */
+#Appliedjob{background:#38a50e;color:var(--white-color);border-color:#38a50e;padding: 8px 30px;} 
 .navbar a.logo:focus{padding: 0px 0 0px 0px;}
  .modal-body .select2-container--default .select2-selection--single .select2-selection__placeholder {color: #999;padding-left: 30px;}
  .modal-body .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field{padding-left: 35px;}
@@ -880,16 +879,17 @@ a.btn-goBack:hover{background-color:#1c3968;color:#fff;}
  .preferdLocation .select2-container{    height: auto !important;z-index: 99;}
  .searchbox .hero-search-content .select2-container{height:auto;}
  .searchbox .hero-search-content .select2-container--default .select2-selection--multiple {text-align: left;white-space: nowrap;width: 210px;display: inline-block;overflow-x: scroll;}
- .modal-body .searchbox .hero-search-content .select2-container--default .select2-selection--multiple .select2-selection__choice:first-child{margin-left: 35px !important;}
+ .modal-body .searchbox .hero-search-content .select2-container--default .select2-selection--multiple .select2-selection__choice:first-child{margin-left:5px !important;}
  .select2-container--default .select2-selection--single .select2-selection__rendered{}
  .countdown{position: absolute;top: 52%;right: 100px; transform: translateY(-59%);cursor: pointer;}
  /* Search box scroll bar */
  .searchbox .hero-search-content .select2-container--default .select2-selection--multiple::-webkit-scrollbar {width: 5px;height:7px;}
 .searchbox .hero-search-content .select2-container--default .select2-selection--multiple::-webkit-scrollbar-thumb {border-radius: 10px;}
-.modal-body .searchbox .select2-container .select2-selection--single .select2-selection__rendered{padding-left: 38px;} 
-.searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field {padding-left: 30px;}
-.searchbox .hero-search-content .select2-container--default{padding-left: 30px;}
-
+.modal-body .searchbox .select2-container .select2-selection--single .select2-selection__rendered{padding-left: 30px;}
+.modal-body .searchbox .select2-container .select2-selection--single .select2-selection__rendered .select2-selection__placeholder{padding-left: 0px;} 
+.modal-body .searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field {padding-left: 30px;}
+.modal-body  .searchbox .hero-search-content .select2-container--default{padding-left: 30px;}
+.searchbox .hero-search-content .select2-container .select2-search--inline .select2-search__field{padding-left: 30px;}
 
 
  @media (min-width: 992px) and (max-width:1024px) {

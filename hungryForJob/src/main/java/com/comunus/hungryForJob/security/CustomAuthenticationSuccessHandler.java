@@ -84,7 +84,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             		RequestDispatcher rd=request.getRequestDispatcher("employerlogin");
                 	rd.forward(request, response);
     			}
-    		}else
+    		}
+    		else
     		{
 //    			System.out.println("role ========= "+roleType);
 				
@@ -99,6 +100,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     		RequestDispatcher rd=request.getRequestDispatcher("candidateDashboard");
         	rd.forward(request, response);
     	}
+    	if(roleType.equals("operations"))
+		{
+			 RequestDispatcher rd=request.getRequestDispatcher("admindashboard");
+			  rd.forward(request, response);
+		}
     	
     }
 

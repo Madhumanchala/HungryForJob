@@ -19,7 +19,6 @@
 </head>
 
 <body>
- <%@include file="employerHeader.jsp"%>
  <%@include file="toaster.jsp"%>
  <div class="loader">
 		<img src="employer/img/loader.gif">
@@ -64,17 +63,10 @@
     </section>
   </main><!-- End #main -->
 	<%@include file="footer.jsp"%>
-  <script src="employer/js/jquery.min.js"></script>
-	<script src="employer/js/popper.min.js"></script>
-	<script src="employer/js/bootstrap.min.js"></script>
-	<script src="employer/js/select2.min.js"></script>
-	<script src="employer/js/moment.min.js"></script>
-	<script src="employer/js/nice-select.min.js"></script>
-	<script src="employer/js/bootstrap-datepicker.min.js"></script>
-	<script src="employer/js/jquery.richtext.js"></script>
+  <script src="admin/js/jquery.min.js"></script>
+	<script src="admin/js/bootstrap.min.js"></script>
 	<script src="employer/js/main.js"></script>
 	<script src="js/commonvalidation.js"></script>
-  <script src="employer/js/popper.min.js"></script>
 </body>
 <script>
 function changepassword()
@@ -128,12 +120,12 @@ function changepassword()
 	{
 		$(".loader").show();
 		$.ajax({
-			url:"newpassword",
+			url:"adminnewpassword",
 			type:'post',
 			contentType: 'application/json',
 			data: JSON.stringify({
 				password:newpassword,
-				type:"employernewpassword"
+				type:"operationnewpassword"
             }),
             success: function(response) {
                 // Success callback

@@ -30,7 +30,7 @@
 <div class="loader">
 		<img src="employer/img/loader.gif">
 	</div>
-	<%@include file="employerheader1.jsp"%>
+	<%@include file="employerheader1.jsp"%> 
 	<%@include file="toaster.jsp" %>
 	<main id="main">
 		<section class="section-inner advancedsearch-section ">

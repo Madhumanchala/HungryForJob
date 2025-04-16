@@ -117,6 +117,7 @@
 	}
 	$('#resendOtp').on('click', function() {
 	    var $this = $(this);
+	    countdownfun(180);
 	    $this.css('color', 'green'); // Change to green on click
 	    setTimeout(function() {
 	    	changeColor();

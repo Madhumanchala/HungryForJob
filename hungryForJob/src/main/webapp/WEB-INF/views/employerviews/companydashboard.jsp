@@ -16,11 +16,9 @@
 <link href="employer/css/bootstrap.min.css" rel="stylesheet">
 <link href="employer/fonts/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
-<link href="employer/css/font-awesome.min.css" rel="stylesheet">
 <link href="employer/css/select2.min.css" rel="stylesheet" />
 <link href="employer/css/nice-select.css" rel="stylesheet">
 <link href="employer/css/richtext.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/dataTables.bootstrap5.css" />
 <link href="employer/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
 
@@ -32,12 +30,13 @@
 	</div>
 	<%
 String role=session.getAttribute("rolestatus").toString();
-		if(role.equals("employeradmin"))
+		if(role.equals("employeradmin") || role.equals("admin"))
 		{
 %>
 	<%@include file="employerheader1.jsp"%>
 <%
-		}else{
+		}
+		else{
 %>
 <%@include file="employerheader2.jsp"%>
 <%} %>
@@ -230,8 +229,6 @@ String role=session.getAttribute("rolestatus").toString();
 	<script src="employer/js/select2.min.js"></script>
 	<script src="employer/js/moment.min.js"></script>
 	<script src="employer/js/nice-select.min.js"></script>
-	<script src="employer/js/dataTables.js"></script>
-	<script src="employer/js/dataTables.bootstrap5.js"></script>
 	<script src="employer/js/bootstrap-datepicker.min.js"></script>
 	<script src="employer/js/jquery.richtext.js"></script>
 	<script src="employer/js/main.js"></script>

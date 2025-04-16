@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String operationemailId = (String) session.getAttribute("operationemailId");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,15 +39,8 @@
 					<nav id="navbar" class="navbar">
 						<i class="bi bi-list mobile-nav-toggle"></i>
 						<ul>	
-							<li><a href="dashboard.html" class="active">Dashboard </a></li>
-							<li><a href="pricing-plan.html">Pricing Plan</a></li>
-							<!-- <li class="dropdown"><a href="javascript:void(0)">Post a jobs <i class="bi bi-chevron-down"></i> </a>
-                <ul>
-                  <li> <a href="post-new-job.html">Post a Job </a></li>
-                  <li> <a href="post-internship.html">Post an Internship </a></li>
-                </ul>
-              </li>-->
-
+							<li><a href="#" onclick="findroute('admindashboard')" class="active">Dashboard </a></li>
+							<li><a href="#" onclick="findroute('adminpricingplandetails')">Pricing Plan</a></li>
 						</ul>
 					</nav>
 					<!-- navbar -->
@@ -61,7 +57,7 @@
 									<img src="admin/img/profile-img.jpg">
 								</div>
 								<div class="proTxt">
-									<strong>John legend</strong>
+									<strong><%=operationemailId%></strong>
 									<p>Admin</p>
 								</div>
 								<i class="bi bi-chevron-down"></i>
@@ -69,10 +65,8 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="dropdownMenuButton">
-
-							<a class="dropdown-item myProfLink" href="company-profile.html">
-								<i class="bi bi-person"></i> My Profile
-							</a> <a class="dropdown-item myProfLink" href="change-password.html">
+							
+							<a class="dropdown-item myProfLink" href="#" onclick="findroute('adminchangepassword')">
 								<i class="bi bi-lock"></i> Change Password
 							</a> <a class="dropdown-item logOutLink" href="#"> <i
 								class="bi bi-box-arrow-right"></i> Logout
@@ -200,7 +194,7 @@
                     <tr>
                         <th>Company Name</th>
                         <th>Mobile No</th>
-                        <th>User Name</th>
+                        <th>Name</th>
                         <th class="hideplan">Plan Name</th>
                         <th class="hideplan">Amount Paid</th>
                         <th class="hideplan">User Access</th>
@@ -440,7 +434,7 @@
 		function choosestatus(id)
 		{
 				let form = document.createElement('form');
-				form.method = 'GET'; 
+				form.method = 'POST'; 
 				form.action = "/admindashboard";
 				
 				var input = document.createElement('input');

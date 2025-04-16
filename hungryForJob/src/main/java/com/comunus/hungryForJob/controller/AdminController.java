@@ -22,6 +22,7 @@ import com.comunus.hungryForJob.config.Configs;
 import com.comunus.hungryForJob.config.WebClientConfig;
 import com.comunus.hungryForJob.config.WebClientResponse;
 import com.comunus.hungryForJob.constant.AdminApplicationConstant;
+import com.comunus.hungryForJob.constant.EmployeerAppplicationConstant;
 import com.comunus.hungryForJob.model.AdminModel;
 import com.comunus.hungryForJob.model.Dashboard;
 import com.comunus.hungryForJob.model.ResponseModel;
@@ -65,8 +66,11 @@ public class AdminController {
 			log.info("Requesting URL: {}", url);
 
 			response = myWebClient.post(url, dash).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 			log.info("Response status code: {}", response.getStatusCode());
-
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
@@ -82,7 +86,7 @@ public class AdminController {
 
 	@ResponseBody
 	@PostMapping("/updatePlanStatus")
-	public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(@RequestBody AdminModel adminmodel) {
+	public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(@RequestBody AdminModel adminmodel,HttpServletRequest request) {
 		log.info("====== updatePlanStatus ======");
 		WebClientResponse response = null;
 		try {
@@ -91,6 +95,10 @@ public class AdminController {
 			log.info("======= updatePlanStatus ====== " + Url);
 
 			response = myWebClient.post(Url, adminmodel).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 
 			if (response.getStatusCode() == 200) {
 				// Parse the response
@@ -121,6 +129,10 @@ public class AdminController {
 			String url = Configs.urls.get(AdminApplicationConstant.RegisterPlanDetails).getUrl();
 
 			response = myWebClient.post(url, dash).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 			log.info("Response status code: {}", response.getStatusCode());
 
 			if (response.getStatusCode() == 200) {
@@ -137,7 +149,7 @@ public class AdminController {
 		return null;
 	}
 
-	@GetMapping("/adminpricingplandetails")
+	@PostMapping("/adminpricingplandetails")
 	public String adminpricingplandetails(Model model, HttpSession session, HttpServletRequest request,
 			AdminModel adminmodel) {
 		log.info("===== Entering getVerificationPendingDetails =====");
@@ -149,6 +161,10 @@ public class AdminController {
 			log.info("Requesting URL: {}", url);
 
 			response = myWebClient.post(url, adminmodel).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 			log.info("Response status code: {}", response.getStatusCode());
 
 			if (response.getStatusCode() == 200) {
@@ -178,7 +194,7 @@ public class AdminController {
 		return "adminpricingplandetails";
 	}
 
-	@GetMapping("/admindashboard")
+	@PostMapping("/admindashboard")
 	public String getIndex(Model model, HttpServletRequest request) {
 		log.info("=====  getAdminIndex    ======");
 		WebClientResponse response = null;
@@ -189,6 +205,10 @@ public class AdminController {
 			log.info("@@@@ searched job " + Url);
 			admin.setAdminstatus(statusvalue);
 			response = myWebClient.post(Url, admin).block();
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
@@ -221,6 +241,10 @@ public class AdminController {
 
 			response = myWebClient.post(url, dash).block();
 			log.info("Response status code: {}", response.getStatusCode());
+			if(response.getToken()!=null) {
+				  log.info("s.getToken() :"+response.getToken());
+				  request.getSession().setAttribute("token","Bearer "+response.getToken());
+	    	 }
 
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
@@ -231,6 +255,52 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("An unexpected error occurred: ", e);
+		}
+		return null;
+	}
+	
+	@GetMapping("/adminlogin")
+	public String adminlogin()
+	{
+		return "adminlogin";
+	}
+	
+	@PostMapping("/adminchangepassword")
+	public String adminChangePassword()
+	{
+		return "adminchangepassword";
+	}
+	
+	@PostMapping("/adminnewpassword")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> newpassworadded(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("operationId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("operationId").toString());
+			}else
+			{
+				log.info("session is not set in userId");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.NEW_PASSWORD).getUrl();
+			response=myWebClient.post(url,dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = new ObjectMapper().readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("Exception is occured === "+e.getMessage());
+			// TODO: handle exception
 		}
 		return null;
 	}

@@ -88,9 +88,6 @@
             </div>
            <%-- Assume pricingList contains list of plans where each plan has id, name, price, userAccess, jobPostings, searches, cvViews, validity fields --%>
 	<div class="col-md-10 col-12">
-	 <div class="pricing-header">
-                  <h5>Choose a <span>plan</span> </h5>
-                </div>
 	<div class="pricingSlider">
 			<c:forEach var="plan" items="${pricingList}">
     <div class="col-md-2 col-12 pricing-col">

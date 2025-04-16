@@ -77,7 +77,12 @@
 	{
 		 $("#employeradminheader").show();
 		 $("#myprofilemenu").attr('onclick',"route('companydashboard')")
-	}else
+	}else if(flag === "admin")
+	{
+		 $("#employeradminheader").hide();
+		 $("#myprofilemenu").attr('onclick',"route('companydashboard')")
+	}
+	else
 	{
 		 $("#employeradminheader").hide();
 		 $("#myprofilemenu").attr('onclick',"route('searchCandidates')")

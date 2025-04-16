@@ -78,12 +78,12 @@ public class WebSecurityConfig {
 					.antMatchers("/logout").permitAll()
 					
 					
-					.antMatchers("/admindashboard").permitAll()
-					.antMatchers("/updatePlanStatus").permitAll()
-					.antMatchers("/adminpricingplandetails").permitAll()
-					.antMatchers("/registerplanDetails").permitAll()
-					.antMatchers("/updateplanpriority").permitAll()
-					.antMatchers("/updateadminplandetails").permitAll()
+//					.antMatchers("/admindashboard").permitAll()
+//					.antMatchers("/updatePlanStatus").permitAll()
+//					.antMatchers("/adminpricingplandetails").permitAll()
+//					.antMatchers("/registerplanDetails").permitAll()
+//					.antMatchers("/updateplanpriority").permitAll()
+//					.antMatchers("/updateadminplandetails").permitAll()
 					.anyRequest().authenticated()
 			)
 			.csrf(csrf->csrf.disable())

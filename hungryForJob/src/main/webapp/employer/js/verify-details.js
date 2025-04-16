@@ -12,7 +12,14 @@ function saveplanDetails()
 	let companyname=$("#companyName").val();
 	let emailId=$("#emailId").val();
 	var planName = document.querySelector("#planname").firstChild.nodeValue.trim();
-	let planPrice=$("#totalprice").text().trim();
+	let plantotalPrice=$("#totalprice").text().trim();
+	let planprice = $("#planpricedetail").text().trim();
+	let planuseraccess = $("#planuseraccess").text().replace("User","").trim();
+	let planjobposting = $("#planjobposting").text().replace("Postings","").trim();
+	let plansearches = $("#plansearches").text().trim();
+	let planvalidity = $("#planvalidity").text().trim();
+	let plancvviews = $("#plancvviews").text().trim();
+	
 	let isvalid=true
 	if(checkvalidation(planId))
 	{
@@ -59,7 +66,13 @@ function saveplanDetails()
 				"emailId":emailId, 
 				"companyname":companyname,
 				"planName":planName,
-				"planPrice":planPrice,
+				"planTotalAmount":plantotalPrice,
+				"planPrice":planprice,
+				"planUserAccess":planuseraccess,
+				"planJobPosting":planjobposting,
+				"planSearches":plansearches,
+				"planValidity":planvalidity,
+				"planCvViews":plancvviews
 			}),
 			success:function(response){
 				if(response === "sucess")

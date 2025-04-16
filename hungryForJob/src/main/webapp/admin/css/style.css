@@ -356,8 +356,8 @@ table.table.dataTable{border:1px solid #ddeaf9; color:var(--black-color);   }
 #CaptchaImageCode {   text-align:center; -webkit-border-radius:5px; -moz-border-radius:5px; -ms-border-radius:5px;  border-radius:5px;  margin-top: 0px;  padding: 0px 0;   overflow: hidden;}
 .capcode {font-size:28px; padding-left:0px; display: block; -moz-user-select: none; -webkit-user-select: none;  user-select: none;   cursor: default; letter-spacing:0px; color:var(--secondary-color); margin-top:0px;    font-style: italic; }
 .reloadBtn { background:url('../img/refresh.svg') left top no-repeat; background-size : 100%;  width: 24px;   height: 24px;  border: 0px;    position: absolute;  padding: 0px !important;  bottom:14px;  right : 10px;  outline: none;  cursor: pointer; }  
-.toggle-password{position: absolute; right:18px; top:42px;  z-index:99; cursor:pointer;}
-.passwordeye{ top:15px}
+.toggle-password{position: absolute; right:18px; top:38px;  z-index:99; cursor:pointer;}
+
 
 .pricingPlantable .edit{ cursor:pointer; margin-right:5px;}
 .pricingPlantable .trash{ cursor:pointer; margin-right:5px;}

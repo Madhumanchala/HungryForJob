@@ -192,10 +192,10 @@
   
   document.getElementById("verify_email_1").addEventListener("click", () => {
 	  	checkValidation();
-	  	countdownfun();
+	  	countdownfun(120);
 	});
   
-  function countdownfun()
+  function countdownfun(number)
   {
 	  const timerDisplay = document.querySelector(".countdown");
 
@@ -204,7 +204,7 @@
 	        return;
 	    }
 
-	    let timeLeft = 180; // 3 minutes in seconds
+	    let timeLeft = number; // 3 minutes in seconds
 
 	    function formatTime(time) {
 	    	console.log(time);

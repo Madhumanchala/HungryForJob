@@ -172,22 +172,22 @@
 							<div class="plandetails">
 								<ul class="row">
 									<li class="col-xl-6 col-lg-6 col-md-6"><span>User
-											access </span> ${selectedPlan.userAccess}</li>
+											access </span> <span id="planuseraccess">${selectedPlan.userAccess}</span></li>
 									<li class="col-xl-6 col-lg-6 col-md-6"><span>Job
-											Postings </span> ${selectedPlan.jobPostings}</li>
+											Postings </span> <span id="planjobposting"> ${selectedPlan.jobPostings} </span></li>
 									<li class="col-xl-6 col-lg-6 col-md-6"><span> No.
-											of Searches</span> ${selectedPlan.searches}</li>
-									<li class="col-xl-6 col-lg-6 col-md-6"><span> CV
-											Views </span> ${selectedPlan.cvViews}</li>
-									<li class="col-xl-6 col-lg-6 col-md-6"><span>
-											Validity </span> ${selectedPlan.validity}</li>
+											of Searches</span> <span id="plansearches"> ${selectedPlan.searches} </span></li>
+									<li class="col-xl-6 col-lg-6 col-md-6"><span > CV
+											Views </span> <span id="plancvviews">${selectedPlan.cvViews}</span></li>
+									<li class="col-xl-6 col-lg-6 col-md-6"><span >
+											Validity </span> <span id="planvalidity"> ${selectedPlan.validity} </span></li>
 								</ul>
 							</div>
 						</div>
 						<div class="card-register">
 							<div class="planPlatinum ">
 								<ul class="plan-discount">
-									<li id="planname">${selectedPlan.name}<span><i class="fa fa-inr"
+									<li id="planname">${selectedPlan.name}<span id="planpricedetail"><i class="fa fa-inr"
 											aria-hidden="true"></i> ${selectedPlan.price} </span>
 									</li>
 									<%--  <li> Discount (-10%) <span>- <i class="fa fa-inr" aria-hidden="true"></i> ${discount} </span> </li> --%>

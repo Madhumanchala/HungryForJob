@@ -38,8 +38,8 @@
 					</a>
 					<nav id="navbar" class="navbar">
 						<ul>
-							<li><a href="dashboard.html">Dashboard </a></li>
-							<li><a href="pricing-plan.html" class="active">Pricing
+							<li><a href="#" onclick="findroute('admindashboard')">Dashboard </a></li>
+							<li><a href="#" onclick="findroute('adminpricingplandetails')"class="active">Pricing
 									Plan</a></li>
 							<!-- <li class="dropdown"><a href="javascript:void(0)">Post a jobs <i class="bi bi-chevron-down"></i> </a>
                 <ul>
@@ -72,10 +72,7 @@
 						</button>
 						<div class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="dropdownMenuButton">
-
-							<a class="dropdown-item myProfLink" href="company-profile.html">
-								<i class="bi bi-person"></i> My Profile
-							</a> <a class="dropdown-item myProfLink" href="change-password.html">
+							 <a class="dropdown-item myProfLink" href="#" onclick="findroute('/adminchangepassword')">
 								<i class="bi bi-lock"></i> Change Password
 							</a> <a class="dropdown-item logOutLink" href="#"> <i
 								class="bi bi-box-arrow-right"></i> Logout

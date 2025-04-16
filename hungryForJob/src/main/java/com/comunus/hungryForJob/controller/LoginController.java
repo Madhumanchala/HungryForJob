@@ -175,19 +175,6 @@ public class LoginController {
 				 return responsemodel.getErrors();
 			 }
 			 
-//			 if(forgotPasswordResponse.getOtpVerified()!=null && forgotPasswordResponse.getOtpVerified()) {
-//				 modelMap.addAttribute("username",forgotPasswordResponse.getEmail());
-//				 return "candidateNewPassword";
-//			 }else {
-//				 modelMap.addAttribute("emailInput",forgotPasswordResponse.getEmail());
-//				 if(forgotPasswordResponse.getOtpExpired()!=null && forgotPasswordResponse.getOtpExpired()) {
-//				   modelMap.put("errorMsg", "OTP Expired !!");
-//				 }
-//				 else if(forgotPasswordResponse.getOtpVerified()==null || !forgotPasswordResponse.getOtpVerified()) {
-//					   modelMap.put("errorMsg", "OTP Invalid !!");
-//				 }
-//				 return "verifyCandidateOtp";
-//			 }
 			 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -17,4 +17,10 @@ public class JobPlan {
 	private String emailId;
 	private String planName;
 	private String planPrice;
+	private String planTotalAmount;
+	private String planUserAccess;
+	private String planJobPosting;
+	private String planSearches;
+	private String planValidity;
+	private String planCvViews;
 }

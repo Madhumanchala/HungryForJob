@@ -41,5 +41,6 @@ public interface EmployeerAppplicationConstant {
 	String ADD_COMMENTS="addComments";
 	String CHECK_POINTS="checkPoints";
 	String GetAllPriceData="getAllPriceData";
+	String EMPLOYER_JOBDASHBOARD_DETAILS = "dashboardjobdetails";
 
 }

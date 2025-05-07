@@ -606,7 +606,7 @@ String userId= (String) session.getAttribute("userId");
 										</div>
 
 										<div class="col-lg-12 d-flex justify-content-end">
-											<button type="submit" class="btns-border">Save as
+											<button type="button" class="btns-border">Save as
 												draft</button>
 											<button type="button" class="btns" onclick="savejobPost()">
 												Post this job</button>

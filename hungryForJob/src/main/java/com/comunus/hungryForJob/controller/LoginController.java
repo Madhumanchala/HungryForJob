@@ -1,5 +1,6 @@
 package com.comunus.hungryForJob.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,9 +55,10 @@ public class LoginController {
 	
 		
 	@GetMapping("/login")
-	public String loginGet(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) {
+	public String loginGet(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
 		try {
+		     
 			log.info("login ========= ");
 		} catch (Exception e) {
 			e.printStackTrace();

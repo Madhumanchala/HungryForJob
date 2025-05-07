@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String operationemailId = (String) session.getAttribute("operationemailId");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +67,7 @@
 									<img src="admin/img/profile-img.jpg">
 								</div>
 								<div class="proTxt">
-									<strong>John legend</strong>
+									<strong><%=operationemailId%></strong>
 									<p>Admin</p>
 								</div>
 								<i class="bi bi-chevron-down"></i>

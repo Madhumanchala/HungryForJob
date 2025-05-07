@@ -84,6 +84,7 @@ public class WebSecurityConfig {
 //					.antMatchers("/registerplanDetails").permitAll()
 //					.antMatchers("/updateplanpriority").permitAll()
 //					.antMatchers("/updateadminplandetails").permitAll()
+					
 					.anyRequest().authenticated()
 			)
 			.csrf(csrf->csrf.disable())

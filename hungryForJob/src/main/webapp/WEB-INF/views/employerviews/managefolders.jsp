@@ -23,7 +23,7 @@ String companyId= (String) session.getAttribute("companyId");
 <link href="employer/css/nice-select.css" rel="stylesheet">
 <link href="employer/css/richtext.min.css" rel="stylesheet" />
 <link href="employer/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-<link href="employer/css/style.css" rel="stylesheet">
+<link href="employer/css/style.css" rel="stylesheet"/>
 
 <style>
 .folder-link:hover {
@@ -32,7 +32,6 @@ String companyId= (String) session.getAttribute("companyId");
 }
 </style>
 </head>
-
 <body class="bg">
 	<div class="loader">
 		<img src="employer/img/loader.gif">

@@ -72,6 +72,10 @@ function work_from_home() {
 	if ($("#wfh-yes").is(":checked")) {
 		$(".ready_to_relocate").hide();
 		$(".pref_location").hide();
+		document.querySelectorAll('input[name="relocate-option"]').forEach(function(el) {
+   			 el.checked = false;
+		});
+
 	}
 	else {
 		$(".ready_to_relocate").show();

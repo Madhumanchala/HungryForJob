@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -458,5 +459,47 @@ public class DashboardController {
 			log.info("Exception is occured ==== "+e.getMessage());
 		}
 		return null;
+	}
+	
+	@PostMapping("employerdashboard")
+	public String employerdashboard(HttpSession session, Dashboard dashboard, HttpServletRequest request,Model model)
+	{
+		WebClientResponse response = null;
+		try {
+			
+			if(session.getAttribute("userId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("user is not set in session");
+			}
+			if(session.getAttribute("companyId")!=null)
+			{
+				dashboard.setCompanyId(session.getAttribute("companyId").toString());
+			}else
+			{
+				log.info("companyId is not set in session");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.EMPLOYER_JOBDASHBOARD_DETAILS).getUrl();
+			response=myWebClient.post(url, dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				model.addAttribute("jobdetails", responsemodel.getData().getJobdetails());
+				model.addAttribute("countjobdetails", responsemodel.getData().getCountJobDetails());
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured ====== "+e.getMessage());
+		}
+		return "employerviews/jobdetailsdashboard";
 	}
 }

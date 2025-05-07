@@ -17,7 +17,6 @@
 	rel="stylesheet">
 <link href="admin/css/style.css" rel="stylesheet">
 </head>
-
 <body>
 	<%@include file="employerviews/employerheader2.jsp"%>
 	<%@include file="toaster.jsp"%>

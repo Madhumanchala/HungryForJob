@@ -38,9 +38,11 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 					</a>
 					<nav id="navbar" class="navbar">
 						<i class="bi bi-list mobile-nav-toggle"></i>
-						<ul>	
-							<li><a href="#" onclick="findroute('admindashboard')" class="active">Dashboard </a></li>
-							<li><a href="#" onclick="findroute('adminpricingplandetails')">Pricing Plan</a></li>
+						<ul>
+							<li><a href="#" onclick="findroute('admindashboard')"
+								class="active">Dashboard </a></li>
+							<li><a href="#"
+								onclick="findroute('adminpricingplandetails')">Pricing Plan</a></li>
 						</ul>
 					</nav>
 					<!-- navbar -->
@@ -65,9 +67,10 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 						</button>
 						<div class="dropdown-menu dropdown-menu-end"
 							aria-labelledby="dropdownMenuButton">
-							
-							<a class="dropdown-item myProfLink" href="#" onclick="findroute('adminchangepassword')">
-								<i class="bi bi-lock"></i> Change Password
+
+							<a class="dropdown-item myProfLink" href="#"
+								onclick="findroute('adminchangepassword')"> <i
+								class="bi bi-lock"></i> Change Password
 							</a> <a class="dropdown-item logOutLink" href="#"> <i
 								class="bi bi-box-arrow-right"></i> Logout
 							</a>
@@ -163,102 +166,125 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 										<ul>
 
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Registered" onchange="choosestatus('Registered')"> <label
+												name="companyList" id="Registered"
+												onchange="choosestatus('Registered')"> <label
 												class="btn" for="Registered"><span>Registered
 												</span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Active" onchange="choosestatus('Active')"> <label class="btn"
-												for="Active"><span>Active </span> </label></li>
+												name="companyList" id="Active"
+												onchange="choosestatus('Active')"> <label
+												class="btn" for="Active"><span>Active </span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Pending" onchange="choosestatus('Pending')"> <label class="btn"
-												for="Pending"><span>Pending </span> </label></li>
+												name="companyList" id="Pending"
+												onchange="choosestatus('Pending')"> <label
+												class="btn" for="Pending"><span>Pending </span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Processing" onchange="choosestatus('Processing')"> <label
+												name="companyList" id="Processing"
+												onchange="choosestatus('Processing')"> <label
 												class="btn" for="Processing"><span>Processing
 												</span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Failure" onchange="choosestatus('Failure')"> <label class="btn"
-												for="Failure"><span>Failure </span> </label></li>
+												name="companyList" id="Failure"
+												onchange="choosestatus('Failure')"> <label
+												class="btn" for="Failure"><span>Failure </span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Expired" onchange="choosestatus('Expired')"> <label class="btn"
-												for="Expired"><span>Expired </span> </label></li>
+												name="companyList" id="Expired"
+												onchange="choosestatus('Expired')"> <label
+												class="btn" for="Expired"><span>Expired </span> </label></li>
 										</ul>
 									</div>
 								</div>
 								<div class="line2"></div>
-	<div class="col-12 pt-0 p-3">
-    <div class="table-responsive1">
-        <div id="no-more-tables">
-            <table id="activecompanydetails" class="table display nowrap companytable scroll" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Company Name</th>
-                        <th>Mobile No</th>
-                        <th>Name</th>
-                        <th class="hideplan">Plan Name</th>
-                        <th class="hideplan">Amount Paid</th>
-                        <th class="hideplan">User Access</th>
-                        <th class="hideplan">UTR No</th>
-                        <th class="hideplan">UTR Date</th>
-                        <th class="hideplan">Status</th>
-                        <th class="hideplan">Action</th>
-                        <th class="hideplan starthide">Plan Start</th>
-                        <th class="hideplan starthide">Plan End</th>
-                        <th class="hideplan">GST No</th>
-                        <th>Industry</th>
-                    </tr>
-                </thead>
-                <tbody>
-                            <c:forEach items="${companydetails}" var="details"> 
-                                <tr>
-                                    <td data-title="Company Name">
-                                        <div class="comp-circle d-flex align-items-center">
-                                            <span class="txtcri d-flex align-items-center justify-content-center">
-                                                <img src="admin/img/company03.svg">
-                                            </span>
-                                            <div>
-                                                <span class="ctitle">${details.companyName}</span>
-                                                <span class="email">${details.companyEmailId}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td data-title="Mobile No">${details.mobileNo}</td>
-                                    <td data-title="User Name">${details.name}</td>
-                                    <td data-title="Plan Name" class="hideplan">${details.planName}</td>
-                                    <td data-title="Amount Paid" class="hideplan">
-                                        <span class="price"><i class="bi bi-currency-rupee"></i> ${details.amount}</span>
-                                    </td>
-                                    <td data-title="User Access" class="hideplan">${details.userAccess}</td>
-                                    <td data-title="UTR No" class="hideplan">${details.utr_no}</td>
-                                    <td data-title="UTR Date" class="hideplan">${details.utrDate}</td>
-                                    <td data-title="Status" class="hideplan">
-                                        <span class="status ${details.statuscolor}">${statusvalue}</span>
-                                    </td>
-                                    <td data-title="Action" class="hideplan">
-                                        <div class="activetable">
-                                            <select class="form-control form-select select2Single  actionfrom" id="selectmodal${details.id}" onchange="openmodal('selectmodal${details.id}','${details.planName}')" style="width: 100%" ${details.status == '1' || details.status == '3' || details.status == '2' ? 'disabled' : ''}>
-                                                <option value="pending" ${details.status == '0' ? 'selected' : ''} class="pendingdisabled" >Pending</option>
-                                                <option value="active" ${details.status == '1' ? 'selected' : ''} class="activedisabled">Active</option>
-                                                <option value="failure" ${details.status == '2' ? 'selected' : ''}>Failure</option>
-                                                <option value="expired" ${details.status == '3' ? 'selected' : '' } class="hideExpired">Expired</option>
-                                                <option value="processing" ${details.status == '4' ? 'selected' : '' } class="processingdisabled">Processing</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                     <td data-title="Plan End" class="hideplan starthide">${details.planStart}</td>
-                                    <td data-title="Plan End" class="hideplan starthide">${details.validity}</td>
-                                    <td data-title="GST No" class="hideplan">${details.gst_no}</td>
-                                    <td data-title="Industry">${details.industry}</td>
-                                </tr>
-                            </c:forEach>
-                        
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-	
-								
+								<div class="col-12 pt-0 p-3">
+									<div class="table-responsive1">
+										<div id="no-more-tables">
+											<table id="activecompanydetails"
+												class="table display nowrap companytable scroll"
+												style="width: 100%">
+												<thead>
+													<tr>
+														<th>Company Name</th>
+														<th>Mobile No</th>
+														<th>Name</th>
+														<th class="hideplan">Plan Name</th>
+														<th class="hideplan">Amount Paid</th>
+														<th class="hideplan">User Access</th>
+														<th class="hideplan">UTR No</th>
+														<th class="hideplan">UTR Date</th>
+														<th class="hideplan">Status</th>
+														<th class="hideplan">Action</th>
+														<th class="hideplan starthide">Plan Start</th>
+														<th class="hideplan starthide">Plan End</th>
+														<th class="hideplan">GST No</th>
+														<th>Industry</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach items="${companydetails}" var="details">
+														<tr>
+															<td data-title="Company Name">
+																<div class="comp-circle d-flex align-items-center">
+																	<span
+																		class="txtcri d-flex align-items-center justify-content-center">
+																		<img src="admin/img/company03.svg">
+																	</span>
+																	<div>
+																		<span class="ctitle">${details.companyName}</span> <span
+																			class="email">${details.companyEmailId}</span>
+																	</div>
+																</div>
+															</td>
+															<td data-title="Mobile No">${details.mobileNo}</td>
+															<td data-title="User Name">${details.name}</td>
+															<td data-title="Plan Name" class="hideplan">${details.planName}</td>
+															<td data-title="Amount Paid" class="hideplan"><span
+																class="price"><i class="bi bi-currency-rupee"></i>
+																	${details.amount}</span></td>
+															<td data-title="User Access" class="hideplan">${details.userAccess}</td>
+															<td data-title="UTR No" class="hideplan">${details.utr_no}</td>
+															<td data-title="UTR Date" class="hideplan">${details.utrDate}</td>
+															<td data-title="Status" class="hideplan"><span
+																class="status ${details.statuscolor}">${statusvalue}</span>
+															</td>
+															<td data-title="Action" class="hideplan">
+																<div class="activetable">
+																	<select
+																		class="form-control form-select select2Single  actionfrom"
+																		id="selectmodal${details.id}"
+																		onchange="openmodal('selectmodal${details.id}','${details.planName}')"
+																		style="width: 100%"
+																		${details.status == '1' || details.status == '3' || details.status == '2' ? 'disabled' : ''}>
+																		<option value="pending"
+																			${details.status == '0' ? 'selected' : ''}
+																			class="pendingdisabled">Pending</option>
+																		<option value="active"
+																			${details.status == '1' ? 'selected' : ''}
+																			class="activedisabled">Active</option>
+																		<option value="failure"
+																			${details.status == '2' ? 'selected' : ''}>Failure</option>
+																		<option value="expired"
+																			${details.status == '3' ? 'selected' : '' }
+																			class="hideExpired">Expired</option>
+																		<option value="processing"
+																			${details.status == '4' ? 'selected' : '' }
+																			class="processingdisabled">Processing</option>
+																	</select>
+																</div>
+															</td>
+															<td data-title="Plan End" class="hideplan starthide">${details.planStart}</td>
+															<td data-title="Plan End" class="hideplan starthide">${details.validity}</td>
+															<td data-title="GST No" class="hideplan">${details.gst_no}</td>
+															<td data-title="Industry">${details.industry}</td>
+														</tr>
+													</c:forEach>
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+
 							</div>
 						</div>
 					</div>
@@ -313,19 +339,20 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn" data-bs-dismiss="modal" id="cancelbutton">Cancel</button>
+					<button type="button" class="btn" data-bs-dismiss="modal"
+						id="cancelbutton">Cancel</button>
 					<button type="button" class="btn-blue" id="submitbutton">Submit</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="statusmodal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog  ">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title  ms-2" id="exampleModalLabel">Active
+					<h5 class="modal-title  ms-2" id="exampleModalLabel">Failure
 						Plan</h5>
 					<button type="button" class="btn-close  me-2"
 						data-bs-dismiss="modal" aria-label="Close"></button>
@@ -333,14 +360,20 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 				<div class="modal-body pe-4 ps-4 py-4">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<span>Are You Sure Want to Submit</span>
 							</div>
+							<!-- <div class="form-group">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" id="description" rows="4"
+									placeholder="Enter description here..."></textarea>
+							</div> -->
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn" data-bs-dismiss="modal" id="dialogcancelbutton">No</button>
+					<button type="button" class="btn" data-bs-dismiss="modal"
+						id="dialogcancelbutton">No</button>
 					<button type="button" class="btn-blue" id="submitstatus">Yes</button>
 				</div>
 			</div>
@@ -357,7 +390,11 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 	<script src="admin/js/main.js"></script>
 	<script src="js/commonvalidation.js"></script>
 	<script src="admin/js/bootstrap-datepicker.min.js"></script>
+	<script src="admin/js/jszip.min.js"></script>
 	<script>
+	$('#activecompanydetails').on('draw.dt', function() {
+        applyChangesToSelect2();
+    });
 		$(document).ready(function() {
 			$(".selet2Multiple").select2({});
 			$(".select2Single").select2({
@@ -387,7 +424,6 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 		        autoWidth: false,
 		        responsive: false,
 				columnDefs: columnDefs,
-				
 			});
 		});
 
@@ -399,7 +435,7 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 					$(this).val("");
 				}
 			});
-			var table = $('#activecompanydetails').DataTable();
+			/* var table = $('#activecompanydetails').DataTable(); */
 			var choosestatusvalue = "${statusvalue}";
 			if(choosestatusvalue)
 			{
@@ -607,6 +643,23 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 			}
 		}
 		
+		function applyChangesToSelect2() {
+	        $(".select2Single").each(function() {
+	            const selectedVal = $(this).find("option:selected").val();
+	            
+	            if (selectedVal === "pending") {
+	                $(this).find(".hideExpired").remove();
+	                $(this).find(".pendingdisabled").attr("disabled", true);
+	                $(this).find(".processingdisabled").attr("disabled", true);
+	            }
+
+	            if (selectedVal === "processing") {
+	                $(this).find(".hideExpired").remove();
+	                $(this).find(".processingdisabled").attr("disabled", true);
+	                $(this).find(".activedisabled").attr("disabled", true);
+	            }
+	        });
+	    }
 	</script>
 </body>
 

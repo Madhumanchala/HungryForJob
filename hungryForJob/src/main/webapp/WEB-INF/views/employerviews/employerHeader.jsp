@@ -87,7 +87,7 @@
 
     </div>
   </header><!-- End Header -->
-  <button class="availablebtn  btn-blue" type="button" onclick="checkAllPoints()"> Available Credits</button>
+  <button class="availablebtn  btn-blue" type="button" onclick="checkAllPoints()" id="availcredits"> Available Credits</button>
 
   <div class="offcanvas offcanvas-end availablehead" tabindex="-1" id="offcanvasRight"
     aria-labelledby="offcanvasRightLabel">
@@ -295,10 +295,19 @@ $(document).ready(function() {
 	if(flag === "employeradmin")
 	{
 		 $("#employeradminheader").show();
+		 $("#availcredits").show();
 		 $("#myprofilemenu").attr('onclick',"route('companydashboard')")
-	}else
+		 
+	}else if(flag === "admin")
+	{
+		$("#employeradminheader").hide();
+		$("#availcredits").hide();
+		 $("#myprofilemenu").attr('onclick',"route('companydashboard')")
+	}
+	else
 	{
 		 $("#employeradminheader").hide();
+		 $("#availcredits").show();
 		 $("#myprofilemenu").attr('onclick',"route('searchCandidates')")
 	}
 });

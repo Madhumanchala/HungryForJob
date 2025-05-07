@@ -214,11 +214,47 @@
 		}
 
 		$(document).ready(function() {
+			
 			var errorMsg = '${errorMsg}';
 			console.log('errorMsg:' + errorMsg)
 			if (errorMsg != null && errorMsg != '') {
 				showToast('error',errorMsg);
 			}
+			
+			/* var emailId = getCookie("username");
+			var password = getCookie("password");
+			
+			let url = "login";
+			let form = document.createElement('form');
+			form.method = 'POST';
+			form.action = url;
+
+			// Add username field
+			let usernameInput = document.createElement('input');
+			usernameInput.type = 'hidden';
+			usernameInput.name = 'username';
+			usernameInput.value = getCookie('username'); // or use a JS variable
+			form.appendChild(usernameInput);
+
+			// Add password field
+			let passwordInput = document.createElement('input');
+			passwordInput.type = 'hidden';
+			passwordInput.name = 'password';
+			passwordInput.value = getCookie('password'); // or use a JS variable
+			form.appendChild(passwordInput);
+
+			// Add roletype field
+			let roleInput = document.createElement('input');
+			roleInput.type = 'hidden';
+			roleInput.name = 'roletype';
+			roleInput.value = 'candidate'; // replace with your actual role value
+			form.appendChild(roleInput);
+
+			// Add form to body and submit
+			document.body.appendChild(form);
+			form.submit(); */
+
+			
 		});
 
 		function forgetpassword() {
@@ -270,7 +306,22 @@
 		{
 			sessionStorage.setItem("loginsucess", "1");
 		}
+		
+		/* document.cookie = "password=" + encodeURIComponent(password) + "; path=/";
+		document.cookie = "username=" + encodeURIComponent(emailId) + "; path=/"; */
+		
 		return isvalid;
+	}
+	function getCookie(name) {
+	    let nameEQ = name + "=";
+	    let ca = document.cookie.split(';');
+	    for (let i = 0; i < ca.length; i++) {
+	        let c = ca[i].trim();
+	        if (c.indexOf(nameEQ) === 0) {
+	            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+	        }
+	    }
+	    return null; // Return null if the cookie isn't found
 	}
 	</script>
 </body>

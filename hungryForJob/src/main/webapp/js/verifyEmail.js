@@ -2,7 +2,7 @@
 	  var statusvalidation = ValidateEmail();
 	  if(statusvalidation)
 	  {
-		  existedEmail(function(status) {
+		  existedEmail().then(function(status) {
 		        var input = document.getElementById("emailInput").value;
 		        localStorage.setItem("emailId",input);
 		        var errorElement = document.getElementById("emailExistsError");
@@ -52,7 +52,8 @@
 	    }
 	}
 
-	function existedEmail(callback) {
+	function existedEmail() {
+		var deferred = $.Deferred(); 
 	    var input = document.getElementById("emailInput").value;
 
 	    $.ajax({
@@ -62,14 +63,15 @@
 	            emailInput: input
 	        },
 	        success: function(result) {
-	            callback(result.errorCode);
+				deferred.resolve(result.errorCode);
 	        },
 	        error: function(xhr, status, error) {
 	            console.log("Error: ", xhr.responseText);
 	            showToast('error','Exception in mail');
-	            callback("1111"); // Default to "false" in case of error
+	            deferred.resolve("1111");
 	        }
 	    });
+	    return deferred.promise();
 	}
 	function verifyOtp() {
 	    var input = document.getElementById("emailInput").value;

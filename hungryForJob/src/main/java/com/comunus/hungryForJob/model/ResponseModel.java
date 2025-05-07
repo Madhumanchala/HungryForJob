@@ -6,6 +6,7 @@ import com.comunus.hungryForJob.employeer.Model.FolderDetails;
 import com.comunus.hungryForJob.employeer.Model.Menu;
 import com.comunus.hungryForJob.employeer.Model.PricingDetails;
 
+
 import lombok.Data;
 
 @Data
@@ -56,5 +57,7 @@ public class ResponseModel {
 	private List<Dashboard> manageUserDetails;
 	private List<Dashboard> plandetails;
 	private List<PricingDetails> pricingDetails;
+	private List<Dashboard> jobdetails;
+	private Dashboard countJobDetails;
 	
 }

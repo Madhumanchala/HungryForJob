@@ -21,9 +21,7 @@
 <link href="employer/css/richtext.min.css" rel="stylesheet" />
 <link href="employer/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
-
 </head>
-
 <body>
 	<div class="loader">
 		<img src="employer/img/loader.gif">

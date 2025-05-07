@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="col-lg-12 text-center" id="verifyemail">
-                      <button class="btns" onclick="checkValidation()" id='verify_email_1'>Verify Email </button>
+                      <button class="btns" id='verify_email_1'>Verify Email </button>
                     </div>
 
                     <div class="col-md-12 text-center mt-4">

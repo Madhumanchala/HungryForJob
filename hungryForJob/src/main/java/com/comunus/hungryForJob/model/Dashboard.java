@@ -81,6 +81,18 @@ public class Dashboard {
 	public String totalClicks;
 	public String totalSearches;
 	
+	public String jobType;
 	
+	public String countJobPosted;
+	public String countJobShortlisted;
+	public String countJobApplicants;
+	public String countJobHired;
+	public String postingEndDate;
+	public String postingStartDate;
+	public String postingApplied;
+	public String postingScreening;
+	public String postingInterview;
+	public String postingTest;
+	public String postingHired;
 	
 }

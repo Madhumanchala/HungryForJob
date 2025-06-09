@@ -36,7 +36,7 @@
       </nav><!-- .navbar -->
     </div>
   </header><!-- End Header -->
-
+<%@include file="toaster.jsp"%>
 
   <main id="main">
 
@@ -56,7 +56,7 @@
           <div class="col-xl-4 col-lg-6 col-md-6  ">
             <div class="card-register floatinglabel">
               <div class="shape02"><img src="/employer/img/shape02.svg"> </div>
-              <form autocomplete="off" action="SaveCompanydetails"   onSubmit="return validateEmployerDetailsForm()" method="post"  >
+              <form autocomplete="off" action="SaveCompanydetails" id="companyForm" method="post"  >
               
                 <h3>Employer Sign Up</h3>
 
@@ -442,6 +442,7 @@
   <script src="/employer/js/bootstrap.min.js"></script>
   <script src="/employer/js/select2.min.js"></script>
   <script src="/employer/js/main.js"></script>
+  <script src="/js/commonvalidation.js"></script>
   <script>
     $(document).ready(function () {
       $(".selet2Multiple").select2({
@@ -594,71 +595,62 @@
 	    $('#statelocationModal').hide();
 	});
   
-	function validateEmployerDetailsForm() {
-		 $('#current_location').removeAttr('disabled');
-		 $('#stateLocation').removeAttr('disabled');
-	    var industry = $("#Industry").val();
-	    var numberOfEmployees = $("#numberofemployees").val();
-	    var designation = $("#designation").val();
-	    var pincode = $("#pincode").val();
-	    var state = $("#stateLocation").val();
-	    var city = $("#current_location").val();
-	    var companyAddress = $("#companyAddress").val();
+	async function validateEmployerDetailsForm() {
+	    $('#current_location').removeAttr('disabled');
+	    $('#stateLocation').removeAttr('disabled');
 
-	    // Validation for Industry
-	    if (industry == null || industry == "Select") {
-	        document.getElementById("Industry-span").innerHTML = "Please select an Industry";
-	        document.getElementById("Industry-span").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    const industry = $("#Industry").val();
+	    const numberOfEmployees = $("#numberofemployees").val();
+	    const designation = $("#designation").val();
+	    const pincode = $("#pincode").val();
+	    const state = $("#stateLocation").val();
+	    const city = $("#current_location").val();
+	    const companyAddress = $("#companyAddress").val();
+
+	    if (!industry || industry === "Select") {
+	        $("#Industry-span").html("Please select an Industry").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
 
-	    // Validation for Number of Employees
-	    if (numberOfEmployees == null || numberOfEmployees == "") {
-	        document.getElementById("numberofemployees-span").innerHTML = "Please enter number of employees";
-	        document.getElementById("numberofemployees-span").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    if (!numberOfEmployees) {
+	        $("#numberofemployees-span").html("Please enter number of employees").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
 
-	    // Validation for Designation
-	    if (designation == null || designation == "") {
-	        document.getElementById("designation-span").innerHTML = "Please enter your designation";
-	        document.getElementById("designation-span").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    if (!designation) {
+	        $("#designation-span").html("Please enter your designation").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
 
-	    // Validation for Pincode
-	    if (pincode == null || pincode == "") {
-	        document.getElementById("pincode_error").innerHTML = "Please enter a valid Pincode";
-	        document.getElementById("pincode_error").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    if (!pincode) {
+	        $("#pincode_error").html("Please enter a valid Pincode").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
 
-	    // Validation for State
-	    if (state == null || state == "") {
-	        document.getElementById("state_location_error").innerHTML = "Please enter a valid State";
-	        document.getElementById("state_location_error").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    // Await the result of the async validation
+	    const message = await validpincode(pincode);
+	    if (message) {
+	        $("#pincode_error").html("Please enter a valid Pincode").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
 
-	    // Validation for Company Address
-	    if (companyAddress == null || companyAddress == "") {
-	        document.getElementById("companyAddress-span").innerHTML = "Please enter the company address";
-	        document.getElementById("companyAddress-span").style.color = "Red";
-	        $('#current_location').attr('disabled', 'disabled');
-			 $('#stateLocation').attr('disabled', 'disabled');
+	    if (!state) {
+	        $("#state_location_error").html("Please enter a valid State").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
 	        return false;
 	    }
-	    
+
+	    if (!companyAddress || companyAddress.trim() === "") {
+	        $("#companyAddress-span").html("Please enter the company address").css("color", "Red");
+	        $('#current_location, #stateLocation').attr('disabled', 'disabled');
+	        return false;
+	    }
+
 	    return true;
 	}
 
@@ -685,6 +677,15 @@
 	    element.value = name.replace(/[^A-Za-z\s]/g, '');
 	    $('#'+id).text(" ");
 	}
+	
+	document.getElementById("companyForm").addEventListener("submit", async function(event) {
+		event.preventDefault(); // prevent the default form submit
+
+		const isValid = await validateEmployerDetailsForm(); // wait for validation result
+		if (isValid) {
+			this.submit(); // manually submit the form if validation passes
+		}
+	});
   
   </script>
   

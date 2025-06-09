@@ -126,7 +126,8 @@
                     </a>
                 </div>
                 <div class="company-logo">
-                    <img src="data:image/jpeg;base64,${jobdetails.logo}">
+                    <%-- <img src="data:image/jpeg;base64,${jobdetails.logo}"> --%>
+                     <img src="img/comunus.png">
                 </div>
             </div>
             <div class="list-price">

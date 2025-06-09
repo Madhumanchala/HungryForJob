@@ -562,8 +562,8 @@ public class SignUpController {
 		log.info("add New Company called");
 		WebClientResponse response = null;
 		try {
-//			String candidateId=session.getAttribute("candidateId").toString();
-			String candidateId = "1";
+			String candidateId=session.getAttribute("candidateId").toString();
+//			String candidateId = "1";
 			signup.setCandidateId(candidateId);
 			String Url = Configs.urls.get(ApplicationConstant.ADD_NEW_COMPANY).getUrl();
 			log.info("@@@@ add New Company " + Url);
@@ -579,6 +579,35 @@ public class SignUpController {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			log.info("===== Exceptions in fetchSkillsFramework =========" + e1.getMessage());
+		}
+		return null;
+	}
+	
+	@PostMapping("/candidatenewpassword")
+	  public String candidatenewpassword()
+	  {
+		  return "candidatechangepassword";
+	  }
+	
+	@PostMapping("/resendotpcandidate")
+	@ResponseBody
+	public APIErrorModel resendotpcandidate(@RequestBody SignUp sign, Model model) {
+		log.info("====== existedEmailChecking   ======" + sign);
+		WebClientResponse response = null;
+		try {
+			String Url = Configs.urls.get(ApplicationConstant.RESENDOTPCANDIADTE).getUrl();
+			log.info("@@@@ resendotpcandidate " + Url);
+			response = myWebClient.post(Url, sign).block();
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<SignUp> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<SignUp>>() {
+						});
+				return responsemodel.getErrors();
+
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			log.info("Existed Email ========" + e1.getMessage());
 		}
 		return null;
 	}

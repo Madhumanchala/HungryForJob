@@ -16,7 +16,6 @@
 <link href="employer/css/bootstrap.min.css" rel="stylesheet">
 <link href="employer/fonts/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
-<link href="employer/css/font-awesome.min.css" rel="stylesheet">
 <link href="employer/css/style.css" rel="stylesheet">
 
 </head>
@@ -108,35 +107,38 @@
 									class="title d-flex justify-content-between align-items-center">
 									<h4>Hiring Pipeline</h4>
 									<p>
-										<a href="">View all jobs</a>
+										<a href="#" onclick="managejobpost()">View all jobs</a>
 									</p>
 								</div>
 								<table class="table dashboardtable">
 									<thead>
 										<tr>
-											<th class="jobtit">Job Type</th>
+											<!-- <th class="jobtit">Job Type</th> -->
 											<th class="jobtit">Job Title</th>
-											<th class="jobtit2">New&nbsp;Applied</th>
+											<c:forEach items="${carddetails}" var="cardname">
+											<th class="jobtit2">${cardname.name}</th>
+											</c:forEach>
+											<!-- <th class="jobtit2">New&nbsp;Applied</th>
 											<th class="jobtit2">Screening</th>
 											<th class="jobtit2">Interview</th>
 											<th class="jobtit2">Tests</th>
-											<th class="jobtit2">Hired</th>
+											<th class="jobtit2">Hired</th> -->
 											<th class="jobtit3 ">View</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${jobdetails}" var="details">
 											<tr class="detailslist">
-												<td>
+												<%-- <td>
 													<h5>${details.jobType}</h5>
-												</td>
+												</td> --%>
 												<td>
 													<h5>${details.jobHeading}</h5>
 													<p>${details.postingStartDate}to
 														${details.postingEndDate}</p>
 												</td>
 
-												<td colspan="5">
+												<td colspan="4">
 													<ul class="progressbar">
 														<c:choose>
 															<c:when test="${details.postingHired gt 0}">
@@ -146,21 +148,8 @@
 																	Candidates</li>
 																<li class="active">${details.postingInterview }&nbsp;
 																	Candidates</li>
-																<li class="active">${details.postingTest}&nbsp;
-																	Candidates</li>
 																<li class="active">${details.postingHired}&nbsp;
 																	Candidates</li>
-															</c:when>
-															<c:when test="${details.postingTest gt 0}">
-																<li class="active">${details.postingApplied }&nbsp;
-																	Candidates</li>
-																<li class="active">${details.postingScreening}&nbsp;
-																	Candidates</li>
-																<li class="active">${details.postingInterview }&nbsp;
-																	Candidates</li>
-																<li class="active">${details.postingTest}&nbsp;
-																	Candidates</li>
-																<li class="">${details.postingHired}&nbsp;Candidates</li>
 															</c:when>
 															<c:when test="${details.postingInterview gt 0}">
 																<li class="active">${details.postingApplied }&nbsp;
@@ -169,7 +158,6 @@
 																	Candidates</li>
 																<li class="active">${details.postingInterview }&nbsp;
 																	Candidates</li>
-																<li class="">${details.postingTest}&nbsp;Candidates</li>
 																<li class="">${details.postingHired}&nbsp;Candidates</li>
 															</c:when>
 															<c:when test="${details.postingScreening gt 0}">
@@ -179,7 +167,6 @@
 																	Candidates</li>
 																<li class="">${details.postingInterview }&nbsp;
 																	Candidates</li>
-																<li class="">${details.postingTest}&nbsp;Candidates</li>
 																<li class="">${details.postingHired}&nbsp;Candidates</li>
 															</c:when>
 															<c:when test="${details.postingApplied gt 0}">
@@ -188,7 +175,6 @@
 																<li class="">${details.postingScreening}&nbsp;Candidates</li>
 																<li class="">${details.postingInterview }&nbsp;
 																	Candidates</li>
-																<li class="">${details.postingTest}&nbsp;Candidates</li>
 																<li class="">${details.postingHired}&nbsp;Candidates</li>
 															</c:when>
 															<c:otherwise>
@@ -196,13 +182,9 @@
 																<li class="">${details.postingScreening}&nbsp;Candidates</li>
 																<li class="">${details.postingInterview }&nbsp;
 																	Candidates</li>
-																<li class="">${details.postingTest}&nbsp;Candidates</li>
 																<li class="">${details.postingHired}&nbsp;Candidates</li>
 															</c:otherwise>
-
 														</c:choose>
-
-
 													</ul>
 												</td>
 												<td class="text-center eye"><a href="#"> <i
@@ -458,12 +440,17 @@
 	<script src="employer/js/popper.min.js"></script>
 	<script src="employer/js/bootstrap.min.js"></script>
 	<script src="employer/js/main.js"></script>
+	<script src="/js/commonvalidation.js"></script>
 	<script>
 		$(document).ready(function() {
 			setTimeout(function() {
 				$('body').addClass('loaded');
 			}, 1000);
 		});
+		function managejobpost()
+		{
+			findroute('managejobpost');
+		}
 	</script>
 </body>
 

@@ -51,6 +51,9 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 						<div class="proTxt">
 							<strong><%=header3candidateName%></strong>
 						</div>
+						<a class="dropdown-item " onclick="route('candidatenewpassword')">
+							<i class="bi bi-lock"></i> Change Password
+						</a>
 						<a class="dropdown-item logOutLink" onclick="route('logout')">
 							<i class="bi bi-box-arrow-right"></i> Logout
 						</a>

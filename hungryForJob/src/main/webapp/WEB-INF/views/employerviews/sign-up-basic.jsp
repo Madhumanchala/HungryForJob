@@ -612,7 +612,13 @@
 	                document.getElementById("mobileNo-span").innerHTML = "Please Enter mobile No";
 	                document.getElementById("mobileNo-span").style.color = "Red";
 	                return false;
-	            }else
+	            }else if(mobileNo.length !== 10)
+	            {
+	            	document.getElementById("mobileNo-span").innerHTML = "Please Enter valid mobile No";
+	                document.getElementById("mobileNo-span").style.color = "Red";
+	                return false;
+	            }
+			 else
 	            {
 	            	document.getElementById("mobileNo-span").innerHTML = "";
 

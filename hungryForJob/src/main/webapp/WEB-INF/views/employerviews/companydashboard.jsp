@@ -233,6 +233,7 @@ String role=session.getAttribute("rolestatus").toString();
 	<script src="employer/js/jquery.richtext.js"></script>
 	<script src="employer/js/main.js"></script>
 	<script src="employer/js/companydashboard.js"></script>
+	<script src="js/commonvalidation.js"></script>
 
 	<!--Company Profile edit modal   -->
 	<div class="modal fade" id="Company-Profile-edit" tabindex="-1"
@@ -251,7 +252,7 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="form-group">
 								<label for="" class="form-label">User Name</label> <input
 									type="text" name="" id="editUserName" class="form-control"
-									placeholder="Enter" maxlength="30"> <span
+									placeholder="Enter" maxlength="30" onkeyup="checkname(this,'editUserName_error')"> <span
 									class="errors" id="editUserName_error"></span>
 							</div>
 						</div>
@@ -278,8 +279,8 @@ String role=session.getAttribute("rolestatus").toString();
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
 								<label for="" class="form-label">Mobile Number</label> <input
-									type="text" name="" id="editMobileNumber" class="form-control"
-									placeholder="Enter"> <span class="errors"
+									type="text" name="" id="editMobileNumber" class="form-control" maxlength="10"
+									placeholder="Enter"> <span class="errors" 
 									id="editMobileNo_error"></span>
 							</div>
 						</div>
@@ -364,7 +365,7 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="form-group">
 								<label for="" class="form-label">Phone Number </label> <input
 									type="text" name="" id="editphonenumber" class="form-control"
-									placeholder="Enter" >
+									placeholder="Enter" maxlength="10">
 							<span class="errors" id="editphonenumber_error"></span>
 							</div>
 						</div>
@@ -443,7 +444,7 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="form-group">
 								<label for="" class="form-label">Address </label> <input
 									type="text" name="editaddress" id="editaddress" class="form-control"
-									placeholder="Enter">
+									placeholder="Enter" maxlength="40">
 									<span class="errors" id="editaddress_error"></span>
 							</div>
 						</div>
@@ -483,7 +484,7 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="form-group">
 								<label for="" class="form-label">GSTIN</label> <input
 									type="text" name="editgst" id="editgst" class="form-control"
-									placeholder="Enter">
+									placeholder="Enter" maxlength="15" onkeyup="checkgst(this,'editgst_error')">
 								<span class="errors" id="editgst_error"></span>
 							</div>
 						</div>

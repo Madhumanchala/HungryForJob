@@ -49,8 +49,8 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="emailInput" class="required">Email ID </label>
-                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Enter Email ID">
-                       	<!-- <span class="error_email"> Please enter your Email ID</span> -->
+                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Enter Email ID" maxlength="30">
+                       	<span class="error_email" id="error_email" style="color: red"></span> 
                        	
                        	<input type="hidden" name="sessionForgetRole" id="sessionValue"/>
                       </div>
@@ -116,6 +116,14 @@
 				isvalid=false;
 				showToast("info","please enter the email");
 				return 
+			}else
+			{
+				if(!validateEmail(emailInput))
+				{
+					isvalid=false;
+					showToast("info","please enter valid  email");
+					return 
+				}
 			}
 			if(isvalid)
 			{
@@ -136,7 +144,7 @@
 		                {
 							showToast("success","otp is sent to your emailId");
 							setTimeout(function() {
-		    					findroute('forgetpasswordotp');
+								findnewroute('forgetpasswordotp',emailInput);
 						}, 2000); // 2000ms = 2 seconds
 						$('.loader').hide();
 						}else if(response.errorCode === "1010")
@@ -165,6 +173,26 @@
 		            }
 				})
 			}
+		}
+		
+		function findnewroute(value,email) {
+			let form = document.createElement('form');
+			form.method = 'POST'; 
+			form.action = value;
+
+			// Create email input
+			let emailInput = document.createElement('input');
+			emailInput.type = 'email';
+			emailInput.name = 'email'; // name used on server side to retrieve the value
+			emailInput.value = email; // get value from existing email field
+
+			// Add email input to form
+			form.appendChild(emailInput);
+			
+			sessionStorage.setItem("resendotpsend", "1");
+
+			document.body.appendChild(form);
+			form.submit(); 
 		}
 	</script>
 </body>

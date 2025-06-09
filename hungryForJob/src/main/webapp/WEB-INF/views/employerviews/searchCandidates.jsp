@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +28,7 @@
 	<div class="loader">
 		<img src="employer/img/loader.gif">
 	</div>
-	<%@include file="employerHeader.jsp"%> 
+	<%@include file="employerHeader.jsp"%>
 	<%@include file="toaster.jsp"%>
 	<!-- ======= Header ======= -->
 	<!-- End Header -->
@@ -37,7 +37,7 @@
 			<div class="container">
 				<div class="row ">
 					<div class="col-xl-8 col-lg-10 col-md-12  ">
-						<form autocomplete="off">
+						<!-- <form autocomplete="off"> -->
 							<div class="card-register">
 
 								<h3>Search Candidates</h3>
@@ -59,17 +59,32 @@
                     </div> -->
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label for="iTSkills">Skills </label> <select
+												<label for="iTSkills">Skills </label>
+												 <%-- <select
 													class="form-select form-control selet2Multiple"
 													id="iTSkills" multiple="multiple" onchange="allChange('skills_error')">
 													<option value="">Select</option>
 													<c:forEach items="${skills}" var="skills">
 														<option value="${skills.id}">${skills.name}</option>
 													</c:forEach>
-												</select>
+												</select> --%>
+												<div class="multi-select-container">
+													<input type="text"
+														class="dropdown-input form-control form-select "
+														placeholder="Select keywords" onchange="allChange('skills_error')" readonly>
+													<div class="dropdown1">
+														<c:forEach items="${skills}" var="skills">
+															<div data-value="${skills.id}">${skills.name}</div>
+														</c:forEach>
+													</div>
+													<div class="selected-items"></div>
+												</div> 
 												<span class="errors" id="skills_error"></span>
 											</div>
 										</div>
+
+
+
 
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
@@ -80,9 +95,9 @@
 												<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
 													<div class="form-group">
 														<select class="form-select form-control selet2Single"
-															id="workExperienceMin" onchange="allChange('minExp_error')">
-															<option value="" selected="">Min
-																Experience</option>
+															id="workExperienceMin"
+															onchange="allChange('minExp_error')">
+															<option value="" selected="">Min Experience</option>
 															<option value="0">0 Yr</option>
 															<option value="1">1 Yr</option>
 															<option value="2">2 Yrs</option>
@@ -109,16 +124,15 @@
 															<option value="23">23 Yrs</option>
 															<option value="24">24 Yrs</option>
 															<option value="25">25 Yrs +</option>
-														</select>
-														<span class="errors" id="minExp_error"></span>
+														</select> <span class="errors" id="minExp_error"></span>
 													</div>
 												</div>
 												<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
 													<div class="form-group">
 														<select class="form-select form-control selet2Single"
-															id="workExperienceMax" onchange="allChange('maxExp_error')">
-															<option value="" selected="">Max
-																Experience</option>
+															id="workExperienceMax"
+															onchange="allChange('maxExp_error')">
+															<option value="" selected="">Max Experience</option>
 															<option value="0">0 Yr</option>
 															<option value="1">1 Yr</option>
 															<option value="2">2 Yrs</option>
@@ -145,8 +159,7 @@
 															<option value="23">23 Yrs</option>
 															<option value="24">24 Yrs</option>
 															<option value="25">25 Yrs +</option>
-														</select>
-															<span class="errors" id="maxExp_error"></span>	
+														</select> <span class="errors" id="maxExp_error"></span>
 													</div>
 												</div>
 
@@ -158,7 +171,8 @@
 												<label for="jobLocation">Current location of
 													candidate </label> <select
 													class="form-select form-control selet2Multiple"
-													id="jobLocation" multiple="multiple" onchange="allChange('location_error')">
+													id="jobLocation" multiple="multiple"
+													onchange="allChange('location_error')">
 													<option value="">Select</option>
 													<c:forEach items="${location}" var="location">
 														<option value="${location.id}">${location.name}</option>
@@ -171,10 +185,10 @@
 														Include candidates ready to relocate to the above location
 													</label>
 												</div>
-												<span class="errors" id="location_error"></span>	
+												<span class="errors" id="location_error"></span>
 											</div>
 										</div>
-										
+
 
 										<div class="col-lg-10 col-md-12 col-sm-12">
 											<div class="form-group">
@@ -187,9 +201,10 @@
 														</div>
 													</div>
 													<div class="col-lg-4 col-md-4 col-sm-4 col-5">
-														<select class="form-select form-control selet2Single" id="searchMinSalary">
-															<option value="" >Min</option>
-														<!-- 	<option value="50000">50,000</option>
+														<select class="form-select form-control selet2Single"
+															id="searchMinSalary">
+															<option value="">Min</option>
+															<!-- 	<option value="50000">50,000</option>
 															<option value="60000">60,000</option>
 															<option value="70000">70,000</option>
 															<option value="80000">80,000</option>
@@ -590,7 +605,7 @@
 												<label for="company"> Company </label> <select
 													class="form-select form-control selet2Single " id="company">
 													<option value="">Select</option>
-												<c:forEach items="${company}" var="company">
+													<c:forEach items="${company}" var="company">
 														<option value="${company.id}">${company.name}</option>
 													</c:forEach>
 												</select>
@@ -630,12 +645,12 @@
 															name="noticePeriod" id="3month" value="90"> <label
 															class="btn" for="3month"><span>3 month </span> </label></li>
 														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="morethan3months" value="365"> <label
-															class="btn" for="morethan3months"><span>More
+															name="noticePeriod" id="morethan3months" value="365">
+															<label class="btn" for="morethan3months"><span>More
 																	than 3 months </span> </label></li>
 														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="currentlyserving" value="365"> <label
-															class="btn" for="currentlyserving"><span>Currently
+															name="noticePeriod" id="currentlyserving" value="365">
+															<label class="btn" for="currentlyserving"><span>Currently
 																	serving notice period</span> </label></li>
 													</ul>
 												</div>
@@ -659,16 +674,19 @@
 												<div class="formchecks">
 													<ul>
 														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="doctoratePHD" onchange="changeEducation('phd')" value="phd"> <label
-															class="btn" for="doctoratePHD" ><span>Doctorate/PHD</span>
+															name="highestQualification" id="doctoratePHD"
+															onchange="changeEducation('phd')" value="phd"> <label
+															class="btn" for="doctoratePHD"><span>Doctorate/PHD</span>
 														</label></li>
 														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="mastersPostGraduate" onchange="changeEducation('master')" value="master">
-															<label class="btn" for="mastersPostGraduate" ><span>Masters/Post
+															name="highestQualification" id="mastersPostGraduate"
+															onchange="changeEducation('master')" value="master">
+															<label class="btn" for="mastersPostGraduate"><span>Masters/Post
 																	Graduate</span> </label></li>
 														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="graduationDiploma" onchange="changeEducation('degree')" value="degree">
-															<label class="btn" for="graduationDiploma" ><span>Graduation/Diploma
+															name="highestQualification" id="graduationDiploma"
+															onchange="changeEducation('degree')" value="degree">
+															<label class="btn" for="graduationDiploma"><span>Graduation/Diploma
 															</span> </label></li>
 													</ul>
 												</div>
@@ -683,7 +701,10 @@
 													<div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="course1">Course </label> <select
-																class="form-select form-control selet2Single" id="course1" onchange="getSpecialization(this.value,'specialization1')" style="width:100%">
+																class="form-select form-control selet2Single"
+																id="course1"
+																onchange="getSpecialization(this.value,'specialization1')"
+																style="width: 100%">
 																<option value="">Select</option>
 																<c:forEach items="${masterCourse}" var="course">
 																	<option value="${course.id}">${course.name}</option>
@@ -695,7 +716,8 @@
 													<div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="specialization">Specialization </label> <select
-																class="form-select form-control selet2Single" id="specialization1" style="width:100%">
+																class="form-select form-control selet2Single"
+																id="specialization1" style="width: 100%">
 																<option value="">Select</option>
 															</select>
 														</div>
@@ -706,16 +728,17 @@
 															<div class="formchecks">
 																<ul>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="fullTime1" value="fullTime"> <label
-																		class="btn" for="fullTime1"><span>Full
+																		name="courseType1" id="fullTime1" value="fullTime">
+																		<label class="btn" for="fullTime1"><span>Full
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="partTime1" value="partTime"> <label
-																		class="btn" for="partTime1"><span>Part
+																		name="courseType1" id="partTime1" value="partTime">
+																		<label class="btn" for="partTime1"><span>Part
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="distanceLearning1" value="DistanceLearning"> <label
-																		class="btn" for="distanceLearning1"><span>Distance
+																		name="courseType1" id="distanceLearning1"
+																		value="DistanceLearning"> <label class="btn"
+																		for="distanceLearning1"><span>Distance
 																				Learning</span> </label></li>
 																</ul>
 															</div>
@@ -727,7 +750,7 @@
 														<div class="form-group">
 															<label for="university">University/ Institute </label> <select
 																class="form-select form-control selet2Single"
-																id="university1" style="width:100%">
+																id="university1" style="width: 100%">
 																<option value="">Select</option>
 																<c:forEach items="${insitiute}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -741,14 +764,16 @@
 										</div>
 
 
-										<div class="col-lg-12"  id="degreeCourses">
+										<div class="col-lg-12" id="degreeCourses">
 											<div class="includeWalk">
 												<div class="row">
 													<div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="chooseCourse">Course </label> <select
 																class="form-select form-control  selet2Single "
-																id="course2" onchange="getSpecialization(this.value,'specialization2')" style="width:100%">
+																id="course2"
+																onchange="getSpecialization(this.value,'specialization2')"
+																style="width: 100%">
 																<option value="">Select</option>
 																<c:forEach items="${degreeCourse}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -760,7 +785,7 @@
 														<div class="form-group">
 															<label for="specialization">Specialization </label> <select
 																class="form-select form-control selet2Single "
-																id="specialization2" style="width:100%">
+																id="specialization2" style="width: 100%">
 																<option value="">Select</option>
 															</select>
 														</div>
@@ -772,16 +797,17 @@
 															<div class="formchecks">
 																<ul>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="fullTime2" value="fullTime"> <label
-																		class="btn" for="fullTime2"><span>Full
+																		name="courseType2" id="fullTime2" value="fullTime">
+																		<label class="btn" for="fullTime2"><span>Full
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="partTime2" value="partTime"> <label
-																		class="btn" for="partTime2"><span>Part
+																		name="courseType2" id="partTime2" value="partTime">
+																		<label class="btn" for="partTime2"><span>Part
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="distanceLearning2" value="DistanceLearning"> <label
-																		class="btn" for="distanceLearning2"><span>Distance
+																		name="courseType2" id="distanceLearning2"
+																		value="DistanceLearning"> <label class="btn"
+																		for="distanceLearning2"><span>Distance
 																				Learning</span> </label></li>
 																</ul>
 															</div>
@@ -813,7 +839,9 @@
 														<div class="form-group">
 															<label for="chooseCourse">Course </label> <select
 																class="form-select form-control  selet2Single "
-																id="course3" onchange="getSpecialization(this.value,'specialization3')" style="width:100%">
+																id="course3"
+																onchange="getSpecialization(this.value,'specialization3')"
+																style="width: 100%">
 																<option value="">Select</option>
 																<c:forEach items="${PHDCOURSE}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -825,8 +853,8 @@
 														<div class="form-group">
 															<label for="specialization">Specialization </label> <select
 																class="form-select form-control selet2Single "
-																id="specialization3" style="width:100%">
-															<option value="">Select</option>
+																id="specialization3" style="width: 100%">
+																<option value="">Select</option>
 															</select>
 														</div>
 													</div>
@@ -837,16 +865,17 @@
 															<div class="formchecks">
 																<ul>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="fullTime3" value="fullTime"> <label
-																		class="btn" for="fullTime3"><span>Full
+																		name="courseType3" id="fullTime3" value="fullTime">
+																		<label class="btn" for="fullTime3"><span>Full
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="partTime3" value="partTime"> <label
-																		class="btn" for="partTime3"><span>Part
+																		name="courseType3" id="partTime3" value="partTime">
+																		<label class="btn" for="partTime3"><span>Part
 																				Time</span> </label></li>
 																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="distanceLearning3" value="DistanceLearning"> <label
-																		class="btn" for="distanceLearning3"><span>Distance
+																		name="courseType3" id="distanceLearning3"
+																		value="DistanceLearning"> <label class="btn"
+																		for="distanceLearning3"><span>Distance
 																				Learning</span> </label></li>
 																</ul>
 															</div>
@@ -858,7 +887,7 @@
 														<div class="form-group">
 															<label for="university">University/ Institute </label> <select
 																class="form-select form-control selet2Single"
-																id="university3" style="width:100%">
+																id="university3" style="width: 100%">
 																<option value="">Select</option>
 																<c:forEach items="${insitiute}" var="university">
 																	<option value="${university.id}">${university.name}</option>
@@ -890,12 +919,12 @@
 															class="btn" for="allCandidates"><span>All
 																	candidates</span> </label></li>
 														<li><input type="radio" class="btn-check"
-															name="genderDiv" id="maleCandidates" value="male"> <label
-															class="btn" for="maleCandidates"><span>Male
+															name="genderDiv" id="maleCandidates" value="male">
+															<label class="btn" for="maleCandidates"><span>Male
 																	candidates</span> </label></li>
 														<li><input type="radio" class="btn-check"
-															name="genderDiv" id="femaleCandidates" value="female"> <label
-															class="btn" for="femaleCandidates"><span>Female
+															name="genderDiv" id="femaleCandidates" value="female">
+															<label class="btn" for="femaleCandidates"><span>Female
 																	candidates </span> </label></li>
 													</ul>
 												</div>
@@ -1008,12 +1037,12 @@
 												<!-- <label for="showonly">Show only candidates with </label> -->
 												<div class="formchecks">
 													<!-- <ul> -->
-														<!--  <li>
+													<!--  <li>
                               <input type="checkbox" class="btn-check" name="showonly" id="verifiedMobilenumber">
                               <label class="btn" for="verifiedMobilenumber"><span>Verified mobile number </span>
                               </label>
                             </li> -->
-														<!-- <li><input type="checkbox" class="btn-check"
+													<!-- <li><input type="checkbox" class="btn-check"
 															name="showonly" id="verifiedEmailID"> <label
 															class="btn" for="verifiedEmailID"><span>Verified
 																	email ID</span> </label></li>
@@ -1029,7 +1058,8 @@
 									</div>
 								</div>
 								<div class="searchCandidates d-flex justify-content-end">
-									<button type="button" class="btns" onclick="submitSearchCandidates()">Search candidates</button>
+									<button type="button" class="btns"
+										onclick="submitSearchCandidates()">Search candidates</button>
 								</div>
 							</div>
 					</div>
@@ -1038,7 +1068,7 @@
 		</section>
 
 	</main>
-	<%@include file="employerfooter.jsp"%> 
+	<%@include file="employerfooter.jsp"%>
 
 	<script src="employer/js/jquery.min.js"></script>
 	<script src="employer/js/bootstrap.min.js"></script>
@@ -1066,6 +1096,82 @@
 				$('body').addClass('loaded');
 			}, 1000);
 		});
+	</script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$(".dropdown-input").click(function() {
+								$(".dropdown1").toggle();
+							});
+
+							/*  $(".dropdown div").click(function () {
+							   var value = $(this).data("value");
+
+							   if ($(".selected-items .selected-item[data-value='" + value + "']").length === 0) {
+							     $(".selected-items").append(`
+							           <div class="selected-item" data-value="${value}">
+							               ${value}
+							               <i class="fa fa-star star"></i>
+							               <span class="remove">&times;</span>
+							           </div>
+							       `);
+							     $(this).addClass("active"); // Mark as active in dropdown
+							   }
+							   $(".dropdown").hide();
+							 }); */
+
+							$(".dropdown1 div")
+									.click(
+											function() {
+												var value = $(this).text();
+												var valueId = $(this).data("value");
+												var $selectedItems = $(".selected-items");
+												var $dropdownItem = $(this);
+
+												if ($selectedItems
+														.find(".selected-item[data-value='"
+																+ value + "']").length === 0) {
+													var html = '<div class="selected-item" data-value="' + valueId + '">'
+															+ value
+															+ '<i class="fa fa-star star"></i>'
+															+ '<span class="remove">&times;</span>'
+															+ '</div>';
+													$selectedItems.append(html);
+													$dropdownItem
+															.addClass("active");
+												}
+
+												$(".dropdown1").hide();
+											});
+
+							$(document).on("click", ".star", function() {
+								$(this).toggleClass("mandatory");
+							});
+
+							$(document).on(
+									"click",
+									".remove",
+									function() {
+										var value = $(this).parent().data(
+												"value");
+										$(this).parent().remove();
+										$(
+												".dropdown1 div[data-value='"
+														+ value + "']")
+												.removeClass("active"); // Remove active state
+									});
+
+							$(document)
+									.click(
+											function(e) {
+												if (!$(e.target)
+														.closest(
+																".multi-select-container").length) {
+													$(".dropdown1").hide();
+												}
+											});
+						});
 	</script>
 
 

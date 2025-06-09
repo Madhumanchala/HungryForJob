@@ -76,7 +76,7 @@ public class WebSecurityConfig {
 					.antMatchers("/getCandidateById").permitAll()
 					.antMatchers("/empportalRegister").permitAll()
 					.antMatchers("/logout").permitAll()
-					
+					.antMatchers("/resendotpcandidate").permitAll()
 					
 //					.antMatchers("/admindashboard").permitAll()
 //					.antMatchers("/updatePlanStatus").permitAll()

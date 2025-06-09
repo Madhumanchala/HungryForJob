@@ -26,19 +26,19 @@
 		<section class="section-inner login-bg">
 			<div class="container">
 				<div class="row ">
-					<div class="col-xl-8 col-lg-6 col-md-6 ">
+					<div class="col-xl-8 col-lg-7 col-md-6 ">
 						<div class="login-img">
 							<img src="img/login-img.svg">
 						</div>
 					</div>
 
-					<div class="col-xl-4 col-lg-6 col-md-6  ">
+					<div class="col-xl-4 col-lg-5 col-md-6  ">
 						<div class="card-register">
 							<form:form autocomplete="off" action="/login" onsubmit="return validationform()">
-								<div class="card-registerinner  ">
+								<div class="card-registerinner  logincard">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 text-center">
-											<h3>Login</h3>
+											<h3>Candidate Login</h3>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
@@ -51,7 +51,11 @@
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label for="password" class="required">Password </label> <input
+											<div class="d-flex justify-content-between">
+						                         	<label for="password" class="required">Password </label>
+						                        <a class="text-primary forgot" href="#" onclick="forgetpassword()">Forgot Password ?</a>
+						                        </div>
+												 <input
 													type="password" class="form-control" id="password"
 													placeholder="Enter Password" name="password" onkeyup="hideErrorByClass('password_error')"
 													maxlength="30"> <i
@@ -86,11 +90,11 @@
 										<div class="col-lg-12 text-center">
 											<button type="submit" class="btns">Login</button>
 										</div>
-										<div class="col-md-12 text-center mt-2">
+										<!-- <div class="col-md-12 text-center mt-2">
 											<a class="text-primary forgot" href="#"
 												onclick="forgetpassword()">Forgot Password ?</a>
-										</div>
-										<div class="col-md-12 text-center mt-2">
+										</div> -->
+										<div class="col-md-12 text-center mt-4">
 											Don't have an account? <a class="text-primary"
 												href="verifyEmail">Click Here</a>
 										</div>

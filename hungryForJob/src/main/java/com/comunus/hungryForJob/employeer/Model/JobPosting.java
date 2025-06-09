@@ -77,5 +77,51 @@ public class JobPosting {
 	private String internReadyToReLocate;
 	private String type;
 	
+	private String jobloc;
+	private String status;
+	private String candidateApplied;
+	private String candidateInterview;
+	private String createdBy;
+	private String jobPostkeySkills;
+	private String jobPostEducation;
+	
+	private String name;
+	
+	
+	
+	private String jobId;
+	private String candidateStatus;
+	private String candidateName;
+	private String candidateEmail;
+	private String candidateTotalExp;
+	private String candidateCurrentCtc;
+	private String candidateExpectedCtc;
+	private String candidateAppliedDate;
+	private String candidateProfileImage;
+	private String countOfapplied;
+	private String countofscreening;
+	private String countofscheduleinterview;
+	private String countofstatus;
+	
+	
+	private byte[] pdfBytes;
+	private String filename;
+	private String fileType;
+	
+	private String interviewDate;
+	private String interviewTime;
+	private String interviewmode;
+	private String interviewLink;
+	private List<String> interViewerEmail;
+	private String statusBar;
+	
+	private String countApplied;
+	private String countScreening;
+	private String countScheduledInterview;
+	private String countStatus;
+	
+	private String hiringStatus;
+	private String review;
+	
 	
 }

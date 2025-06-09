@@ -27,29 +27,8 @@
 </head>
 
 <body class="bg">
-	<!-- <div class="loader">
-		<img src="img/loader.gif">
-	</div> -->
-	<!-- ======= Header ======= -->
-	<!-- ======= Header ======= -->
-	<header id="header" class="header fixed-top">
-		<div
-			class="container-fluid container-xl d-flex align-items-center justify-content-between">
-			<a href="index.html" class="logo d-flex align-items-center"> <img
-				src="/employer/img/logo.svg" alt="">
-			</a>
-			<nav id="navbar" class="navbar">
-				<ul>
-					<!-- <li><a class="getstarted" href="#">Candidate Login</a></li>
-					<li><a class="getstarted" href="#">Employer Login</a></li> -->
-				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
-			</nav>
-			<!-- .navbar -->
-		</div>
-	</header>
-	<!-- End Header -->
-
+<%@include file="employerHeader.jsp"%> 
+	<%@include file="toaster.jsp"%>
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb profile-breadcrumb">
 			<div class="bgtop"></div>
@@ -117,10 +96,10 @@
 								<div class="candidate-details">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="detail">
+											<!-- <div class="detail">
 												<div class="item1">Current</div>
 												<div class="item2">Software Engineer at MPS Limited</div>
-											</div>
+											</div> -->
 											<div class="detail">
 												<div class="item1">Highest degree</div>
 												<div class="item2">
@@ -267,7 +246,7 @@
 										<div class="edTxt">
 											<h4>
 												${educationDetails.specialization},${educationDetails.institute},${educationDetails.endYear}
-												<span> Fulltime </span>
+												<!-- <span> Fulltime </span> -->
 											</h4>
 											<!-- <h5>
 										Frontend Angular developer <span>| 1 Year 2 Months | </span> <span>

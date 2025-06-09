@@ -339,7 +339,7 @@ public class SearchCandidateController {
 	@PostMapping("/clickDeduct")
 	@ResponseBody
 	public ServiceResponseWrapperModel<SearchResp> clickDeduct(@RequestBody DeductionPoints deduct,HttpServletRequest request) {
-		log.info(" addExistingFolder ========== " + deduct);
+		log.info(" clickDeduct   ========== " + deduct);
 		WebClientResponse response = null;
 		try {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.DEDUCT_POINTS).getUrl();

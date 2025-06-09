@@ -68,11 +68,21 @@ if(gender == null || gender == undefined || gender === "null")
 let isReadyToLocate = sessionStorage.getItem("isReadyToLocate");
 function saveSearch() {
 	$('.loader').show();
+	var selectedTexts = [];
+	$('#iTSkills option:selected').each(function(index) {
+    if (index < 2) {
+    selectedTexts.push($(this).text());
+  } else {
+    return false; // Break the loop after two
+  }
+});
+var skillsString = selectedTexts.join(", ");
 	$.ajax({
 		url: "/saveSearch",
 		type: "POST",
 		contentType: 'application/json',
 		data: JSON.stringify({
+			"name":skillsString,
 			"companyId":companyId,
 			"userId": userId,
 			"skill": skills,
@@ -438,7 +448,36 @@ function filtersValidation()
 	if (!lastactive) { // This covers null, undefined, and empty string
 	    $("select[name='lastactivein']").val("").trigger('change');
 	} else {
-	    $("select[name='activein']").val(lastactive).trigger('change');
+	    /*$("select[name='activein']").val(lastactive).trigger('change');*/
+	    
+	    $('#activein').niceSelect('destroy');
+
+// 2. Remove all options
+$('#activein').empty();
+
+// 3. Add new options
+var newOptions = [
+  { value: "", text: "All resumes" },
+  { value: "1", text: "1 day" },
+  { value: "3", text: "3 days" },
+  { value: "7", text: "7 days" },
+  { value: "15", text: "15 days" },
+  { value: "30", text: "30 days" },
+  { value: "60", text: "2 months" }
+];
+
+newOptions.forEach(function(opt) {
+  var $option = $("<option></option>").val(opt.value).text(opt.text);
+  if (opt.value === lastactive) {
+    $option.prop("selected", true); // Optional: preselect an option
+  }
+  $('#activein').append($option);
+});
+
+// 4. Re-initialize nice-select
+$('#activein').niceSelect();
+sessionStorage.removeItem("lastactive");
+
 	}
 	
 	let noticeperiod = sessionStorage.getItem("NoticePeriod"); 

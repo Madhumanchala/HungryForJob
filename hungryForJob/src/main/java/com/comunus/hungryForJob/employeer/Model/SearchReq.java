@@ -58,4 +58,5 @@ public class SearchReq {
 	private String comments;
 	private List<Map<String, String>> detailsComment;
 	private String requiredSkills;
+	private String name;
 }

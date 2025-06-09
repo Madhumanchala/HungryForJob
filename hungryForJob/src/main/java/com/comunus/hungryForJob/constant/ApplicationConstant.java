@@ -38,5 +38,6 @@ public interface ApplicationConstant {
 	String GET_CANDIDATE_BY_ID="getCandidateById";
 	String EMPLOYER_ADD_CANDIDATES="empaddCandidates";
 	String FORGETPASSWORDVERIFY="ForgotPassVerifyEmail";
+	String RESENDOTPCANDIADTE="resendotpcandidate";
 
 }

@@ -124,6 +124,7 @@ function changepassword()
 			contentType: 'application/json',
 			data: JSON.stringify({
 				password:newpassword,
+				type:"employernewpassword"
             }),
             success: function(response) {
                 // Success callback

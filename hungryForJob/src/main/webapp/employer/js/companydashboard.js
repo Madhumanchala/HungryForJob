@@ -88,6 +88,17 @@ function updatCompanyProfile()
 		$("#editMobileNo_error").text("Enter the field");
 		$("#editMobileNo_error").show();
 		isvalid=false;
+	}else
+	{
+		if(mobileNumber.length !== 10)
+		{
+			$("#editMobileNo_error").text("Enter the valid mobile number");
+			$("#editMobileNo_error").show();
+			isvalid=false;
+		}else
+		{
+			$("#editMobileNo_error").hide();
+		}
 	}
 	
 	if(isvalid)
@@ -106,9 +117,13 @@ function updatCompanyProfile()
                 // Success callback
                 if(response.errors.errorCode === "0000")
                 {
-					showToast("success","Sucessfully updated");
+					showToast("success",response.errors.errorMessage);
 					$("#Company-Profile-edit").modal("hide");
-				}else
+				}else if(response.errors.errorCode === "1100")
+				{
+					showToast("info","Already Existed Email");
+				}
+				else
 				{
 					showToast("info","please try again");
 					$("#Company-Profile-edit").modal("hide");
@@ -137,11 +152,36 @@ function updatecompanydetails()
 	{
 		$("#editindustrytype_error").text("Enter the field");
 		$("#editindustrytype_error").show();
+		isvalid=false;
+	}else
+	{
+		$("#editindustrytype_error").hide();
+	}
+	if(industrytype === "Select")
+	{
+		$("#editindustrytype_error").text("Enter the field");
+		$("#editindustrytype_error").show();
+		isvalid=false;
+	}else
+	{
+		$("#editindustrytype_error").hide();
 	}
 	if(test(phonenumber))
 	{
-		$("#editphonenumber_error").text("Enter the field");
+		$("#editphonenumber_error").text("Enter the valid phone number");
 		$("#editphonenumber_error").show();
+		isvalid=false;
+	}else
+	{
+		if(phonenumber.length !== 10)
+		{
+			$("#editphonenumber_error").text("Enter the field");
+			$("#editphonenumber_error").show();
+			isvalid=false;
+		}else
+		{
+			$("#editphonenumber_error").hide();
+		}
 	}
 	if(isvalid)
 	{
@@ -336,6 +376,24 @@ function updatekycdetails()
 		$("#editgst_error").show();
 	}else
 	{
+		if(gstno.length !== 15)
+		{
+			$("#editgst_error").text("Enter the valid gst number");
+			$("#editgst_error").show();
+			isvalid=false;
+		}else
+		{
+			$("#editgst_error").hide();
+		}
+	}
+	if(!validateGST(gstno))
+	{
+		$("#editgst_error").text("Enter the valid gst");
+		$("#editgst_error").show();
+		isvalid=false;
+	}
+	else
+	{
 		$("#editgst_error").hide();
 	}
 	if(test(city))
@@ -347,7 +405,15 @@ function updatekycdetails()
 		$("#editcity_error").text("Enter the city");
 		$("#editcity_error").hide();
 	}
-	if(isvalid)
+	validpincode(pincode).then((message)=>{
+				if(message)
+				{
+					$("#editpincode_error").text("Enter the valid pincode");
+					$("#editpincode_error").show();
+					isvalid=false;
+				}else
+				{
+					if(isvalid)
 	{
 		$(".loader").show();
 		$.ajax({
@@ -387,4 +453,7 @@ function updatekycdetails()
             }
 		})
 	}
+				}
+		});
+	
 } 

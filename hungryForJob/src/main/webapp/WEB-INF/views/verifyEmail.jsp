@@ -23,13 +23,13 @@
     <section class="section-inner login-bg">
       <div class="container">
         <div class="row ">
-          <div class="col-xl-7 col-lg-6 col-md-6 ">
+          <div class="col-xl-8 col-lg-7 col-md-6 ">
             <div class="login-img">
               <img src="img/verify-email.svg">
             </div>
           </div>
 
-          <div class="col-xl-4 col-lg-6 col-md-6  ">
+          <div class="col-xl-4 col-lg-5 col-md-6  ">
             <div class="card-register">
 <!--               <form autocomplete="off">
  -->                <div class="card-registerinner  ">
@@ -43,7 +43,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12" id="EmailIDDiv">
                       <div class="form-group">
                         <label for="emailInput" class="required">Email ID </label>
-                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Enter Email ID">
+                        <input type="email" class="form-control" id="emailInput" name="emailInput" placeholder="Enter Email ID" maxlength="30">
                          <span id="emailError" class="error-message" style="color:red; display:none;">Invalid email address!</span>
                         <span id="emailExistsError" class="info-message" style="color:blue; display:none;">Email already exists!</span>
                       </div>
@@ -203,8 +203,12 @@
 	        console.error("Countdown element not found!");
 	        return;
 	    }
+	    
+	    if (timerInterval) {
+	        clearInterval(timerInterval);
+	    }
 
-	    let timeLeft = number; // 3 minutes in seconds
+	    let timeLeft = 120; // 3 minutes in seconds
 
 	    function formatTime(time) {
 	    	console.log(time);

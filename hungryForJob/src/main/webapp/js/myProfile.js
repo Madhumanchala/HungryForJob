@@ -155,7 +155,7 @@ function geteducationDetailsByid(id) {
 			$('#CourseEndYear').empty();
 			$('#CourseEndYear').append(
 				$('<option></option>').val("").text("Select"));
-			for (var year = 1970; year <= currentYear; year++) {
+			for (var year = newdob; year <= currentYear; year++) {
 				$('#CourseStartYear').append(
 					$('<option></option>').val(year).text(year));
 				$('#CourseEndYear').append(
@@ -691,6 +691,11 @@ function updatePersonalDetails() {
 		$(".mobileno_error").text("Please Enter the Field").css("color", "red");
 		$(".mobileno_error").show();
 	}
+	if (mobileno.length != 10) {
+		isvalid = false
+		$(".mobileno_error").text("Please Enter the valid mobile number").css("color", "red");
+		$(".mobileno_error").show();
+	}
 	if (workStatus == "" || workStatus == null) {
 		isvalid = false
 		$(".workStatus_error").text("Please Enter the Field").css("color", "red");
@@ -1219,6 +1224,15 @@ function getEditemploymentdetails(id, companyName, jobTittle, startYear, startMo
 	});
 	$('#editstartYear').val(startYear);
 	$('#editstartMonth').val(startMonth);
+	if(isworkstatus === "true")
+	{
+		$('#checkedcurretly').hide();
+	}else
+	{
+		$('#checkedcurretly').show();
+		$('#currentlyworkhide').prop('checked', false);
+	}
+	$('#employmentdetailshide').show();
 	$('#editendYear').val(endYear);
 	$('#editendMonth').val(endMonth);
 	$('#editemploymentsbutton').attr('onclick', 'updateEmploymentDetails(' + id + ')');
@@ -1254,6 +1268,7 @@ function getEditemploymentdetailsPresent(id, companyName, jobTittle, startYear, 
 	});
 	$('#editstartYear').val(startYear);
 	$('#editstartMonth').val(startMonth);
+	$('#checkedcurretly').show();
 	$('#currentlyworkhide').prop('checked', true);
 	/*$('#editendYear').val(endYear);
 	$('#editendMonth').val(endMonth);*/
@@ -1411,9 +1426,14 @@ function getCarrerDetails() {
 	$("#editExpectedCtc").val(editExpectedCtc);
 	var editTotalExp = document.getElementById('totalExpfetch').textContent;
 	let parts = editTotalExp.split(".");
-	let year = parts[0];
-	let months = parts[1].replace(/\s+/g, "");
-	months = months.replace("yrs", "");
+	let year="";
+	let months="";
+	if(parts.length >= 2)
+	{
+		year = parts[0];
+		months = parts[1].replace(/\s+/g, "");
+		months = months.replace("yrs", "");
+	}
 	var experienceyears = $('#edityearsExp');
 	experienceyears.empty();
 	experienceyears.append('<option value="" class="experience">Select Years</option>');
@@ -1426,8 +1446,20 @@ function getCarrerDetails() {
 	for (var i = 0; i <= 11; i++) {
 		experiencemonths.append('<option value="' + i + '">' + i + '</option>');
 	}
-	$('#edityearsExp').val(parseInt(year, 10));
-	$('#editmonthsExp').val(parseInt(months, 10));
+	if(year)
+	{
+		$('#edityearsExp').val(parseInt(year, 10));
+	}else
+	{
+		$('#edityearsExp').val("");
+	}
+	if(months)
+	{
+		$('#editmonthsExp').val(parseInt(months, 10));
+	}else
+	{
+		$('#edityearsExp').val("");
+	}
 
 	var editServingNoticePeriod = $("#serviceNoticePeriodFetch").text();
 	if (editServingNoticePeriod .toUpperCase()=== "YES") {
@@ -1460,9 +1492,9 @@ function getCarrerDetails() {
 	var editreadyTolocate = $("#readyTolocateFetch").text();
 	if (editreadyTolocate.toUpperCase() == "YES") {
 		$('#editRelocateYes').prop('checked', true);
-		$('#showHidePerferedLocation').hide();
-	} else {
 		$('#showHidePerferedLocation').show();
+	} else {
+		$('#showHidePerferedLocation').hide();
 		$('#editRelocateNo').prop('checked', true);
 	}
 	var editofferInHand = $("#offerInHandFetch").text();
@@ -1483,7 +1515,9 @@ function getCarrerDetails() {
 		$('#showHideReadyToLocate').hide();
 		$('#editWorkfromhomeYes').prop('checked', true);
 	} else {
-		$('#showHidePerferedLocation').show();
+		if (editreadyTolocate.toUpperCase() == "YES") {
+			$('#showHidePerferedLocation').show();
+		}
 		$('#showHideReadyToLocate').show();
 		$('#editWorkfromhomeNo').prop('checked', true);
 	}
@@ -1586,6 +1620,11 @@ function updateCareerDetails() {
 			$('.editjoiningDate_error').text("Enter the field below").css("color","red");
 			isValid=false;
 		}
+		if(offerCtc == "NO")
+		{
+			$('.editOfferCtc_error').text("Enter the Number").css("color","red");
+			isValid=false;
+		}
 		if(offerCtc == "")
 		{
 			$('.editOfferCtc_error').text("Enter the field below").css("color","red");
@@ -1600,7 +1639,6 @@ function updateCareerDetails() {
 			$(".editCurrentLocation_error").text("Enter the field below").css("color","red");
 		}
 	}
-	console.log(readyToRelocate.toUpperCase());
 	/*carrerDetails={
 		"currentCtc":currentCtc,
 				"expectedCtc":ExpectedCtc,
@@ -1878,17 +1916,26 @@ document.querySelectorAll('input[name="editOfferInHand"]').forEach
 		})
 	})
 function removeDisableLastWorkDate() {
-	$('#editlastworkingDate').prop('disabled', false);
-	$("#editLastWorkingDate").datepicker("destroy");
-	let days = $('#editNoticePeriod').val();
-	const startDates = new Date();
-	startDates.setDate(startDates.getDate() + days);
-		$("#editLastWorkingDate").datepicker({
-			dateFormat: "yy-mm-dd", // Adjust the format as needed
-			minDate: 0,            // Disable all past dates
-			changeMonth: true,     // Allow month selection
-			changeYear: true       // Allow year selection
-		});
+    // Enable the input field
+    $('#editlastworkingDate').prop('disabled', false);
+
+    // Get the value from #editNoticePeriod
+    let days = parseInt($('#editNoticePeriod').val());
+
+    if (!isNaN(days) && days > 0) {
+        let today = new Date();
+        let maxDate = new Date();
+        maxDate.setDate(today.getDate() + days);
+
+        // Update the datepicker with new start and end date
+        $('#editlastworkingDate').datepicker('setStartDate', today);
+        $('#editlastworkingDate').datepicker('setEndDate', maxDate);
+        $('#editlastworkingDate').datepicker('update');
+    } else {
+        // If invalid, reset the end date limit
+        $('#editlastworkingDate').datepicker('setEndDate', null);
+        $('#editlastworkingDate').datepicker('update');
+    }
 }
 function getCompanyName()
 {
@@ -1899,6 +1946,7 @@ function getCompanyName()
 					$('#companyName').append(
 						$('<option></option>').val(course.id).text(course.name));
 				});
+				$('#companyName').append($('<option></option>').val("others").text("Others"));
 	 if(isworkstatus === "true")
 	 {
 		 $("#addemploymentdetailcurrentlyadded").hide();
@@ -1924,6 +1972,8 @@ function editcompanyName(name)
 					 }
 					  $editCompanyName.append($option);
 				});
+			$('#editcompanyName').append(
+					$('<option></option>').val("others").text("Others"));
 		 $editCompanyName.val(company.id.toString()).trigger('change');
 }
 var monthMap = {
@@ -1954,7 +2004,7 @@ var revermonth = {
 		11: "November",
 		12:"December"
 };
-function updatemonth(value)
+function updateStartYear(value)
 {
 	const currentDate = new Date();
 	const currentYear = currentDate.getFullYear();
@@ -1980,12 +2030,28 @@ function updatemonth(value)
 		{
 			$('#startMonth').append($('<option></option>').val(revermonth[i]).text(revermonth[i]));
 		}
+		
 	}else
 	{
 		for(let i=1;i<=12;i++)
 		{
 			$('#startMonth').append($('<option></option>').val(revermonth[i]).text(revermonth[i]));
 		}
+	}
+}
+function updateStartMonth(value)
+{
+	const currentDate = new Date();
+	const currentYear = currentDate.getFullYear();
+	const currentMonth = currentDate.getMonth() + 1;
+	const startyear = $("#startYear").val();
+	$('#endYear').empty();
+	$('#endMonth').empty();
+	$('#endYear').append($('<option></option>').val("").text("Select"));
+	$('#endMonth').append($('<option></option>').val("").text("Select"));
+	for(let i=startyear;i<=currentYear;i++)
+	{
+		$('#endYear').append($('<option></option>').val(i).text(i));
 	}
 }
 function updateEndMonth(value)
@@ -2150,4 +2216,91 @@ function updatecurrentworkings()
 	} else {
     	$('#addemploymentdetailshide').show();
 	}
+}
+function companyChange(selectElement) {
+    let selectedValue = $(selectElement).val(); // Get the selected value from the element
+
+    if (selectedValue == "others") {
+        $('#otherAddModal').modal('show');
+        $(selectElement).val("").trigger("change");
+    } else {
+        $('#otherAddModal').modal('hide');
+    }
+}
+function companyMasterSave() {
+	let newCompanyName = $("#NewcompanyName").val();
+	$.ajax({
+		url: "/addNewCompany",
+		method: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			"newCompany": newCompanyName
+		}),
+		success: function(response) {
+			$('#otherAddModal').modal('hide');
+			showToast("success",response.errors.errorMessage);
+			fetchDetailsCompanys()
+			$(".loader").hide();
+		},
+		error: function(xhr, status, error) {
+			$('#otherAddModal').modal('hide');
+			console.log("======= company error");
+		}
+	});
+}
+function fetchDetailsCompanys() {
+    $.ajax({
+        url: "/companyFetchDetails",
+        method: 'POST',
+        success: function(response) {
+            var data = response.data.fetchCompany;
+            // Build the array of options first, using objects
+            data.forEach(function(company) {
+                masterCompany.push({
+                    id: company.id,
+                    name: company.name
+                });
+            });
+            getCompanyName();
+            populateEditCompanyName();
+        },
+        error: function(xhr, status, error) {
+            console.log("======= company error"+error);
+        }
+    });
+    $(".loader").hide();
+}
+function populateEditCompanyName() {
+    const $editCompanyName = $('#editcompanyName');
+
+	$editCompanyName.find('option[value="others"]').remove();
+    // Store existing option values to avoid duplicates
+    const existingValues = new Set();
+    $editCompanyName.find('option').each(function() {
+        existingValues.add($(this).val());
+    });
+
+    // Add the default "Select" option if not already present
+    if (!existingValues.has("")) {
+        $editCompanyName.append(
+            $('<option></option>').val("").text("Select")
+        );
+        existingValues.add("");
+    }
+
+    // Add options from masterCompany if not already present
+    masterCompany.forEach(function(course) {
+        if (!existingValues.has(course.id.toString())) {
+            const $option = $('<option></option>').val(course.id).text(course.name);
+            $editCompanyName.append($option);
+            existingValues.add(course.id.toString());
+        }
+    });
+
+    // Add "Others" option if not already present
+    if (!existingValues.has("others")) {
+        $editCompanyName.append(
+            $('<option></option>').val("others").text("Others")
+        );
+    }
 }

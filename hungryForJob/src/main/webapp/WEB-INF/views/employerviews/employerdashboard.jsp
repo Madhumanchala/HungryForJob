@@ -44,7 +44,7 @@ function route(value)
 $(document).ready(function() {
 	
   var value=sessionStorage.getItem("companydashroute").toString();
-  if(value)
+  if(value == "companydashboard" || value == "mysubscription" ||  value == "manageuser")
 	{
 	  $(".active").removeClass("active");
 	  $("#" + value).attr('class', 'active');

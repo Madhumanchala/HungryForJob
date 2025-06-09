@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -58,8 +59,9 @@ public class LoginController {
 	public String loginGet(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response,HttpSession session) {
 
 		try {
-		     
+			
 			log.info("login ========= ");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("Exception in login"+e.getMessage());
@@ -154,8 +156,10 @@ public class LoginController {
 	
 	
 	@PostMapping("/forgetpasswordotp")
-	public String otp()
+	public String otp(Model model,HttpServletRequest request)
 	{
+		String emailId=request.getParameter("email").toString();
+		model.addAttribute("emailid", emailId);
 		return "verifyCandidateOtp";
 	}
 	

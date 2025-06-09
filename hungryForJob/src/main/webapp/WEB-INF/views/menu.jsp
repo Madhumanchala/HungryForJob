@@ -11,7 +11,7 @@ String totalpoints=(String) session.getAttribute("totalpoints");
 				<div class="profileTxt">
 					<div class="avatar-upload animate">
 						<div class=" avatar-edit ">
-							<input type='file' id="imageUpload" accept=".jpeg " />
+							<input type='file' id="imageUpload" accept=".jpg,.jpeg,.png" />
 							<label for="imageUpload">
 								<div class="cam">
 									<img src="img/camera.webp ">

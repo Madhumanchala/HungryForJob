@@ -254,11 +254,11 @@ public class CandidateController {
 					 model.addAttribute("cities", responsemodel.getData().getCareerDetails().getAllCities());
 					 model.addAttribute("masterCompany", responsemodel.getData().getCareerDetails().getMasterCompany());
 					 model.addAttribute("cvDate", responsemodel.getData().getCareerDetails().getCvUploadedDate());
-					 session.removeAttribute("profileImage");
 					 session.setAttribute("profileImage", responsemodel.getData().getCareerDetails().getBase64ProfileImage());
 					 String dateOfyear=responsemodel.getData().getSignup().getDateofBirth();
 					 String[] splitdata=dateOfyear.split("-");
 					 Year startYear = Year.of(Integer.parseInt(splitdata[0]));
+					 model.addAttribute("newdob", startYear);
 					 Year resultYear = startYear.plusYears(13);
 					 String resultYearString = resultYear.toString();
 					 boolean isActive = responsemodel.getData().getEmployeelastWorkedCompany().stream()

@@ -1,5 +1,7 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -153,13 +155,13 @@ public class DashboardController {
 		try {
 			
 			String userId=null;
-			if(session.getAttribute("userId")!=null)
+			if(session.getAttribute("companyId")!=null)
 			{
-				userId = session.getAttribute("userId").toString();
+				userId = session.getAttribute("companyId").toString();
 				dashboard.setUserId(userId);
 			}else
 			{
-				log.info("userId is not set");
+				log.info("companyId is not set");
 			}
 			String url=Configs.urls.get(EmployeerAppplicationConstant.UPDATE_COMPANY_DETAILS).getUrl();
 			response=myWebClient.post(url, dashboard).block();
@@ -223,6 +225,22 @@ public class DashboardController {
 				{
 					model.addAttribute("userdetails", responsemodel.getData().getManageUserDetails());
 					model.addAttribute("admindetails",responsemodel.getData().getUserdetails());
+					if(responsemodel.getData().getManageUserDetails().stream().anyMatch(user -> user.getEmailId().equalsIgnoreCase(responsemodel.getData().getUserdetails().getEmailId())))
+					{
+						session.setAttribute("rolestatus","employeradmin");
+						Optional<Dashboard> matchedUser = responsemodel.getData()
+							    .getManageUserDetails()
+							    .stream()
+							    .filter(user -> user.getEmailId().equalsIgnoreCase(
+							        responsemodel.getData().getUserdetails().getEmailId()))
+							    .findFirst();
+						String id = matchedUser.map(Dashboard::getId).orElse("0"); 
+						session.setAttribute("userId", id);
+					}else
+					{
+						session.setAttribute("rolestatus","admin");
+						session.setAttribute("userId", session.getAttribute("companyId").toString());
+					}
 					model.addAttribute("size", responsemodel.getData().getManageUserDetails().size());
 					log.info("sizof it == "+responsemodel.getData().getManageUserDetails().size()+"user access === "+responsemodel.getData().getUserdetails().getUserAccess());
 				}
@@ -265,7 +283,7 @@ public class DashboardController {
 			if(response.getStatusCode() == 200)
 			{
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>(){});
-				
+				session.setAttribute("rolestatus", "");
 				return responsemodel;
 			}
 			
@@ -299,6 +317,40 @@ public class DashboardController {
 			if(session.getAttribute("userId")!=null)
 			{
 				dashboard.setUserId(session.getAttribute("userId").toString());
+			}else
+			{
+				log.info("session is not set in userId");
+			}
+			String url=Configs.urls.get(EmployeerAppplicationConstant.NEW_PASSWORD).getUrl();
+			response=myWebClient.post(url,dashboard).block();
+			if(response.getToken() != null)
+			{
+				log.info("s.getToken() :"+response.getToken());
+				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			}
+			if(response.getStatusCode() == 200)
+			{
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = new ObjectMapper().readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+				return responsemodel;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("Exception is occured === "+e.getMessage());
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	@PostMapping("/candidatenewpasswordchanged")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> candidatenewpasswordchanged(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)
+	{
+		WebClientResponse response=null;
+		try {
+			
+			if(session.getAttribute("candidateId")!=null)
+			{
+				dashboard.setUserId(session.getAttribute("candidateId").toString());
 			}else
 			{
 				log.info("session is not set in userId");
@@ -461,7 +513,7 @@ public class DashboardController {
 		return null;
 	}
 	
-	@PostMapping("employerdashboard")
+	@PostMapping("/employerdashboard")
 	public String employerdashboard(HttpSession session, Dashboard dashboard, HttpServletRequest request,Model model)
 	{
 		WebClientResponse response = null;
@@ -493,6 +545,7 @@ public class DashboardController {
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
 				model.addAttribute("jobdetails", responsemodel.getData().getJobdetails());
 				model.addAttribute("countjobdetails", responsemodel.getData().getCountJobDetails());
+				model.addAttribute("carddetails", responsemodel.getData().getCardDetails());
 			}
 			
 		} catch (Exception e) {

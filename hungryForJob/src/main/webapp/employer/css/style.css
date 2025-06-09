@@ -1058,3 +1058,164 @@ tr.UserDetails{line-height:3;background:#f5f5f9}
 	.pricingSlider .slick-prev:hover {opacity:1}
 	.pricingSlider .slick-next:hover {opacity:1 } 
 }
+
+
+.multi-select-container{  padding:0px;border-radius:5px;position:relative}
+.multi-select-container .selected-items{display:flex;flex-wrap:wrap;gap:5px; margin-top:10px;}
+.multi-select-container .selected-item{background-color:#ebf1ff;border:1px solid #bdc7df; padding:5px 10px;border-radius:50px;display:flex;align-items:center;gap:5px}
+.multi-select-container .star{cursor:pointer;color:#bdc7df;}
+.multi-select-container .star.mandatory{color:var(--secondary-color)}
+.multi-select-container .dropdown1{z-index:999; display:none;position:absolute;width:100%;background:#fff;border:1px solid #b9c7d2;max-height:200px;overflow-y:auto;margin-top:-2px;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
+.multi-select-container .dropdown1 div{padding:8px;cursor:pointer}
+.multi-select-container .dropdown1 div:hover{background-color:var(--secondary-color);color:var(--white-color)}
+.multi-select-container span.remove { font-size:15px;  font-weight:700; cursor: pointer;}
+ .multi-select-container .dropdown1 div:hover, .multi-select-container .dropdown1 div.active {background-color: #e8f0f7; color:var(--black-color)   }
+ 
+ .sortbyjob .form-groupsort { display:inline-flex; margin-right:5px; margin-bottom:20px; width:200px;}
+.sortbyjob .form-groupsort .form-control{min-height:35px; border:solid 1px #e8e8e8 !important; font-weight: 400;}
+.sortbyjob .form-groupsort .formselect{ height:35px; line-height:35px; width:100%;}
+.sortbyjob .form-groupsort .formselect .current{color:var(--lgrey-color);}
+.sortbyjob .form-groupsort .input-group-text{ height:35px; background:#fff;}
+.nice-select .list{ width:100%;}
+
+.manageJobs-section .manageJobstitle h3{color:var(--black-color); }
+.manageJobs-section .manageJobstitle .btn-blue{ display: flex; align-items: center; justify-content: center; padding:5px 15px;}
+.manageJobs-section .manageJobstitle .btn-blue i{ font-size:24px;}
+.manageJobsbox ul{ list-style-type:none;  padding:0px;}
+.manageJobsbox .card-listinner{ margin-bottom:30px;}
+.manageJobsbox .jobtitle{ margin-bottom:10px;}
+.manageJobsbox .jobtitle h4 a{ font-size:18px; font-weight:bold; color:var(--black-color);}
+.manageJobsbox .jobtitle .statusBtn{padding:5px 15px; border-radius:50px; color:#fff; font-weight:500; font-size:12px;}
+.manageJobsbox .jobtitle .statusBtn.opening{background:#97CA6F; }
+.manageJobsbox .jobtitle .statusBtn.pending{background:#F3A250; }
+.manageJobsbox .jobtitle .statusBtn.draft{background:#95A7BB; }
+.manageJobsbox .jobtitle .statusBtn.closed{background:#F87878; }
+.manageJobsbox .list-price ul{ list-style-type:none;}
+.manageJobsbox .list-price ul li{display:block !important; justify-items: center; align-items: center;}
+.manageJobsbox .list-price ul li img{ margin-right:5px;}
+
+.manageJobsbox .candidatestxtbox{ margin:30px 0px;}
+.manageJobsbox .candidatestxtbox .candidatestxt{ padding:15px; background:#F7FCFF; border:1px solid #EEEEEE; border-radius:10px;}
+.manageJobsbox .candidatestxtbox .candidatestxt h4{color:var(--black-color); font-size:20px; font-weight:700;}
+.manageJobsbox .candidatestxtbox .candidatestxt p{color:var(--lgrey-color); margin:0px;  }
+.manageJobsbox .postedby p{color:#888888; font-size:13px; margin:0px 0px 8px 0px; }
+.manageJobsbox .postedby p span{color:var(--lgrey-color);font-weight:500; }
+.manageJobsbox .postedby .progress{ height:5px;}
+.manageJobsbox .postedby .opening{ background:#97CA6F; }
+.manageJobsbox .postedby .pending{ background:#F3A250; }
+.manageJobsbox .postedby .draft{ background:#95A7BB; }
+.manageJobsbox .postedby .closed{ background:#F87878; }
+.manageJobsbox .createdby{ margin-top:20px;} 
+.manageJobsbox .createdby p{color:#888888; font-size:13px; margin:0px; }
+.manageJobsbox .createdby p span{color:var(--lgrey-color);font-weight:500; }
+
+.manageJobsbox .createdby ul li{display:block !important; justify-items: center; align-items: center;}
+
+@media only screen and (max-width:768px) {
+  .sortbyjob .form-groupsort {  width:48%;}
+
+}
+
+.jobCardtxt .formselect{margin-right:20px; background:none !important; border:none; font-size:24px; font-weight: 600;}
+.jobCardtxt .nice-select .option{ font-size:15px;}
+.jobCardtxt .nice-select:after {height: 10px; width:10px; margin-top: -6px; border-bottom:2px solid #444;  border-right: 2px solid #444; }
+.jobCardtxt .back{border:1px solid #BFBCBC; width:32px; height:32px; border-radius:100px; justify-content: center; display: flex; align-items: center; }
+
+.jobmanageTab{ border-bottom:1px solid #D4DCE0; }
+
+.jobmanageTab ul{ margin-top:30px; padding:0px; list-style-type:none; display:flex; align-items: center; }
+.jobmanageTab ul li{ margin-right:25px;  }
+.jobmanageTab ul li img{ margin-right:2px;}
+.jobmanageTab ul li a{ color:black;font-size:16px; font-weight:500;}
+
+
+.jobmanageTab{ border-bottom:1px solid #D4DCE0; display:flex; justify-content: space-between; align-items:end; }
+.jobmanageTab ul{ margin-top:30px; margin-bottom:0px; padding:0px; list-style-type:none; display:flex; align-items: center; }
+.jobmanageTab ul li{ margin-right:35px;  }
+.jobmanageTab ul li img{ margin-right:6px; opacity:0.8;}
+.jobmanageTab ul li span.count{background:black; font-size:13px; color:var(--white-color); margin-left:10px; padding:2px 5px; border-radius: 5px;  }
+.jobmanageTab ul li a{ padding:12px 0px; color:var(--lgrey-color);font-size:16px; font-weight:500; display:flex; align-items: center; }
+.jobmanageTab ul li.active a{ color:var(--grey-color); border-bottom:2px solid var(--grey-color); font-weight:600;} 
+.jobmanageTab ul li.active img{  opacity:100;}
+
+.jobmanageTab .searchBox{ max-width:400px;}
+.jobmanageTab .searchBox .form-control{ min-height:30px; }
+.jobmanageTab .searchBox .input-group-form{padding-left:30px; margin-right:20px;}
+.jobmanageTab .searchBox .input-groups{position: absolute; padding:8px; }
+.jobmanageTab .searchBox .input-groups i{color:var(--lgrey-color); }
+.jobmanageTab .form-group{ margin-bottom:10px;}
+
+.contentkanban{ position: relative; margin-top:20px;}
+.contentkanban .contentbox{background:#EEF4F7; border:1px solid #F7FCFF; padding:18px; border-radius:10px; margin-bottom:20px; }
+.contentkanban .scrollbar{padding-right:10px; height:400px; overflow-y: scroll;}
+
+.contentkanban .contentbox h3{ position: relative;  padding-left:12px; font-size:17px; font-weight: 700; margin-bottom:20px;}
+.contentkanban .contentbox h3 span{margin-left: 10px; font-size:16px; padding:5px 8px; border:1px solid #fff; border-radius:5px; }
+.contentkanban .contentbox.Applied h3::before{content:''; position: absolute; left:0px; background:#3072E4;  width:5px; border-radius:10px; height:20px; }
+.contentkanban .contentbox.Screening h3::before{content:''; position: absolute; left:0px; background:#E49630;  width:5px; border-radius:10px; height:20px; }
+.contentkanban .contentbox.ScheduledInterview h3::before{content:''; position: absolute; left:0px; background:#39BBD5;  width:5px; border-radius:10px; height:20px; }
+.contentkanban .contentbox.Status  h3::before{content:''; position: absolute; left:0px; background:#8D30E4;  width:5px; border-radius:10px; height:20px; }
+
+.contentkanban .prfilesbox{display:flex;align-items: center;display: grid;grid-template-columns: 0fr 0fr;grid-template-rows: repeat(1, auto);grid-column-gap: 0.5rem;align-items: center;}
+.contentkanban .prfilesbox .profileImgs{ width:40px; height:40px;}
+.contentkanban .prfilesbox .profileImgs img{ width:40px; height:40px; border-radius:100px; margin:0px 8px 0px 0px ;  border:1px solid #ddd;}
+.contentkanban .card-box{background:#fff; border-radius:10px; padding:12px; border:1px solid #EEEEEE;margin-bottom:10px; }
+.contentkanban .prfilesbox .profilTxt h5{ font-size:14px; font-weight: 600; margin:0px;}
+.contentkanban .prfilesbox .profilTxt p{ font-size:13px; color:var(--lgrey-color); margin:0px;  width: 130px;  white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.contentkanban .list-price ul{list-style-type:none; margin:10px 10px 10px 0px;}
+.contentkanban .list-price ul li{font-size:12px; color:var(--lgrey-color); display: flex; align-items: center;}
+.contentkanban .list-price ul li img{ width:13px ; height:13px; margin-right:2px;}
+
+.contentkanban .card-box .appliedat{padding-top:10px; border-top:1px solid #EEEEEE; display: flex; align-items: center; justify-content: space-between;}
+.contentkanban .card-box .appliedat p{font-size:12px ; color:var(--lgrey-color); margin-bottom:0px;}
+.contentkanban .card-box .appliedat p span{ font-weight:500;}
+.contentkanban .card-box .appliedat span a{color:var(--black-color); font-weight: 800;}
+.contentkanban .card-box .appliedat span.selected{background:#dbf8dd; font-size:12px; padding:3px 10px; border-radius:20px; font-weight:500; color:#27AB35; }
+.contentkanban .card-box .appliedat span.rejected{background:#FFEAEB; font-size:12px; padding:3px 10px; border-radius:20px; font-weight:500; color:#E21537; }
+.contentkanban .card-box .appliedat span.hold{background:#FFF3E3; font-size:12px; padding:3px 10px; border-radius:20px; font-weight:500; color:#F4550C; }
+
+
+@media only screen and (min-width:1400px) {
+  .contentkanban .prfilesbox .profilTxt p{width:170px;  }
+}
+
+
+@media only screen and (max-width:768px) {
+  .jobCardtxt .formselect { font-size:18px;}
+  .jobmanageTab{ display: block;}
+  .jobmanageTab ul{ margin-top:15px; margin-bottom:15px;}
+  .jobmanageTab ul li{ margin-right:20px;}
+  .jobmanageTab ul li:last-child{ margin-right:0px;}
+  .jobmanageTab ul li a{ font-size:14px;}
+  .contentkanban .contentbox{ margin-bottom:20px;}
+  .manageJobsbox .list-price.manageJoblist ul{margin-bottom:15px;}
+  .manageJobsbox .list-price.manageJoblist{ margin-left:0px;}
+
+}
+
+
+.jobinfo h4{ font-size:18px; font-weight: 700; margin-bottom:10px; }
+.jobinfo h5{ font-size:16px; font-weight: 700; margin-top:15px; margin-bottom:10px; }
+.jobinfo ul li{ line-height:24px;}
+.jobinfo p{ margin-bottom:5px;}
+.jobinfo p span {font-weight: 600; }
+.jobinfo hr{border-top: 1px solid #888;}
+
+.keySkills ul{ list-style-type:none !important; margin:0px; padding:0px; }
+.keySkills ul li{ margin-bottom:8px; list-style-type:none !important; display: inline-block; border:1px solid #cfd5d8; padding:5px 15px; margin-right:6px; border-radius: 50px;  }
+.bootstrap-datetimepicker-widget .form-control,.bootstrap-datetimepicker-widget input{font-size:14px;height:30px;width:200px}
+.bootstrap-datetimepicker-widget{font-size:14px}
+.bootstrap-datetimepicker-widget.dropdown-menu{width:auto}
+.bootstrap-datetimepicker-widget .next,.bootstrap-datetimepicker-widget .picker-switch .glyphicon,.bootstrap-datetimepicker-widget .prev{font-size:14px}
+.bootstrap-datetimepicker-widget .timepicker .btn{font-size:14px;padding:.2rem .5rem}
+.bootstrap-datetimepicker-widget .glyphicon-chevron-left,.bootstrap-datetimepicker-widget .glyphicon-chevron-right,.bootstrap-datetimepicker-widget .next span,.bootstrap-datetimepicker-widget .prev span{font-size:16px;width:100px;height:100px;line-height:20px}
+.bootstrap-datetimepicker-widget .timepicker .btn{font-size:14px;padding:.15rem .2rem}
+
+span.email-ids{float:left;border:1px solid #bcc6cc;margin-right:5px;padding-left:10px;padding-right:10px;margin-bottom:5px;background:#eef4f7;padding-top:3px;padding-bottom:3px;border-radius:5px}
+span.cancel-email{border:1px solid #bcc6cc;width:18px;display:block;float:right;text-align:center;margin-left:15px;border-radius:49%;height:18px;line-height:15px;margin-top:1px;cursor:pointer}
+.email-id-row{border:1px solid #f7fcff}
+.email-id-row input{border:0;outline:0;width:auto}
+span.to-input{display:block;float:left;padding-right:11px}
+.email-id-row{min-height:46px;border-radius:5px;margin-bottom:2px;font-weight:600;color:var(--black-color);font-size:14px;border:solid 1px #b9c7d2!important;background-color:#fff;padding:.575rem .75rem}
+
+

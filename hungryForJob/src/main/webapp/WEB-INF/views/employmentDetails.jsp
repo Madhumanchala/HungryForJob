@@ -143,7 +143,7 @@
                  <div class="col-lg-3 col-md-3 col-sm-6">
                   <div class="form-group">
                     <label for="jobStartMonth" class="form-label required">Month</label>
-                    <select class="selet2Single form-control jobStartMonth" id="jobStartMonth" name="jobStartMonth"  required>
+                    <select class="selet2Single form-control jobStartMonth" id="jobStartMonth" name="jobStartMonth" onchange="updateStartMonth(this)" required>
                         <option value="" selected>Select</option>
                         <option value="January">January</option>
                         <option value="February">February</option>
@@ -177,7 +177,7 @@
                  <div class="col-lg-3 col-md-3 col-sm-6 endmonthdiv">
                   <div class="form-group">
                     <label for="jobEndMonth" class="form-label required">Month </label>
-                    <select class="selet2Single form-control  jobEndMonth" id="jobEndMonth" name="jobEndMonth"  required>
+                    <select class="selet2Single form-control  jobEndMonth" id="jobEndMonth" name="jobEndMonth"  onchange="updateEndMonth(this)" required>
                         <option value="" selected>Select</option>
                         <option value="January">January</option>
                         <option value="February">February</option>

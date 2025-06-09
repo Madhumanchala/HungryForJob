@@ -97,14 +97,33 @@ function changeEducation(id) {
 	}
 }
 
+function getselectedskills()
+{
+	const selectedElements = document.querySelectorAll('.selected-items  .selected-item');
+	const selectedIds = Array.from(selectedElements).map(e1 => e1.getAttribute('data-value'));
+	return selectedIds;
+}
+
+function getManadatryselectedskills()
+{
+	const selectedElements = document.querySelectorAll('.selected-items  .selected-item .mandatory');
+	const selectedIds = Array.from(selectedElements).map(e1 => 
+	e1.closest('.selected-item').getAttribute('data-value'));
+	return selectedIds;
+}
+
 function submitSearchCandidates() {
 	
 	checkspoints().then(isPointsSufficient => {
 	if(isPointsSufficient)
 	{
 		
-	var skills = $('#iTSkills').val();
+	/*var skills = $('#iTSkills').val();
+	skills = skills.join(",");*/
+	var skills =  getselectedskills();
 	skills = skills.join(",");
+	var mandataryskills =  getManadatryselectedskills();
+	mandataryskills = mandataryskills.join(",");
 	var minExp = document.getElementById("workExperienceMin").value;
 	var maxExp = document.getElementById("workExperienceMax").value;
 	var location = $('#jobLocation').val();
@@ -277,7 +296,7 @@ function submitSearchCandidates() {
 		}
 		
 		// save new search
-		let saveSearchSkill=$('#iTSkills').val();
+		let saveSearchSkill=getselectedskills();
 		sessionStorage.setItem("saveSearchSkill",saveSearchSkill);
 		
 		let saveSearchMinExp= $('#workExperienceMin').val()
@@ -334,11 +353,11 @@ function submitSearchCandidates() {
 		  formSkills.value = skills;   // Set the value of the input
 		 form.appendChild(formSkills);
 		 
-		/*  var formSkills = document.createElement('input');
+		  var formSkills = document.createElement('input');
 		  formSkills.type = 'hidden'; // Use hidden inputs for data
 		  formSkills.name = 'requiredSkills';      // Set the name of the input
-		  formSkills.value = "94,96";   // Set the value of the input
-		 form.appendChild(formSkills);*/
+		  formSkills.value = mandataryskills;   // Set the value of the input
+		 form.appendChild(formSkills);
 		 
 		  var formMinExp = document.createElement('input');
 		  formMinExp.type = 'hidden'; // Use hidden inputs for data
@@ -445,7 +464,29 @@ $(document).ready(function() {
 	{
 	  let skillsValue=sessionStorage.getItem("saveSearchSkill");
 	  let skillsList=skillsValue?skillsValue.split(","):[];
-	  $('#iTSkills').val(skillsList).trigger('change');
+	  /*$('#iTSkills').val(skillsList).trigger('change');*/
+	  
+	  $(".dropdown1 div").each(function () {
+  var value = $(this).text().trim();
+  var valueId = $(this).data("value");
+  var $selectedItems = $(".selected-items");
+  var $dropdownItem = $(this);
+
+  // Check if it's mandatory
+  if (skillsList.includes(String(valueId))) {
+    // Check if it's already added
+    if ($selectedItems.find(".selected-item[data-value='" + valueId + "']").length === 0) {
+      var html = '<div class="selected-item" data-value="' + valueId + '">'
+               + value
+               + '<i class="fa fa-star star"></i>'
+               + '<span class="remove">&times;</span>'
+               + '</div>';
+      $selectedItems.append(html);
+      $dropdownItem.addClass("active");
+    }
+  }
+});
+
 
 	  let minExpValue=sessionStorage.getItem("saveSearchMinExp");
 	  if(minExpValue === "null" || minExpValue == undefined || minExpValue == null)
@@ -659,6 +700,7 @@ $(document).ready(function() {
 		$('#masterCourses').hide();
 		sessionStorage.removeItem("modifyClicked");
 	}
+	
 	sessionStorage.removeItem("modifyClicked");
 	sessionStorage.removeItem("readytoLocate");
 	sessionStorage.removeItem("gender");

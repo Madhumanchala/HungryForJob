@@ -3,9 +3,9 @@ package com.comunus.hungryForJob.model;
 import java.util.List;
 
 import com.comunus.hungryForJob.employeer.Model.FolderDetails;
+import com.comunus.hungryForJob.employeer.Model.JobPosting;
 import com.comunus.hungryForJob.employeer.Model.Menu;
 import com.comunus.hungryForJob.employeer.Model.PricingDetails;
-
 
 import lombok.Data;
 
@@ -59,5 +59,22 @@ public class ResponseModel {
 	private List<PricingDetails> pricingDetails;
 	private List<Dashboard> jobdetails;
 	private Dashboard countJobDetails;
+	private List<JobPosting> listJobPostDetails;
+	private JobPosting editJobpostingDetails;
+	
+	private JobPosting jobPostDetailsView;
+	private List<JobPosting> jobTittleList;
+	private List<JobPosting> masterCard;
+	private List<JobPosting> candidateDetails;
+	private List<JobPosting> interviewMode;
+	private List<Dashboard> cardDetails;
+	
+	
+	private List<JobPosting> cities;
+	private List<JobPosting> masterStatus;
+	private List<DropDown> jobPostStatus;
+	
+	private List<JobPosting> techName;
+	private List<JobPosting> educName;
 	
 }

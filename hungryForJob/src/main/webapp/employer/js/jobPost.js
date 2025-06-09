@@ -119,7 +119,384 @@ function savejobPost() {
 	console.log("jobDescription"+jobDescription);
 	var walkInDetails = "";
 	var hideSalaryDetails = "";
-	var isChecked = $('#walkin').is(':checked'); // Returns true if checked, false if not
+	/*var isChecked = $('#walkin').is(':checked'); // Returns true if checked, false if not*/
+	var isChecked=false;
+	var isCheckedHideSalary = $('#hideSalary1').is(':checked');
+	var educationQualification = $('#educationalQualification').val();
+	var selectedDateRange=$("#WalkStartDate").val();
+	var startDate="";
+	var endDate="";
+	var timinig="";
+	var contactPerson="";
+	var mobileNumber="";
+	var venue="";
+	var googleMap="";
+	
+	var companyName=$('#companyName').val();
+	var aboutCompany=$('#aboutCompany').val();
+	var telephone=$('#Telephone').val();
+	var companyAddress=$('#companyAddress').text();
+	var emailId=$('#emailId').val();
+	
+
+	if (isChecked) {
+		walkInDetails = "1";
+		
+		const dates = selectedDateRange.split(" - ");
+        startDate = dates[0]; // First part is the start date
+        endDate = dates[1];   // Second part is the end date
+        timinig=$('#WalkinTiming').val();
+        contactPerson=$('#contactPerson').val();
+        mobileNumber=$('#contactNumber').val();
+        venue=$('#Venue').val();
+        googleMap=$('#googleMaps').val()
+        
+        if(startDate == "")
+        {
+			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
+			$('#WalkStartDate_error').show();
+			isValid = false;
+		}
+		
+		if(endDate == "")
+		{
+			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
+			$('#WalkStartDate_error').show();
+			isValid = false;
+		}
+		
+		if(timinig == "")
+		{
+			$('#WalkinTiming_error').text("field is required").css({ "color": "red" });
+			$('#WalkinTiming_error').show();
+			isValid = false;
+		}
+		
+		if(contactPerson == "")
+		{
+			$('#contactPerson_error').text("field is required").css({ "color": "red" });
+			$('#contactPerson_error').show();
+			isValid = false;
+		}
+		
+		if(mobileNumber == "")
+		{
+			$('#contactNumber_error').text("field is required").css({ "color": "red" });
+			$('#contactNumber_error').show();
+			isValid = false;
+		}else
+		{
+			if(mobileNumber.length !== 10)
+			{
+				$('#contactNumber_error').text("Enter valid mobile number ").css({ "color": "red" });
+				$('#contactNumber_error').show();
+				isValid = false;
+			}
+		}
+		
+		if(venue == " ")
+		{
+			$('#Venue_error').text("field is required").css({ "color": "red" });
+			$('#Venue_error').show();
+			isValid = false;
+		}
+		
+		if(googleMap == "")
+		{
+			$('#googleMaps_error').text("field is required").css({ "color": "red" });
+			$('#googleMaps_error').show();
+			isValid = false;
+		}
+		
+	} else {
+		walkInDetails = "0";
+	}
+	if (isCheckedHideSalary) {
+		hideSalaryDetails = "1";
+	} else {
+		hideSalaryDetails = "0";
+	}
+
+
+
+
+	if (selectedValue == "") {
+		$('#jobType_error').text("field is required").css({ "color": "red" });
+		$('#jobType_error').show();
+		isValid = false;
+	}
+	if (jobTittle == "") {
+		$('#jobTittle_error').text('field is required').css({ "color": "red" });
+		$('#jobTittle_error').show();
+		isValid = false;
+	}
+	if (employmentTypeValue == "") {
+		$('#employmentType_error').text('field is required').css({ "color": "red" });
+		$('#employmentType_error').show();
+		isValid = false;
+	}
+	if (workModeValue == "") {
+		$('#workMode_error').text('field is required').css({ "color": "red" });
+		$('#workMode_error').show();
+		isValid = false;
+	}
+	if (keySkills == "") {
+		$('#keySkills_error').text('field is required').css({ "color": "red" });
+		$('#keySkills_error').show();
+		isValid = false;
+	}
+	if (salaryTypeValue == "") {
+		$('#salaryType_error').text('field is required').css({ "color": "red" });
+		$('#salaryType_error').show();
+		isValid = false;
+	}
+	if (minExp == "") {
+		$('#workExperienceMin_error').text('field is required').css({ "color": "red" });
+		$('#workExperienceMin_error').show();
+		isValid = false;
+	}
+	if (maxExp == "") {
+		$('#workExperienceMax_error').text('field is required').css({ "color": "red" });
+		$('#workExperienceMax_error').show();
+		isValid = false;
+	}
+	if (salaryTypeValue == "") {
+		$('#jobTittle_error').text('field is required').css({ "color": "red" });
+		$('#jobType_error').show();
+		isValid = false;
+	}
+
+	if (salaryMinfigure == "") {
+		$('#minsalary_error').text('field is required').css({ "color": "red" });
+		$('#minsalary_error').show();
+		isValid = false;
+	}
+
+	if (salaryMaxfigure == "") {
+		$('#maxsalary_error').text('field is required').css({ "color": "red" });
+		$('#maxsalary_error').show();
+		isValid = false;
+	}
+
+	if (jobLocation == "") {
+		$('#location_error').text('field is required').css({ "color": "red" });
+		$('#location_error').show();
+		isValid = false;
+	}
+
+	if (department == "") {
+		$('#department_error').text('field is required').css({ "color": "red" });
+		$('#department_error').show();
+		isValid = false;
+	}
+
+	if (role == "") {
+		$('#role_error').text('field is required').css({ "color": "red" });
+		$('#role_error').show();
+		isValid = false;
+	}
+
+	if (noOfVacancy == "") {
+		$('#noOfVacancy_error').text('field is required').css({ "color": "red" });
+		$('#noOfVacancy_error').show();
+		isValid = false;
+	}
+
+	if (educationQualification == "") {
+		$('#jobTittle_error').text('field is required').css({ "color": "red" });
+		$('#jobType_error').show();
+		isValid = false;
+	}
+
+	if (jobDescription == "") {
+		$('#jobDescription_error').text('field is required').css({ "color": "red" });
+		$('#jobDescription_error').show();
+		isValid = false;
+	}
+	if (industry == "") {
+		$('#industry_error').text('field is required').css({ "color": "red" });
+		$('#industry_error').show();
+		isValid = false;
+	}
+	if (educationQualification == "") {
+		$('#educationalQualification_error').text('field is required').css({ "color": "red" });
+		$('#educationalQualification_error').show();
+		isValid = false;
+	}
+	
+	if(companyName == "")
+	{
+		$('#companyName_error').text('field is required').css({ "color": "red" });
+		$('#companyName_error').show();
+		isValid = false;
+	}
+	
+	if(aboutCompany == " ")
+	{
+		$('#aboutCompany_error').text('field is required').css({ "color": "red" });
+		$('#aboutCompany_error').show();
+		isValid = false;
+	}
+	
+	if(companyAddress == "")
+	{
+		/*$('#aboutCompany_error').text('field is required').css({ "color": "red" });
+		$('#aboutCompany_error').show();
+		isValid = false;*/
+	}
+	
+	if(telephone == "")
+	{
+		$('#Telephone_error').text('field is required').css({ "color": "red" });
+		$('#Telephone_error').show();
+		isValid = false;
+	}else
+	{
+			if (!/^\d{10}$/.test(telephone)) {
+				 $('#Telephone_error').show().text("Please enter a valid 10-digit number.");
+				 $('#Telephone_error').show();
+				isValid = false;
+    		}
+	}
+	
+	if(emailId == "")
+	{
+		$('#emailId_error').text('field is required').css({ "color": "red" });
+		$('#emailId_error').show();
+		isValid = false;
+	}else
+	{
+		if(!validateEmail(emailId))
+		{
+			$('#emailId_error').text('please enter valid email').css({ "color": "red" });
+			$('#emailId_error').show();
+			isValid = false;
+		}
+	}
+	var statusjob = $("#jobpoststatus").val();
+	if (isValid) {
+		$.ajax({
+			url: '/saveJobPost',  // Replace with your actual API endpoint
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				companyId:companyId,
+				userId: userId,
+				jobType: selectedValue,
+				jobTittle: jobTittle,
+				employmentType: employmentTypeValue,
+				workMode: workModeValue,
+				keySkills: keySkills,
+				minExp: minExp,
+				maxExp: maxExp,
+				salaryType: salaryTypeValue,
+				salaryFigureMin: salaryMinfigure,
+				salaryFigureMax: salaryMaxfigure,
+				hideSalaryDetails: hideSalaryDetails,
+				jobLocation: jobLocation,
+				companyIndustry: industry,
+				departmentId: department,
+				roleName: role,
+				reference: referenceCode,
+				noOfVacancy: noOfVacancy,
+				educationQualification: educationQualification,
+				jobDescription: jobDescription,
+				walkInDrive: walkInDetails,
+				
+				startDate:startDate,
+				endDate:endDate,
+				time:timinig, 
+				contactPerson:contactPerson,
+				contactNumber:mobileNumber,
+				venue:venue,
+				googleMapUrl:googleMap,
+				
+				
+				companyName:companyName, 
+				aboutCompany:aboutCompany,
+				companyAddress:companyAddress,
+				telephoneNumber:telephone,
+				emailId:emailId,
+				status:statusjob,
+			}),
+			success: function(response) {
+				console.log('Job posted successfully:', response);
+				if (response == "success") {
+					showToast("success","Sucessfully Saved");
+				} else {
+					showToast("info","please try again");
+				}
+
+				// Add success handling logic here
+			},
+			error: function(xhr, status, error) {
+				console.log('Error:', error);
+				showToast("error","Error Ocuured");
+				// Add error handling logic here
+			}
+		});
+	}
+
+
+}
+
+function updatejobPost(id) {
+
+	var isValid = true;
+	var selectedValue = "";
+	var jobTypeRadios = document.getElementsByName('jobtype');
+	for (const radio of jobTypeRadios) {
+		if (radio.checked) {
+			selectedValue = radio.value; // Get the value of the checked radio
+			break;
+		}
+	}
+
+	var employmentType = document.getElementsByName('employmentType');
+	var employmentTypeValue = "";
+	for (const radio of employmentType) {
+		if (radio.checked) {
+			employmentTypeValue = radio.value; // Get the value of the checked radio
+			break;
+		}
+	}
+
+	var workModeValue = "";
+	var workMode = document.getElementsByName('workMode');
+	for (const radio of workMode) {
+		if (radio.checked) {
+			workModeValue = radio.value; // Get the value of the checked radio
+			break;
+		}
+	}
+
+	var salaryTypeValue = "";
+	var salaryType = document.getElementsByName('salaryType');
+	for (const radio of salaryType) {
+		if (radio.checked) {
+			salaryTypeValue = radio.value; // Get the value of the checked radio
+			break;
+		}
+	}
+
+	var jobTittle = $('#Jobtitle').val();
+	var keySkills = $('#keySkills').val();
+	var minExp = $('#workExperienceMin').val();
+	var maxExp = $('#workExperienceMax').val();
+	var salaryMinfigure = $('#salaryFigureMin').val();
+	var salaryMaxfigure = $('#salaryFigureMax').val();
+	var jobLocation = $('#jobLocation').val();
+	var industry = $('#Industry').val();
+	var department = $('#department').val();
+	var role = $("#role").val();
+	var referenceCode = $('#refercode').val();
+	var noOfVacancy = $('#numberVacancies').val();
+	var educationQualification = $('#educationalQualification').val();
+	var jobDescription = $('#jobDescription').val();
+	var walkInDetails = "";
+	var hideSalaryDetails = "";
+	/*var isChecked = $('#walkin').is(':checked'); // Returns true if checked, false if not*/
+	var isChecked=false;
 	var isCheckedHideSalary = $('#hideSalary1').is(':checked');
 	var educationQualification = $('#educationalQualification').val();
 	var selectedDateRange=$("#WalkStartDate").val();
@@ -356,13 +733,14 @@ function savejobPost() {
 		$('#emailId_error').show();
 		isValid = false;
 	}
-
+	var statusjob = $("#jobpoststatus").val();
 	if (isValid) {
 		$.ajax({
-			url: '/saveJobPost',  // Replace with your actual API endpoint
+			url: '/updatejobpost',  // Replace with your actual API endpoint
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
+				id:id,
 				companyId:companyId,
 				userId: userId,
 				jobType: selectedValue,
@@ -400,11 +778,12 @@ function savejobPost() {
 				companyAddress:companyAddress,
 				telephoneNumber:telephone,
 				emailId:emailId,
+				status:statusjob,
 			}),
 			success: function(response) {
 				console.log('Job posted successfully:', response);
 				if (response == "success") {
-					showToast("success","Sucessfully Saved");
+					showToast("success","updated Sucessfully ");
 				} else {
 					showToast("info","please try again");
 				}
@@ -683,8 +1062,17 @@ function changeEmailId()
 }
 function allchangedescription(event)
 {	
-	var jobDescription = $(event).text();
-	$('#descriptionjobDetails').text(jobDescription);
+	var jobDescription = $(event).html();
+	$('#descriptionjobDetails').html(jobDescription);
+}
+function removeHTMLTags(text) {
+  return text.replace(/<[^>]*>/g, '');
+}
+function fetchedallchangedescription(id)
+{	
+	var jobDescription = $("#"+id).html();
+	let value = removeHTMLTags(jobDescription);
+	$('#descriptionjobDetails').html(value);
 }
 function changejobrole(id) {
 	allChange(id);
@@ -712,6 +1100,39 @@ function changejobrole(id) {
 		}
 	});
 }
+
+function selectedchangejobrole(id, value) {
+	$.ajax({
+		url: '/getRole',
+		type: 'POST',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			id: id,
+			type: "role"
+		}),
+		success: function(response) {
+			var role = response.data.jobPostingSkillsFramework;
+			$('#role').empty();
+			$('#role').append(new Option("Select", ""));
+
+			role.forEach(function(roleItem) {
+				var option = new Option(roleItem.name, roleItem.id);
+				if (roleItem.id == value) {
+					option.selected = true;
+				}
+				$('#role').append(option);
+			});
+
+			// Trigger change event in case you need to handle it elsewhere
+			$('#role').trigger('change');
+		},
+		error: function(xhr, status, error) {
+			console.error("Error:", error);
+		}
+	});
+}
+
+
 /*$('#jobDescription').on('keydown', function(event) {
         // Call your custom function here
         allchangedescription(event);

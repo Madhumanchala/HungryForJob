@@ -189,7 +189,9 @@
 <%--   <%
   	List<Menu> menudetails= (List<Menu>) session.getAttribute("menuDetails");
   %> --%>
-  if (!sessionStorage.getItem('menuDetails')) {
+  const menuDetails2 = sessionStorage.getItem('menuDetails');
+  if (!menuDetails2 || menuDetails2 === '[]') {
+ /*  if (!sessionStorage.getItem('menuDetails')) { */
 	    var menuDetails1 = [
 	        <c:forEach items="${menuDetails}" var="menu" varStatus="status">
 	            {

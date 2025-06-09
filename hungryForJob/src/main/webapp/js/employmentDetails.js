@@ -888,3 +888,85 @@ function updateCurrentlyWorking(element)
 		}
 	}
 }*/
+function updateStartMonth(element)
+{
+	var workContainer = $(element).closest('.workContainer');
+	var nextContainer = workContainer.next('.workContainer');
+	
+	var jobStartYearDropdown = workContainer.find(".jobStartYear");
+	var jobStartMonthDropdown = workContainer.find(".jobStartMonth");
+	var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
+	var jobEndYearDropdown = workContainer.find('.jobEndYear');
+	
+	const startyear = jobStartYearDropdown.val();
+	const startmonth = jobStartMonthDropdown.val();
+	const endyear =  jobEndYearDropdown.val();
+	const endmonth = jobEndMonthDropdown.val();
+	
+	if(nextContainer.length)
+	{
+		var jobStartYearDropdown = nextContainer.find(".jobStartYear");
+		var jobStartMonthDropdown = nextContainer.find(".jobStartMonth");
+		var jobEndMonthDropdown = nextContainer.find('.jobEndMonth');
+		var jobEndYearDropdown = nextContainer.find('.jobEndYear');
+		
+		const nextstartyear = jobStartYearDropdown.val();
+		const nextstartmonth = jobStartMonthDropdown.val();
+		const nextendyear =  jobEndYearDropdown.val();
+		const nextendmonth = jobEndMonthDropdown.val();
+		
+		if(nextstartyear == nextendyear)
+		{
+			jobEndMonthDropdown.empty();
+			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
+			for(var j=reversedMonths[nextstartmonth];j<=12;j++)
+			{
+				jobEndMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
+			}
+		}
+		
+	}else
+	{
+		if(startyear == endyear)
+		{
+			jobEndMonthDropdown.empty();
+			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
+			for(var j=reversedMonths[startmonth];j<=12;j++)
+			{
+				jobEndMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
+			}
+		}
+	}
+	
+
+}
+function updateEndMonth(element)
+{
+	var workContainer = $(element).closest('.workContainer');
+	var nextContainer = workContainer.next('.workContainer');
+	
+	
+	var jobEndYearDropdown = workContainer.find(".jobEndYear");
+	var jobEndMonthDropdown = workContainer.find(".jobEndMonth");
+	var nextjobStartMonthDropdown = nextContainer.find('.jobStartMonth');
+	var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
+	
+	const jobendyear = jobEndYearDropdown.val();
+	const jobendmonth = jobEndMonthDropdown.val();
+	
+	const nextjobstartyear = nextjobStartYearDropdown.val();
+	const nextjobstartmonth = nextjobStartMonthDropdown.val();
+	
+	if(nextContainer.length)
+	{
+		if(jobendyear === nextjobstartyear)
+		{
+			nextjobStartMonthDropdown.empty();
+			nextjobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
+			for(var j=reversedMonths[jobendmonth];j<=12;j++)
+			{
+				nextjobStartMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
+			}
+		}
+	}
+}

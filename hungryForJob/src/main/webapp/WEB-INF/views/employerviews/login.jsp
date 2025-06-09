@@ -480,7 +480,7 @@
           $(this).next('.otp-input').focus();
         }
       });
-
+      sessionStorage.removeItem("companydashroute");
       $('.otp-input').on('keydown', function (e) {
         if (e.key === 'Backspace' && $(this).val() === '') {
           $(this).prev('.otp-input').focus();

@@ -30,8 +30,8 @@ int yearInt = Integer.parseInt(year);
 	<div class="loader">
 		<img src="employer/img/loader.gif">
 	</div>
-	<%@include file="header2.jsp"%>
-	<%@include file="toaster.jsp" %>
+	<%@include file="header3.jsp"%>
+	<%@include file="toaster.jsp"%>
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb">
 			<div class="bgtop"></div>
@@ -68,8 +68,8 @@ int yearInt = Integer.parseInt(year);
 													your resume here.</label> <input type="file" name="resume_doc"
 													id="resume_doc" class="form-control"> <span
 													style="font-size: 12px;">(Only pdf, doc and docx
-													type are allowed and file size upTo 2mb)</span><br>
-													<span class="resume_error errorfield" style="color:red"></span>
+													type are allowed and file size upTo 2mb)</span><br> <span
+													class="resume_error errorfield" style="color: red"></span>
 											</div>
 										</div>
 										<div class="col-xl-3 col-lg-2 col-md-3 col-sm-12 ">
@@ -162,8 +162,9 @@ int yearInt = Integer.parseInt(year);
 									<h3>Employment</h3>
 									<div>
 										<a href="#" data-bs-toggle="modal"
-											data-bs-target="#employmentAddModal" class="editBtn" onclick="getCompanyName()"> <i
-											class="bi bi-plus"></i> Employment
+											data-bs-target="#employmentAddModal" class="editBtn"
+											onclick="getCompanyName()"> <i class="bi bi-plus"></i>
+											Employment
 										</a>
 									</div>
 								</div>
@@ -183,33 +184,39 @@ int yearInt = Integer.parseInt(year);
 												<div class="col-lg-4 col-md-4 col-sm-4 col-9 ">
 													<p>Start / End Date </p>
 													<c:choose>
-														<c:when test="${emloyementDetails.workingStatus eq 'Active'}">
-       														<h5>Present - ${emloyementDetails.startMonth} ${emloyementDetails.startYear} </h5>	
- 														</c:when>
- 														<c:otherwise>
- 															   <h5>${emloyementDetails.startMonth} ${emloyementDetails.startYear} TO ${emloyementDetails.endMonth} ${emloyementDetails.endYear}</h5>	
- 														</c:otherwise>
+														<c:when
+															test="${emloyementDetails.workingStatus eq 'Active'}">
+															<h5>Present - ${emloyementDetails.startMonth}
+																${emloyementDetails.startYear}</h5>
+														</c:when>
+														<c:otherwise>
+															<h5>${emloyementDetails.startMonth}
+																${emloyementDetails.startYear} TO
+																${emloyementDetails.endMonth}
+																${emloyementDetails.endYear}</h5>
+														</c:otherwise>
 													</c:choose>
 												</div>
 												<div class="col-lg-1 col-md-1 col-sm-1 col-3 ">
 													<div>
-													
-													<c:choose>
-														<c:when test="${emloyementDetails.workingStatus eq 'Active'}">
-       														<a href="#" data-bs-toggle="modal"
-															data-bs-target="#employmentEditModal" class="editBtn2"
-															onclick="getEditemploymentdetailsPresent(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}')">
-															<img src="img/edit-2.svg">
-														</a>
- 														</c:when>
- 														<c:otherwise>
- 															   <a href="#" data-bs-toggle="modal"
-															data-bs-target="#employmentEditModal" class="editBtn2"
-															onclick="getEditemploymentdetails(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}',${emloyementDetails.endYear},'${emloyementDetails.endMonth}')">
-															<img src="img/edit-2.svg">
-														</a>
- 														</c:otherwise>
-													</c:choose>
+
+														<c:choose>
+															<c:when
+																test="${emloyementDetails.workingStatus eq 'Active'}">
+																<a href="#" data-bs-toggle="modal"
+																	data-bs-target="#employmentEditModal" class="editBtn2"
+																	onclick="getEditemploymentdetailsPresent(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}')">
+																	<img src="img/edit-2.svg">
+																</a>
+															</c:when>
+															<c:otherwise>
+																<a href="#" data-bs-toggle="modal"
+																	data-bs-target="#employmentEditModal" class="editBtn2"
+																	onclick="getEditemploymentdetails(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}',${emloyementDetails.endYear},'${emloyementDetails.endMonth}')">
+																	<img src="img/edit-2.svg">
+																</a>
+															</c:otherwise>
+														</c:choose>
 													</div>
 												</div>
 												<%-- <div class="col-lg-4 col-md-6 col-sm-6 col-9 ">
@@ -238,8 +245,8 @@ int yearInt = Integer.parseInt(year);
 									<div>
 										<a href="#" data-bs-toggle="modal"
 											data-bs-target="#skillsAddModal" class="editBtn"
-											onclick="getTechnologyDetails()" id="addSkillsBtn"> <i class="bi bi-plus"></i>Add
-											Skills
+											onclick="getTechnologyDetails()" id="addSkillsBtn"> <i
+											class="bi bi-plus"></i>Add Skills
 										</a>
 									</div>
 								</div>
@@ -340,7 +347,7 @@ int yearInt = Integer.parseInt(year);
 											<div class="col-lg-4 col-md-6 col-sm-6">
 												<p>Total Experience</p>
 												<h5 id="totalExpfetch">${careerDetails.totalExperience}
-													yrs</h5>
+													</h5>
 											</div>
 											<div class="col-lg-4 col-md-6 col-sm-6">
 												<p>Serving Notice Period</p>
@@ -426,7 +433,7 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="Name" class="form-label required">Name </label> <input
 									type="text" name="Name" id="Name" class="form-control"
-									placeholder="Enter Name"><span
+									placeholder="Enter Name" maxlength="40" onkeyup="checkname(this)" ><span
 									class="name_error errorfield"></span>
 							</div>
 						</div>
@@ -474,23 +481,24 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editpincode" class="form-label">Pincode</label> <input
 									type="text" name="editpincode" id="editpincode"
-									class="form-control" placeholder="Enter pincode" maxlength="6" onkeyup="checkOnlyNumbers(this,'editpincode_error')">
-								<span class="editpincode_error errorfield"></span>
+									class="form-control" placeholder="Enter pincode" maxlength="6"
+									onkeyup="checkOnlyNumbers(this,'editpincode_error')"> <span
+									class="editpincode_error errorfield"></span>
 							</div>
 						</div>
 						 <div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="editstate" class="form-label">State</label> <input
 									type="text" name="editstate" id="editstate"
-									class="form-control" placeholder="Enter State" disabled="disabled">
-								<span class="editstate_error errorfield"></span>
+									class="form-control" placeholder="Enter State"
+									disabled="disabled"> <span
+									class="editstate_error errorfield"></span>
 							</div>
 						</div> 
 						 <div class="col-lg-6 col-md-6 col-sm-12" id="currentlocationModal">
 							<div class="form-group">
 								<label for="editcurrentlocation" class="form-label">Current
-									Location</label>
-								<span class="editcurrentlocation_error errorfield"></span>
+									Location</label> <span class="editcurrentlocation_error errorfield"></span>
 							</div>
 						</div>
 						
@@ -640,9 +648,10 @@ int yearInt = Integer.parseInt(year);
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="companyName" class="form-label required">Company
-									Name</label>
-								<select class="selet2Single form-control companyname" name="companyName" id="companyName" style="width: 100%" required>
-									
+									Name</label> <select class="selet2Single form-control companyname"
+									name="companyName" id="companyName" style="width: 100%"
+									onchange="companyChange(this)" required>
+
 								</select>
 									 <!-- <input type="text" name="companyName" id="companyName"
 									class="form-control" placeholder="Enter Company Name"> -->
@@ -663,9 +672,10 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="startYear" class="form-label required">Start
 									Year</label> <select class="selet2Single form-control jobStartYear"
-									id="startYear" name="startYear" style="width: 100%" onchange="updatemonth(this.value)" required>
+									id="startYear" name="startYear" style="width: 100%"
+									onchange="updateStartYear(this.value)" required>
 									<option value="" disabled selected>Select</option>
-									<c:forEach var="i" begin="<%=yearInt%>" end="<%=currentYear%>" >
+									<c:forEach var="i" begin="<%=yearInt%>" end="<%=currentYear%>">
 										<option value="${i}">${i}</option>
 									</c:forEach>
 								</select><span class="startYear_error errorfield"></span>
@@ -676,48 +686,50 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="startMonth" class="form-label required">Start
 									Month </label> <select class="selet2Single form-control"
-									id="startMonth" name="startMonth" style="width: 100%" required>
+									id="startMonth" name="startMonth" style="width: 100%" onchange="updateStartMonth(this.value)" required>
 									<option value="" disabled selected>Select</option>
 								</select> <span class="startMonth_error errorfield"></span>
 							</div>
 						</div>
-						
+
 						<div class="row" id="addemploymentdetailshide">
 							<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="endYear" class="form-label required">End
-									Year </label><select class="selet2Single form-control jobStartYear"
-									id="endYear" name="endYear" style="width: 100%" required onchange="updateEndMonth(this.value)">
-									<option value="" disabled selected>Select</option>
-								</select> <span class="endYear_error errorfield"></span>
+								<div class="form-group">
+									<label for="endYear" class="form-label required">End
+										Year </label><select class="selet2Single form-control jobStartYear"
+										id="endYear" name="endYear" style="width: 100%" required
+										onchange="updateEndMonth(this.value)">
+										<option value="" disabled selected>Select</option>
+									</select> <span class="endYear_error errorfield"></span>
+								</div>
 							</div>
-						</div>
-						
-						<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="endMonth" class="form-label required">End
-									Month </label><select class="selet2Single form-control" id="endMonth"
-									name="endMonth" style="width: 100%" required>
-									<option value="" disabled selected>Select</option>
-								</select> <span class="endMonth_error errorfield"></span>
+
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<label for="endMonth" class="form-label required">End
+										Month </label><select class="selet2Single form-control" id="endMonth"
+										name="endMonth" style="width: 100%" required>
+										<option value="" disabled selected>Select</option>
+									</select> <span class="endMonth_error errorfield"></span>
+								</div>
 							</div>
-						</div>
-							
+
 						</div>
 						
 						
 
 					</div>
 					<div class="col-lg-12" id="addemploymentdetailcurrentlyadded">
-                      <div class="form-group">
-                        <div class="form-check currentlywork">
-                          <input class="form-check-input currentlywork" type="checkbox" value="Active" id="currentlywork" name="currentlywork" onchange="updatecurrentworkings()">
-                          <label class="form-check-label" for="currentlywork">
-                           I am currently working here
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+						<div class="form-group">
+							<div class="form-check currentlywork">
+								<input class="form-check-input currentlywork" type="checkbox"
+									value="Active" id="currentlywork" name="currentlywork"
+									onchange="updatecurrentworkings()"> <label
+									class="form-check-label" for="currentlywork"> I am
+									currently working here </label>
+							</div>
+						</div>
+					</div>
 
 				</div>
 				<div class="modal-footer">
@@ -848,13 +860,14 @@ int yearInt = Integer.parseInt(year);
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="editcompanyName" class="form-label required">Company
-									Name</label> 
-									<select class="selet2Single form-control" name="editcompanyName" id="editcompanyName" placeholder="Enter Company Name"  style="width:100%"required>
-									</select>
-									<!-- input type="text" name="editcompanyName"
+									Name</label> <select class="selet2Single form-control editcompanyName"
+									name="editcompanyName" id="editcompanyName"
+									placeholder="Enter Company Name" style="width: 100%" onchange="companyChange(this)" required>
+								</select>
+								<!-- input type="text" name="editcompanyName"
 									id="editcompanyName" class="form-control"
-									placeholder="Enter Company Name"> --><span
-									class="editcompanyName_error errorfield"></span>
+									placeholder="Enter Company Name"> -->
+								<span class="editcompanyName_error errorfield"></span>
 							</div>
 						</div>
 
@@ -871,9 +884,8 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editstartYear" class="form-label required">Start
 									Year</label> <select class="selet2Single form-control jobStartYear"
-									id="editstartYear" name="editstartYear" style="width: 100%" 
-									onchange="editstartYear(this.value)"
-									required>
+									id="editstartYear" name="editstartYear" style="width: 100%"
+									onchange="editstartYear(this.value)" required>
 								</select><span class="editstartYear_error errorfield"></span>
 							</div>
 						</div>
@@ -889,39 +901,39 @@ int yearInt = Integer.parseInt(year);
 						</div>
 						
 						<div class="row" id="employmentdetailshide">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="editendYear" class="form-label required">End
-									Year </label><select class="selet2Single form-control jobStartYear"
-									id="editendYear" name="editendYear" style="width: 100%"
-									onchange="editEndYear(this.value)"
-									required>
-								</select> <span class="editendYear_error errorfield"></span>
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<label for="editendYear" class="form-label required">End
+										Year </label><select class="selet2Single form-control jobStartYear"
+										id="editendYear" name="editendYear" style="width: 100%"
+										onchange="editEndYear(this.value)" required>
+									</select> <span class="editendYear_error errorfield"></span>
+								</div>
+							</div>
+
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<label for="editendMonth" class="form-label required">End
+										Month </label><select class="selet2Single form-control"
+										id="editendMonth" name="editendMonth" style="width: 100%"
+										required>
+									</select> <span class="editendMonth_error errorfield"></span>
+								</div>
 							</div>
 						</div>
 
-						<div class="col-lg-6 col-md-6 col-sm-12">
+
+						<div class="col-lg-12" id="checkedcurretly">
 							<div class="form-group">
-								<label for="editendMonth" class="form-label required">End
-									Month </label><select class="selet2Single form-control"
-									id="editendMonth" name="editendMonth" style="width: 100%"
-									required>
-								</select> <span class="editendMonth_error errorfield"></span>
+								<div class="form-check currentlywork">
+									<input class="form-check-input currentlywork" type="checkbox"
+										value="Active" id="currentlyworkhide"
+										onchange="addEndyearEndMonth()" name="currentlywork">
+									<label class="form-check-label" for="currentlywork"> I
+										am currently working here </label>
+								</div>
 							</div>
 						</div>
-					</div>
-						
-						
-						 <div class="col-lg-12" id="checkedcurretly">
-                      <div class="form-group">
-                        <div class="form-check currentlywork">
-                          <input class="form-check-input currentlywork" type="checkbox" value="Active" id="currentlyworkhide" onchange="addEndyearEndMonth()" name="currentlywork">
-                          <label class="form-check-label" for="currentlywork">
-                           I am currently working here
-                          </label>
-                        </div>
-                      </div>
-                    </div>
 
 					</div>
 
@@ -952,8 +964,10 @@ int yearInt = Integer.parseInt(year);
 								<label for="Name" class="form-label required">Current
 									CTC </label> <input type="text" name="editCurrentCtc"
 									id="editCurrentCtc" class="form-control"
-									placeholder="Enter Current Ctc " onkeyup="checkOnlyNumbers(this,'editCurrentCtc_error')" maxlength="20"><span
-									class="editCurrentCtc_error errorfield" style="color:red"></span>
+									placeholder="Enter Current Ctc "
+									onkeyup="checkOnlyNumbers(this,'editCurrentCtc_error')"
+									maxlength="20"><span
+									class="editCurrentCtc_error errorfield" style="color: red"></span>
 							</div>
 						</div>
 
@@ -962,8 +976,10 @@ int yearInt = Integer.parseInt(year);
 								<label for="Name" class="form-label required">Expected
 									CTC </label> <input type="text" name="editExpectedCtc"
 									id="editExpectedCtc" class="form-control"
-									placeholder="Enter Expected Ctc" onkeyup="checkOnlyNumbers(this,'editExpectedCtc_error')" maxlength="20"><span
-									class="editExpectedCtc_error errorfield" style="color:red"></span>
+									placeholder="Enter Expected Ctc"
+									onkeyup="checkOnlyNumbers(this,'editExpectedCtc_error')"
+									maxlength="20"><span
+									class="editExpectedCtc_error errorfield" style="color: red"></span>
 							</div>
 						</div>
 
@@ -976,7 +992,8 @@ int yearInt = Integer.parseInt(year);
 											name="edityearsExp" id="edityearsExp"
 											class="form-control select2Single" style="width: 100%">
 											<option value="">Select</option>
-										</select> <span class="edityearsExp_error errorfield" style="color:red"></span>
+										</select> <span class="edityearsExp_error errorfield"
+											style="color: red"></span>
 									</div>
 									<div class="col-lg-6 col-md-6 col-sm-12 col-6">
 										<label class="form-label">Months</label> <select
@@ -984,7 +1001,8 @@ int yearInt = Integer.parseInt(year);
 											class="form-control select2Single" style="width: 100%">
 											<option value="">Select</option>
 											<!-- Dynamically populate options for months -->
-										</select> <span class="editmonthsExp_error errorfield" style="color:red"></span>
+										</select> <span class="editmonthsExp_error errorfield"
+											style="color: red"></span>
 									</div>
 								</div>
 								<span class="editTotalexperience_error errorfield"></span>
@@ -1010,7 +1028,8 @@ int yearInt = Integer.parseInt(year);
 											for="editServingNoticePeriodNo"><span>No </span> </label>
 									</div>
 								</div>
-								<span class="editServingNoticePeriod_error errorfield" style="color:red"></span>
+								<span class="editServingNoticePeriod_error errorfield"
+									style="color: red"></span>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12" id="hideShowNoticePeriod">
@@ -1018,20 +1037,25 @@ int yearInt = Integer.parseInt(year);
 								<label for="editNoticePeriod" class="form-label"> Notice
 									Period(in Days) </label> <input type="text" name="editNoticePeriod"
 									id="editNoticePeriod" class="form-control"
-									placeholder="Enter Notice Period" onkeyup="checkOnlyNumbers(this,'editNoticePeriod_error'); removeDisableLastWorkDate()" maxlength="2"> <span
+									placeholder="Enter Notice Period"
+									onkeyup="checkOnlyNumbers(this,'editNoticePeriod_error'); removeDisableLastWorkDate()"
+									maxlength="2"> <span
 									class="editNoticePeriod_error errorfield"></span>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="hideShowLastWorkingDate">
+						<div class="col-lg-6 col-md-6 col-sm-12"
+							id="hideShowLastWorkingDate">
 							<div class="form-group">
-								<label for="editlastworkingDate" class="form-label"> Last Working Date </label> 
-								<input type="text" name="editlastworkingDate"
-									id="editlastworkingDate" class="form-control"
-									placeholder="Enter Last Working  Date" readonly="readonly"> <span
+								<label for="editlastworkingDate" class="form-label">
+									Last Working Date </label> <input type="text"
+									name="editlastworkingDate" id="editlastworkingDate"
+									class="form-control" placeholder="Enter Last Working  Date"
+									readonly="readonly"> <span
 									class="editlastworkingDate_error errorfield"></span>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="showHideReadyToLocate">
+						<div class="col-lg-6 col-md-6 col-sm-12"
+							id="showHideReadyToLocate">
 							<div class="form-group">
 								<label for="editRelocate" class="form-label required">Ready
 									to Relocate</label>
@@ -1071,7 +1095,8 @@ int yearInt = Integer.parseInt(year);
 										</span> </label>
 									</div>
 								</div>
-								<span class="editOfferInHand_error errorfield" style="color:red"></span>
+								<span class="editOfferInHand_error errorfield"
+									style="color: red"></span>
 							</div>
 						</div>
 
@@ -1079,17 +1104,20 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="editOfferCtc" class="form-label">Offer CTC</label> <input
 									type="text" name="editOfferCtc" id="editOfferCtc"
-									class="form-control" placeholder="Enter Offer Ctc" onkeyup="checkOnlyNumbers(this,'editOfferCtc_error')" maxlength="40"> <span
-									class="editOfferCtc_error errorfield" style="color:red"></span>
+									class="form-control" placeholder="Enter Offer Ctc"
+									onkeyup="checkOnlyNumbers(this,'editOfferCtc_error')"
+									maxlength="40"> <span
+									class="editOfferCtc_error errorfield" style="color: red"></span>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12" id="showHideJoiningDate">
 							<div class="form-group">
-								<label for="editjoiningDate" class="form-label">Joining Date </label> 
-								<input type="text" name="editjoiningDate"
+								<label for="editjoiningDate" class="form-label">Joining
+									Date </label> <input type="text" name="editjoiningDate"
 									id="editjoiningDate" class="form-control datepicker"
-									placeholder="Enter Joining  Date" readonly="readonly"> <span
-									class="editjoiningDate_error errorfield" style="color:red"></span>
+									placeholder="Enter Joining  Date" readonly="readonly">
+								<span class="editjoiningDate_error errorfield"
+									style="color: red"></span>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12">
@@ -1110,7 +1138,8 @@ int yearInt = Integer.parseInt(year);
 										</span> </label>
 									</div>
 								</div>
-								<span class="editWorkFromHome_error errorfield" style="color:red"></span>
+								<span class="editWorkFromHome_error errorfield"
+									style="color: red"></span>
 							</div>
 						</div>
 						<!-- <div class="col-lg-6 col-md-6 col-sm-12">
@@ -1158,7 +1187,38 @@ int yearInt = Integer.parseInt(year);
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="otherAddModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Company
+						Name</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="NewcompanyName" class="form-label required">Company
+									Name</label> <input type="text" name="NewcompanyName"
+									id="NewcompanyName" class="form-control"
+									placeholder="Enter Company Name">
+							</div>
+						</div>
 
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btns" onclick="companyMasterSave()">Submit</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -1334,14 +1394,22 @@ int yearInt = Integer.parseInt(year);
 	let lastworkingDate="${careerDetails.lastWorkingDate}";
 	let pincode="${careerDetails.pincode}";
 	let currentLocationsValue="${careerDetails.city}";
-	$('#editlastworkingDate').datepicker({
+	/* $('#editlastworkingDate').datepicker({
         format: 'dd-mm-yyyy',
         autoclose: true,
         changeYear: true,  // Enables year selection
         changeMonth: true, // Enables month selection
-        startDate: new Date(new Date().getFullYear(), 0, 1), // Disable previous years
+        startDate: new Date(new Date().getFullYear(), 0, 0), // Disable previous years
         todayHighlight: true
-      });
+      }); */
+      $('#editlastworkingDate').datepicker({
+    	    format: 'dd-mm-yyyy',
+    	    autoclose: true,
+    	    todayHighlight: true,
+    	    startDate: new Date(), 
+    	    changeMonth: true,
+    	    changeYear: true
+    	});
 	$('#editjoiningDate').datepicker({
         format: 'dd-mm-yyyy',
         autoclose: true,
@@ -1359,6 +1427,7 @@ int yearInt = Integer.parseInt(year);
 	 var endYear=<%=yearInt%>;
 	 var Totalyearsession=<%=yearInt%>;
 	 var isworkstatus="${workstatus}";
+	 var newdob = "${newdob}";
 	</script>
 </body>
 </html>

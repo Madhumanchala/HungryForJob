@@ -57,10 +57,6 @@ String userId= (String) session.getAttribute("userId");
 														<li><input type="radio" class="btn-check"
 															name="jobtype" id="job" onchange="allChange('jobType_error')" value="Job"> <label
 															class="btn" for="job"><span>Job</span> </label></li>
-														<!-- <li><input type="radio" class="btn-check"
-															name="jobtype" id="internship" onchange="allChange('jobType_error')" value="Internship"> <label
-															class="btn" for="internship"><span>Internship
-															</span> </label></li> -->
 														<li><input type="radio" class="btn-check"
 															name="jobtype" id="contract" onchange="allChange('jobType_error')" value="Contract"> <label class="btn"
 															for="contract"><span>Contract </span> </label></li>
@@ -469,7 +465,7 @@ String userId= (String) session.getAttribute("userId");
 												</div>
 											</div>
 										</div> -->
-										<div class="col-lg-12 col-md-12 col-sm-12">
+										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<div class="form-check relocate">
 													<input class="form-check-input" type="checkbox" value=""
@@ -477,7 +473,7 @@ String userId= (String) session.getAttribute("userId");
 														for="walkin"> Include walk-in details </label>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										
 										<div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="includeWalk" id="includeWalk">
@@ -560,7 +556,7 @@ String userId= (String) session.getAttribute("userId");
 														<div class="form-group">
 															<label for="companyName" class="required">Company
 																Name</label> <input type="text" class="form-control"
-																id="companyName" value="Comunus Technologies" onkeyup="changeCompanyName()">
+																id="companyName" value="Comunus Technologies" onkeyup="changeCompanyName()" maxlength="30">
 															 <span class="errors" id="companyName_error"></span>
 														</div>
 													</div>
@@ -570,7 +566,7 @@ String userId= (String) session.getAttribute("userId");
 															<label for="aboutCompany" class="required">About
 																Company </label>
 															<textarea class="form-control" id="aboutCompany"
-																placeholder="Enter about company " onkeyup="allChange('aboutCompany_error')"> </textarea>
+																placeholder="Enter about company " onkeyup="allChange('aboutCompany_error')" maxlength="30"> </textarea>
 															<span class="errors" id="aboutCompany_error"></span>
 														</div>
 													</div>
@@ -587,14 +583,14 @@ String userId= (String) session.getAttribute("userId");
 														<div class="form-group">
 															<label for="Telephone" class="required">Telephone
 															</label> <input type="text" class="form-control" id="Telephone"
-																placeholder="Enter Telephone" onkeyup="changeTelephone()">
+																placeholder="Enter Telephone" onkeyup="changeTelephone()" maxlength="10">
 															<span class="errors" id="Telephone_error"></span>
 														</div>
 													</div>
 													<div class="col-lg-6 col-md-6 col-sm-12">
 														<div class="form-group">
 															<label for="emailId" class="required">Email Id </label> <input
-																type="text" class="form-control" id="emailId"
+																type="text" class="form-control" id="emailId" maxlength="40"
 																placeholder="Enter Email Id" onkeyup="changeEmailId()">
 															<span class="errors" id="emailId_error"></span>
 														</div>
@@ -604,10 +600,23 @@ String userId= (String) session.getAttribute("userId");
 												</div>
 											</div>
 										</div>
+										
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label for="jobpoststatus" class="required">Status
+												</label> <select class="form-select form-control selet2Single"
+													id="jobpoststatus">
+													<c:forEach items="${masterstattus}" var="masterstatus">
+														<option value="${masterstatus.id}">${masterstatus.name}</option>
+													</c:forEach>
+												</select>
+												<span class="errors" id="jobpoststatus"></span>
+											</div>
+										</div>
 
 										<div class="col-lg-12 d-flex justify-content-end">
-											<button type="button" class="btns-border">Save as
-												draft</button>
+											<!-- <button type="button" class="btns-border">Save as
+												draft</button> -->
 											<button type="button" class="btns" onclick="savejobPost()">
 												Post this job</button>
 										</div>
@@ -675,17 +684,7 @@ String userId= (String) session.getAttribute("userId");
 	</main>
 	<!-- End #main -->
 	<!-- ======= Footer ======= -->
-	<footer id="footer" class="footer">
-		<div class="container">
-			<div class="copyright">
-				<ul>
-					<li><a href="#"> About Us </a></li>
-					<li><a href="#"> Contact Us</a></li>
-				</ul>
-				<p>Copyright © 2024. Hungry for job all right reserved</p>
-			</div>
-		</div>
-	</footer>
+	<%@include file="employerfooter.jsp"%>
 	<!-- End Footer -->
 
 	<script src="employer/js/jquery.min.js"></script>
@@ -697,6 +696,7 @@ String userId= (String) session.getAttribute("userId");
 	
 	<script src="employer/js/main.js"></script>
 	<script src="employer/js/jobPost.js"></script>
+		<script src="js/commonvalidation.js"></script>
 	
 	<script>
 	  $(function () {

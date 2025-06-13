@@ -219,6 +219,9 @@
 
 		$(document).ready(function() {
 			
+			/* sessionStorage.removeItem("menuDetails"); */
+			 sessionStorage.clear(); 
+			
 			var errorMsg = '${errorMsg}';
 			console.log('errorMsg:' + errorMsg)
 			if (errorMsg != null && errorMsg != '') {

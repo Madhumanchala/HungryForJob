@@ -512,6 +512,7 @@
 		if (errorMsg != null && errorMsg != '') {
 			showToast('error',errorMsg);
 		}
+		 sessionStorage.clear(); 
 	});
   </script>
 	<script>

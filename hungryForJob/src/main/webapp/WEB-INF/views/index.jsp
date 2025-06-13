@@ -495,7 +495,11 @@
  		{
  			return true;
  		}
+ 		
   	}
+  	$(document).ready(function() {
+			sessionStorage.removeItem("menuDetails");
+	});
   </script>
 
 </body>

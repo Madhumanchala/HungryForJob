@@ -1155,7 +1155,10 @@ section{padding:40px 0;}
 .featuredJoblist .listbox .company-details  p{ margin:0px; font-size:16px;}
 .featuredJoblist .listbox .list-price { margin:0px 0px 10px 0px;}
 .featuredJoblist .listbox .list-price ul{ list-style-type:none; margin:0px; padding:0px;}
-.featuredJoblist .listbox .list-price ul li{ display:inline-flex; align-items: center; margin-right:10px;}
+.featuredJoblist .listbox .list-price ul li{ display:inline-flex; align-items: center;}
+/* ---- mahendra puli ----
+margin-right:10px;
+ ---- mahendra puli ----*/
 .featuredJoblist .listbox .list-price ul li img{ margin-right:5px;}
 .featuredJoblist .listbox .daytxt { margin-top:15px; display: flex; justify-content: space-between; align-items:center;   }
 .featuredJoblist .listbox .company-logo img { border:1px solid #eee;  margin:0px;  padding:5px;  border-radius:5px;  width:54px;  height:54px;}

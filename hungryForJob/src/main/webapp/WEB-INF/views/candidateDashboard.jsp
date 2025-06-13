@@ -2,7 +2,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDateTime"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String candidateId = (String) session.getAttribute("candidateId");
 %>
@@ -24,9 +24,29 @@ String candidateId = (String) session.getAttribute("candidateId");
 <link href="css/style.css" rel="stylesheet">
 <link href="css/select2.min.css" rel="stylesheet" />
 </head>
+<style>
+.desc {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.desc img {
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.desc .one-line-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+</style>
 <body>
-<%@include file="header3.jsp"%>
-<%@include file="toaster.jsp"%>
+	<%@include file="header3.jsp"%>
+	<%@include file="toaster.jsp"%>
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb">
 			<div class="bgtop"></div>
@@ -49,7 +69,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 								<h2>Recommended Job</h2>
 							</div>
 
-							 <c:forEach items="${jobPostingDetails}" var="jobPosting">
+							<c:forEach items="${jobPostingDetails}" var="jobPosting">
 								<div class="col-xl-6 col-lg-6 ">
 									<div class="listbox">
 										<div class="d-flex justify-content-between ">
@@ -65,71 +85,83 @@ String candidateId = (String) session.getAttribute("candidateId");
 										</div>
 										<div class="list-price">
 											<ul>
-												<li><img src="img/year.svg">${jobPosting.fromYearExp} to ${jobPosting.toYearExp}</li>
+												<li><img src="img/year.svg">${jobPosting.fromYearExp}
+													to ${jobPosting.toYearExp}</li>
 												<c:choose>
-													<c:when test="${empty jobPosting.fromCtc or jobPosting.fromCtc eq 'null' or empty jobPosting.toCtc or jobPosting.toCtc eq 'null'}">
+													<c:when
+														test="${empty jobPosting.fromCtc or jobPosting.fromCtc eq 'null' or empty jobPosting.toCtc or jobPosting.toCtc eq 'null'}">
 														<li><img src="img/inr.svg">Not disclosed</li>
 													</c:when>
 													<c:otherwise>
-														<li><img src="img/inr.svg">${jobPosting.fromCtc} - ${jobPosting.toCtc}</li>
+														<li><img src="img/inr.svg">${jobPosting.fromCtc}
+															- ${jobPosting.toCtc}</li>
 													</c:otherwise>
 												</c:choose>
 												<li><img src="img/map.svg">${jobPosting.location}</li>
 											</ul>
 										</div>
-										<div class="desc">
+										<%-- <div class="desc one-line-text">
 											<img src="img/txt-details.svg">
-											${jobPosting.jobDescription}
+											${jobPosting.jobDescription} 
+										</div> --%>
+										<div class="desc">
+											<img src="img/txt-details.svg" alt="Details">
+											<div class="one-line-text">
+												${jobPosting.jobDescription}</div>
 										</div>
+
 										<div class="daytxt">
-										
-										<c:set var="startingDate" value="${jobPosting.createdDate}" ></c:set>
-										
-										<%
-    // Assuming similar_job is an object with a createdDate property
-    String createdDateString = (String) pageContext.getAttribute("startingDate");; // Fetching the created date string
-    
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate createdDate = LocalDate.parse(createdDateString, inputFormatter);
-    LocalDate today = LocalDate.now();
-    
-    long days = ChronoUnit.DAYS.between(createdDate, today);
-    String postedDays;
-    
-    if (days > 365) {
-        long years = days / 365;
-        postedDays = years + (years == 1 ? " Year Ago" : " Years Ago");
-    } else if (days > 28) {
-        long months = days / 30;
-        postedDays = months + (months == 1 ? " Month Ago" : " Months Ago");
-    } else {
-        postedDays = days + (days == 1 ? " Day Ago" : " Days Ago");
-    }
-%>
-										
-											<p><%= postedDays %> </p>
+
+											<c:set var="startingDate" value="${jobPosting.createdDate}"></c:set>
+
+											<%
+											// Assuming similar_job is an object with a createdDate property
+											String createdDateString = (String) pageContext.getAttribute("startingDate");; // Fetching the created date string
+
+											DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+											LocalDate createdDate = LocalDate.parse(createdDateString, inputFormatter);
+											LocalDate today = LocalDate.now();
+
+											long days = ChronoUnit.DAYS.between(createdDate, today);
+											String postedDays;
+
+											if (days > 365) {
+												long years = days / 365;
+												postedDays = years + (years == 1 ? " Year Ago" : " Years Ago");
+											} else if (days > 28) {
+												long months = days / 30;
+												postedDays = months + (months == 1 ? " Month Ago" : " Months Ago");
+											} else {
+												postedDays = days + (days == 1 ? " Day Ago" : " Days Ago");
+											}
+											%>
+
+											<p><%=postedDays%>
+											</p>
 											<c:if test="${jobPosting.isJobApplied eq 'applied'}">
-												<p class="appliedjob"><img src="img/appliedjob.png"> Applied</p>
+												<p class="appliedjob">
+													<img src="img/appliedjob.png"> Applied
+												</p>
 											</c:if>
 											<div class="applyNow">
-												<a href="#" onclick="viewDetails(${jobPosting.id})"> View Details
-												</a>
+												<a href="#" onclick="viewDetails(${jobPosting.id})">
+													View Details </a>
 											</div>
 										</div>
 									</div>
 								</div>
 							</c:forEach>
 						</div>
-								<ul class="pagination justify-content-end" id="pagination">
-								   <!--  <li class="page-item"><a class="page-link" href="#" id="prevpage">Previous</a></li>
+						<ul class="pagination justify-content-end" id="pagination">
+							<!--  <li class="page-item"><a class="page-link" href="#" id="prevpage">Previous</a></li>
 								    <li class="page-item"><a class="page-link" href="#" id="nextpage">Next</a></li> -->
-							  </ul>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- End Featured Job List Section -->
-		
+
 	</main>
 	<%@include file="footer.jsp"%>
 	<script src="js/jquery.min.js"></script>
@@ -137,8 +169,8 @@ String candidateId = (String) session.getAttribute("candidateId");
 	<script src="js/candidateDashboard.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/main.js"></script>
-  	<script src="js/jquery.min.js"></script>
-  	<script src="js/select2.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/select2.min.js"></script>
 	<script>
 		
 	/* let totalPages=${totalpages}; */

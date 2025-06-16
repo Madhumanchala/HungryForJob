@@ -1,6 +1,8 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import com.comunus.hungryForJob.constant.ApplicationConstant;
 import com.comunus.hungryForJob.constant.EmployeerAppplicationConstant;
 import com.comunus.hungryForJob.employeer.Model.DeductionPoints;
 import com.comunus.hungryForJob.employeer.Model.JobPosting;
+import com.comunus.hungryForJob.employeer.Model.Menu;
 import com.comunus.hungryForJob.employeer.Model.SearchReq;
 import com.comunus.hungryForJob.employeer.Model.SearchRequest;
 import com.comunus.hungryForJob.employeer.Model.SearchResp;
@@ -127,7 +130,13 @@ public class SearchCandidateController {
 						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
 						});
 				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
-					model.addAttribute("menuDetails", responsemodel.getData().getMenudetails());
+//					responsemodel.getData().getMenudetails().stream().filter(menu -> menu.getCompanyStatus() > 0)
+					int companyId = Integer.valueOf(session.getAttribute("companyId").toString());
+					List<Menu> filteredMenuDetails = responsemodel.getData().getMenudetails().stream()
+						    .filter(menu -> menu.getCompanyStatus() == 0 || menu.getCompanyStatus() == companyId)
+						    .collect(Collectors.toList());
+//					model.addAttribute("menuDetails", responsemodel.getData().getMenudetails());
+					model.addAttribute("menuDetails", filteredMenuDetails);
 					model.addAttribute("status", "1");
 					log.info("menudetails==============" + responsemodel.getData().getMenudetails());
 				}

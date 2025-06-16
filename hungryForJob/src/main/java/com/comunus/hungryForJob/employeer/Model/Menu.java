@@ -9,4 +9,6 @@ public class Menu {
 	private String menuName;
 	private String menuUrl;
 	private String parentId;
+	private int companyStatus;
+	private int priority;
 }

@@ -99,6 +99,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 						session.setAttribute("planstatus", (String)response.getData().get("planStatus"));
 						session.setAttribute("rolestatus", (String)response.getData().get("rolestatus"));
 						session.setAttribute("newemployer", (String)response.getData().get("newemployer"));
+						session.setAttribute("companyId", (String)response.getData().get("companyId"));
+						
 					}else if(type.equals("operations"))
 					{
 						session.setAttribute("operationemailId",username);

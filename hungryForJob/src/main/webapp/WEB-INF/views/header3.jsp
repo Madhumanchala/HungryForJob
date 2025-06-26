@@ -10,8 +10,9 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 		class="container-fluid container-xl d-flex align-items-center justify-content-between">
 		<nav id="navbar" class="navbar">
 			<div class="d-flex align-items-center">
-				<i class="bi bi-list mobile-nav-toggle"></i> <a href="#" onclick="route('/candidateDashboard')"
-					class="logo"> <img src="img/logo.svg" alt="Logo">
+				<i class="bi bi-list mobile-nav-toggle"></i> <a href="#"
+					onclick="route('/candidateDashboard')" class="logo"> <img
+					src="img/logo.svg" alt="Logo">
 				</a>
 				<ul>
 					<!-- Additional navigation items can be added here -->
@@ -25,10 +26,10 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 				<div class="classic-search-box">
 					<div class="form-group">
 						<div class="input-with-icon" data-bs-toggle="modal"
-							data-bs-target="#searchModal" >
-							<input type="text" class="form-control"
-								placeholder="" id="searchvalue"> <span
-								class="fa-icon"><img src="img/search.svg"></span>
+							data-bs-target="#searchModal">
+							<input type="text" class="form-control" placeholder=""
+								id="searchvalue"> <span class="fa-icon"><img
+								src="img/search.svg"></span>
 						</div>
 					</div>
 				</div>
@@ -42,10 +43,12 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 						id="dropdownMenuButton" data-bs-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">
 						<div class="profile-img">
-							<img style="background-image: url('data:image/jpeg;base64,<%=candidateImage1%>'); border: 2px solid #fff; background-color: #e6e6e6;"> <i
-								class="bi bi-chevron-down"></i>
+							<img
+								style="background-image: url('data:image/jpeg;base64,<%=candidateImage1%>'); border: 2px solid #fff; background-color: #e6e6e6;">
+							<i class="bi bi-chevron-down"></i>
 						</div>
 					</button>
+					<br><strong><%=header3candidateName%></strong>
 					<div class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="dropdownMenuButton">
 						<div class="proTxt">
@@ -53,8 +56,7 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 						</div>
 						<a class="dropdown-item " onclick="route('candidatenewpassword')">
 							<i class="bi bi-lock"></i> Change Password
-						</a>
-						<a class="dropdown-item logOutLink" onclick="route('logout')">
+						</a> <a class="dropdown-item logOutLink" onclick="route('logout')">
 							<i class="bi bi-box-arrow-right"></i> Logout
 						</a>
 					</div>
@@ -105,21 +107,20 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 											<option value="8">8 years</option>
 											<option value="9">9 years</option>
 											<option value="10">10 years</option>
-										</select> 
-										<span class="fa-icon"><img src="img/experience.svg"></span>
+										</select> <span class="fa-icon"><img src="img/experience.svg"></span>
 									</div>
 								</div>
 							</div>
 							<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
 								<div class="form-group briod">
 									<div class="input-with-icon">
-										<select class="form-control selet2Multiple" multiple="multiple" id="selectLocation">
+										<select class="form-control selet2Multiple"
+											multiple="multiple" id="selectLocation">
 											<option value="" class="location">Select Location</option>
 											<c:forEach items="${cities}" var="perksAndBenfits">
 												<option value="${perksAndBenfits.id}">${perksAndBenfits.name}</option>
 											</c:forEach>
-										</select> 
-										<span class="fa-icon"><img src="img/location.svg"></span>
+										</select> <span class="fa-icon"><img src="img/location.svg"></span>
 									</div>
 								</div>
 							</div>
@@ -131,7 +132,8 @@ String candidateImage1 = (String) session.getAttribute("profileImage");
 							</div>
 						</div>
 					</div>
-					<span class="error_field" id="error_field" style="padding-left:60px; color:red"></span>
+					<span class="error_field" id="error_field"
+						style="padding-left: 60px; color: red"></span>
 				</div>
 			</div>
 		</div>

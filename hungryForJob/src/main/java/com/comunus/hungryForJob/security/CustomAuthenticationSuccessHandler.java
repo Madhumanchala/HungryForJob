@@ -34,6 +34,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     	String planstatus=session.getAttribute("planstatus")!=null?session.getAttribute("planstatus").toString():null;
     	String newemployer = session.getAttribute("newemployer")!=null?session.getAttribute("newemployer").toString():null;
 //    	response.sendRedirect("candidateDashboard");
+    	
+    	
     	if(roleType.equals("employer"))
     	{
     		if(rolestatus.equals("admin"))

@@ -1,6 +1,5 @@
 package com.comunus.hungryForJob.employeer.Model;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -8,14 +7,14 @@ import lombok.Data;
 
 @Data
 public class SearchReq {
-	
+
 	private String companyId;
 	private String userId;
 	private String skill;
-	private String	minExp;
+	private String minExp;
 	private String maxExp;
 	private String location;
-	private String 	minSal;
+	private String minSal;
 	private String maxSal;
 	private String company;
 	private String noticePeriod;
@@ -28,7 +27,7 @@ public class SearchReq {
 	private String readyToLocate;
 	private String activein;
 	private String lastActive;
-	
+
 	private String searchId;
 	private String searchName;
 	private String searchCurrentLocation;
@@ -48,15 +47,15 @@ public class SearchReq {
 	private String tickMark;
 	private String viewCount;
 	private String downloadCount;
-	
-	
+
 	private String id;
 	private String folderId;
 	private String candidateId;
 	private String folderName;
-	
+
 	private String comments;
 	private List<Map<String, String>> detailsComment;
 	private String requiredSkills;
 	private String name;
+	private String isVisible;
 }

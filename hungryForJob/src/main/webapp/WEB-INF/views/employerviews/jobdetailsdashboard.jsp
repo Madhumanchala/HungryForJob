@@ -116,7 +116,7 @@
 											<!-- <th class="jobtit">Job Type</th> -->
 											<th class="jobtit">Job Title</th>
 											<c:forEach items="${carddetails}" var="cardname">
-											<th class="jobtit2">${cardname.name}</th>
+												<th class="jobtit2">${cardname.name}</th>
 											</c:forEach>
 											<!-- <th class="jobtit2">New&nbsp;Applied</th>
 											<th class="jobtit2">Screening</th>
@@ -361,8 +361,7 @@
 									</div>
 								</div>
 
-								<div
-									class="todotask align-items-stretch gap
+								<div class="todotask align-items-stretch gap
                 -2">
 									<div class="datetime d-flex justify-content-between">
 										<div class="datetxt ">
@@ -447,8 +446,7 @@
 				$('body').addClass('loaded');
 			}, 1000);
 		});
-		function managejobpost()
-		{
+		function managejobpost() {
 			findroute('managejobpost');
 		}
 	</script>

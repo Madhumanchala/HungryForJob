@@ -20,4 +20,6 @@ public class LoginRequest {
 	
 	private String sessionForgetRole;
 	
+	private String companyId;
+	
 }

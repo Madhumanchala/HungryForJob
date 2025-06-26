@@ -697,13 +697,14 @@ String userId = (String) session.getAttribute("userId");
 
 					<div class="col-xl-4 col-lg-4 col-md-4  ">
 						<div class="card-register jd-preview-main">
-							<h3>JD Preview</h3>
+							<h3>Job Details</h3>
 							<div class="card-registerinner ">
 								<div class="jd-preview">
 									<h4 id="jobTittleHeading">${editjobpostdetails.jobTittle}</h4>
 									<h6 id="revireIndustry"></h6>
 									<c:set var="selectedlocationIds" value="," />
-									<c:set var="selectedlocationIds" value="${selectedlocationIds}${editjobpostdetails.jobloc}," />
+									<c:set var="selectedlocationIds"
+										value="${selectedlocationIds}${editjobpostdetails.jobloc}," />
 									<ul>
 										<li><img src="employer/img/location.svg"
 											alt="location icon" /> <span id="reviewLocation"> <c:forEach
@@ -725,12 +726,9 @@ String userId = (String) session.getAttribute("userId");
 														</c:if>
 													</c:if>
 												</c:forEach>
-										</span>&nbsp;&nbsp;&nbsp;
-										<img src="employer/img/years.svg">
-										<span id="minexp"></span>&nbsp;
-										<span id="dash"></span>&nbsp;
-										<span id="maxexp"></span>
-										</li>
+										</span>&nbsp;&nbsp;&nbsp; <img src="employer/img/years.svg"> <span
+											id="minexp"></span>&nbsp; <span id="dash"></span>&nbsp; <span
+											id="maxexp"></span></li>
 									</ul>
 									<ul>
 										<li><img src="employer/img/salary.svg"><span
@@ -756,6 +754,7 @@ String userId = (String) session.getAttribute("userId");
 												</c:if>
 											</c:forEach>
 										</ul>
+									
 									</div>
 								</div>
 

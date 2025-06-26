@@ -6,6 +6,7 @@ import com.comunus.hungryForJob.employeer.Model.FolderDetails;
 import com.comunus.hungryForJob.employeer.Model.JobPosting;
 import com.comunus.hungryForJob.employeer.Model.Menu;
 import com.comunus.hungryForJob.employeer.Model.PricingDetails;
+import com.comunus.hungryForJob.employeer.Model.companyProfiledetails;
 
 import lombok.Data;
 
@@ -31,26 +32,26 @@ public class ResponseModel {
 	private String courseTypeId;
 	private String instituteId;
 	private String gradingSystemId;
-	private  List<Dashboard> jobPostingDetails;
-	private List<DropDown> 	jobPostingSkills;
-	private List<DropDown> 	jobPostingLocation;
-	private List<DropDown> 	jobPostingIndustry;
-	private List<DropDown> 	jobPostingDepartment;
-	private List<DropDown> 	jobPostingRole;
-	private List<DropDown> 	jobPostingEducationQualification;
-	private List<DropDown>  jobPostingSkillsFramework;
-	private List<DropDown>  internPerksAndBenefits;
-	
+	private List<Dashboard> jobPostingDetails;
+	private List<DropDown> jobPostingSkills;
+	private List<DropDown> jobPostingLocation;
+	private List<DropDown> jobPostingIndustry;
+	private List<DropDown> jobPostingDepartment;
+	private List<DropDown> jobPostingRole;
+	private List<DropDown> jobPostingEducationQualification;
+	private List<DropDown> jobPostingSkillsFramework;
+	private List<DropDown> internPerksAndBenefits;
+
 	private List<DropDown> masterCourse;
 	private List<DropDown> degreeCourse;
 	private List<DropDown> phdCourse;
 	private List<DropDown> fetchCompany;
-	
+
 	private List<Menu> menudetails;
-	
+
 	private List<AdminModel> registerCompanyDetails;
 	private AdminModel countOfCompanyDetails;
-	
+
 	private List<FolderDetails> folderDetails;
 	private List<FolderDetails> folderCandidateDetais;
 	private Dashboard userdetails;
@@ -61,20 +62,20 @@ public class ResponseModel {
 	private Dashboard countJobDetails;
 	private List<JobPosting> listJobPostDetails;
 	private JobPosting editJobpostingDetails;
-	
+
 	private JobPosting jobPostDetailsView;
 	private List<JobPosting> jobTittleList;
 	private List<JobPosting> masterCard;
 	private List<JobPosting> candidateDetails;
 	private List<JobPosting> interviewMode;
 	private List<Dashboard> cardDetails;
-	
-	
+
 	private List<JobPosting> cities;
 	private List<JobPosting> masterStatus;
 	private List<DropDown> jobPostStatus;
-	
+
 	private List<JobPosting> techName;
 	private List<JobPosting> educName;
-	
+	private companyProfiledetails companyDetails;
+	private List<String> perksAndBenefits;
 }

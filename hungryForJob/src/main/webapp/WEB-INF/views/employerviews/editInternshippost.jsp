@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-String companyId = (String) session.getAttribute("companyId");
-String userId = (String) session.getAttribute("userId");
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +39,7 @@ String userId = (String) session.getAttribute("userId");
 						<div class="card-register">
 
 							<form autocomplete="off">
-								<h3>Post an Internship</h3>
+								<h3>Edit Internship Details</h3>
 								<div class="card-registerinner  ">
 									<div class="row">
 										<div class="col-lg-12 col-md-12 col-sm-12">
@@ -57,7 +54,6 @@ String userId = (String) session.getAttribute("userId");
 															</span> </label></li>
 													</ul>
 												</div>
-												<!-- <span class="errors"> Please enter your Email ID</span>-->
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
@@ -65,8 +61,9 @@ String userId = (String) session.getAttribute("userId");
 												<label for="Jobtitle" class="required">Job title</label> <input
 													type="text" class="form-control" id="Jobtitle"
 													placeholder="Enter a clear and specific title to get better responses"
-													onkeyup="internTittleModal('internJobTittle',this.value)">
-												<span class="errors" id="internJobTittle"></span>
+													onkeyup="internTittleModal('internJobTittle',this.value)"
+													value="${editjobpostdetails.jobTittle}"> <span
+													class="errors" id="internJobTittle"></span>
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
@@ -77,12 +74,14 @@ String userId = (String) session.getAttribute("userId");
 													<ul>
 														<li><input type="radio" class="btn-check"
 															name="employmentType" id="fulltime" value="FULLTIME"
-															onchange="internEmployModal('internEmployementType',this.value)">
+															onchange="internEmployModal('internEmployementType',this.value)"
+															<c:if test="${editjobpostdetails.employmentType == 'FULLTIME'}">checked</c:if>>
 															<label class="btn" for="fulltime"><span>Full
 																	time</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="employmentType" id="parttime" Value="PARTTIME"
-															onchange="internEmployModal('internEmployementType',this.value)">
+															onchange="internEmployModal('internEmployementType',this.value)"
+															<c:if test="${editjobpostdetails.employmentType == 'PARTTIME'}">checked</c:if>>
 															<label class="btn" for="parttime"><span>Part
 																	time </span> </label></li>
 													</ul>
@@ -97,17 +96,20 @@ String userId = (String) session.getAttribute("userId");
 													<ul>
 														<li><input type="radio" class="btn-check"
 															name="workMode" id="inOffice" value="INOFFICE"
-															onchange="internWorkModal('internModeType',this.value)">
+															onchange="internWorkModal('internModeType',this.value)"
+															<c:if test="${editjobpostdetails.workMode == 'INOFFICE'}">checked</c:if>>
 															<label class="btn" for="inOffice"><span>In
 																	Office</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="workMode" id="Hybrid" value="HYBRID"
-															onchange="internWorkModal('internModeType',this.value)">
+															onchange="internWorkModal('internModeType',this.value)"
+															<c:if test="${editjobpostdetails.workMode == 'HYBRID'}">checked</c:if>>
 															<label class="btn" for="Hybrid"><span>Hybrid
 															</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="workMode" id="Remote" value="REMOTE"
-															onchange="internWorkModal('internModeType',this.value)">
+															onchange="internWorkModal('internModeType',this.value)"
+															<c:if test="${editjobpostdetails.workMode == 'REMOTE'}">checked</c:if>>
 															<label class="btn" for="Remote"><span>Remote
 															</span> </label></li>
 													</ul>
@@ -120,7 +122,7 @@ String userId = (String) session.getAttribute("userId");
 												<label for="internshipDescription" class="required">Internship
 													description</label>
 												<textarea class="internshipDescription"
-													name="internshipDescription" id="internDescription"></textarea>
+													name="internshipDescription" id="internDescription">${editjobpostdetails.jobDescription}</textarea>
 												<span class="errors" id="error_internDescription"></span>
 											</div>
 										</div>
@@ -128,15 +130,26 @@ String userId = (String) session.getAttribute("userId");
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label for="perksbenefits" class="required">Perks
-													and benefits </label> <select
+													and benefits</label> <select
 													class="form-select form-control selet2Multiple"
 													id="perksbenefits" multiple="multiple"
 													onchange="hideModal('internPerksAndBenefits_error')">
+
 													<option value="">Select</option>
+
 													<c:forEach items="${perksAndBenfists}"
 														var="perksAndBenfits">
-														<option value="${perksAndBenfits.id}">${perksAndBenfits.name}</option>
+														<c:set var="isSelected" value="false" />
+														<c:forEach items="${savedperksList}" var="savedPerk">
+															<c:if test="${savedPerk == perksAndBenfits.name}">
+																<c:set var="isSelected" value="true" />
+															</c:if>
+														</c:forEach>
+														<option value="${perksAndBenfits.id}"
+															<c:if test="${isSelected}">selected</c:if>>
+															${perksAndBenfits.name}</option>
 													</c:forEach>
+
 												</select> <span class="errors" id="internPerksAndBenefits_error"></span>
 											</div>
 										</div>
@@ -147,17 +160,19 @@ String userId = (String) session.getAttribute("userId");
 													qualification </label> <select
 													class="form-select form-control selet2Multiple"
 													id="educationalQualification"
-													onchange="hideModal('internEducationQualification')"
-													multiple="multiple">
+													onchange="hideModal('internEducationQualification')">
 													<option value="">Select</option>
 													<c:forEach items="${education}" var="education">
-														<option value="${education.id}">${education.name}</option>
+														<option value="${education.id}"
+															<c:if test="${education.id == editjobpostdetails.jobPostEducation}">selected</c:if>>${education.name}</option>
 													</c:forEach>
 												</select> <span class="errors" id="internEducationQualification"></span>
 											</div>
 										</div>
-
 										<div class="col-lg-12 col-md-12 col-sm-12">
+											<%-- Convert comma-separated string into array --%>
+											<c:set var="selectedSkillIds"
+												value="${fn:split(editjobpostdetails.jobPostkeySkills, ',')}" />
 											<div class="form-group">
 												<label for="keySkills" class="required">Key skills </label>
 												<select class="form-select form-control selet2Multiple"
@@ -165,13 +180,26 @@ String userId = (String) session.getAttribute("userId");
 													onchange="internKeySkills('internKeySkills')">
 													<option value="">Select</option>
 													<c:forEach items="${keySkills}" var="keySkills">
-														<option value="${keySkills.id}">${keySkills.name}</option>
+														<c:set var="isSelected" value="false" />
+														<c:forEach items="${selectedSkillIds}" var="selectedId">
+															<c:if test="${selectedId == keySkills.id}">
+																<c:set var="isSelected" value="true" />
+															</c:if>
+														</c:forEach>
+
+														<option value="${keySkills.id}"
+															<c:if test="${isSelected}">selected</c:if>>
+															${keySkills.name}</option>
 													</c:forEach>
 												</select> <span class="errors" id="internKeySkills"></span>
 											</div>
 										</div>
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
+											<%-- Convert comma-separated string into array --%>
+											<c:set var="jobloc"
+												value="${fn:split(editjobpostdetails.jobloc, ',')}" />
+
 											<div class="form-group">
 												<label for="internshipLocation" class="required">Internship
 													location </label> <select
@@ -180,13 +208,23 @@ String userId = (String) session.getAttribute("userId");
 													onchange="internLocationModal('internLocation')">
 													<option value="">Select</option>
 													<c:forEach items="${location}" var="location">
-														<option value="${location.id}">${location.name}</option>
+														<c:set var="isSelected" value="false" />
+														<c:forEach items="${jobloc}" var="locationId">
+															<c:if test="${locationId == location.id}">
+																<c:set var="isSelected" value="true" />
+															</c:if>
+														</c:forEach>
+
+														<option value="${location.id}"
+															<c:if test="${isSelected}">selected</c:if>>${location.name}</option>
 													</c:forEach>
 												</select> <span class="errors" id="internLocation"></span>
 												<div class="form-check relocate">
-													<input class="form-check-input" type="checkbox" value=""
-														id="includeCandidates"> <label
-														class="form-check-label" for="includeCandidates">
+													<input class="form-check-input" type="checkbox"
+														value="${editjobpostdetails.internReadyToReLocate}"
+														id="includeCandidates"
+														<c:if test="${editjobpostdetails.internReadyToReLocate}">checked</c:if>>
+													<label class="form-check-label" for="includeCandidates">
 														Include candidates ready to relocate to the above location
 													</label>
 												</div>
@@ -202,13 +240,27 @@ String userId = (String) session.getAttribute("userId");
 													id="internshipduration"
 													onchange="hideModal('internDuration')">
 													<option value="">Select</option>
-													<option value="1">1 month</option>
-													<option value="2">2 months</option>
-													<option value="3">3 months</option>
-													<option value="4">4 months</option>
-													<option value="5">5 months</option>
-													<option value="6">6 months</option>
-													<option value="No Fixed">No fixed duration</option>
+													<option value="1"
+														<c:if test="${editjobpostdetails.internDuration == '1'}">selected</c:if>>1
+														month</option>
+													<option value="2"
+														<c:if test="${editjobpostdetails.internDuration == '2'}">selected</c:if>>2
+														months</option>
+													<option value="3"
+														<c:if test="${editjobpostdetails.internDuration == '3'}">selected</c:if>>3
+														months</option>
+													<option value="4"
+														<c:if test="${editjobpostdetails.internDuration == '4'}">selected</c:if>>4
+														months</option>
+													<option value="5"
+														<c:if test="${editjobpostdetails.internDuration == '5'}">selected</c:if>>5
+														months</option>
+													<option value="6"
+														<c:if test="${editjobpostdetails.internDuration == '6'}">selected</c:if>>6
+														months</option>
+													<option value="No Fixed"
+														<c:if test="${editjobpostdetails.internDuration == 'No Fixed'}">selected</c:if>>No
+														fixed duration</option>
 												</select> <span class="errors" id="internDuration"></span>
 											</div>
 										</div>
@@ -222,13 +274,15 @@ String userId = (String) session.getAttribute("userId");
 														<li><input type="radio" class="btn-check"
 															name="internCheck" id="internshipStart"
 															value="SpecificDate"
-															onchange="changeinternshipStartDate('internStart')">
+															onchange="changeinternshipStartDate('internStart')"
+															<c:if test="${editjobpostdetails.internStartType == 'SpecificDate'}">checked</c:if>>
 															<label class="btn" for="internshipStart"><span>On
 																	a specific date</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="internCheck" id="specificstartdate"
 															value="NoSpecificeDate"
-															onchange="changeinternshipStartDate('internStart')">
+															onchange="changeinternshipStartDate('internStart')"
+															<c:if test="${editjobpostdetails.internStartType == 'NoSpecificeDate'}">checked</c:if>>
 															<label class="btn" for="specificstartdate"><span>No
 																	specific start date </span> </label></li>
 													</ul>
@@ -244,6 +298,7 @@ String userId = (String) session.getAttribute("userId");
 													specify the start date</label> <input type="text"
 													class="form-control datepicker" id="specifystartdate"
 													placeholder="DD/MM/YYYY"
+													value="${editjobpostdetails.internStartDateApply}"
 													onchange="hideModal('internStartDate')"> <span
 													class="errors" id="internStartDate"></span>
 											</div>
@@ -258,17 +313,20 @@ String userId = (String) session.getAttribute("userId");
 													<ul>
 														<li><input type="radio" class="btn-check"
 															name="startwithin" id="01month" value="0-1 month"
-															onchange="hideModal('internStartWithIn_error')">
+															onchange="hideModal('internStartWithIn_error')"
+															<c:if test="${editjobpostdetails.internWillStartWithin == '0-1 month'}">checked</c:if>>
 															<label class="btn" for="01month"><span>0-1
 																	month</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="startwithin" id="13months" value="1-3 month"
-															onchange="hideModal('internStartWithIn_error')">
+															onchange="hideModal('internStartWithIn_error')"
+															<c:if test="${editjobpostdetails.internWillStartWithin == '1-3 month'}">checked</c:if>>
 															<label class="btn" for="13months"><span>1-3
 																	months</span> </label></li>
 														<li><input type="radio" class="btn-check"
 															name="startwithin" id="36months" value="3-6 month"
-															onchange="hideModal('internStartWithIn_error')">
+															onchange="hideModal('internStartWithIn_error')"
+															<c:if test="${editjobpostdetails.internWillStartWithin == '3-6 month'}">checked</c:if>>
 															<label class="btn" for="36months"><span>3-6
 																	months </span> </label></li>
 													</ul>
@@ -280,9 +338,10 @@ String userId = (String) session.getAttribute("userId");
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label for="lastdate">Last date to apply</label> <input
-													type="text" class="form-control datepicker" id="lastdate"
-													placeholder="DD/MM/YYYY"
+												<label for="lastdate" class="required">Last date to
+													apply</label> <input type="text" class="form-control datepicker"
+													id="lastdate" placeholder="DD/MM/YYYY"
+													value="${editjobpostdetails.internLastDateApply}"
 													onchange="hideModal('internLastDate')"> <span
 													class="errors" id="internLastDate"></span>
 											</div>
@@ -296,14 +355,16 @@ String userId = (String) session.getAttribute("userId");
 													<ul>
 														<li><input type="radio" class="btn-check"
 															name="internshipYesNo" id="internshipYes" value="YES"
-															onchange="OnOffStipend('internStipend_error')"> <label
-															class="btn" for="internshipYes"><span>Yes</span>
+															onchange="OnOffStipend('internStipend_error')"
+															<c:if test="${editjobpostdetails.internStipendConfirm == 'YES'}">checked</c:if>>
+															<label class="btn" for="internshipYes"><span>Yes</span>
 														</label></li>
 														<li><input type="radio" class="btn-check"
 															name="internshipYesNo" id="internshipNo" value="NO"
-															onchange="OnOffStipend('internStipend_error')"> <label
-															class="btn" for="internshipNo"><span>No </span> </label>
-														</li>
+															onchange="OnOffStipend('internStipend_error')"
+															<c:if test="${editjobpostdetails.internStipendConfirm == 'NO'}">checked</c:if>>
+															<label class="btn" for="internshipNo"><span>No
+															</span> </label></li>
 													</ul>
 												</div>
 												<span class="errors" id="internStipend_error"></span>
@@ -315,6 +376,7 @@ String userId = (String) session.getAttribute("userId");
 												<div class="input-group ">
 													<span class="input-group-text">₹ (INR)</span> <input
 														type="text" class="form-control"
+														value="${editjobpostdetails.internStipendMoney}"
 														placeholder="Enter Min Salary"
 														onkeyup="hideModal('internMinSalary')" id="internSalary">
 												</div>
@@ -341,7 +403,8 @@ String userId = (String) session.getAttribute("userId");
 													onchange="internIndustryModal('internIndustry',this.options[this.selectedIndex].text)">
 													<option value="">Select</option>
 													<c:forEach items="${jobCategories}" var="jobCategories">
-														<option value="${jobCategories.id}">${jobCategories.name}</option>
+														<option value="${jobCategories.id}"
+															<c:if test="${jobCategories.id == editjobpostdetails.companyIndustry}">Selected</c:if>>${jobCategories.name}</option>
 													</c:forEach>
 												</select> <span class="errors" id="internIndustry"></span>
 											</div>
@@ -355,7 +418,8 @@ String userId = (String) session.getAttribute("userId");
 													onchange="changehideModalRole('internDepartment')">
 													<option value="">Select</option>
 													<c:forEach items="${department}" var="department">
-														<option value="${department.id}">${department.name}</option>
+														<option value="${department.id}"
+															<c:if test="${department.id == editjobpostdetails.departmentId}">Selected</c:if>>${department.name}</option>
 													</c:forEach>
 												</select> <span class="errors" id="internDepartment"></span>
 											</div>
@@ -367,17 +431,10 @@ String userId = (String) session.getAttribute("userId");
 													class="form-select form-control selet2Single"
 													id="internRole" onchange="hideModal('internRole_error')">
 													<option value="">Select</option>
+													<option value="${editjobpostdetails.roleName}" selected>${editjobpostdetails.internRole}</option>
 												</select> <span class="errors" id="internRole_error"></span>
 											</div>
 										</div>
-
-
-
-
-
-
-
-
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -385,6 +442,7 @@ String userId = (String) session.getAttribute("userId");
 														<label for="referencecode" class="required">Reference
 															code</label> <input type="text" class="form-control"
 															id="referencecode" placeholder="Enter Reference code"
+															maxlength="30" value="${editjobpostdetails.reference}"
 															onkeyup="hideModal('internReferenceCode_error')">
 														<span class="errors" id="internReferenceCode_error"></span>
 													</div>
@@ -396,14 +454,13 @@ String userId = (String) session.getAttribute("userId");
 															id="numberVacancies"
 															placeholder="Enter Number of vacancies"
 															onkeyup="hideModal('internOfVacancy')"
+															value="${editjobpostdetails.noOfVacancy}"
 															oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 														<span class="errors" id="internOfVacancy"> </span>
 													</div>
 												</div>
 											</div>
 										</div>
-
-
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="question-group">
 												<div class="form-group">
@@ -414,7 +471,8 @@ String userId = (String) session.getAttribute("userId");
 														<div class="form-group">
 															<label for="companyName" class="required">Company
 																Name</label> <input type="text" class="form-control"
-																id="companyName" value="Comunus Technologies"
+																id="companyName"
+																value="${editjobpostdetails.companyName}"
 																onkeyup="internCompanyModal('InternCompanyDetails',this.value)">
 															<span class="errors" id="InternCompanyDetails"></span>
 														</div>
@@ -426,7 +484,8 @@ String userId = (String) session.getAttribute("userId");
 																Company </label>
 															<textarea class="form-control" id="aboutCompany"
 																placeholder="Enter about company"
-																onkeyup="hideModal('InternAboutCompany')"> </textarea>
+																${editjobpostdetails.aboutCompany}
+																onkeyup="hideModal('InternAboutCompany')">${editjobpostdetails.aboutCompany}</textarea>
 															<span class="errors" id="InternAboutCompany"></span>
 														</div>
 													</div>
@@ -444,6 +503,7 @@ String userId = (String) session.getAttribute("userId");
 															<label for="Telephone" class="required">Telephone
 															</label> <input type="text" class="form-control" id="Telephone"
 																placeholder="Enter Telephone" maxlength="10"
+																value="${editjobpostdetails.telephoneNumber}"
 																onkeyup="internTelephoneModal('InternTelephone',this.value)"
 																oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 															<span class="errors" id="InternTelephone"></span>
@@ -454,6 +514,7 @@ String userId = (String) session.getAttribute("userId");
 															<label for="emailId" class="required">Email Id </label> <input
 																type="text" class="form-control" id="emailId"
 																placeholder="Enter Email Id "
+																value="${editjobpostdetails.emailId}"
 																onkeyup="internEmailIdModal('InternEmailId',this.value)">
 															<span class="errors" id="InternEmailId"></span>
 														</div>
@@ -468,8 +529,8 @@ String userId = (String) session.getAttribute("userId");
 											<button type="submit" class="btns-border">Save as
 												draft</button>
 											<button type="button" class="btns"
-												onclick="postInternship('Insert_JI','')">Post this
-												job</button>
+												onclick="postInternship('Update_JI','${editjobpostdetails.id}')">
+												Post this job</button>
 										</div>
 									</div>
 								</div>
@@ -478,12 +539,12 @@ String userId = (String) session.getAttribute("userId");
 					</div>
 
 					<div class="col-xl-4 col-lg-4 col-md-4  ">
-						<div class="card-register jd-preview-main" style="display: none;">
+						<div class="card-register jd-preview-main">
 							<h3>Job Details</h3>
 							<div class="card-registerinner ">
 								<div class="jd-preview">
 									<h4>Job Title</h4>
-									<p id="internTittle"></p>
+									<p id="internTittle">${editjobpostdetails.jobTittle}</p>
 									<h6 id="internSubTittle"></h6>
 									<ul>
 										<li><img src="employer/img/location.svg"><span
@@ -492,8 +553,8 @@ String userId = (String) session.getAttribute("userId");
                     <li><img src="employer/img/salary.svg"> 3.0 - 6 LPA</li> -->
 									</ul>
 									<ul>
-										<li id="internEmploymentType"></li>
-										<li id="internWorkModeType"></li>
+										<li id="internEmploymentType">${editjobpostdetails.employmentType}</li>
+										<li id="internWorkModeType">${editjobpostdetails.workMode}</li>
 									</ul>
 								</div>
 								<div class="jd-preview">
@@ -504,7 +565,6 @@ String userId = (String) session.getAttribute("userId");
 										</ul>
 									</div>
 								</div>
-
 								<div class="jd-preview">
 									<h4>Job Details</h4>
 									<div class="jobDetails" id="internJobDescriptionDetails">
@@ -512,9 +572,6 @@ String userId = (String) session.getAttribute("userId");
 									</div>
 
 								</div>
-
-
-
 								<div class="jd-preview">
 									<h4>Recruiter Details</h4>
 									<div class="recruiterDetails">
@@ -532,7 +589,6 @@ String userId = (String) session.getAttribute("userId");
 				</div>
 			</div>
 		</section>
-
 	</main>
 	<!-- End #main -->
 	<!-- ======= Footer ======= -->
@@ -558,89 +614,134 @@ String userId = (String) session.getAttribute("userId");
 	<script src="employer/js/main.js"></script>
 	<script src="employer/js/jobInternship.js"></script>
 	<script>
-    $('.datepicker').datepicker({
-      format: 'dd/mm/yyyy',
-      autoclose: true,
-    });
+		$('.datepicker').datepicker({
+			format : 'dd/mm/yyyy',
+			autoclose : true,
+		});
 
-    $(document).ready(function () {
-      $(".selet2Multiple").select2({
-        placeholder: "Select"
-      });
-      $(".selet2Single").select2({
-        placeholder: "Select"
-      });
-      
-      var isVisible = sessionStorage.getItem("isVisibleFlag").toString();
-		if (isVisible !== "1") {
-		
-      
-      $.ajax({
-			url:"checkingpoints",
-			type:'post',
-			contentType: 'application/json',
-	        success: function(response) {
-	            // Success callback
-	            console.log(response.data.userdetails);
-	            if(response.errors.errorCode === "0000")
-	            {
-	            	let totalPost=parseInt(response.data.userdetails.totalPosting,10);
-	            	let usedPost= parseInt(response.data.userdetails.usedPost,10);
-	            	
-	            	if(totalPost == usedPost)
-	            	{
-	            		setTimeout(function() {
-	            			
-	            				let form = document.createElement('form');
-	            				form.method = 'POST'; 
-	            				form.action = 'searchCandidates';
-	            				document.body.appendChild(form);
-	            				form.submit(); 
-	            			
-						}, 2000); // 
-						showToast("info","please upgrade your plan");
-						
-					}
-				}else
-				{
-					console.log("error ocurred in service"+error)
-					
-				}
-	        },
-	        error: function(xhr, status, error) {
-	            // Error callback
-	            console.log("error ocurred"+error)
-	        }
-		})
-    }
-    });
+		$(document)
+				.ready(
+						function() {
+							$(".selet2Multiple").select2({
+								placeholder : "Select"
+							});
+							$(".selet2Single").select2({
+								placeholder : "Select"
+							});
 
-    $(document).ready(function () {
-     setTimeout(function () {
-        $('body').addClass('loaded');
-      }, 1000);
-     $('#startDateSpecify').hide();
-     $('#willStartWithin').hide();
-     $('#stipendOnOff').hide();
-     $('#internBetterResponse').hide();
-     var value=$('#companyName').val();
-     $('#interCompanyName').text(value);
-    });
+							var isVisible = sessionStorage.getItem(
+									"isVisibleFlag").toString();
+							if (isVisible !== "1") {
 
-    $(document).ready(function () {
-      $('.internshipDescription').richText();
-      
-      $(document).on('keyup', '.richText-editor', function () {
-	        internChangeDescriptionModal('error_internDescription',this);
-	    });
-    });
-<%--     var companyId="<%=companyId%>";
-	var userId="<%=userId%>";
- --%>
-	var companyId = sessionStorage.getItem("companyId");
-	var userId = sessionStorage.getItem("userId");
+								$
+										.ajax({
+											url : "checkingpoints",
+											type : 'post',
+											contentType : 'application/json',
+											success : function(response) {
+												// Success callback
+												console
+														.log(response.data.userdetails);
+												if (response.errors.errorCode === "0000") {
+													let totalPost = parseInt(
+															response.data.userdetails.totalPosting,
+															10);
+													let usedPost = parseInt(
+															response.data.userdetails.usedPost,
+															10);
 
- </script>
+													if (totalPost == usedPost) {
+														setTimeout(
+																function() {
+
+																	let form = document
+																			.createElement('form');
+																	form.method = 'POST';
+																	form.action = 'searchCandidates';
+																	document.body
+																			.appendChild(form);
+																	form
+																			.submit();
+
+																}, 2000); // 
+														showToast("info",
+																"please upgrade your plan");
+
+													}
+												} else {
+													console
+															.log("error ocurred in service"
+																	+ error)
+
+												}
+											},
+											error : function(xhr, status, error) {
+												// Error callback
+												console.log("error ocurred"
+														+ error)
+											}
+										})
+							}
+						});
+
+		$(document).ready(function() {
+			setTimeout(function() {
+				$('body').addClass('loaded');
+			}, 1000);
+			$('#startDateSpecify').hide();
+			$('#willStartWithin').hide();
+			$('#stipendOnOff').hide();
+			$('#internBetterResponse').hide();
+			var value = $('#companyName').val();
+			$('#interCompanyName').text(value);
+		});
+
+		$(document).ready(function() {
+			$('.internshipDescription').richText();
+
+			$(document).on('keyup', '.richText-editor', function() {
+				internChangeDescriptionModal('error_internDescription', this);
+			});
+		});
+
+		var companyId = sessionStorage.getItem("companyId");
+		var userId = sessionStorage.getItem("userId");
+	</script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+
+					var selectedIndustryText = $('#Industry option:selected')
+							.text();
+					$('#internSubTittle').text(selectedIndustryText);
+					var selectedinternshipLocationText = $(
+							'#internshipLocation option:selected').map(
+							function() {
+								return $(this).text();
+							}).get().join(', ');
+
+					$('#internLocationDisplay').text(
+							selectedinternshipLocationText);
+
+					// First, clear previous <li> items (if needed)
+					$('.keySkillsDetails ul').empty();
+
+					// Loop through each selected option and append separately
+					$('#keySkills option:selected').each(
+							function() {
+								var skill = $(this).text();
+								$('.keySkillsDetails ul').append(
+										'<li>' + skill + '</li>');
+							});
+					$("#internMobileNumber").text(
+							'${editjobpostdetails.telephoneNumber}');
+					$("#internEmailId").text('${editjobpostdetails.emailId}');
+
+					var jobDescrption = `${editjobpostdetails.jobDescription}`;
+					$('#internJobDescriptionDetails').html(jobDescrption);
+					//
+				});
+	</script>
 </body>
 
 </html>

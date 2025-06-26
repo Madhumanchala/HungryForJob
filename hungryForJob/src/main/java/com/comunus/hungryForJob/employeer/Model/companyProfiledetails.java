@@ -29,4 +29,9 @@ public class companyProfiledetails {
 	private String companyId;
 	private String credits;
 	private List<DropDown> industryMaster;
+
+	private String id;
+	private String status;
+	private String flag;
+	private String isVisible;
 }

@@ -240,7 +240,7 @@ public class DashboardController {
 					{
 						session.setAttribute("rolestatus","admin");
 						session.setAttribute("userId", session.getAttribute("companyId").toString());
-					}
+					}	
 					model.addAttribute("size", responsemodel.getData().getManageUserDetails().size());
 					log.info("sizof it == "+responsemodel.getData().getManageUserDetails().size()+"user access === "+responsemodel.getData().getUserdetails().getUserAccess());
 				}

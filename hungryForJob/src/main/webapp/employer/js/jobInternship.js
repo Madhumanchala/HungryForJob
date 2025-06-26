@@ -1,4 +1,5 @@
-function postInternship() {
+function postInternship(flag, id) {
+
 	var jobType = "";
 	var jobTittle = "";
 	var employmentType = "";
@@ -210,7 +211,7 @@ function postInternship() {
 		$('#InternCompanyDetails').show();
 		isValid = false;
 	}
-	if (internAboutCompany == " ") {
+	if (internAboutCompany == "") {
 		$('#InternAboutCompany').text("Field is required");
 		$('#InternAboutCompany').show();
 		isValid = false;
@@ -228,45 +229,13 @@ function postInternship() {
 
 	}
 
-	/*console.log('Request data:', {
-	companyId: "123",
-	userId: "456",
-	internjobType: jobType,
-	internJobTittle: jobTittle,
-	internEmploymentType: employmentType,
-	internWorkMode: workModeType,
-	internDescription: internDescription,
-	internPerksAndBenefits: perksAndBenefits,
-	internEducationQualification: educationQualification,
-	internKeySkills: keySkills,
-	internLocation: internLocation,
-	internDuration: internDuration,
-	internStart: internStart,
-	internStartDateApply: internStartDate,
-	internWillStartWithin: internStartWithin,
-	internLastDateApply: lastDateToApply,
-	internStipendConfirm: booleanInternship,
-	internStipendMoney: stipendIntern,
-	internIndustry: internIndustry,
-	internDepartment: internDepartment,
-	internRole: internRole,
-	internReferenceCode: internReferenceCode,
-	internVacancy: noOfVacancy,
-	internCompanyName: internCompanyName,
-	internAboutCompany: internAboutCompany,
-	internCompanyAddress: internCompanyAddress,
-	internTelephone: internTelephone,
-	internEmailId: internEmailId,
-	internReadyToReLocate:internReadyToReLocate
-});*/
-
-
 	if (isValid) {
 		$.ajax({
 			url: '/saveJobPostInternship',  // Replace with your actual API endpoint
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
+				id: id,
 				companyId: companyId,
 				userId: userId,
 				internjobType: jobType,
@@ -295,21 +264,35 @@ function postInternship() {
 				internCompanyAddress: internCompanyAddress,
 				internTelephone: internTelephone,
 				internEmailId: internEmailId,
-				internReadyToReLocate: internReadyToReLocate
+				internReadyToReLocate: internReadyToReLocate,
+				flag: flag
 			}),
 			success: function(response) {
 				console.log('Job internship  successfully:', response);
 				if (response == "success") {
-					showToast("success","Sucessfully Saved");
+					showToast("success", "Sucessfully Saved");
+					//					window.location = 'employerviews/managejobpost';
+
+					var form = document.createElement('form');
+
+					form.method = 'POST';
+					form.action = '/managejobpost';
+
+					// Append the form to the document body
+					document.body.appendChild(form);
+
+					// Submit the form
+					form.submit();
+
 				} else {
-					showToast("info","Failed");
+					showToast("info", "Failed");
 				}
 
 				// Add success handling logic here
 			},
 			error: function(xhr, status, error) {
 				console.log('Error:', error);
-				showToast("error","failed");
+				showToast("error", "failed");
 				// Add error handling logic here
 			}
 		});
@@ -344,18 +327,26 @@ function OnOffStipend(id) {
 		$('#internBetterResponse').show();
 	}
 }
-function internTittleModal(id,value)
-{
+function internTittleModal(id, value) {
 	hideModal(id);
 	$('#internTittle').text(value);
+
+	if (value) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
+
 }
-function internIndustryModal(id,value)
-{
+function internIndustryModal(id, value) {
 	hideModal(id);
 	$('#internSubTittle').text(value);
+
+	if (value) {
+		$('.jd-preview-main').show();
+	}
 }
-function internLocationModal(id)
-{
+function internLocationModal(id) {
 	hideModal(id);
 	var idValue = $('#internshipLocation').val();
 	const newItem = [];
@@ -364,50 +355,58 @@ function internLocationModal(id)
 	});
 	const result = newItem.join(", ");
 	$('#internLocationDisplay').text(result);
+
+	if (result) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
+
+
 }
-function internEmployModal(id,value)
-{
+function internEmployModal(id, value) {
 	hideModal(id);
-	if(value == "FULLTIME")
-	{
+	if (value == "FULLTIME") {
 		$('#internEmploymentType').text("Full Time");
-	}else
-	{
+	} else {
 		$('#internEmploymentType').text("Part Time");
 	}
-	
 }
-function internWorkModal(id,value)
-{
+function internWorkModal(id, value) {
 	hideModal(id);
-	if(value == "HYBRID")
-	{
+	if (value == "HYBRID") {
 		$('#internWorkModeType').text("Hybrid");
-	}else if(value == "INOFFICE")
-	{
+	} else if (value == "INOFFICE") {
 		$('#internWorkModeType').text("In Office");
-	}else
-	{
+	} else {
 		$('#internWorkModeType').text("Remote");
 	}
 }
-function internCompanyModal(id,value)
-{
+function internCompanyModal(id, value) {
 	hideModal(id);
 	$('#interCompanyName').text(value);
 }
-function internEmailIdModal(id,value)
-{
+function internEmailIdModal(id, value) {
 	hideModal(id);
 	$('#internEmailId').text(value);
+
+	if (value) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function internTelephoneModal(id,value)
-{
+function internTelephoneModal(id, value) {
 	hideModal(id);
 	$('#internMobileNumber').text(value);
+
+	if (value) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function internKeySkills(id)
-{
+function internKeySkills(id) {
 	hideModal(id);
 	var newvalue = [];
 	var selectedSkills = $('#keySkills').val();
@@ -421,15 +420,25 @@ function internKeySkills(id)
 	newvalue.forEach(function(skill) {
 		$('.keySkillsDetails ul').append('<li>' + skill + '</li>');
 	});
+
+	if (newvalue.length > 0) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function internChangeDescriptionModal(id,value)
-{
+function internChangeDescriptionModal(id, value) {
 	var jobDescription = $(value).text();
 	hideModal(id);
 	$('#internJobDescriptionDetails').text(jobDescription);
+
+	if (jobDescription) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function changehideModalRole(id)
-{
+function changehideModalRole(id) {
 	hideModal(id);
 	var id = $('#department').val();
 	$.ajax({
@@ -438,15 +447,15 @@ function changehideModalRole(id)
 		contentType: 'application/json',
 		data: JSON.stringify({
 			id: id,
-			type:"role"
+			type: "role"
 		}),
 		success: function(response) {
 			var role = response.data.jobPostingSkillsFramework;
-			 $('#internRole').empty();
-			 $('#internRole').append(new Option("Select", ""));
-			 role.forEach(function(role) {
-                $('#internRole').append(new Option(role.name, role.id));
-            });
+			$('#internRole').empty();
+			$('#internRole').append(new Option("Select", ""));
+			role.forEach(function(role) {
+				$('#internRole').append(new Option(role.name, role.id));
+			});
 			// Perform actions with the response data if needed
 		},
 		error: function(xhr, status, error) {
@@ -454,4 +463,30 @@ function changehideModalRole(id)
 			// Handle the error here
 		}
 	});
+}
+
+
+function jobDetailsValidation() {
+	const internTittle = $('#internTittle').text().trim();
+	const internSubTittle = $('#internSubTittle').text().trim();
+	const internJobDescriptionDetails = $('#internJobDescriptionDetails').text().trim();
+	const internLocationDisplay = $('#internLocationDisplay').text().trim();
+	const internMobileNumber = $('#internMobileNumber').text().trim();
+	const internEmailId = $('#internEmailId').text().trim();
+
+	const keySkillsElement = document.querySelector('.keySkillsDetails li');
+	const keySkills = keySkillsElement ? keySkillsElement.textContent.trim() : "";
+
+
+	// Now validate
+	if (internTittle === "" &&
+		internSubTittle === "" &&
+		internJobDescriptionDetails === "" &&
+		keySkills === "" &&
+		internLocationDisplay === "" &&
+		internMobileNumber === "" &&
+		internEmailId === ""
+	) {
+		$('.jd-preview-main').hide();
+	}
 }

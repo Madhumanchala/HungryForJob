@@ -51,7 +51,7 @@ public class JobPostController {
 	private ObjectMapper objectMapper;
 
 	@PostMapping("/jobPost")
-	public String jobPost(Model model, HttpServletRequest request) {
+	public String jobPost(Model model, HttpServletRequest request, HttpSession session) {
 		log.info("Inside jobPost ");
 		WebClientResponse response = null;
 		try {
@@ -75,6 +75,7 @@ public class JobPostController {
 					model.addAttribute("role", responsemodel.getData().getJobPostingRole());
 					model.addAttribute("education", responsemodel.getData().getJobPostingEducationQualification());
 					model.addAttribute("masterstattus", responsemodel.getData().getJobPostStatus());
+					model.addAttribute("isVisibleFlag", session.getAttribute("isVisible").toString());
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
@@ -90,12 +91,19 @@ public class JobPostController {
 
 	@PostMapping("/saveJobPost")
 	@ResponseBody
-	public String saveJobPost(@RequestBody JobPosting jobpost, HttpServletRequest request) {
+	public String saveJobPost(@RequestBody JobPosting jobpost, HttpServletRequest request, HttpSession session) {
 		log.info("Inside saveJobPost " + jobpost);
 		WebClientResponse response = null;
 		try {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.SAVE_JOB_POSTING).getUrl();
 			log.info("@@@@ saveJobPost " + Url);
+
+			if (session.getAttribute("isVisible") != null) {
+				jobpost.setIsVisible(session.getAttribute("isVisible").toString());
+			} else {
+				log.info("session is not set in it ");
+			}
+
 			response = myWebClient.post(Url, jobpost).block();
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
@@ -190,10 +198,18 @@ public class JobPostController {
 
 	@PostMapping("/saveJobPostInternship")
 	@ResponseBody
-	public String saveJobPostInternship(@RequestBody JobPosting jobpost, HttpServletRequest request) {
+	public String saveJobPostInternship(@RequestBody JobPosting jobpost, HttpServletRequest request,
+			HttpSession session) {
 		log.info("Inside saveJobPost " + jobpost);
 		WebClientResponse response = null;
 		try {
+
+			if (session.getAttribute("isVisible") != null) {
+				jobpost.setIsVisible(session.getAttribute("isVisible").toString());
+			} else {
+				log.info("session is not set in it ");
+			}
+
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.SAVE_JOB_POSTING_INTERNSHIP).getUrl();
 			log.info("@@@@ saveJobPostInternship " + Url);
 			response = myWebClient.post(Url, jobpost).block();
@@ -271,6 +287,11 @@ public class JobPostController {
 				career.setCompanyId(companyId);
 			} else {
 				log.info("Session expired or companyId is not set.");
+			}
+			if (session.getAttribute("isVisible") != null) {
+				career.setIsVisible(session.getAttribute("isVisible").toString());
+			} else {
+				log.info("Session expired or isVisible is not set.");
 			}
 			String candidateId = request.getParameter("candidateId").toString();
 			career.setCandidateId(candidateId);
@@ -350,6 +371,8 @@ public class JobPostController {
 					model.addAttribute("listofjobpostdetails", responsemodel.getData().getListJobPostDetails());
 					model.addAttribute("status", responsemodel.getData().getMasterStatus());
 					model.addAttribute("cities", responsemodel.getData().getCities());
+					model.addAttribute("sessionUserId", session.getAttribute("userId").toString());
+					model.addAttribute("sessionRole", session.getAttribute("rolestatus").toString());
 				}
 			}
 		} catch (Exception e) {
@@ -581,6 +604,65 @@ public class JobPostController {
 			e.printStackTrace();
 		}
 		return "employerviews/managejobpostdesc";
+	}
+
+	@PostMapping("/editInternshippost")
+	public String editInternshipPost(Model model, HttpServletRequest request, HttpSession session) {
+		log.info("***************** Inside editinternshippost ****************");
+		WebClientResponse response = null;
+		JobPosting jobpost = new JobPosting();
+		try {
+			String Url = Configs.urls.get(EmployeerAppplicationConstant.EDIT_JOB_POST).getUrl();
+			log.info("@@@@ jobPost " + Url);
+			if (session.getAttribute("userId") != null) {
+				String username = session.getAttribute("userId").toString();
+				jobpost.setUserId(username);
+			} else {
+				log.info("Session expired or userId is not set.");
+			}
+			if (session.getAttribute("companyId") != null) {
+				String companyId = session.getAttribute("companyId").toString();
+				jobpost.setCompanyId(companyId);
+			} else {
+				log.info("Session expired or companyId is not set.");
+			}
+			String id = request.getParameter("id").toString();
+			jobpost.setId(id);
+			response = myWebClient.post(Url, jobpost).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
+					log.info(" keyskills" + responsemodel.getData().getJobPostingSkills());
+					model.addAttribute("keySkills", responsemodel.getData().getJobPostingSkills());
+					model.addAttribute("jobCategories", responsemodel.getData().getJobPostingIndustry());
+					model.addAttribute("department", responsemodel.getData().getJobPostingDepartment());
+					model.addAttribute("location", responsemodel.getData().getJobPostingLocation());
+					model.addAttribute("role", responsemodel.getData().getJobPostingRole());
+					model.addAttribute("education", responsemodel.getData().getJobPostingEducationQualification());
+					model.addAttribute("editjobpostdetails", responsemodel.getData().getEditJobpostingDetails());
+					model.addAttribute("masterstatus", responsemodel.getData().getJobPostStatus());
+					model.addAttribute("perksAndBenfists", responsemodel.getData().getInternPerksAndBenefits());
+
+					model.addAttribute("savedperksList",
+							responsemodel.getData().getEditJobpostingDetails().getPerksAndBenefits());
+					log.info("data jobpost ==" + responsemodel.getData().getEditJobpostingDetails());
+
+				} else {
+					log.info(" Error Ocuured in Service");
+				}
+
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			log.info("Exception in editinternshippost " + e1.getMessage());
+		}
+		return "employerviews/editInternshippost";
 	}
 
 }

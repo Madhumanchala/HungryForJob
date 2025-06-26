@@ -151,14 +151,74 @@
 												Created by <span>${jobdetails.createdBy}</span>
 											</p>
 											<ul class="list-group list-group-horizontal">
-												<li class="list-group me-3" data-bs-toggle="tooltip" onclick="insertjobpost(${jobdetails.id})"
-													data-bs-placement="top" data-bs-title="Copy"><a
-													><img src="employer/img/copy.svg"> </a></li>
 												<li class="list-group me-3" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="Edit" onclick="updateJobpost(${jobdetails.id})"><a
-													><img src="employer/img/edit3.svg"> </a></li>
+													onclick="insertjobpost(${jobdetails.id})"
+													data-bs-placement="top" data-bs-title="Copy"><a><img
+														src="employer/img/copy.svg"> </a></li>
+												<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
+													data-bs-placement="top" data-bs-title="Edit"
+													onclick="updateJobpost(${jobdetails.id})"
+													onclick="<c:if test='${jobdetails.userId == sessionUserId}'>updateJobpost(${jobdetails.id})</c:if>"
+													style="${jobdetails.userId != sessionUserId ? 'pointer-events: none; opacity: 0.5; cursor: not-allowed;' : ''}"><a><img
+														src="employer/img/edit3.svg"> </a></li> --%>
+
+												<c:choose>
+													<c:when test="${sessionRole == 'employeradmin'}">
+														<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															onclick="updateJobpost(${jobdetails.id})"><a><img
+																src="employer/img/edit3.svg"></a></li> --%>
+
+														<c:choose>
+															<c:when test="${jobdetails.jobType == 'Job'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateJobpost(${jobdetails.id})"><a><img
+																		src="employer/img/edit3.svg"></a></li>
+															</c:when>
+															<c:when test="${jobdetails.jobType == 'Internship'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateInternshipPost(${jobdetails.id})">
+																	<a><img src="employer/img/edit3.svg"></a>
+																</li>
+															</c:when>
+														</c:choose>
+													</c:when>
+													<c:when test="${jobdetails.userId == sessionUserId}">
+														<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															onclick="updateJobpost(${jobdetails.id})"><a><img
+																src="employer/img/edit3.svg"></a></li> --%>
+														<c:choose>
+															<c:when test="${jobdetails.jobType == 'Job'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateJobpost(${jobdetails.id})"><a><img
+																		src="employer/img/edit3.svg"></a></li>
+															</c:when>
+															<c:when test="${jobdetails.jobType == 'Internship'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateInternshipPost(${jobdetails.id})">
+																	<a><img src="employer/img/edit3.svg"></a>
+																</li>
+															</c:when>
+														</c:choose>
+
+													</c:when>
+													<c:otherwise>
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
+															<a><img src="employer/img/edit3.svg"></a>
+														</li>
+													</c:otherwise>
+												</c:choose>
+
 												<li class="list-group me-3" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="View" onclick="findNewroute('/managejobinfo',${jobdetails.id})" ><a
+													data-bs-placement="top" data-bs-title="View"
+													onclick="findNewroute('/managejobinfo',${jobdetails.id})"><a
 													href="#"><img src="employer/img/view3.svg"> </a></li>
 											</ul>
 										</div>
@@ -215,6 +275,7 @@
     });
 
     $(document).ready(function () {
+    	
       $(".selet2Multiple").select2({
         placeholder: "Select"
       });
@@ -274,6 +335,24 @@
         form.appendChild(input);
         
         sessionStorage.setItem("jobPostName", "editjobpost");
+
+        document.body.appendChild(form);
+        form.submit(); 
+    }
+    
+    function updateInternshipPost(id)
+    {
+    	let form = document.createElement('form');
+        form.method = 'POST'; 
+        form.action = '/editInternshippost'; 
+
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+        form.appendChild(input);
+        
+        sessionStorage.setItem("jobInternshipName", "editInternshippost");
 
         document.body.appendChild(form);
         form.submit(); 

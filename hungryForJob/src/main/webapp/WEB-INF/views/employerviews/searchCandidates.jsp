@@ -38,12 +38,20 @@
 				<div class="row ">
 					<div class="col-xl-8 col-lg-10 col-md-12  ">
 						<!-- <form autocomplete="off"> -->
-							<div class="card-register">
-
+						<div class="card-register">
+							<div
+								style="display: flex; justify-content: space-between; align-items: center;">
 								<h3>Search Candidates</h3>
-								<div class="card-registerinner">
-									<div class="row">
-										<!--  <div class="col-lg-12 col-md-12 col-sm-12">
+
+								<c:if test="${isVisible == '1'}">
+									<button class="btn-blue mt-2 ml-3" data-bs-toggle="modal"
+										data-bs-target="#addCandidate">+ Add Candidate</button>
+								</c:if>
+							</div>
+
+							<div class="card-registerinner">
+								<div class="row">
+									<!--  <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="Keywords">Keywords</label>
                         <input type="text" class="form-control" id="Keywords"
@@ -57,10 +65,10 @@
                           placeholder="Enter keywords like skills, designation and company">
                       </div>
                     </div> -->
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label for="iTSkills">Skills </label>
-												 <%-- <select
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label for="iTSkills">Skills </label>
+											<%-- <select
 													class="form-select form-control selet2Multiple"
 													id="iTSkills" multiple="multiple" onchange="allChange('skills_error')">
 													<option value="">Select</option>
@@ -68,288 +76,289 @@
 														<option value="${skills.id}">${skills.name}</option>
 													</c:forEach>
 												</select> --%>
-												<div class="multi-select-container">
-													<input type="text"
-														class="dropdown-input form-control form-select "
-														placeholder="Select keywords" onchange="allChange('skills_error')" readonly>
-													<div class="dropdown1">
-														<c:forEach items="${skills}" var="skills">
-															<div data-value="${skills.id}">${skills.name}</div>
-														</c:forEach>
-													</div>
-													<div class="selected-items"></div>
-												</div> 
-												<span class="errors" id="skills_error"></span>
-											</div>
-										</div>
-
-
-
-
-
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group mb-0">
-												<label for="Keywords">Experience</label>
-											</div>
-											<div class="row">
-												<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
-													<div class="form-group">
-														<select class="form-select form-control selet2Single"
-															id="workExperienceMin"
-															onchange="allChange('minExp_error')">
-															<option value="" selected="">Min Experience</option>
-															<option value="0">0 Yr</option>
-															<option value="1">1 Yr</option>
-															<option value="2">2 Yrs</option>
-															<option value="3">3 Yrs</option>
-															<option value="4">4 Yrs</option>
-															<option value="5">5 Yrs</option>
-															<option value="6">6 Yrs</option>
-															<option value="7">7 Yrs</option>
-															<option value="8">8 Yrs</option>
-															<option value="9">9 Yrs</option>
-															<option value="10">10 Yrs</option>
-															<option value="11">11 Yrs</option>
-															<option value="12">12 Yrs</option>
-															<option value="13">13 Yrs</option>
-															<option value="14">14 Yrs</option>
-															<option value="15">15 Yrs</option>
-															<option value="16">16 Yrs</option>
-															<option value="17">17 Yrs</option>
-															<option value="18">18 Yrs</option>
-															<option value="19">19 Yrs</option>
-															<option value="20">20 Yrs</option>
-															<option value="21">21 Yrs</option>
-															<option value="22">22 Yrs</option>
-															<option value="23">23 Yrs</option>
-															<option value="24">24 Yrs</option>
-															<option value="25">25 Yrs +</option>
-														</select> <span class="errors" id="minExp_error"></span>
-													</div>
-												</div>
-												<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
-													<div class="form-group">
-														<select class="form-select form-control selet2Single"
-															id="workExperienceMax"
-															onchange="allChange('maxExp_error')">
-															<option value="" selected="">Max Experience</option>
-															<option value="0">0 Yr</option>
-															<option value="1">1 Yr</option>
-															<option value="2">2 Yrs</option>
-															<option value="3">3 Yrs</option>
-															<option value="4">4 Yrs</option>
-															<option value="5">5 Yrs</option>
-															<option value="6">6 Yrs</option>
-															<option value="7">7 Yrs</option>
-															<option value="8">8 Yrs</option>
-															<option value="9">9 Yrs</option>
-															<option value="10">10 Yrs</option>
-															<option value="11">11 Yrs</option>
-															<option value="12">12 Yrs</option>
-															<option value="13">13 Yrs</option>
-															<option value="14">14 Yrs</option>
-															<option value="15">15 Yrs</option>
-															<option value="16">16 Yrs</option>
-															<option value="17">17 Yrs</option>
-															<option value="18">18 Yrs</option>
-															<option value="19">19 Yrs</option>
-															<option value="20">20 Yrs</option>
-															<option value="21">21 Yrs</option>
-															<option value="22">22 Yrs</option>
-															<option value="23">23 Yrs</option>
-															<option value="24">24 Yrs</option>
-															<option value="25">25 Yrs +</option>
-														</select> <span class="errors" id="maxExp_error"></span>
-													</div>
-												</div>
-
-											</div>
-										</div>
-
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label for="jobLocation">Current location of
-													candidate </label> <select
-													class="form-select form-control selet2Multiple"
-													id="jobLocation" multiple="multiple"
-													onchange="allChange('location_error')">
-													<option value="">Select</option>
-													<c:forEach items="${location}" var="location">
-														<option value="${location.id}">${location.name}</option>
+											<div class="multi-select-container">
+												<input type="text"
+													class="dropdown-input form-control form-select "
+													placeholder="Select keywords"
+													onchange="allChange('skills_error')" readonly>
+												<div class="dropdown1">
+													<c:forEach items="${skills}" var="skills">
+														<div data-value="${skills.id}">${skills.name}</div>
 													</c:forEach>
-												</select>
-												<div class="form-check relocate">
-													<input class="form-check-input" type="checkbox" value=""
-														id="includeCandidates" value="YES" checked> <label
-														class="form-check-label" for="includeCandidates">
-														Include candidates ready to relocate to the above location
-													</label>
 												</div>
-												<span class="errors" id="location_error"></span>
+												<div class="selected-items"></div>
 											</div>
+											<span class="errors" id="skills_error"></span>
 										</div>
+									</div>
 
 
-										<div class="col-lg-10 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label for="jobLocation">Annual Salary </label>
-												<div class="row">
-													<div class="col-lg-2 col-md-2 col-sm-2 col-2">
-														<div class="input-group ">
-															<span class="input-group-text  w-100 text-center"><i
-																class="bi bi-currency-rupee"></i> (INR)</span>
-														</div>
+
+
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group mb-0">
+											<label for="Keywords">Experience</label>
+										</div>
+										<div class="row">
+											<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
+												<div class="form-group">
+													<select class="form-select form-control selet2Single"
+														id="workExperienceMin"
+														onchange="allChange('minExp_error')">
+														<option value="" selected="">Min Experience</option>
+														<option value="0">0 Yr</option>
+														<option value="1">1 Yr</option>
+														<option value="2">2 Yrs</option>
+														<option value="3">3 Yrs</option>
+														<option value="4">4 Yrs</option>
+														<option value="5">5 Yrs</option>
+														<option value="6">6 Yrs</option>
+														<option value="7">7 Yrs</option>
+														<option value="8">8 Yrs</option>
+														<option value="9">9 Yrs</option>
+														<option value="10">10 Yrs</option>
+														<option value="11">11 Yrs</option>
+														<option value="12">12 Yrs</option>
+														<option value="13">13 Yrs</option>
+														<option value="14">14 Yrs</option>
+														<option value="15">15 Yrs</option>
+														<option value="16">16 Yrs</option>
+														<option value="17">17 Yrs</option>
+														<option value="18">18 Yrs</option>
+														<option value="19">19 Yrs</option>
+														<option value="20">20 Yrs</option>
+														<option value="21">21 Yrs</option>
+														<option value="22">22 Yrs</option>
+														<option value="23">23 Yrs</option>
+														<option value="24">24 Yrs</option>
+														<option value="25">25 Yrs +</option>
+													</select> <span class="errors" id="minExp_error"></span>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-6 col-sm-6 col-6 ">
+												<div class="form-group">
+													<select class="form-select form-control selet2Single"
+														id="workExperienceMax"
+														onchange="allChange('maxExp_error')">
+														<option value="" selected="">Max Experience</option>
+														<option value="0">0 Yr</option>
+														<option value="1">1 Yr</option>
+														<option value="2">2 Yrs</option>
+														<option value="3">3 Yrs</option>
+														<option value="4">4 Yrs</option>
+														<option value="5">5 Yrs</option>
+														<option value="6">6 Yrs</option>
+														<option value="7">7 Yrs</option>
+														<option value="8">8 Yrs</option>
+														<option value="9">9 Yrs</option>
+														<option value="10">10 Yrs</option>
+														<option value="11">11 Yrs</option>
+														<option value="12">12 Yrs</option>
+														<option value="13">13 Yrs</option>
+														<option value="14">14 Yrs</option>
+														<option value="15">15 Yrs</option>
+														<option value="16">16 Yrs</option>
+														<option value="17">17 Yrs</option>
+														<option value="18">18 Yrs</option>
+														<option value="19">19 Yrs</option>
+														<option value="20">20 Yrs</option>
+														<option value="21">21 Yrs</option>
+														<option value="22">22 Yrs</option>
+														<option value="23">23 Yrs</option>
+														<option value="24">24 Yrs</option>
+														<option value="25">25 Yrs +</option>
+													</select> <span class="errors" id="maxExp_error"></span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label for="jobLocation">Current location of
+												candidate </label> <select
+												class="form-select form-control selet2Multiple"
+												id="jobLocation" multiple="multiple"
+												onchange="allChange('location_error')">
+												<option value="">Select</option>
+												<c:forEach items="${location}" var="location">
+													<option value="${location.id}">${location.name}</option>
+												</c:forEach>
+											</select>
+											<div class="form-check relocate">
+												<input class="form-check-input" type="checkbox" value=""
+													id="includeCandidates" value="YES" checked> <label
+													class="form-check-label" for="includeCandidates">
+													Include candidates ready to relocate to the above location
+												</label>
+											</div>
+											<span class="errors" id="location_error"></span>
+										</div>
+									</div>
+
+
+									<div class="col-lg-10 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label for="jobLocation">Annual Salary </label>
+											<div class="row">
+												<div class="col-lg-2 col-md-2 col-sm-2 col-2">
+													<div class="input-group ">
+														<span class="input-group-text  w-100 text-center"><i
+															class="bi bi-currency-rupee"></i> (INR)</span>
 													</div>
-													<div class="col-lg-4 col-md-4 col-sm-4 col-5">
-														<select class="form-select form-control selet2Single"
-															id="searchMinSalary">
-															<option value="">Min</option>
-															<!-- 	<option value="50000">50,000</option>
+												</div>
+												<div class="col-lg-4 col-md-4 col-sm-4 col-5">
+													<select class="form-select form-control selet2Single"
+														id="searchMinSalary">
+														<option value="">Min</option>
+														<!-- 	<option value="50000">50,000</option>
 															<option value="60000">60,000</option>
 															<option value="70000">70,000</option>
 															<option value="80000">80,000</option>
 															<option value="90000">90,000</option> -->
-															<option value="100000">1 lac</option>
-															<option value="125000">1.25 lacs</option>
-															<option value="150000">1.5 lacs</option>
-															<option value="175000">1.75 lacs</option>
-															<option value="200000">2 lacs</option>
-															<option value="225000">2.25 lacs</option>
-															<option value="250000">2.5 lacs</option>
-															<option value="275000">2.75 lacs</option>
-															<option value="300000">3 lacs</option>
-															<option value="325000">3.25 lacs</option>
-															<option value="350000">3.5 lacs</option>
-															<option value="375000">3.75 lacs</option>
-															<option value="400000">4 lacs</option>
-															<option value="425000">4.25 lacs</option>
-															<option value="450000">4.5 lacs</option>
-															<option value="475000">4.75 lacs</option>
-															<option value="500000">5 lacs</option>
-															<option value="550000">5.5 lacs</option>
-															<option value="600000">6 lacs</option>
-															<option value="650000">6.5 lacs</option>
-															<option value="700000">7 lacs</option>
-															<option value="750000">7.5 lacs</option>
-															<option value="800000">8 lacs</option>
-															<option value="850000">8.5 lacs</option>
-															<option value="900000">9 lacs</option>
-															<option value="950000">9.5 lacs</option>
-															<option value="1000000">10 lacs</option>
-															<option value="1100000">11 lacs</option>
-															<option value="1200000">12 lacs</option>
-															<option value="1300000">13 lacs</option>
-															<option value="1400000">14 lacs</option>
-															<option value="1500000">15 lacs</option>
-															<option value="1600000">16 lacs</option>
-															<option value="1700000">17 lacs</option>
-															<option value="1800000">18 lacs</option>
-															<option value="1900000">19 lacs</option>
-															<option value="2000000">20 lacs</option>
-															<option value="2250000">22.5 lacs</option>
-															<option value="2500000">25 lacs</option>
-															<option value="2750000">27.5 lacs</option>
-															<option value="3000000">30 lacs</option>
-															<option value="3250000">32.5 lacs</option>
-															<option value="3500000">35 lacs</option>
-															<option value="3750000">37.5 lacs</option>
-															<option value="4000000">40 lacs</option>
-															<option value="4500000">45 lacs</option>
-															<option value="5000000">50 lacs</option>
-															<option value="5500000">55 lacs</option>
-															<option value="6000000">60 lacs</option>
-															<option value="6500000">65 lacs</option>
-															<option value="7000000">70 lacs</option>
-															<option value="7500000">75 lacs</option>
-															<option value="8000000">80 lacs</option>
-															<option value="8500000">85 lacs</option>
-															<option value="9000000">90 lacs</option>
-															<option value="9500000">95 lacs</option>
-															<option value="10000000">1 cr</option>
-														</select>
-													</div>
-													<div class="col-lg-4 col-md-4 col-sm-4 col-5">
-														<select class="form-select form-control selet2Single "
-															id="salaryFigureMax">
-															<option value="">Max</option>
-															<!-- <option value="50000">50,000</option>
+														<option value="100000">1 lac</option>
+														<option value="125000">1.25 lacs</option>
+														<option value="150000">1.5 lacs</option>
+														<option value="175000">1.75 lacs</option>
+														<option value="200000">2 lacs</option>
+														<option value="225000">2.25 lacs</option>
+														<option value="250000">2.5 lacs</option>
+														<option value="275000">2.75 lacs</option>
+														<option value="300000">3 lacs</option>
+														<option value="325000">3.25 lacs</option>
+														<option value="350000">3.5 lacs</option>
+														<option value="375000">3.75 lacs</option>
+														<option value="400000">4 lacs</option>
+														<option value="425000">4.25 lacs</option>
+														<option value="450000">4.5 lacs</option>
+														<option value="475000">4.75 lacs</option>
+														<option value="500000">5 lacs</option>
+														<option value="550000">5.5 lacs</option>
+														<option value="600000">6 lacs</option>
+														<option value="650000">6.5 lacs</option>
+														<option value="700000">7 lacs</option>
+														<option value="750000">7.5 lacs</option>
+														<option value="800000">8 lacs</option>
+														<option value="850000">8.5 lacs</option>
+														<option value="900000">9 lacs</option>
+														<option value="950000">9.5 lacs</option>
+														<option value="1000000">10 lacs</option>
+														<option value="1100000">11 lacs</option>
+														<option value="1200000">12 lacs</option>
+														<option value="1300000">13 lacs</option>
+														<option value="1400000">14 lacs</option>
+														<option value="1500000">15 lacs</option>
+														<option value="1600000">16 lacs</option>
+														<option value="1700000">17 lacs</option>
+														<option value="1800000">18 lacs</option>
+														<option value="1900000">19 lacs</option>
+														<option value="2000000">20 lacs</option>
+														<option value="2250000">22.5 lacs</option>
+														<option value="2500000">25 lacs</option>
+														<option value="2750000">27.5 lacs</option>
+														<option value="3000000">30 lacs</option>
+														<option value="3250000">32.5 lacs</option>
+														<option value="3500000">35 lacs</option>
+														<option value="3750000">37.5 lacs</option>
+														<option value="4000000">40 lacs</option>
+														<option value="4500000">45 lacs</option>
+														<option value="5000000">50 lacs</option>
+														<option value="5500000">55 lacs</option>
+														<option value="6000000">60 lacs</option>
+														<option value="6500000">65 lacs</option>
+														<option value="7000000">70 lacs</option>
+														<option value="7500000">75 lacs</option>
+														<option value="8000000">80 lacs</option>
+														<option value="8500000">85 lacs</option>
+														<option value="9000000">90 lacs</option>
+														<option value="9500000">95 lacs</option>
+														<option value="10000000">1 cr</option>
+													</select>
+												</div>
+												<div class="col-lg-4 col-md-4 col-sm-4 col-5">
+													<select class="form-select form-control selet2Single "
+														id="salaryFigureMax">
+														<option value="">Max</option>
+														<!-- <option value="50000">50,000</option>
 															<option value="60000">60,000</option>
 															<option value="70000">70,000</option>
 															<option value="80000">80,000</option>
 															<option value="90000">90,000</option> -->
-															<option value="100000">1 lac</option>
-															<option value="125000">1.25 lacs</option>
-															<option value="150000">1.5 lacs</option>
-															<option value="175000">1.75 lacs</option>
-															<option value="200000">2 lacs</option>
-															<option value="225000">2.25 lacs</option>
-															<option value="250000">2.5 lacs</option>
-															<option value="275000">2.75 lacs</option>
-															<option value="300000">3 lacs</option>
-															<option value="325000">3.25 lacs</option>
-															<option value="350000">3.5 lacs</option>
-															<option value="375000">3.75 lacs</option>
-															<option value="400000">4 lacs</option>
-															<option value="425000">4.25 lacs</option>
-															<option value="450000">4.5 lacs</option>
-															<option value="475000">4.75 lacs</option>
-															<option value="500000">5 lacs</option>
-															<option value="550000">5.5 lacs</option>
-															<option value="600000">6 lacs</option>
-															<option value="650000">6.5 lacs</option>
-															<option value="700000">7 lacs</option>
-															<option value="750000">7.5 lacs</option>
-															<option value="800000">8 lacs</option>
-															<option value="850000">8.5 lacs</option>
-															<option value="900000">9 lacs</option>
-															<option value="950000">9.5 lacs</option>
-															<option value="1000000">10 lacs</option>
-															<option value="1100000">11 lacs</option>
-															<option value="1200000">12 lacs</option>
-															<option value="1300000">13 lacs</option>
-															<option value="1400000">14 lacs</option>
-															<option value="1500000">15 lacs</option>
-															<option value="1600000">16 lacs</option>
-															<option value="1700000">17 lacs</option>
-															<option value="1800000">18 lacs</option>
-															<option value="1900000">19 lacs</option>
-															<option value="2000000">20 lacs</option>
-															<option value="2250000">22.5 lacs</option>
-															<option value="2500000">25 lacs</option>
-															<option value="2750000">27.5 lacs</option>
-															<option value="3000000">30 lacs</option>
-															<option value="3250000">32.5 lacs</option>
-															<option value="3500000">35 lacs</option>
-															<option value="3750000">37.5 lacs</option>
-															<option value="4000000">40 lacs</option>
-															<option value="4500000">45 lacs</option>
-															<option value="5000000">50 lacs</option>
-															<option value="5500000">55 lacs</option>
-															<option value="6000000">60 lacs</option>
-															<option value="6500000">65 lacs</option>
-															<option value="7000000">70 lacs</option>
-															<option value="7500000">75 lacs</option>
-															<option value="8000000">80 lacs</option>
-															<option value="8500000">85 lacs</option>
-															<option value="9000000">90 lacs</option>
-															<option value="9500000">95 lacs</option>
-															<option value="10000000">1 cr</option>
-														</select>
-													</div>
+														<option value="100000">1 lac</option>
+														<option value="125000">1.25 lacs</option>
+														<option value="150000">1.5 lacs</option>
+														<option value="175000">1.75 lacs</option>
+														<option value="200000">2 lacs</option>
+														<option value="225000">2.25 lacs</option>
+														<option value="250000">2.5 lacs</option>
+														<option value="275000">2.75 lacs</option>
+														<option value="300000">3 lacs</option>
+														<option value="325000">3.25 lacs</option>
+														<option value="350000">3.5 lacs</option>
+														<option value="375000">3.75 lacs</option>
+														<option value="400000">4 lacs</option>
+														<option value="425000">4.25 lacs</option>
+														<option value="450000">4.5 lacs</option>
+														<option value="475000">4.75 lacs</option>
+														<option value="500000">5 lacs</option>
+														<option value="550000">5.5 lacs</option>
+														<option value="600000">6 lacs</option>
+														<option value="650000">6.5 lacs</option>
+														<option value="700000">7 lacs</option>
+														<option value="750000">7.5 lacs</option>
+														<option value="800000">8 lacs</option>
+														<option value="850000">8.5 lacs</option>
+														<option value="900000">9 lacs</option>
+														<option value="950000">9.5 lacs</option>
+														<option value="1000000">10 lacs</option>
+														<option value="1100000">11 lacs</option>
+														<option value="1200000">12 lacs</option>
+														<option value="1300000">13 lacs</option>
+														<option value="1400000">14 lacs</option>
+														<option value="1500000">15 lacs</option>
+														<option value="1600000">16 lacs</option>
+														<option value="1700000">17 lacs</option>
+														<option value="1800000">18 lacs</option>
+														<option value="1900000">19 lacs</option>
+														<option value="2000000">20 lacs</option>
+														<option value="2250000">22.5 lacs</option>
+														<option value="2500000">25 lacs</option>
+														<option value="2750000">27.5 lacs</option>
+														<option value="3000000">30 lacs</option>
+														<option value="3250000">32.5 lacs</option>
+														<option value="3500000">35 lacs</option>
+														<option value="3750000">37.5 lacs</option>
+														<option value="4000000">40 lacs</option>
+														<option value="4500000">45 lacs</option>
+														<option value="5000000">50 lacs</option>
+														<option value="5500000">55 lacs</option>
+														<option value="6000000">60 lacs</option>
+														<option value="6500000">65 lacs</option>
+														<option value="7000000">70 lacs</option>
+														<option value="7500000">75 lacs</option>
+														<option value="8000000">80 lacs</option>
+														<option value="8500000">85 lacs</option>
+														<option value="9000000">90 lacs</option>
+														<option value="9500000">95 lacs</option>
+														<option value="10000000">1 cr</option>
+													</select>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 
-							<div class="card-register">
-								<h3>Employment Details</h3>
-								<div class="card-registerinner">
-									<div class="row">
+						</div>
 
-										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
+						<div class="card-register">
+							<h3>Employment Details</h3>
+							<div class="card-registerinner">
+								<div class="row">
+
+									<!-- <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="department">Department
                         </label>
@@ -409,7 +418,7 @@
                       </div>
                     </div> -->
 
-										<!--  <div class="col-lg-12 col-md-12 col-sm-12">
+									<!--  <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="role ">Role </label>
                         <select class="form-select form-control selet2Single" id="role ">
@@ -484,7 +493,7 @@
                       </div>
                     </div> -->
 
-										<!--  <div class="col-lg-12 col-md-12 col-sm-12">
+									<!--  <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="Industry"> Industry </label>
                         <select class="form-select form-control selet2Single " id="Industry">
@@ -600,19 +609,19 @@
                     </div> -->
 
 
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label for="company"> Company </label> <select
-													class="form-select form-control selet2Single " id="company">
-													<option value="">Select</option>
-													<c:forEach items="${company}" var="company">
-														<option value="${company.id}">${company.name}</option>
-													</c:forEach>
-												</select>
-											</div>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label for="company"> Company </label> <select
+												class="form-select form-control selet2Single " id="company">
+												<option value="">Select</option>
+												<c:forEach items="${company}" var="company">
+													<option value="${company.id}">${company.name}</option>
+												</c:forEach>
+											</select>
 										</div>
+									</div>
 
-										<!--   <div class="col-lg-12 col-md-12 col-sm-12">
+									<!--   <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="designation"> Designation </label>
                         <select class="form-select form-control selet2Single " id="designation">
@@ -622,317 +631,317 @@
                       </div>
                     </div> -->
 
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group1 ">
-												<label for="noticePeriod">Notice Period/ Availabilty
-													to join </label>
-												<div class="formchecks">
-													<ul>
-														<!-- <li><input type="checkbox" class="btn-check"
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group1 ">
+											<label for="noticePeriod">Notice Period/ Availabilty
+												to join </label>
+											<div class="formchecks">
+												<ul>
+													<!-- <li><input type="checkbox" class="btn-check"
 															name="noticePeriod" id="Any" value="0"> <label
 															class="btn" for="Any"><span>Any</span> </label></li> -->
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="015days" value="15"> <label
-															class="btn" for="015days"><span>0 - 15
-																	days</span> </label></li>
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="1month" value="30"> <label
-															class="btn" for="1month"><span>1 month </span> </label></li>
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="2month" value="60"> <label
-															class="btn" for="2month"><span>2 month </span> </label></li>
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="3month" value="90"> <label
-															class="btn" for="3month"><span>3 month </span> </label></li>
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="morethan3months" value="365">
-															<label class="btn" for="morethan3months"><span>More
-																	than 3 months </span> </label></li>
-														<li><input type="checkbox" class="btn-check"
-															name="noticePeriod" id="currentlyserving" value="365">
-															<label class="btn" for="currentlyserving"><span>Currently
-																	serving notice period</span> </label></li>
-													</ul>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="015days" value="15"> <label
+														class="btn" for="015days"><span>0 - 15 days</span>
+													</label></li>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="1month" value="30"> <label
+														class="btn" for="1month"><span>1 month </span> </label></li>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="2month" value="60"> <label
+														class="btn" for="2month"><span>2 month </span> </label></li>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="3month" value="90"> <label
+														class="btn" for="3month"><span>3 month </span> </label></li>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="morethan3months" value="365">
+														<label class="btn" for="morethan3months"><span>More
+																than 3 months </span> </label></li>
+													<li><input type="checkbox" class="btn-check"
+														name="noticePeriod" id="currentlyserving" value="365">
+														<label class="btn" for="currentlyserving"><span>Currently
+																serving notice period</span> </label></li>
+												</ul>
+											</div>
+											<!-- <span class="errors"> Please select work mode</span>-->
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="card-register">
+							<h3>Education Details</h3>
+							<div class="card-registerinner">
+								<div class="row">
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group1 ">
+											<label for="ug-qualification">Highest Qualification/
+												Degree currently pursuing </label>
+											<div class="formchecks">
+												<ul>
+													<li><input type="radio" class="btn-check"
+														name="highestQualification" id="doctoratePHD"
+														onchange="changeEducation('phd')" value="phd"> <label
+														class="btn" for="doctoratePHD"><span>Doctorate/PHD</span>
+													</label></li>
+													<li><input type="radio" class="btn-check"
+														name="highestQualification" id="mastersPostGraduate"
+														onchange="changeEducation('master')" value="master">
+														<label class="btn" for="mastersPostGraduate"><span>Masters/Post
+																Graduate</span> </label></li>
+													<li><input type="radio" class="btn-check"
+														name="highestQualification" id="graduationDiploma"
+														onchange="changeEducation('degree')" value="degree">
+														<label class="btn" for="graduationDiploma"><span>Graduation/Diploma
+														</span> </label></li>
+												</ul>
+											</div>
+											<!-- <span class="errors"> Please select work mode</span>-->
+										</div>
+									</div>
+
+									<div class="col-lg-12" id="masterCourses">
+										<div class="includeWalk">
+											<div class="row">
+
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="course1">Course </label> <select
+															class="form-select form-control selet2Single"
+															id="course1"
+															onchange="getSpecialization(this.value,'specialization1')"
+															style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${masterCourse}" var="course">
+																<option value="${course.id}">${course.name}</option>
+															</c:forEach>
+														</select>
+													</div>
 												</div>
-												<!-- <span class="errors"> Please select work mode</span>-->
+
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="specialization">Specialization </label> <select
+															class="form-select form-control selet2Single"
+															id="specialization1" style="width: 100%">
+															<option value="">Select</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group1 ">
+														<label for="courseType1">Course Type </label>
+														<div class="formchecks">
+															<ul>
+																<li><input type="radio" class="btn-check"
+																	name="courseType1" id="fullTime1" value="fullTime">
+																	<label class="btn" for="fullTime1"><span>Full
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType1" id="partTime1" value="partTime">
+																	<label class="btn" for="partTime1"><span>Part
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType1" id="distanceLearning1"
+																	value="DistanceLearning"> <label class="btn"
+																	for="distanceLearning1"><span>Distance
+																			Learning</span> </label></li>
+															</ul>
+														</div>
+														<!-- <span class="errors"> Please select work mode</span>-->
+													</div>
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="university">University/ Institute </label> <select
+															class="form-select form-control selet2Single"
+															id="university1" style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${insitiute}" var="university">
+																<option value="${university.id}">${university.name}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+
 											</div>
 										</div>
 									</div>
 
-								</div>
-							</div>
 
-							<div class="card-register">
-								<h3>Education Details</h3>
-								<div class="card-registerinner">
-									<div class="row">
-
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group1 ">
-												<label for="ug-qualification">Highest Qualification/
-													Degree currently pursuing </label>
-												<div class="formchecks">
-													<ul>
-														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="doctoratePHD"
-															onchange="changeEducation('phd')" value="phd"> <label
-															class="btn" for="doctoratePHD"><span>Doctorate/PHD</span>
-														</label></li>
-														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="mastersPostGraduate"
-															onchange="changeEducation('master')" value="master">
-															<label class="btn" for="mastersPostGraduate"><span>Masters/Post
-																	Graduate</span> </label></li>
-														<li><input type="radio" class="btn-check"
-															name="highestQualification" id="graduationDiploma"
-															onchange="changeEducation('degree')" value="degree">
-															<label class="btn" for="graduationDiploma"><span>Graduation/Diploma
-															</span> </label></li>
-													</ul>
-												</div>
-												<!-- <span class="errors"> Please select work mode</span>-->
-											</div>
-										</div>
-
-										<div class="col-lg-12" id="masterCourses">
-											<div class="includeWalk">
-												<div class="row">
-
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="course1">Course </label> <select
-																class="form-select form-control selet2Single"
-																id="course1"
-																onchange="getSpecialization(this.value,'specialization1')"
-																style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${masterCourse}" var="course">
-																	<option value="${course.id}">${course.name}</option>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="specialization">Specialization </label> <select
-																class="form-select form-control selet2Single"
-																id="specialization1" style="width: 100%">
-																<option value="">Select</option>
-															</select>
-														</div>
-													</div>
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group1 ">
-															<label for="courseType1">Course Type </label>
-															<div class="formchecks">
-																<ul>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="fullTime1" value="fullTime">
-																		<label class="btn" for="fullTime1"><span>Full
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="partTime1" value="partTime">
-																		<label class="btn" for="partTime1"><span>Part
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType1" id="distanceLearning1"
-																		value="DistanceLearning"> <label class="btn"
-																		for="distanceLearning1"><span>Distance
-																				Learning</span> </label></li>
-																</ul>
-															</div>
-															<!-- <span class="errors"> Please select work mode</span>-->
-														</div>
-													</div>
-
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="university">University/ Institute </label> <select
-																class="form-select form-control selet2Single"
-																id="university1" style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${insitiute}" var="university">
-																	<option value="${university.id}">${university.name}</option>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-
-												</div>
-											</div>
-										</div>
-
-
-										<div class="col-lg-12" id="degreeCourses">
-											<div class="includeWalk">
-												<div class="row">
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="chooseCourse">Course </label> <select
-																class="form-select form-control  selet2Single "
-																id="course2"
-																onchange="getSpecialization(this.value,'specialization2')"
-																style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${degreeCourse}" var="university">
-																	<option value="${university.id}">${university.name}</option>
-																</c:forEach>
-															</select>
-														</div>
-													</div>
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="specialization">Specialization </label> <select
-																class="form-select form-control selet2Single "
-																id="specialization2" style="width: 100%">
-																<option value="">Select</option>
-															</select>
-														</div>
-													</div>
-
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group1 ">
-															<label for="courseType2">Course Type </label>
-															<div class="formchecks">
-																<ul>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="fullTime2" value="fullTime">
-																		<label class="btn" for="fullTime2"><span>Full
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="partTime2" value="partTime">
-																		<label class="btn" for="partTime2"><span>Part
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType2" id="distanceLearning2"
-																		value="DistanceLearning"> <label class="btn"
-																		for="distanceLearning2"><span>Distance
-																				Learning</span> </label></li>
-																</ul>
-															</div>
-															<!-- <span class="errors"> Please select work mode</span>-->
-														</div>
-													</div>
-
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="university">University/ Institute </label> <select
-																class="form-select form-control selet2Single"
-																id="university2" style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${insitiute}" var="university">
-																	<option value="${university.id}">${university.name}</option>
-																</c:forEach>
-															</select>
-														</div>
+									<div class="col-lg-12" id="degreeCourses">
+										<div class="includeWalk">
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="chooseCourse">Course </label> <select
+															class="form-select form-control  selet2Single "
+															id="course2"
+															onchange="getSpecialization(this.value,'specialization2')"
+															style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${degreeCourse}" var="university">
+																<option value="${university.id}">${university.name}</option>
+															</c:forEach>
+														</select>
 													</div>
 												</div>
-											</div>
-										</div>
-
-
-										<div class="col-lg-12" id="phdCourses">
-											<div class="includeWalk">
-												<div class="row">
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="chooseCourse">Course </label> <select
-																class="form-select form-control  selet2Single "
-																id="course3"
-																onchange="getSpecialization(this.value,'specialization3')"
-																style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${PHDCOURSE}" var="university">
-																	<option value="${university.id}">${university.name}</option>
-																</c:forEach>
-															</select>
-														</div>
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="specialization">Specialization </label> <select
+															class="form-select form-control selet2Single "
+															id="specialization2" style="width: 100%">
+															<option value="">Select</option>
+														</select>
 													</div>
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="specialization">Specialization </label> <select
-																class="form-select form-control selet2Single "
-																id="specialization3" style="width: 100%">
-																<option value="">Select</option>
-															</select>
-														</div>
-													</div>
+												</div>
 
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group1 ">
-															<label for="courseType3">Course Type </label>
-															<div class="formchecks">
-																<ul>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="fullTime3" value="fullTime">
-																		<label class="btn" for="fullTime3"><span>Full
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="partTime3" value="partTime">
-																		<label class="btn" for="partTime3"><span>Part
-																				Time</span> </label></li>
-																	<li><input type="radio" class="btn-check"
-																		name="courseType3" id="distanceLearning3"
-																		value="DistanceLearning"> <label class="btn"
-																		for="distanceLearning3"><span>Distance
-																				Learning</span> </label></li>
-																</ul>
-															</div>
-															<!-- <span class="errors"> Please select work mode</span>-->
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group1 ">
+														<label for="courseType2">Course Type </label>
+														<div class="formchecks">
+															<ul>
+																<li><input type="radio" class="btn-check"
+																	name="courseType2" id="fullTime2" value="fullTime">
+																	<label class="btn" for="fullTime2"><span>Full
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType2" id="partTime2" value="partTime">
+																	<label class="btn" for="partTime2"><span>Part
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType2" id="distanceLearning2"
+																	value="DistanceLearning"> <label class="btn"
+																	for="distanceLearning2"><span>Distance
+																			Learning</span> </label></li>
+															</ul>
 														</div>
+														<!-- <span class="errors"> Please select work mode</span>-->
 													</div>
+												</div>
 
-													<div class="col-lg-12 col-md-12 col-sm-12">
-														<div class="form-group">
-															<label for="university">University/ Institute </label> <select
-																class="form-select form-control selet2Single"
-																id="university3" style="width: 100%">
-																<option value="">Select</option>
-																<c:forEach items="${insitiute}" var="university">
-																	<option value="${university.id}">${university.name}</option>
-																</c:forEach>
-															</select>
-														</div>
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="university">University/ Institute </label> <select
+															class="form-select form-control selet2Single"
+															id="university2" style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${insitiute}" var="university">
+																<option value="${university.id}">${university.name}</option>
+															</c:forEach>
+														</select>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 
-								</div>
-							</div>
-							<div class="card-register">
-								<h3>Diversity and Additional Details</h3>
-								<div class="card-registerinner">
-									<div class="row">
-										<div class="col-lg-12">
-											<h5 class="mb-3">Diversity details</h5>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group1 ">
-												<label for="genderDiv">Gender </label>
-												<div class="formchecks">
-													<ul>
-														<li><input type="radio" class="btn-check"
-															name="genderDiv" id="allCandidates" value=""> <label
-															class="btn" for="allCandidates"><span>All
-																	candidates</span> </label></li>
-														<li><input type="radio" class="btn-check"
-															name="genderDiv" id="maleCandidates" value="male">
-															<label class="btn" for="maleCandidates"><span>Male
-																	candidates</span> </label></li>
-														<li><input type="radio" class="btn-check"
-															name="genderDiv" id="femaleCandidates" value="female">
-															<label class="btn" for="femaleCandidates"><span>Female
-																	candidates </span> </label></li>
-													</ul>
+
+									<div class="col-lg-12" id="phdCourses">
+										<div class="includeWalk">
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="chooseCourse">Course </label> <select
+															class="form-select form-control  selet2Single "
+															id="course3"
+															onchange="getSpecialization(this.value,'specialization3')"
+															style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${PHDCOURSE}" var="university">
+																<option value="${university.id}">${university.name}</option>
+															</c:forEach>
+														</select>
+													</div>
 												</div>
-												<!-- <span class="errors"> Please select work mode</span>-->
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="specialization">Specialization </label> <select
+															class="form-select form-control selet2Single "
+															id="specialization3" style="width: 100%">
+															<option value="">Select</option>
+														</select>
+													</div>
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group1 ">
+														<label for="courseType3">Course Type </label>
+														<div class="formchecks">
+															<ul>
+																<li><input type="radio" class="btn-check"
+																	name="courseType3" id="fullTime3" value="fullTime">
+																	<label class="btn" for="fullTime3"><span>Full
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType3" id="partTime3" value="partTime">
+																	<label class="btn" for="partTime3"><span>Part
+																			Time</span> </label></li>
+																<li><input type="radio" class="btn-check"
+																	name="courseType3" id="distanceLearning3"
+																	value="DistanceLearning"> <label class="btn"
+																	for="distanceLearning3"><span>Distance
+																			Learning</span> </label></li>
+															</ul>
+														</div>
+														<!-- <span class="errors"> Please select work mode</span>-->
+													</div>
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="form-group">
+														<label for="university">University/ Institute </label> <select
+															class="form-select form-control selet2Single"
+															id="university3" style="width: 100%">
+															<option value="">Select</option>
+															<c:forEach items="${insitiute}" var="university">
+																<option value="${university.id}">${university.name}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
+									</div>
+								</div>
 
-										<!-- <div class="col-lg-12">
+							</div>
+						</div>
+						<div class="card-register">
+							<h3>Diversity and Additional Details</h3>
+							<div class="card-registerinner">
+								<div class="row">
+									<div class="col-lg-12">
+										<h5 class="mb-3">Diversity details</h5>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group1 ">
+											<label for="genderDiv">Gender </label>
+											<div class="formchecks">
+												<ul>
+													<li><input type="radio" class="btn-check"
+														name="genderDiv" id="allCandidates" value=""> <label
+														class="btn" for="allCandidates"><span>All
+																candidates</span> </label></li>
+													<li><input type="radio" class="btn-check"
+														name="genderDiv" id="maleCandidates" value="male">
+														<label class="btn" for="maleCandidates"><span>Male
+																candidates</span> </label></li>
+													<li><input type="radio" class="btn-check"
+														name="genderDiv" id="femaleCandidates" value="female">
+														<label class="btn" for="femaleCandidates"><span>Female
+																candidates </span> </label></li>
+												</ul>
+											</div>
+											<!-- <span class="errors"> Please select work mode</span>-->
+										</div>
+									</div>
+
+									<!-- <div class="col-lg-12">
 											<div class="form-group">
 												<div class="form-check relocate">
 													<input class="form-check-input" type="checkbox" value=""
@@ -943,7 +952,7 @@
 												</div>
 											</div>
 										</div> -->
-										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
+									<!-- <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="candidateCategory">Candidate Category </label>
                         <select class="form-select form-control selet2Multiple" id="candidateCategory"
@@ -959,7 +968,7 @@
                     </div> -->
 
 
-										<!--   <div class="col-lg-12">
+									<!--   <div class="col-lg-12">
                       <h5 class="mb-3">Work details</h5>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
@@ -992,7 +1001,7 @@
                       </div>
                     </div>-->
 
-										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
+									<!-- <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <label for="workPermit">Work permit for </label>
                         <select class="form-select form-control selet2Multiple" id="workPermit" multiple="multiple">
@@ -1006,7 +1015,7 @@
                       <h5 class="mb-3">Display details</h5>
                     </div>-->
 
-										<!-- <div class="col-lg-12 col-md-12 col-sm-12">
+									<!-- <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group1 ">
                         <label for="showDis">Show </label>
                         <div class="formchecks">
@@ -1032,17 +1041,17 @@
                       </div>
                     </div> -->
 
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group1 ">
-												<!-- <label for="showonly">Show only candidates with </label> -->
-												<div class="formchecks">
-													<!-- <ul> -->
-													<!--  <li>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group1 ">
+											<!-- <label for="showonly">Show only candidates with </label> -->
+											<div class="formchecks">
+												<!-- <ul> -->
+												<!--  <li>
                               <input type="checkbox" class="btn-check" name="showonly" id="verifiedMobilenumber">
                               <label class="btn" for="verifiedMobilenumber"><span>Verified mobile number </span>
                               </label>
                             </li> -->
-													<!-- <li><input type="checkbox" class="btn-check"
+												<!-- <li><input type="checkbox" class="btn-check"
 															name="showonly" id="verifiedEmailID"> <label
 															class="btn" for="verifiedEmailID"><span>Verified
 																	email ID</span> </label></li>
@@ -1051,23 +1060,55 @@
 															class="btn" for="attachedResume"><span>Attached
 																	resume </span> </label></li>
 													</ul> -->
-												</div>
-												<!-- <span class="errors"> Please select work mode</span>-->
 											</div>
+											<!-- <span class="errors"> Please select work mode</span>-->
 										</div>
 									</div>
 								</div>
-								<div class="searchCandidates d-flex justify-content-end">
-									<button type="button" class="btns"
-										onclick="submitSearchCandidates()">Search candidates</button>
-								</div>
 							</div>
+							<div class="searchCandidates d-flex justify-content-end">
+								<button type="button" class="btns"
+									onclick="submitSearchCandidates()">Search candidates</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
 	</main>
+	<div class="modal fade" id="addCandidate" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog  ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Candidates</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body pe-4 ps-4 py-4">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="Industry" class="form-label required">Email
+								</label> <input type="text" name="email" id="Industry"
+									class="form-control" placeholder="Enter Email/Phone no">
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button"
+						onclick="search(document.getElementById('Industry').value)"
+						class="btns">Submit</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
 	<%@include file="employerfooter.jsp"%>
 
 	<script src="employer/js/jquery.min.js"></script>
@@ -1102,6 +1143,7 @@
 				.ready(
 						function() {
 							$(".dropdown-input").click(function() {
+
 								$(".dropdown1").toggle();
 							});
 
@@ -1125,7 +1167,8 @@
 									.click(
 											function() {
 												var value = $(this).text();
-												var valueId = $(this).data("value");
+												var valueId = $(this).data(
+														"value");
 												var $selectedItems = $(".selected-items");
 												var $dropdownItem = $(this);
 
@@ -1174,7 +1217,67 @@
 						});
 	</script>
 
+	<script type="text/javascript">
+		function search(email) {
+			console.warn("Button click", email);
+			$
+					.ajax({
+						url : "/searchbyemail",
+						type : "POST",
+						contentType : "application/json",
+						data : JSON.stringify({
+							"email" : email
 
+						}),
+						success : function(response) {
+							console.log("Response received:", response); // Log the response to verify it
+							if (response === 'User Found') { // Trim to remove any leading/trailing spaces
+								console.warn('inside if condition');
+								var form = document.createElement("form");
+								form.method = "POST";
+								form.action = "/searchCandidates";
+
+								/*  form.appendChild(emailInput); */
+
+								document.body.appendChild(form);
+								form.submit();
+							} else if (response === 'No User Found') {
+								showToast("info",
+										"No user found or some condition did not match.");
+								/*window.location.href = "/portalRegister?email="+data;*/
+								var form = document.createElement("form");
+								form.method = "POST";
+								form.action = "/empportalRegister";
+								var emailInput = document
+										.createElement("input");
+								emailInput.type = "hidden";
+								emailInput.name = "email";
+								emailInput.value = email;
+
+								form.appendChild(emailInput);
+
+								document.body.appendChild(form);
+								form.submit();
+							}
+						},
+						error : function(xhr, status, error) {
+							console.log("error ========== " + error);
+						}
+					});
+		}
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			sessionStorage.setItem("isVisibleFlag", "${isVisibleFlag}");
+			var isVisible = sessionStorage.getItem("isVisibleFlag").toString();
+			if (isVisible === "1") {
+				$("#availcredits").hide();
+			}
+			sessionStorage.setItem("companyId", "${companyId}");
+			sessionStorage.setItem("userId", "${userId}");
+		});
+	</script>
 </body>
 
 </html>

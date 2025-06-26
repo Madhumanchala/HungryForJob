@@ -1154,7 +1154,7 @@ tr.UserDetails{line-height:3;background:#f5f5f9}
 .contentkanban .contentbox.Applied h3::before{content:''; position: absolute; left:0px; background:#3072E4;  width:5px; border-radius:10px; height:20px; }
 .contentkanban .contentbox.Screening h3::before{content:''; position: absolute; left:0px; background:#E49630;  width:5px; border-radius:10px; height:20px; }
 .contentkanban .contentbox.ScheduledInterview h3::before{content:''; position: absolute; left:0px; background:#39BBD5;  width:5px; border-radius:10px; height:20px; }
-.contentkanban .contentbox.Status  h3::before{content:''; position: absolute; left:0px; background:#8D30E4;  width:5px; border-radius:10px; height:20px; }
+.contentkanban .contentbox.CandidateResult  h3::before{content:''; position: absolute; left:0px; background:#8D30E4;  width:5px; border-radius:10px; height:20px; }
 
 .contentkanban .prfilesbox{display:flex;align-items: center;display: grid;grid-template-columns: 0fr 0fr;grid-template-rows: repeat(1, auto);grid-column-gap: 0.5rem;align-items: center;}
 .contentkanban .prfilesbox .profileImgs{ width:40px; height:40px;}

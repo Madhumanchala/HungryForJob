@@ -25,9 +25,15 @@
 <link href="/employer/css/style.css" rel="stylesheet">
 
 </head>
+<style>
+#toolbar {
+    display: none !important;
+}
+
+</style>
 
 <body class="bg">
-<%@include file="employerHeader.jsp"%> 
+	<%@include file="employerHeader.jsp"%>
 	<%@include file="toaster.jsp"%>
 	<main id="main" class="maincontent">
 		<nav aria-label="breadcrumb" class="breadcrumb profile-breadcrumb">
@@ -170,7 +176,7 @@
 										data-bs-toggle="tab" data-bs-target="#nav-attached"
 										type="button" role="tab" aria-controls="nav-attached"
 										aria-selected="false">
-										<i class="bi bi-paperclip"></i> Attached CV
+										<i class="bi bi-paperclip"></i> View CV
 									</button>
 
 								</div>
@@ -359,21 +365,21 @@
 
 
 							</div>
-							
+
 							<div class="tab-pane fade" id="nav-attached" role="tabpanel"
-							aria-labelledby="nav-attached-tab">
-							<!-- <iframe src="img/cv.pdf" width="100%" height="600px" style="border:none"></iframe> 
+								aria-labelledby="nav-attached-tab">
+								<!-- <iframe src="img/cv.pdf" width="100%" height="600px" style="border:none"></iframe> 
 				<object data="img/cv.pdf" type="application/pdf" width="100%" height="100%"> </object>-->
-							<object type="application/pdf" width="100%" height="600px"
-								data="data:application/pdf;base64,${careerDetails.cvDetails}"></object>
+								<object type="application/pdf" width="100%" height="600px"
+									data="data:application/pdf;base64,${careerDetails.cvDetails}#toolbar=0"></object>
+							</div>
+
+
 						</div>
-							
-							
-						</div>
-						
+
 					</div>
-					
-						<!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+
+					<!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
 								<div class="featuredJoblist search-similar-profile  ">
 									 <div class="row">
 								<div class="col-xl-12 col-lg-12 col-md-12 ">

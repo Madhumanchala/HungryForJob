@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class JobPosting {
 
-
 	private String id;
 	private String companyId;
 	private String userId;
@@ -29,11 +28,11 @@ public class JobPosting {
 	private String departmentId;
 	private String roleName;
 	private String reference;
-	private String noOfVacancy;	
+	private String noOfVacancy;
 	private List<String> educationQualification;
 	private String jobDescription;
 	private int walkInDrive;
-	
+
 	private String startDate;
 	private String endDate;
 	private String time;
@@ -41,13 +40,13 @@ public class JobPosting {
 	private String contactNumber;
 	private String venue;
 	private String googleMapUrl;
-	
+
 	private String companyName;
 	private String aboutCompany;
 	private String companyAddress;
 	private String telephoneNumber;
 	private String emailId;
-	
+
 	private String internjobType;
 	private String internJobTittle;
 	private String internEmploymentType;
@@ -75,8 +74,9 @@ public class JobPosting {
 	private String internTelephone;
 	private String internEmailId;
 	private String internReadyToReLocate;
+	private String internStartType;
 	private String type;
-	
+
 	private String jobloc;
 	private String status;
 	private String candidateApplied;
@@ -84,11 +84,9 @@ public class JobPosting {
 	private String createdBy;
 	private String jobPostkeySkills;
 	private String jobPostEducation;
-	
+
 	private String name;
-	
-	
-	
+
 	private String jobId;
 	private String candidateStatus;
 	private String candidateName;
@@ -102,26 +100,27 @@ public class JobPosting {
 	private String countofscreening;
 	private String countofscheduleinterview;
 	private String countofstatus;
-	
-	
+
 	private byte[] pdfBytes;
 	private String filename;
 	private String fileType;
-	
+
 	private String interviewDate;
 	private String interviewTime;
 	private String interviewmode;
 	private String interviewLink;
 	private List<String> interViewerEmail;
 	private String statusBar;
-	
+
 	private String countApplied;
 	private String countScreening;
 	private String countScheduledInterview;
 	private String countStatus;
-	
+
 	private String hiringStatus;
 	private String review;
-	
-	
+	private String isVisible;
+	private String flag;
+	private List<String> perksAndBenefits;
+
 }

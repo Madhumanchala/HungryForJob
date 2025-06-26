@@ -931,17 +931,20 @@ String companyId = (String) session.getAttribute("companyId");
 														<div class="col-lg-9 col-md-9 col-sm-12">
 															<div class="form-group addcommentfrom">
 																<label for="addcomment" class="form-label">Comment</label>
-																<textarea id="addcomment_${item.searchId}" class="form-control" rows="2"> </textarea>
+																<textarea id="addcomment_${item.searchId}"
+																	class="form-control" rows="2"> </textarea>
 															</div>
 														</div>
 														<div class="col-lg-3 col-md-3 col-sm-12">
 															<div class="addsubmitcom">
-																<button type="button" class="btn-blue" onclick="addcomments('addcomment_${item.searchId}','${item.searchId}')">Add
+																<button type="button" class="btn-blue"
+																	onclick="addcomments('addcomment_${item.searchId}','${item.searchId}')">Add
 																	Comment</button>
 															</div>
 														</div>
 													</div>
-													<c:forEach items="${item.detailsComment}" var="commentdetails">
+													<c:forEach items="${item.detailsComment}"
+														var="commentdetails">
 														<div class="viewComment">
 															<div class="profile-img">
 																<img src="employer/img/profile-img.jpg">

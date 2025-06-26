@@ -116,98 +116,89 @@ function savejobPost() {
 	var noOfVacancy = $('#numberVacancies').val();
 	var educationQualification = $('#educationalQualification').val();
 	var jobDescription = $('#jobDescription').val();
-	console.log("jobDescription"+jobDescription);
+	console.log("jobDescription" + jobDescription);
 	var walkInDetails = "";
 	var hideSalaryDetails = "";
 	/*var isChecked = $('#walkin').is(':checked'); // Returns true if checked, false if not*/
-	var isChecked=false;
+	var isChecked = false;
 	var isCheckedHideSalary = $('#hideSalary1').is(':checked');
 	var educationQualification = $('#educationalQualification').val();
-	var selectedDateRange=$("#WalkStartDate").val();
-	var startDate="";
-	var endDate="";
-	var timinig="";
-	var contactPerson="";
-	var mobileNumber="";
-	var venue="";
-	var googleMap="";
-	
-	var companyName=$('#companyName').val();
-	var aboutCompany=$('#aboutCompany').val();
-	var telephone=$('#Telephone').val();
-	var companyAddress=$('#companyAddress').text();
-	var emailId=$('#emailId').val();
-	
+	var selectedDateRange = $("#WalkStartDate").val();
+	var startDate = "";
+	var endDate = "";
+	var timinig = "";
+	var contactPerson = "";
+	var mobileNumber = "";
+	var venue = "";
+	var googleMap = "";
+
+	var companyName = $('#companyName').val();
+	var aboutCompany = $('#aboutCompany').val();
+	var telephone = $('#Telephone').val();
+	var companyAddress = $('#companyAddress').text();
+	var emailId = $('#emailId').val();
+
 
 	if (isChecked) {
 		walkInDetails = "1";
-		
+
 		const dates = selectedDateRange.split(" - ");
-        startDate = dates[0]; // First part is the start date
-        endDate = dates[1];   // Second part is the end date
-        timinig=$('#WalkinTiming').val();
-        contactPerson=$('#contactPerson').val();
-        mobileNumber=$('#contactNumber').val();
-        venue=$('#Venue').val();
-        googleMap=$('#googleMaps').val()
-        
-        if(startDate == "")
-        {
+		startDate = dates[0]; // First part is the start date
+		endDate = dates[1];   // Second part is the end date
+		timinig = $('#WalkinTiming').val();
+		contactPerson = $('#contactPerson').val();
+		mobileNumber = $('#contactNumber').val();
+		venue = $('#Venue').val();
+		googleMap = $('#googleMaps').val()
+
+		if (startDate == "") {
 			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
 			$('#WalkStartDate_error').show();
 			isValid = false;
 		}
-		
-		if(endDate == "")
-		{
+
+		if (endDate == "") {
 			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
 			$('#WalkStartDate_error').show();
 			isValid = false;
 		}
-		
-		if(timinig == "")
-		{
+
+		if (timinig == "") {
 			$('#WalkinTiming_error').text("field is required").css({ "color": "red" });
 			$('#WalkinTiming_error').show();
 			isValid = false;
 		}
-		
-		if(contactPerson == "")
-		{
+
+		if (contactPerson == "") {
 			$('#contactPerson_error').text("field is required").css({ "color": "red" });
 			$('#contactPerson_error').show();
 			isValid = false;
 		}
-		
-		if(mobileNumber == "")
-		{
+
+		if (mobileNumber == "") {
 			$('#contactNumber_error').text("field is required").css({ "color": "red" });
 			$('#contactNumber_error').show();
 			isValid = false;
-		}else
-		{
-			if(mobileNumber.length !== 10)
-			{
+		} else {
+			if (mobileNumber.length !== 10) {
 				$('#contactNumber_error').text("Enter valid mobile number ").css({ "color": "red" });
 				$('#contactNumber_error').show();
 				isValid = false;
 			}
 		}
-		
-		if(venue == " ")
-		{
+
+		if (venue == " ") {
 			$('#Venue_error').text("field is required").css({ "color": "red" });
 			$('#Venue_error').show();
 			isValid = false;
 		}
-		
-		if(googleMap == "")
-		{
+
+		if (googleMap == "") {
 			$('#googleMaps_error').text("field is required").css({ "color": "red" });
 			$('#googleMaps_error').show();
 			isValid = false;
 		}
-		
+
 	} else {
 		walkInDetails = "0";
 	}
@@ -323,51 +314,43 @@ function savejobPost() {
 		$('#educationalQualification_error').show();
 		isValid = false;
 	}
-	
-	if(companyName == "")
-	{
+
+	if (companyName == "") {
 		$('#companyName_error').text('field is required').css({ "color": "red" });
 		$('#companyName_error').show();
 		isValid = false;
 	}
-	
-	if(aboutCompany == " ")
-	{
+
+	if (aboutCompany == " ") {
 		$('#aboutCompany_error').text('field is required').css({ "color": "red" });
 		$('#aboutCompany_error').show();
 		isValid = false;
 	}
-	
-	if(companyAddress == "")
-	{
+
+	if (companyAddress == "") {
 		/*$('#aboutCompany_error').text('field is required').css({ "color": "red" });
 		$('#aboutCompany_error').show();
 		isValid = false;*/
 	}
-	
-	if(telephone == "")
-	{
+
+	if (telephone == "") {
 		$('#Telephone_error').text('field is required').css({ "color": "red" });
 		$('#Telephone_error').show();
 		isValid = false;
-	}else
-	{
-			if (!/^\d{10}$/.test(telephone)) {
-				 $('#Telephone_error').show().text("Please enter a valid 10-digit number.");
-				 $('#Telephone_error').show();
-				isValid = false;
-    		}
+	} else {
+		if (!/^\d{10}$/.test(telephone)) {
+			$('#Telephone_error').show().text("Please enter a valid 10-digit number.");
+			$('#Telephone_error').show();
+			isValid = false;
+		}
 	}
-	
-	if(emailId == "")
-	{
+
+	if (emailId == "") {
 		$('#emailId_error').text('field is required').css({ "color": "red" });
 		$('#emailId_error').show();
 		isValid = false;
-	}else
-	{
-		if(!validateEmail(emailId))
-		{
+	} else {
+		if (!validateEmail(emailId)) {
 			$('#emailId_error').text('please enter valid email').css({ "color": "red" });
 			$('#emailId_error').show();
 			isValid = false;
@@ -380,7 +363,7 @@ function savejobPost() {
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
-				companyId:companyId,
+				companyId: companyId,
 				userId: userId,
 				jobType: selectedValue,
 				jobTittle: jobTittle,
@@ -402,36 +385,46 @@ function savejobPost() {
 				educationQualification: educationQualification,
 				jobDescription: jobDescription,
 				walkInDrive: walkInDetails,
-				
-				startDate:startDate,
-				endDate:endDate,
-				time:timinig, 
-				contactPerson:contactPerson,
-				contactNumber:mobileNumber,
-				venue:venue,
-				googleMapUrl:googleMap,
-				
-				
-				companyName:companyName, 
-				aboutCompany:aboutCompany,
-				companyAddress:companyAddress,
-				telephoneNumber:telephone,
-				emailId:emailId,
-				status:statusjob,
+
+				startDate: startDate,
+				endDate: endDate,
+				time: timinig,
+				contactPerson: contactPerson,
+				contactNumber: mobileNumber,
+				venue: venue,
+				googleMapUrl: googleMap,
+
+
+				companyName: companyName,
+				aboutCompany: aboutCompany,
+				companyAddress: companyAddress,
+				telephoneNumber: telephone,
+				emailId: emailId,
+				status: statusjob,
 			}),
 			success: function(response) {
 				console.log('Job posted successfully:', response);
 				if (response == "success") {
-					showToast("success","Sucessfully Saved");
+					showToast("success", "Sucessfully Saved");
+					setTimeout(function() {
+						$(".loader").hide();
+						$(".loader").css("display", "block");
+						location.reload();
+					}, 1000);
 				} else {
-					showToast("info","please try again");
+					showToast("info", "please try again");
+					setTimeout(function() {
+						$(".loader").hide();
+						$(".loader").css("display", "block");
+						location.reload();
+					}, 1000);
 				}
 
 				// Add success handling logic here
 			},
 			error: function(xhr, status, error) {
 				console.log('Error:', error);
-				showToast("error","Error Ocuured");
+				showToast("error", "Error Ocuured");
 				// Add error handling logic here
 			}
 		});
@@ -496,86 +489,79 @@ function updatejobPost(id) {
 	var walkInDetails = "";
 	var hideSalaryDetails = "";
 	/*var isChecked = $('#walkin').is(':checked'); // Returns true if checked, false if not*/
-	var isChecked=false;
+	var isChecked = false;
 	var isCheckedHideSalary = $('#hideSalary1').is(':checked');
 	var educationQualification = $('#educationalQualification').val();
-	var selectedDateRange=$("#WalkStartDate").val();
-	var startDate="";
-	var endDate="";
-	var timinig="";
-	var contactPerson="";
-	var mobileNumber="";
-	var venue="";
-	var googleMap="";
-	
-	var companyName=$('#companyName').val();
-	var aboutCompany=$('#aboutCompany').val();
-	var telephone=$('#Telephone').val();
-	var companyAddress=$('#companyAddress').text();
-	var emailId=$('#emailId').val();
-	
+	var selectedDateRange = $("#WalkStartDate").val();
+	var startDate = "";
+	var endDate = "";
+	var timinig = "";
+	var contactPerson = "";
+	var mobileNumber = "";
+	var venue = "";
+	var googleMap = "";
+
+	var companyName = $('#companyName').val();
+	var aboutCompany = $('#aboutCompany').val();
+	var telephone = $('#Telephone').val();
+	var companyAddress = $('#companyAddress').text();
+	var emailId = $('#emailId').val();
+
 
 	if (isChecked) {
 		walkInDetails = "1";
-		
+
 		const dates = selectedDateRange.split(" - ");
-        startDate = dates[0]; // First part is the start date
-        endDate = dates[1];   // Second part is the end date
-        timinig=$('#WalkinTiming').val();
-        contactPerson=$('#contactPerson').val();
-        mobileNumber=$('#contactNumber').val();
-        venue=$('#Venue').val();
-        googleMap=$('#googleMaps').val()
-        
-        if(startDate == "")
-        {
+		startDate = dates[0]; // First part is the start date
+		endDate = dates[1];   // Second part is the end date
+		timinig = $('#WalkinTiming').val();
+		contactPerson = $('#contactPerson').val();
+		mobileNumber = $('#contactNumber').val();
+		venue = $('#Venue').val();
+		googleMap = $('#googleMaps').val()
+
+		if (startDate == "") {
 			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
 			$('#WalkStartDate_error').show();
 			isValid = false;
 		}
-		
-		if(endDate == "")
-		{
+
+		if (endDate == "") {
 			$('#WalkStartDate_error').text("field is required").css({ "color": "red" });
 			$('#WalkStartDate_error').show();
 			isValid = false;
 		}
-		
-		if(timinig == "")
-		{
+
+		if (timinig == "") {
 			$('#WalkinTiming_error').text("field is required").css({ "color": "red" });
 			$('#WalkinTiming_error').show();
 			isValid = false;
 		}
-		
-		if(contactPerson == "")
-		{
+
+		if (contactPerson == "") {
 			$('#contactPerson_error').text("field is required").css({ "color": "red" });
 			$('#contactPerson_error').show();
 			isValid = false;
 		}
-		
-		if(mobileNumber == "")
-		{
+
+		if (mobileNumber == "") {
 			$('#contactNumber_error').text("field is required").css({ "color": "red" });
 			$('#contactNumber_error').show();
 			isValid = false;
 		}
-		
-		if(venue == " ")
-		{
+
+		if (venue == " ") {
 			$('#Venue_error').text("field is required").css({ "color": "red" });
 			$('#Venue_error').show();
 			isValid = false;
 		}
-		
-		if(googleMap == "")
-		{
+
+		if (googleMap == "") {
 			$('#googleMaps_error').text("field is required").css({ "color": "red" });
 			$('#googleMaps_error').show();
 			isValid = false;
 		}
-		
+
 	} else {
 		walkInDetails = "0";
 	}
@@ -691,44 +677,38 @@ function updatejobPost(id) {
 		$('#educationalQualification_error').show();
 		isValid = false;
 	}
-	
-	if(companyName == "")
-	{
+
+	if (companyName == "") {
 		$('#companyName_error').text('field is required').css({ "color": "red" });
 		$('#companyName_error').show();
 		isValid = false;
 	}
-	
-	if(aboutCompany == " ")
-	{
+
+	if (aboutCompany == " ") {
 		$('#aboutCompany_error').text('field is required').css({ "color": "red" });
 		$('#aboutCompany_error').show();
 		isValid = false;
 	}
-	
-	if(companyAddress == "")
-	{
+
+	if (companyAddress == "") {
 		/*$('#aboutCompany_error').text('field is required').css({ "color": "red" });
 		$('#aboutCompany_error').show();
 		isValid = false;*/
 	}
-	
-	if(telephone == "")
-	{
+
+	if (telephone == "") {
 		$('#Telephone_error').text('field is required').css({ "color": "red" });
 		$('#Telephone_error').show();
 		isValid = false;
-	}else
-	{
-			if (!/^\d{10}$/.test(telephone)) {
-				 $('#Telephone_error').show().text("Please enter a valid 10-digit number.");
-				 $('#Telephone_error').show();
-				isValid = false;
-    		}
+	} else {
+		if (!/^\d{10}$/.test(telephone)) {
+			$('#Telephone_error').show().text("Please enter a valid 10-digit number.");
+			$('#Telephone_error').show();
+			isValid = false;
+		}
 	}
-	
-	if(emailId == "")
-	{
+
+	if (emailId == "") {
 		$('#emailId_error').text('field is required').css({ "color": "red" });
 		$('#emailId_error').show();
 		isValid = false;
@@ -740,8 +720,8 @@ function updatejobPost(id) {
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify({
-				id:id,
-				companyId:companyId,
+				id: id,
+				companyId: companyId,
 				userId: userId,
 				jobType: selectedValue,
 				jobTittle: jobTittle,
@@ -763,36 +743,36 @@ function updatejobPost(id) {
 				educationQualification: educationQualification,
 				jobDescription: jobDescription,
 				walkInDrive: walkInDetails,
-				
-				startDate:startDate,
-				endDate:endDate,
-				time:timinig, 
-				contactPerson:contactPerson,
-				contactNumber:mobileNumber,
-				venue:venue,
-				googleMapUrl:googleMap,
-				
-				
-				companyName:companyName, 
-				aboutCompany:aboutCompany,
-				companyAddress:companyAddress,
-				telephoneNumber:telephone,
-				emailId:emailId,
-				status:statusjob,
+
+				startDate: startDate,
+				endDate: endDate,
+				time: timinig,
+				contactPerson: contactPerson,
+				contactNumber: mobileNumber,
+				venue: venue,
+				googleMapUrl: googleMap,
+
+
+				companyName: companyName,
+				aboutCompany: aboutCompany,
+				companyAddress: companyAddress,
+				telephoneNumber: telephone,
+				emailId: emailId,
+				status: statusjob,
 			}),
 			success: function(response) {
 				console.log('Job posted successfully:', response);
 				if (response == "success") {
-					showToast("success","updated Sucessfully ");
+					showToast("success", "updated Sucessfully ");
 				} else {
-					showToast("info","please try again");
+					showToast("info", "please try again");
 				}
 
 				// Add success handling logic here
 			},
 			error: function(xhr, status, error) {
 				console.log('Error:', error);
-				showToast("error","Error Ocuured");
+				showToast("error", "Error Ocuured");
 				// Add error handling logic here
 			}
 		});
@@ -832,7 +812,7 @@ $(document).ready(function() {
 	$("#fixedIncentiveshow1").hide();
 	$("#rangeshow1").show();
 	$("#includeWalk").hide();
-	var companyName=$('#companyName').val();
+	var companyName = $('#companyName').val();
 	$('#reviewCompanyName').text(companyName)
 
 });
@@ -844,7 +824,9 @@ function maxexpchange(id) {
 
 	let options = '<option value="" selected>Max</option>'; // Include the placeholder option
 	for (let i = mimExp; i <= 25; i++) {
-		options += `<option value="${i}">${i} yr${i > 1 ? 's' : ''}</option>`;
+		if (i != "") {
+			options += `<option value="${i}">${i} yr${i > 1 ? 's' : ''}</option>`;
+		}
 	}
 	// Populate the select element
 	$('#workExperienceMax').html(options);
@@ -856,6 +838,15 @@ function maxexpchange(id) {
 
 	$('#minexp').text(mimExp);
 	$('#dash').text("-");
+	if (mimExp) {
+		$('.jd-preview-main').show();
+		$('#maxexp').text("");
+	} else {
+		$('#maxexp').text("");
+		$('#dash').text("");
+		jobDetailsValidation();
+	}
+
 
 }
 function maxSalary() {
@@ -864,8 +855,16 @@ function maxSalary() {
 	var minsal = parseInt($("#salaryFigureMin").val(), 10);
 
 	var textMinSal = $('#salaryFigureMin option:selected').text();
-	$('#minsal').text(textMinSal);
-	$('#dashSal').text("-");
+
+	//$('#minsal').text(textMinSal);
+	if (textMinSal === "Min Salary") {
+		$('#minsal').text("");
+		$('#dashSal').text("");
+	} else {
+		$('#minsal').text(textMinSal);
+		$('#dashSal').text("-");
+	}
+
 
 
 	// Create the salary options dropdown dynamically using the salaryOptions array
@@ -884,6 +883,14 @@ function maxSalary() {
 	$('.select2Single').select2({
 		allowClear: false
 	});
+	if (textMinSal != "Min Salary") {
+
+		$('#maxsal').text("");
+		$('.jd-preview-main').show();
+	} else {
+		$('#maxsal').text("");
+		jobDetailsValidation();
+	}
 }
 
 $('#jobLocation').on('change', function() {
@@ -909,6 +916,14 @@ $('#jobLocation').on('change', function() {
 		$(this).find('option:not(:selected)').prop('disabled', true);
 	}
 	$('#reviewLocation').text(result);
+
+	if (result) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
+
+
 });
 
 function allSalarytypeChange(errorId, id) {
@@ -935,50 +950,51 @@ function allSalarytypeChange(errorId, id) {
 }
 function changeSkillFramework() {
 	var ids = $('#keySkills').val();
-	var id="0";
-	if(ids.length > 0)
-	{
-		 id=ids[ids.length - 1];
-	}else
-	{
-		id="0";
+	var id = "0";
+	if (ids.length > 0) {
+		id = ids[ids.length - 1];
+	} else {
+		id = "0";
 	}
-	if(id.includes("-"))
-	{
+	if (id.includes("-")) {
 		console.log("empty");
-	}else
-	{
+	} else {
 		$.ajax({
-		url: '/fetchSkillsFramework',
-		type: 'POST',
-		contentType: 'application/json',
-		data: JSON.stringify({
-			id: id,
-			type:"skills"
-		}),
-		success: function(response) {
-			console.log("Success:", response);
-			var role = response.data.jobPostingSkillsFramework;
-			var optionExists = $('#keySkills option[value="' + id+"-"+role.id + '"]').length > 0;
-			role.forEach(function(role) {
-                $('#keySkills').append(new Option(role.name, id+"-"+role.id));
-            });
-			// Perform actions with the response data if needed
-		},
-		error: function(xhr, status, error) {
-			console.error("Error:", error);
-			// Handle the error here
-		}
-	});
-			
+			url: '/fetchSkillsFramework',
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				id: id,
+				type: "skills"
+			}),
+			success: function(response) {
+				console.log("Success:", response);
+				var role = response.data.jobPostingSkillsFramework;
+				var optionExists = $('#keySkills option[value="' + id + "-" + role.id + '"]').length > 0;
+				role.forEach(function(role) {
+					$('#keySkills').append(new Option(role.name, id + "-" + role.id));
+				});
+				// Perform actions with the response data if needed
+			},
+			error: function(xhr, status, error) {
+				console.error("Error:", error);
+				// Handle the error here
+			}
+		});
+
 	}
-	
+
 }
 
 function allJobChangeTittle() {
 	const jobTittle = $('#Jobtitle').val();
 	document.getElementById('jobTittleHeading').textContent = jobTittle;
 	$('#jobTittle_error').hide();
+	if (jobTittle) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
 function allChangeIndustry() {
 	$('#industry_error').hide();
@@ -989,6 +1005,12 @@ function allChangeMaxExp() {
 	$('#workExperienceMax_error').hide();
 	const maxExp = $('#workExperienceMax').val();
 	$('#maxexp').text(maxExp + " " + "Years");
+	if (maxExp) {
+		$('.jd-preview-main').show();
+	} else {
+		$('#maxexp').text('');
+		jobDetailsValidation();
+	}
 }
 function allMaxSalaryChange() {
 	$('#maxsalary_error').hide();
@@ -999,6 +1021,13 @@ function allChangeVacancy() {
 	$('#noOfVacancy_error').hide();
 	var vacancy = $('#numberVacancies').val();
 	$('#noOfPostition').text(vacancy + " " + "Position");
+
+	if (vacancy) {
+		$('.jd-preview-main').show();
+	} else {
+		$('#noOfPostition').text(""); // Clear the Position text
+		jobDetailsValidation();
+	}
 }
 function allChangeAddSkills(value) {
 	var newvalue = [];
@@ -1014,27 +1043,29 @@ function allChangeAddSkills(value) {
 	newvalue.forEach(function(skill) {
 		$('.keySkillsDetails ul').append('<li>' + skill + '</li>');
 	});
+	if (newvalue.length > 0) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
 
 $('input[name="WalkStartDate"]').on('change', function() {
-        const selectedDateRange = $(this).val();
-         const dates = selectedDateRange.split(" - ");
-          const startDate = dates[0];
-            const endDate = dates[1];
-        $(".walkInterview").text("Walk-in interview:"+" "+startDate+" "+"-"+" "+endDate+". Job will not be visible to candidates after the end date.")
-        // You can perform any action with the selected date range here
-        console.log('Selected date range:', selectedDateRange);
-        // Example: you can trigger an AJAX call or update another part of the UI
-    });
-function changeWalkIn()
-{
+	const selectedDateRange = $(this).val();
+	const dates = selectedDateRange.split(" - ");
+	const startDate = dates[0];
+	const endDate = dates[1];
+	$(".walkInterview").text("Walk-in interview:" + " " + startDate + " " + "-" + " " + endDate + ". Job will not be visible to candidates after the end date.")
+	// You can perform any action with the selected date range here
+	console.log('Selected date range:', selectedDateRange);
+	// Example: you can trigger an AJAX call or update another part of the UI
+});
+function changeWalkIn() {
 	var isChecked = $('#walkin').is(':checked');
-	if(isChecked)
-	{
+	if (isChecked) {
 		$("#includeWalk").show();
-		
-	}else
-	{
+
+	} else {
 		$("#includeWalk").hide();
 	}
 }
@@ -1042,35 +1073,54 @@ function changeWalkIn()
 {
 	alert("called");	
 }*/
-function changeCompanyName()
-{
+function changeCompanyName() {
 	$('#companyName_error').hide();
-	var companyName=$('#companyName').val();
+	var companyName = $('#companyName').val();
 	$('#reviewCompanyName').text(companyName);
+
+	if (companyName) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function changeTelephone()
-{
+function changeTelephone() {
 	$('#Telephone_error').hide();
-	var reviewTelephone=$('#Telephone').val();
+	var reviewTelephone = $('#Telephone').val();
 	$('#reviewMobileNuumber').text(reviewTelephone);
+
+	if (reviewTelephone) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
+
 }
-function changeEmailId()
-{
+function changeEmailId() {
 	$('#emailId_error').hide();
-	var reviewemailId=$('#emailId').val();
+	var reviewemailId = $('#emailId').val();
 	$('#reviewMailId').text(reviewemailId);
+	if (reviewemailId) {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
-function allchangedescription(event)
-{	
+function allchangedescription(event) {
 	var jobDescription = $(event).html();
 	$('#descriptionjobDetails').html(jobDescription);
+
+	if (jobDescription != "<br>") {
+		$('.jd-preview-main').show();
+	} else {
+		jobDetailsValidation();
+	}
 }
 function removeHTMLTags(text) {
-  return text.replace(/<[^>]*>/g, '');
+	return text.replace(/<[^>]*>/g, '');
 }
-function fetchedallchangedescription(id)
-{	
-	var jobDescription = $("#"+id).html();
+function fetchedallchangedescription(id) {
+	var jobDescription = $("#" + id).html();
 	let value = removeHTMLTags(jobDescription);
 	$('#descriptionjobDetails').html(value);
 }
@@ -1083,15 +1133,15 @@ function changejobrole(id) {
 		contentType: 'application/json',
 		data: JSON.stringify({
 			id: id,
-			type:"role"
+			type: "role"
 		}),
 		success: function(response) {
 			var role = response.data.jobPostingSkillsFramework;
-			 $('#role').empty();
-			 $('#role').append(new Option("Select", ""));
-			 role.forEach(function(role) {
-                $('#role').append(new Option(role.name, role.id));
-            });
+			$('#role').empty();
+			$('#role').append(new Option("Select", ""));
+			role.forEach(function(role) {
+				$('#role').append(new Option(role.name, role.id));
+			});
 			// Perform actions with the response data if needed
 		},
 		error: function(xhr, status, error) {
@@ -1132,8 +1182,43 @@ function selectedchangejobrole(id, value) {
 	});
 }
 
+function jobDetailsValidation() {
+	const jobTittleHeading = $('#jobTittleHeading').text().trim();
+	const reviewMobileNuumber = $('#reviewMobileNuumber').text().trim();
+	const reviewMailId = $('#reviewMailId').text().trim();
+	//const reviewCompanyName = $('#reviewCompanyName').text().trim();
+	const descriptionjobDetails = $('#descriptionjobDetails').text().trim();
+	const noOfPostition = $('#noOfPostition').text().trim();
+	const reviewLocation = $('#reviewLocation').text().trim();
+	const minexp = $('#minexp').text().trim();
+	const maxexp = $('#maxexp').text().trim();
+	const minsal = $('#minsal').text().trim();
+	const maxsal = $('#maxsal').text().trim();
+
+	const keySkillsElement = document.querySelector('.keySkillsDetails li');
+	const keySkills = keySkillsElement ? keySkillsElement.textContent.trim() : "";
+
+	// Now validate
+	if (
+		jobTittleHeading === "" &&
+		reviewMobileNuumber === "" &&
+		reviewMailId === "" &&
+		//	reviewCompanyName === "" &&
+		descriptionjobDetails === "" &&
+		noOfPostition === "" &&
+		reviewLocation === "" &&
+		keySkills === "" &&
+		minexp === "" &&
+		maxexp === "" &&
+		minsal === "" &&
+		maxsal === ""
+	) {
+		$('.jd-preview-main').hide();
+	}
+}
+
 
 /*$('#jobDescription').on('keydown', function(event) {
-        // Call your custom function here
-        allchangedescription(event);
-    });*/
+		// Call your custom function here
+		allchangedescription(event);
+	});*/

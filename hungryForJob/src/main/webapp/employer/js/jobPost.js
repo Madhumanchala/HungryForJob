@@ -411,6 +411,17 @@ function savejobPost() {
 						$(".loader").css("display", "block");
 						location.reload();
 					}, 1000);
+					var form = document.createElement('form');
+
+					form.method = 'POST';
+					form.action = '/managejobpost';
+
+					// Append the form to the document body
+					document.body.appendChild(form);
+
+					// Submit the form
+					form.submit();
+
 				} else {
 					showToast("info", "please try again");
 					setTimeout(function() {
@@ -793,7 +804,7 @@ function allChange(id) {
 $(document).ready(function() {
 	// Generate options for 1 to 30 years of experience
 	let options = '<option value="" selected>Min</option>'; // Include the placeholder option
-	for (let i = 1; i <= 25; i++) {
+	for (let i = 0; i <= 25; i++) {
 		options += `<option value="${i}">${i} yr${i > 1 ? 's' : ''}</option>`;
 	}
 

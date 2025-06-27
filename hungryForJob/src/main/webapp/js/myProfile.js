@@ -981,11 +981,16 @@ function addSkills() {
 	var years = $('#addexperienceYears').val();
 	var months = $('#addexperienceMonth').val();
 	var isValid = true;
-	if (techid == "" || techid == null) {
+	if (techid == "" || techid == null || techid == NaN) {
 		$('.addskills_error').text("Please Enter the field").css("color", "red");
 		$('.addskills_error').show();
 		isValid = false;
 	} else {
+		if (techName == "" || techName == null || techName == "Select") {
+				$('.addskills_error').text("Please Enter the field").css("color", "red");
+				$('.addskills_error').show();
+				isValid = false;
+		}
 		if (ids.includes(techName)) {
 			$('.addskills_error').text("It is already Existed").css("color", "red");
 			$('.addskills_error').show();
@@ -2247,7 +2252,13 @@ function companyMasterSave() {
 			console.log("======= company error");
 		}
 	});
+	$('#NewcompanyName').val('');
 }
+
+function clearInput(){
+	$('#NewcompanyName').val('');
+}
+
 function fetchDetailsCompanys() {
     $.ajax({
         url: "/companyFetchDetails",

@@ -439,7 +439,7 @@
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 													<div class="form-group">
-														<label for="referencecode" class="required">Reference
+														<label for="referencecode" class="">Reference
 															code</label> <input type="text" class="form-control"
 															id="referencecode" placeholder="Enter Reference code"
 															maxlength="30" value="${editjobpostdetails.reference}"

@@ -151,17 +151,28 @@
 												Created by <span>${jobdetails.createdBy}</span>
 											</p>
 											<ul class="list-group list-group-horizontal">
-												<li class="list-group me-3" data-bs-toggle="tooltip"
+												<%-- 												<li class="list-group me-3" data-bs-toggle="tooltip"
 													onclick="insertjobpost(${jobdetails.id})"
 													data-bs-placement="top" data-bs-title="Copy"><a><img
 														src="employer/img/copy.svg"> </a></li>
-												<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
-													data-bs-placement="top" data-bs-title="Edit"
-													onclick="updateJobpost(${jobdetails.id})"
-													onclick="<c:if test='${jobdetails.userId == sessionUserId}'>updateJobpost(${jobdetails.id})</c:if>"
-													style="${jobdetails.userId != sessionUserId ? 'pointer-events: none; opacity: 0.5; cursor: not-allowed;' : ''}"><a><img
-														src="employer/img/edit3.svg"> </a></li> --%>
+ --%>
+												<c:choose>
+													<c:when test="${jobdetails.jobType == 'Job'}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															onclick="insertjobpost(${jobdetails.id})"
+															data-bs-placement="top" data-bs-title="Copy"><a><img
+																src="employer/img/copy.svg"> </a></li>
+													</c:when>
+													<c:when test="${jobdetails.jobType == 'Internship'}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															onclick="insertInternshippost(${jobdetails.id})"
+															data-bs-placement="top" data-bs-title="Copy"><a><img
+																src="employer/img/copy.svg"> </a></li>
+													</c:when>
+												</c:choose>
 
+
+												<!-- ***************************** Edit job and inetrship handle for employeer and Admin ****************************************** -->
 												<c:choose>
 													<c:when test="${sessionRole == 'employeradmin'}">
 														<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
@@ -391,6 +402,24 @@
         document.body.appendChild(form);
         form.submit(); 
     }
+    
+   /*  function insertInternshippost(id)
+    {
+    	let form = document.createElement('form');
+        form.method = 'POST'; 
+        form.action = '/editInternshippost'; 
+
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+        form.appendChild(input);
+        
+        sessionStorage.setItem("jobPostName", "copyInternshippost");
+
+        document.body.appendChild(form);
+        form.submit(); 
+    } */
     
 
   </script>

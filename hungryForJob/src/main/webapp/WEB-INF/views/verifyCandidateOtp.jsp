@@ -163,7 +163,7 @@
 						
 						}else if(response.errorCode === "1010")
 						{
-							showToast("info","ot is expired");
+							showToast("info","Otp is expired");
 							
 						}else if(response.errorCode === "1111")
 						{

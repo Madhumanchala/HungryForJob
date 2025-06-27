@@ -280,9 +280,9 @@ String userId = (String) session.getAttribute("userId");
 
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
-												<label for="lastdate">Last date to apply</label> <input
-													type="text" class="form-control datepicker" id="lastdate"
-													placeholder="DD/MM/YYYY"
+												<label for="lastdate" class="required">Last date to
+													apply</label> <input type="text" class="form-control datepicker"
+													id="lastdate" placeholder="DD/MM/YYYY"
 													onchange="hideModal('internLastDate')"> <span
 													class="errors" id="internLastDate"></span>
 											</div>
@@ -382,9 +382,9 @@ String userId = (String) session.getAttribute("userId");
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 													<div class="form-group">
-														<label for="referencecode" class="required">Reference
-															code</label> <input type="text" class="form-control"
-															id="referencecode" placeholder="Enter Reference code"
+														<label for="referencecode" class="">Reference code</label>
+														<input type="text" class="form-control" id="referencecode"
+															placeholder="Enter Reference code"
 															onkeyup="hideModal('internReferenceCode_error')">
 														<span class="errors" id="internReferenceCode_error"></span>
 													</div>

@@ -420,7 +420,7 @@ String userId = (String) session.getAttribute("userId");
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
 													<div class="form-group">
-														<label for="referencecode" class="required">Reference
+														<label for="referencecode" class="">Reference
 															code</label> <input type="text" class="form-control"
 															id="refercode" placeholder="Enter Reference code"
 															onkeyup="allChange('refercode_error')"> <span
@@ -468,7 +468,7 @@ String userId = (String) session.getAttribute("userId");
 												<label for="jobdescription " class="required">Job
 													description </label>
 												<textarea class="jobDescription" name="jobDescription"
-													id="jobDescription" onkeyup="allchangedescription(this)"></textarea>
+													id="jobDescription" onkeyup="allchangedescription(this)" maxlength="5000"></textarea>
 												<small class="d-flex justify-content-end mt-2 text-black-50">Min
 													char 200 and Max char 5000.</small> <span class="errors"
 													id="jobDescription_error"></span>
@@ -595,7 +595,7 @@ String userId = (String) session.getAttribute("userId");
 																Company </label>
 															<textarea class="form-control" id="aboutCompany"
 																placeholder="Enter about company "
-																onkeyup="allChange('aboutCompany_error')" maxlength="30"> </textarea>
+																onkeyup="allChange('aboutCompany_error')" maxlength="300"> </textarea>
 															<span class="errors" id="aboutCompany_error"></span>
 														</div>
 													</div>
@@ -613,7 +613,8 @@ String userId = (String) session.getAttribute("userId");
 															<label for="Telephone" class="required">Telephone
 															</label> <input type="text" class="form-control" id="Telephone"
 																placeholder="Enter Telephone"
-																onkeyup="changeTelephone()" maxlength="10"> <span
+																onkeyup="changeTelephone()" maxlength="10"
+																oninput="this.value = this.value.replace(/[^0-9]/g, '')"> <span
 																class="errors" id="Telephone_error"></span>
 														</div>
 													</div>

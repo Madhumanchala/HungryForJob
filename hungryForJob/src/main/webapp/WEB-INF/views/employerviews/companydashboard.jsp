@@ -29,17 +29,17 @@
 		<img src="employer/img/loader.gif">
 	</div>
 	<%
-String role=session.getAttribute("rolestatus").toString();
-		if(role.equals("employeradmin") || role.equals("admin"))
-		{
-%>
+	String role = session.getAttribute("rolestatus").toString();
+	if (role.equals("employeradmin") || role.equals("admin")) {
+	%>
 	<%@include file="employerheader1.jsp"%>
-<%
-		}
-		else{
-%>
-<%@include file="employerheader2.jsp"%>
-<%} %>
+	<%
+	} else {
+	%>
+	<%@include file="employerheader2.jsp"%>
+	<%
+	}
+	%>
 	<%@include file="toaster.jsp"%>
 	<main id="main">
 		<section class="section-inner advancedsearch-section">
@@ -93,7 +93,8 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="d-flex justify-content-between">
 								<h3>Company details</h3>
 								<button class="edit-profile-button" data-bs-toggle="modal"
-									data-bs-target="#Company-details-edit" onclick="EditcompanyDetails()">
+									data-bs-target="#Company-details-edit"
+									onclick="EditcompanyDetails()">
 									<i class="bi bi-pencil"></i> Edit
 								</button>
 							</div>
@@ -155,7 +156,8 @@ String role=session.getAttribute("rolestatus").toString();
 							<div class="d-flex justify-content-between">
 								<h3>KYC Compliance details</h3>
 								<button class="edit-profile-button" data-bs-toggle="modal"
-									data-bs-target="#KYC-Compliance-details" onclick="kycdetailsdetails()">
+									data-bs-target="#KYC-Compliance-details"
+									onclick="kycdetailsdetails()">
 									<i class="bi bi-pencil"></i> Edit
 								</button>
 							</div>
@@ -250,18 +252,20 @@ String role=session.getAttribute("rolestatus").toString();
 					<div class="row">
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">User Name</label> <input
+								<label for="" class="form-label required">User Name</label> <input
 									type="text" name="" id="editUserName" class="form-control"
-									placeholder="Enter" maxlength="30" onkeyup="checkname(this,'editUserName_error')"> <span
+									placeholder="Enter" maxlength="30"
+									onkeyup="checkname(this,'editUserName_error')"> <span
 									class="errors" id="editUserName_error"></span>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">Email for Communication</label>
-								<input type="text" name="" id="editEmailForComunuication"
-									class="form-control" placeholder="Enter"> <span
-									class="errors" id="editEmailCommunication_error"></span>
+								<label for="" class="form-label required">Email for
+									Communication</label> <input type="text" name=""
+									id="editEmailForComunuication" class="form-control"
+									placeholder="Enter"> <span class="errors"
+									id="editEmailCommunication_error"></span>
 							</div>
 						</div>
 						<!-- <div class="col-lg-4 col-md-4">
@@ -278,10 +282,12 @@ String role=session.getAttribute("rolestatus").toString();
             </div> -->
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">Mobile Number</label> <input
-									type="text" name="" id="editMobileNumber" class="form-control" maxlength="10"
-									placeholder="Enter"> <span class="errors" 
-									id="editMobileNo_error"></span>
+								<label for="" class="form-label required">Mobile Number</label>
+								<input type="text" name="" id="editMobileNumber"
+									class="form-control" maxlength="10"
+									placeholder="Enter Mobile Number"
+									oninput="validateMobileNumber(this)"> <span
+									class="errors" id="editMobileNo_error"></span>
 							</div>
 						</div>
 
@@ -318,14 +324,14 @@ String role=session.getAttribute("rolestatus").toString();
             </div> -->
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">Industry Type </label> <select
-									class="form-control selet2Single" id="industryDetails" style="width:100%">
+								<label for="" class="form-label required">Industry Type
+								</label> <select class="form-control selet2Single" id="industryDetails"
+									style="width: 100%">
 									<option value="">Select</option>
 									<c:forEach items="${industryDetails}" var="industryDetails">
 										<option value="${industryDetails.id}">${industryDetails.name}</option>
 									</c:forEach>
-								</select>
-								<span class="errors" id="editindustrytype_error"></span>
+								</select> <span class="errors" id="editindustrytype_error"></span>
 								<!--                 <input type="text" name="" id="" class="form-control" placeholder="Enter" value="Corporate House">
  -->
 							</div>
@@ -363,10 +369,10 @@ String role=session.getAttribute("rolestatus").toString();
             </div> -->
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">Phone Number </label> <input
-									type="text" name="" id="editphonenumber" class="form-control"
-									placeholder="Enter" maxlength="10">
-							<span class="errors" id="editphonenumber_error"></span>
+								<label for="" class="form-label required">Phone Number </label>
+								<input type="text" name="" id="editphonenumber"
+									class="form-control" placeholder="Enter" maxlength="10">
+								<span class="errors" id="editphonenumber_error"></span>
 							</div>
 						</div>
 						<!--  <div class="col-lg-4 col-md-4">
@@ -408,7 +414,7 @@ String role=session.getAttribute("rolestatus").toString();
 					<h5 class="modal-title" id="exampleModalLabel">Edit KYC
 						Compliance Details</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+						aria-label="Close" onclick="clearInput()"></button>
 				</div>
 				<div class="modal-body pe-4 ps-4 py-4">
 					<div class="row">
@@ -442,10 +448,10 @@ String role=session.getAttribute("rolestatus").toString();
 						</div> -->
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">Address </label> <input
-									type="text" name="editaddress" id="editaddress" class="form-control"
-									placeholder="Enter" maxlength="40">
-									<span class="errors" id="editaddress_error"></span>
+								<label for="" class="form-label required">Address </label> <input
+									type="text" name="editaddress" id="editaddress"
+									class="form-control" placeholder="Enter" maxlength="40">
+								<span class="errors" id="editaddress_error"></span>
 							</div>
 						</div>
 						<!-- <div class="col-lg-4 col-md-4">
@@ -457,42 +463,45 @@ String role=session.getAttribute("rolestatus").toString();
 						</div> -->
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">State</label> <input
-									type="text" name="editstate" id="editstate" class="form-control"
-									placeholder="Enter" disabled="disabled">
-									<span class="errors" id="editstate_error"></span>
+								<label for="" class="form-label required">State</label> <input
+									type="text" name="editstate" id="editstate"
+									class="form-control" placeholder="Enter" disabled="disabled">
+								<span class="errors" id="editstate_error"></span>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4" id="currentlocationModal">
 							<div class="form-group">
-								<label for="" class="form-label">City</label>
+								<label for="" class="form-label required">City</label>
 							</div>
-							<div class="cityclass" style="margin-top:-16px">
-							<span class="errors" id="editcity_error"></span>
-							</div>
-						</div>
-						
-						<div class="col-lg-4 col-md-4">
-							<div class="form-group">
-								<label for="" class="form-label">Pin Code </label> <input
-									type="text" name="editpincode" id="editpincode" class="form-control"
-									placeholder="Enter" onchange="editpincodechange()" maxlength="6" >
-									<span class="errors" id="editpincode_error"></span>
+							<div class="cityclass" style="margin-top: -16px">
+								<span class="errors" id="editcity_error"></span>
 							</div>
 						</div>
+
 						<div class="col-lg-4 col-md-4">
 							<div class="form-group">
-								<label for="" class="form-label">GSTIN</label> <input
+								<label for="" class="form-label required">Pin Code </label> <input
+									type="text" name="editpincode" id="editpincode"
+									class="form-control" placeholder="Enter"
+									onchange="editpincodechange()" maxlength="6"> <span
+									class="errors" id="editpincode_error"></span>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-4">
+							<div class="form-group">
+								<label for="" class="form-label required">GSTIN</label> <input
 									type="text" name="editgst" id="editgst" class="form-control"
-									placeholder="Enter" maxlength="15" onkeyup="checkgst(this,'editgst_error')">
-								<span class="errors" id="editgst_error"></span>
+									placeholder="Enter" maxlength="15"
+									onkeyup="checkgst(this,'editgst_error')"> <span
+									class="errors" id="editgst_error"></span>
 							</div>
 						</div>
 					</div>
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn" data-bs-dismiss="modal"
+						onclick="clearInput()">Cancel</button>
 					<button type="button" class="btns" onclick="updatekycdetails()">Update</button>
 				</div>
 

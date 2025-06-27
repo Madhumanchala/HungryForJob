@@ -402,7 +402,7 @@ function updatekycdetails()
 		$("#editcity_error").show();
 	}else
 	{
-		$("#editcity_error").text("Enter the city");
+		$("#editcity_error").text("");
 		$("#editcity_error").hide();
 	}
 	validpincode(pincode).then((message)=>{
@@ -456,4 +456,23 @@ function updatekycdetails()
 				}
 		});
 	
-} 
+}
+ function validateMobileNumber(input) {
+    input.value = input.value.replace(/\D/g, '');
+
+    // Allow only if it starts with 9, 8, 7, or 6
+    if (input.value.length > 0 && !/^[6-9]/.test(input.value)) {
+      input.value = '';
+      $('#editMobileNo_error').text('Mobile number must start with 6, 7, 8, or 9');
+    }else{
+		 $('#editMobileNo_error').text('');
+	}
+  } 
+  
+  function clearInput(){
+	$('#editaddress_error').text('');
+	$('#editstate_error').text('');
+	$('#editcity_error').text('');
+	$('#editpincode_error').text('');
+	$('#editgst_error').text('');
+}

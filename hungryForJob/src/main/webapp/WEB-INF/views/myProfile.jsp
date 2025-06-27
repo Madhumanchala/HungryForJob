@@ -1,8 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String candidateId = (String) session.getAttribute("candidateId");
 int currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-String year= (String) session.getAttribute("year");
+String year = (String) session.getAttribute("year");
 int yearInt = Integer.parseInt(year);
 %>
 <!DOCTYPE html>
@@ -182,7 +182,7 @@ int yearInt = Integer.parseInt(year);
 													<h5>${emloyementDetails.jobTittle}</h5>
 												</div>
 												<div class="col-lg-4 col-md-4 col-sm-4 col-9 ">
-													<p>Start / End Date </p>
+													<p>Start / End Date</p>
 													<c:choose>
 														<c:when
 															test="${emloyementDetails.workingStatus eq 'Active'}">
@@ -259,7 +259,7 @@ int yearInt = Integer.parseInt(year);
 													<h5>${skills.techName}</h5>
 												</div>
 												<div class="col-lg-7 col-md-4 col-sm-3 col-3">
-													<h5>${skills.years}.${skills.months} Yrs</h5>
+													<h5>${skills.years}.${skills.months}Yrs</h5>
 												</div>
 
 												<div class="col-lg-1 col-md-2 col-sm-1 col-3 ">
@@ -311,14 +311,14 @@ int yearInt = Integer.parseInt(year);
 											<p>Work Status</p>
 											<h5 id="personalWorkStatus">${personalDetails.work_status}</h5>
 										</div>
-										 <div class="col-lg-4 col-md-6 col-sm-6">
-												<p>State</p>
-												<h5 id="stateFetch">${careerDetails.state}</h5>
-											</div> 
-											 <div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Current Location</p>
-												<h5 id="cityLocation">${careerDetails.city}</h5>
-											</div> 
+										<div class="col-lg-4 col-md-6 col-sm-6">
+											<p>State</p>
+											<h5 id="stateFetch">${careerDetails.state}</h5>
+										</div>
+										<div class="col-lg-4 col-md-6 col-sm-6">
+											<p>Current Location</p>
+											<h5 id="cityLocation">${careerDetails.city}</h5>
+										</div>
 
 									</div>
 								</div>
@@ -347,7 +347,7 @@ int yearInt = Integer.parseInt(year);
 											<div class="col-lg-4 col-md-6 col-sm-6">
 												<p>Total Experience</p>
 												<h5 id="totalExpfetch">${careerDetails.totalExperience}
-													</h5>
+												</h5>
 											</div>
 											<div class="col-lg-4 col-md-6 col-sm-6">
 												<p>Serving Notice Period</p>
@@ -433,7 +433,8 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="Name" class="form-label required">Name </label> <input
 									type="text" name="Name" id="Name" class="form-control"
-									placeholder="Enter Name" maxlength="40" onkeyup="checkname(this)" ><span
+									placeholder="Enter Name" maxlength="40"
+									onkeyup="checkname(this)"><span
 									class="name_error errorfield"></span>
 							</div>
 						</div>
@@ -477,7 +478,7 @@ int yearInt = Integer.parseInt(year);
 								<span class="workStatus_error errorfield"></span>
 							</div>
 						</div>
-						 <div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="editpincode" class="form-label">Pincode</label> <input
 									type="text" name="editpincode" id="editpincode"
@@ -486,7 +487,7 @@ int yearInt = Integer.parseInt(year);
 									class="editpincode_error errorfield"></span>
 							</div>
 						</div>
-						 <div class="col-lg-6 col-md-6 col-sm-12">
+						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 								<label for="editstate" class="form-label">State</label> <input
 									type="text" name="editstate" id="editstate"
@@ -494,15 +495,15 @@ int yearInt = Integer.parseInt(year);
 									disabled="disabled"> <span
 									class="editstate_error errorfield"></span>
 							</div>
-						</div> 
-						 <div class="col-lg-6 col-md-6 col-sm-12" id="currentlocationModal">
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12" id="currentlocationModal">
 							<div class="form-group">
 								<label for="editcurrentlocation" class="form-label">Current
 									Location</label> <span class="editcurrentlocation_error errorfield"></span>
 							</div>
 						</div>
-						
-						
+
+
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -653,7 +654,7 @@ int yearInt = Integer.parseInt(year);
 									onchange="companyChange(this)" required>
 
 								</select>
-									 <!-- <input type="text" name="companyName" id="companyName"
+								<!-- <input type="text" name="companyName" id="companyName"
 									class="form-control" placeholder="Enter Company Name"> -->
 								<span class="companyName_error errorfield"></span>
 							</div>
@@ -686,7 +687,8 @@ int yearInt = Integer.parseInt(year);
 							<div class="form-group">
 								<label for="startMonth" class="form-label required">Start
 									Month </label> <select class="selet2Single form-control"
-									id="startMonth" name="startMonth" style="width: 100%" onchange="updateStartMonth(this.value)" required>
+									id="startMonth" name="startMonth" style="width: 100%"
+									onchange="updateStartMonth(this.value)" required>
 									<option value="" disabled selected>Select</option>
 								</select> <span class="startMonth_error errorfield"></span>
 							</div>
@@ -715,8 +717,8 @@ int yearInt = Integer.parseInt(year);
 							</div>
 
 						</div>
-						
-						
+
+
 
 					</div>
 					<div class="col-lg-12" id="addemploymentdetailcurrentlyadded">
@@ -756,8 +758,8 @@ int yearInt = Integer.parseInt(year);
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="addskills" class="form-label">Skills</label> <select
-									name="addskills" id="addskills"
+								<label for="addskills" class="form-label required">Skills</label>
+								<select name="addskills" id="addskills"
 									class="form-control selet2Single" style="width: 100%;">
 									<option disabled selected>Select</option>
 								</select> <span class="addskills_error errorfield"></span>
@@ -765,7 +767,7 @@ int yearInt = Integer.parseInt(year);
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="addexperienceYears" class="form-label">Years</label>
+								<label for="addexperienceYears" class="form-label required">Years</label>
 								<select name="addexperienceYears" id="addexperienceYears"
 									class="form-control selet2Single" style="width: 100%;">
 									<option disabled selected>Select</option>
@@ -774,7 +776,7 @@ int yearInt = Integer.parseInt(year);
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
-								<label for="addexperienceMonth" class="form-label">Month</label>
+								<label for="addexperienceMonth" class="form-label required">Month</label>
 								<select name="addexperienceMonth" id="addexperienceMonth"
 									class="form-control selet2Single" style="width: 100%;">
 									<option disabled selected>Select</option>
@@ -862,7 +864,8 @@ int yearInt = Integer.parseInt(year);
 								<label for="editcompanyName" class="form-label required">Company
 									Name</label> <select class="selet2Single form-control editcompanyName"
 									name="editcompanyName" id="editcompanyName"
-									placeholder="Enter Company Name" style="width: 100%" onchange="companyChange(this)" required>
+									placeholder="Enter Company Name" style="width: 100%"
+									onchange="companyChange(this)" required>
 								</select>
 								<!-- input type="text" name="editcompanyName"
 									id="editcompanyName" class="form-control"
@@ -899,7 +902,7 @@ int yearInt = Integer.parseInt(year);
 								</select> <span class="editstartMonth_error errorfield"></span>
 							</div>
 						</div>
-						
+
 						<div class="row" id="employmentdetailshide">
 							<div class="col-lg-6 col-md-6 col-sm-12">
 								<div class="form-group">
@@ -1073,7 +1076,7 @@ int yearInt = Integer.parseInt(year);
 										</span> </label>
 									</div>
 								</div>
-								<span class="editRelocate_error errorfield" style="color:red"></span>
+								<span class="editRelocate_error errorfield" style="color: red"></span>
 							</div>
 						</div>
 
@@ -1163,7 +1166,8 @@ int yearInt = Integer.parseInt(year);
 									Location</label>
 							</div>
 						</div> -->
-						<div class="col-lg-6 col-md-6 col-sm-12" id="showHidePerferedLocation">
+						<div class="col-lg-6 col-md-6 col-sm-12"
+							id="showHidePerferedLocation">
 							<div class="form-group preferdLocation">
 								<label for="editpreferredlocation" class="form-label">Preferred
 									Work Location</label> <select name="editpreferredlocation"
@@ -1174,14 +1178,14 @@ int yearInt = Integer.parseInt(year);
 							</div>
 						</div>
 						<div class="form-group">
-   							<label for="resumeHeadline">Resume Headline</label>
-    						<textarea class="form-control" id="resumeHeadline" rows="3"></textarea>
-  						</div>
+							<label for="resumeHeadline">Resume Headline</label>
+							<textarea class="form-control" id="resumeHeadline" rows="3"></textarea>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btns" onclick="updateCareerDetails()" >Submit</button>
+					<button type="button" class="btns" onclick="updateCareerDetails()">Submit</button>
 				</div>
 
 			</div>
@@ -1195,7 +1199,7 @@ int yearInt = Integer.parseInt(year);
 					<h5 class="modal-title" id="exampleModalLabel">Add Company
 						Name</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
+						aria-label="Close" onclick="clearInput()"></button>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -1212,7 +1216,8 @@ int yearInt = Integer.parseInt(year);
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btn" data-bs-dismiss="modal"
+						onclick="clearInput()">Cancel</button>
 					<button type="button" class="btns" onclick="companyMasterSave()">Submit</button>
 				</div>
 

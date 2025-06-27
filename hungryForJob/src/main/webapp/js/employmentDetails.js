@@ -1,30 +1,30 @@
 $(document).on('click', '.addSection', function() {
-	    if ($('.workContainer').length < 5) {
-	      $('.workContainer select').each(function() {
-	            if ($(this).data('select2')) {
-	                $(this).select2('destroy');
-	            }
-	        });
-	      var newSection = $('.workContainer').first().clone(); // Clone the first work section
-	      
-	      newSection.find('input[type="text"], input[type="date"]').val(''); // Clear input values
-	      newSection.find('select').val(''); // Clear select value
-	      newSection.find('select').each(function() {
-	          var oldId = $(this).attr('id');
-	          var newId = oldId + '_' + ($('.workContainer').length + 1);
-	          $(this).attr('id', newId);
-	      });
-	      newSection.appendTo('#workContainerParent'); // Append the cloned section to the container
-	      $('.workContainer select').select2();
-	      updateButtons(); // Update the visibility of + and - buttons
-	    }
-	    else{
-	      $(".maximum_skills_error").text("You can add upto 5 skills");
-	      $(".maximum_skills_error").show();
-	      $(".maximum_skills_error").fadeOut(4000);
-	      return false;
-	    }
-	   nextContainer.call(this);
+	if ($('.workContainer').length < 5) {
+		$('.workContainer select').each(function() {
+			if ($(this).data('select2')) {
+				$(this).select2('destroy');
+			}
+		});
+		var newSection = $('.workContainer').first().clone(); // Clone the first work section
+
+		newSection.find('input[type="text"], input[type="date"]').val(''); // Clear input values
+		newSection.find('select').val(''); // Clear select value
+		newSection.find('select').each(function() {
+			var oldId = $(this).attr('id');
+			var newId = oldId + '_' + ($('.workContainer').length + 1);
+			$(this).attr('id', newId);
+		});
+		newSection.appendTo('#workContainerParent'); // Append the cloned section to the container
+		$('.workContainer select').select2();
+		updateButtons(); // Update the visibility of + and - buttons
+	}
+	else {
+		$(".maximum_skills_error").text("You can add upto 5 skills");
+		$(".maximum_skills_error").show();
+		$(".maximum_skills_error").fadeOut(4000);
+		return false;
+	}
+	nextContainer.call(this);
 });
 
 /*$(document).on('click', '.addSection', function() {
@@ -216,18 +216,17 @@ $("#employmentRegisterSubmit").click(function() {
 			isValid = false;
 		}
 
-		if(!currentworking)
-		{
+		if (!currentworking) {
 			if (!jobEndYear) {
-			$(this).find(".end_year_error").text("Please select Year");
-			$(this).find(".end_year_error").show();
-			$(this).find(".end_year_error").fadeOut(4000);
-			isValid = false;
+				$(this).find(".end_year_error").text("Please select Year");
+				$(this).find(".end_year_error").show();
+				$(this).find(".end_year_error").fadeOut(4000);
+				isValid = false;
+
+			}
 
 		}
-			
-		}
-		
+
 
 		if (!jobStartMonth) {
 			$(this).find(".start_month_error").text("Please select month name");
@@ -236,18 +235,17 @@ $("#employmentRegisterSubmit").click(function() {
 			isValid = false;
 
 		}
-		
-		if(!currentworking)
-		{
+
+		if (!currentworking) {
 			if (!jobEndMonth) {
-			$(this).find(".end_month_error").text("Please select month name");
-			$(this).find(".end_month_error").show();
-			$(this).find(".end_month_error").fadeOut(4000);
-			isValid = false;
+				$(this).find(".end_month_error").text("Please select month name");
+				$(this).find(".end_month_error").show();
+				$(this).find(".end_month_error").fadeOut(4000);
+				isValid = false;
 
 			}
 		}
-		
+
 
 		const monthValues = {
 			"January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
@@ -287,7 +285,7 @@ $("#employmentRegisterSubmit").click(function() {
 				startMonth: jobStartMonth,
 				lastYear: jobEndYear,
 				lastMonth: jobEndMonth,
-				currentlyWorking:currentworking
+				currentlyWorking: currentworking
 			});
 		});
 
@@ -313,7 +311,7 @@ $("#employmentRegisterSubmit").click(function() {
 				}
 				else {
 					$(".loader").hide();
-					showToast("info","Failed in response");
+					showToast("info", "Failed in response");
 				}
 			},
 			error: function(xhr, status, error) {
@@ -325,18 +323,18 @@ $("#employmentRegisterSubmit").click(function() {
 	}
 });
 function companyChange(selectElement) {
-    let selectedValue = $(selectElement).val(); // Get the selected value from the element
+	let selectedValue = $(selectElement).val(); // Get the selected value from the element
 
-    if (selectedValue == "others") {
-        // Open the modal
-        $('#otherAddModal').modal('show');
-        
-        // Reset the select element's value to an empty string and trigger change
-        $(selectElement).val("").trigger("change");
-    } else {
-        // Hide the modal if the value is not "others"
-        $('#otherAddModal').modal('hide');
-    }
+	if (selectedValue == "others") {
+		// Open the modal
+		$('#otherAddModal').modal('show');
+
+		// Reset the select element's value to an empty string and trigger change
+		$(selectElement).val("").trigger("change");
+	} else {
+		// Hide the modal if the value is not "others"
+		$('#otherAddModal').modal('hide');
+	}
 }
 function fetchDetailsCompany() {
 	$.ajax({
@@ -372,7 +370,7 @@ function companyMasterSave() {
 		}),
 		success: function(response) {
 			$('#otherAddModal').modal('hide');
-			showToast("success",response.errors.errorMessage);
+			showToast("success", response.errors.errorMessage);
 			fetchDetailsCompanys();
 			$(".loader").hide();
 		},
@@ -381,53 +379,57 @@ function companyMasterSave() {
 			console.log("======= company error");
 		}
 	});
+	$('#NewcompanyName').val('');
 }
 
+function clearInput(){
+	$('#NewcompanyName').val('');
+}
 function fetchDetailsCompanys() {
-    var options = [];
-    $.ajax({
-        url: "/companyFetchDetails",
-        method: 'POST',
-        success: function(response) {
-            var data = response.data.fetchCompany;
-            // Build the array of options first, using objects
-            data.forEach(function(company) {
-                options.push({
-                    id: company.id,
-                    name: company.name
-                });
-            });
+	var options = [];
+	$.ajax({
+		url: "/companyFetchDetails",
+		method: 'POST',
+		success: function(response) {
+			var data = response.data.fetchCompany;
+			// Build the array of options first, using objects
+			data.forEach(function(company) {
+				options.push({
+					id: company.id,
+					name: company.name
+				});
+			});
 
-            // Now append the options to each .job_company select element
-            $('.workContainer').each(function(index) {
-                const selectElement = $(this).find('select[name="job_company"]');
-                const selectedCompany = selectElement.val();
+			// Now append the options to each .job_company select element
+			$('.workContainer').each(function(index) {
+				const selectElement = $(this).find('select[name="job_company"]');
+				const selectedCompany = selectElement.val();
 
-                // Empty the select element before appending options
-                selectElement.empty();
+				// Empty the select element before appending options
+				selectElement.empty();
 
-                // Add a default "Select" option if needed
-                selectElement.append($('<option></option>').val("").text("Select"));
+				// Add a default "Select" option if needed
+				selectElement.append($('<option></option>').val("").text("Select"));
 
-                // Append the options from the data
-                options.forEach(function(option) {
-                    selectElement.append(
-                        $('<option></option>').val(option.id).text(option.name)
-                    );
-                });
-				
-				 selectElement.append($('<option></option>').val("others").text("others"));
-                // Set the selected value if it's already present in the dropdown
-                if (selectedCompany) {
-                    selectElement.val(selectedCompany).trigger('change');
-                }
-            });
-        },
-        error: function(xhr, status, error) {
-            console.log("======= company error"+error);
-        }
-    });
-    $(".loader").hide();
+				// Append the options from the data
+				options.forEach(function(option) {
+					selectElement.append(
+						$('<option></option>').val(option.id).text(option.name)
+					);
+				});
+
+				selectElement.append($('<option></option>').val("others").text("others"));
+				// Set the selected value if it's already present in the dropdown
+				if (selectedCompany) {
+					selectElement.val(selectedCompany).trigger('change');
+				}
+			});
+		},
+		error: function(xhr, status, error) {
+			console.log("======= company error" + error);
+		}
+	});
+	$(".loader").hide();
 }
 
 
@@ -457,120 +459,107 @@ $(document).ready(function() {
 
 }*/
 const months = {
-    1: "January", 
-    2: "February", 
-    3: "March", 
-    4: "April", 
-    5: "May", 
-    6: "June", 
-    7: "July", 
-    8: "August", 
-    9: "September", 
-    10: "October", 
-    11: "November", 
-    12: "December"
+	1: "January",
+	2: "February",
+	3: "March",
+	4: "April",
+	5: "May",
+	6: "June",
+	7: "July",
+	8: "August",
+	9: "September",
+	10: "October",
+	11: "November",
+	12: "December"
 };
 const reversedMonths = Object.fromEntries(
-    Object.entries(months).map(([key, value]) => [value, Number(key)])
+	Object.entries(months).map(([key, value]) => [value, Number(key)])
 );
-function updatestartyear(element)
-{
+function updatestartyear(element) {
 	var workContainer = $(element).closest('.workContainer');
 	var prevContainer = workContainer.prev('.workContainer');
 	const currentdate = new Date();
 	const currentMonth = currentdate.getMonth() + 1;
 	var currentYear = new Date().getFullYear();
 	const currentYearString = currentYear.toString();
-		var jobStartYearDropdown = workContainer.find(".jobStartYear");
-		var jobStartMonthDropdown = workContainer.find(".jobStartMonth");
-		var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
-		var jobEndYearDropdown = workContainer.find('.jobEndYear');
-	var addsection=workContainer.find('.addSection');
+	var jobStartYearDropdown = workContainer.find(".jobStartYear");
+	var jobStartMonthDropdown = workContainer.find(".jobStartMonth");
+	var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
+	var jobEndYearDropdown = workContainer.find('.jobEndYear');
+	var addsection = workContainer.find('.addSection');
 	addsection.show();
-	if(prevContainer.length)
-	{
-		var preventEndyear=prevContainer.find(".jobEndYear");
-		var preventEndmonth=prevContainer.find(".jobEndMonth");
+	if (prevContainer.length) {
+		var preventEndyear = prevContainer.find(".jobEndYear");
+		var preventEndmonth = prevContainer.find(".jobEndMonth");
 		var jobEndYearDropdown = workContainer.find('.jobEndYear');
-		var selectedStartYear = jobStartYearDropdown.val(); 
-		const Endyear=preventEndyear.val();
-		const EndMonth=preventEndmonth.val();
-		if(selectedStartYear === currentYearString)
-		{
-			var addsection=workContainer.find('.addSection');
+		var selectedStartYear = jobStartYearDropdown.val();
+		const Endyear = preventEndyear.val();
+		const EndMonth = preventEndmonth.val();
+		if (selectedStartYear === currentYearString) {
+			var addsection = workContainer.find('.addSection');
 			addsection.hide();
 			workContainer.nextAll('.workContainer').remove();
-			var jobStartMonthDropdown=workContainer.find('.jobStartMonth');
-			var jobStartYearDropdown=workContainer.find('.jobStartYear');
-			var jobEndYearDropdown=workContainer.find('.jobEndYear');
-			var jobEndMonthDropdown=workContainer.find('.jobEndMonth');
+			var jobStartMonthDropdown = workContainer.find('.jobStartMonth');
+			var jobStartYearDropdown = workContainer.find('.jobStartYear');
+			var jobEndYearDropdown = workContainer.find('.jobEndYear');
+			var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 			jobEndYearDropdown.empty();
 			jobStartMonthDropdown.empty();
 			jobEndMonthDropdown.empty();
 			jobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndYearDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=1;year<=currentMonth;year++)
-			{
+			for (var year = 1; year <= currentMonth; year++) {
 				jobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			for(var year=selectedStartYear;year<=currentYear;year++)
-			{
-				jobEndYearDropdown.append('<option value="'+year+'">'+ year + '</option');
+			for (var year = selectedStartYear; year <= currentYear; year++) {
+				jobEndYearDropdown.append('<option value="' + year + '">' + year + '</option');
 			}
-			
-		}else if(Endyear === selectedStartYear)
-		{
-			var jobStartMonthDropdown=workContainer.find('.jobStartMonth');
-			var jobStartYearDropdown=workContainer.find('.jobStartYear');
-			var jobEndYearDropdown=workContainer.find('.jobEndYear');
-			var jobEndMonthDropdown=workContainer.find('.jobEndMonth');
+
+		} else if (Endyear === selectedStartYear) {
+			var jobStartMonthDropdown = workContainer.find('.jobStartMonth');
+			var jobStartYearDropdown = workContainer.find('.jobStartYear');
+			var jobEndYearDropdown = workContainer.find('.jobEndYear');
+			var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 			jobEndYearDropdown.empty();
 			jobStartMonthDropdown.empty();
 			jobEndMonthDropdown.empty();
 			jobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndYearDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=reversedMonths[EndMonth];year<=12;year++)
-			{
+			for (var year = reversedMonths[EndMonth]; year <= 12; year++) {
 				jobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			for(var year=Endyear;year<=currentYear;year++)
-			{
-				jobEndYearDropdown.append('<option value="'+year+'">'+ year + '</option');
+			for (var year = Endyear; year <= currentYear; year++) {
+				jobEndYearDropdown.append('<option value="' + year + '">' + year + '</option');
 			}
 		}
-		else
-		{
-			var jobStartMonthDropdown=workContainer.find('.jobStartMonth');
-			var jobStartYearDropdown=workContainer.find('.jobStartYear');
-			var jobEndYearDropdown=workContainer.find('.jobEndYear');
-			var jobEndMonthDropdown=workContainer.find('.jobEndMonth');
+		else {
+			var jobStartMonthDropdown = workContainer.find('.jobStartMonth');
+			var jobStartYearDropdown = workContainer.find('.jobStartYear');
+			var jobEndYearDropdown = workContainer.find('.jobEndYear');
+			var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 			jobEndYearDropdown.empty();
 			jobStartMonthDropdown.empty();
 			jobEndMonthDropdown.empty();
 			jobEndYearDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=1;year<=12;year++)
-			{
+			for (var year = 1; year <= 12; year++) {
 				jobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			for(var year=selectedStartYear;year<=currentYear;year++)
-			{
-				jobEndYearDropdown.append('<option value="'+year+'">'+ year + '</option');
+			for (var year = selectedStartYear; year <= currentYear; year++) {
+				jobEndYearDropdown.append('<option value="' + year + '">' + year + '</option');
 			}
 		}
-	}else
-	{
-		var selectedStartYear = jobStartYearDropdown.val(); 
-		var selectedStartMonth=jobStartMonthDropdown.val();
-		var selectedEndYear=jobEndYearDropdown.val();
-		var selectedEndMonth=jobEndMonthDropdown.val();
-		
-		if(currentYearString === selectedStartYear)
-		{
-			var addsection=workContainer.find('.addSection');
+	} else {
+		var selectedStartYear = jobStartYearDropdown.val();
+		var selectedStartMonth = jobStartMonthDropdown.val();
+		var selectedEndYear = jobEndYearDropdown.val();
+		var selectedEndMonth = jobEndMonthDropdown.val();
+
+		if (currentYearString === selectedStartYear) {
+			var addsection = workContainer.find('.addSection');
 			addsection.hide();
 			workContainer.nextAll('.workContainer').remove();
 			jobStartMonthDropdown.empty();
@@ -579,38 +568,32 @@ function updatestartyear(element)
 			jobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndYearDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=1;year<=currentMonth;year++)
-			{
+			for (var year = 1; year <= currentMonth; year++) {
 				jobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			for(var year=selectedStartYear;year<=currentYear;year++)
-			{
-				jobEndYearDropdown.append('<option value="'+year+'">' + year + '</option>');
+			for (var year = selectedStartYear; year <= currentYear; year++) {
+				jobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>');
 			}
-		}else
-		{
+		} else {
 			jobStartMonthDropdown.empty();
 			jobEndMonthDropdown.empty();
 			jobEndYearDropdown.empty();
 			jobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
 			jobEndYearDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=1;year<=12;year++)
-			{
+			for (var year = 1; year <= 12; year++) {
 				jobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			for(var year=selectedStartYear;year<=currentYear;year++)
-			{
-				jobEndYearDropdown.append('<option value="'+year+'">' + year + '</option>');
+			for (var year = selectedStartYear; year <= currentYear; year++) {
+				jobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>');
 			}
 		}
 	}
 }
 
-function updatejobEndYear(element)
-{
+function updatejobEndYear(element) {
 	var workContainer = $(element).closest('.workContainer');
 	var nextContainer = workContainer.next('.workContainer');
 	var prevContainer = workContainer.prev('.workContainer');
@@ -618,31 +601,29 @@ function updatejobEndYear(element)
 	const currentYearString = currentYear.toString();
 	const currentdate = new Date();
 	const currentMonth = currentdate.getMonth() + 1;
-	var addsection=workContainer.find('.addSection');
+	var addsection = workContainer.find('.addSection');
 	addsection.show();
-	
-	if(nextContainer.length)
-	{
+
+	if (nextContainer.length) {
 		var jobEndYearDropdown = workContainer.find('.jobEndYear');
-		var jobEndMonthDropdown =workContainer.find('.jobEndMonth');
+		var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 		var jobStartYearDropdown = workContainer.find('.jobStartYear');
-		var prevjobEndyear=prevContainer.find('.jobEndYear');
-		var prevEndYear=prevjobEndyear.val();
-		
-		const endyear=jobEndYearDropdown.val();
-		const startyear=jobStartYearDropdown.val();
-		const endmonth=jobEndMonthDropdown.val();
-		
-		if(endyear === currentYearString)
-		{
-			var addsection=workContainer.find('.addSection');
+		var prevjobEndyear = prevContainer.find('.jobEndYear');
+		var prevEndYear = prevjobEndyear.val();
+
+		const endyear = jobEndYearDropdown.val();
+		const startyear = jobStartYearDropdown.val();
+		const endmonth = jobEndMonthDropdown.val();
+
+		if (endyear === currentYearString) {
+			var addsection = workContainer.find('.addSection');
 			addsection.hide();
 			workContainer.nextAll('.workContainer').remove();
-			var nextjobStartYearDropdown=nextContainer.find('.jobStartYear');
-			var nextJobStartMonthDropdown=nextContainer.find('.jobStartMonth');
+			var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
+			var nextJobStartMonthDropdown = nextContainer.find('.jobStartMonth');
 			var nextjobEndYearDropdown = nextContainer.find('.jobEndYear');
-			var nextJobEndMonthDropdown=nextContainer.find('.jobEndMonth');
-			
+			var nextJobEndMonthDropdown = nextContainer.find('.jobEndMonth');
+
 			jobEndMonthDropdown.empty();
 			nextjobStartYearDropdown.empty();
 			nextjobEndYearDropdown.empty();
@@ -653,26 +634,23 @@ function updatejobEndYear(element)
 			nextJobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			nextJobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=startyear;year<=currentYear;year++)
-			{
-				nextjobStartYearDropdown.append('<option value="'+year+'">' + year + '</option>');
-				nextjobEndYearDropdown.append('<option value="'+year+'">' + year + '</option>');
+			for (var year = startyear; year <= currentYear; year++) {
+				nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>');
+				nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>');
 			}
-			
-			for(var year=1;year<=currentMonth;year++)
-			{
+
+			for (var year = 1; year <= currentMonth; year++) {
 				nextJobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>')
 				nexrJobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			
-		}else if(endyear === prevEndYear)
-		{
-			var nextjobStartYearDropdown=nextContainer.find('.jobStartYear');
-			var nextJobStartMonthDropdown=nextContainer.find('.jobStartMonth');
+
+		} else if (endyear === prevEndYear) {
+			var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
+			var nextJobStartMonthDropdown = nextContainer.find('.jobStartMonth');
 			var nextjobEndYearDropdown = nextContainer.find('.jobEndYear');
-			var nexrJobEndMonthDropdown=nextContainer.find('.jobEndMonth');
-			
+			var nexrJobEndMonthDropdown = nextContainer.find('.jobEndMonth');
+
 			jobEndMonthDropdown.empty();
 			nextjobStartYearDropdown.empty();
 			nextjobEndYearDropdown.empty();
@@ -683,26 +661,23 @@ function updatejobEndYear(element)
 			nextJobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			nexrJobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=startyear;year<=currentYear;year++)
-			{
-				nextjobStartYearDropdown.append('<option value="'+year+'">' + year + '</option>');
-				nextjobEndYearDropdown.append('<option value="'+year+'">' + year + '</option>');
+			for (var year = startyear; year <= currentYear; year++) {
+				nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>');
+				nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>');
 			}
-			
-			for(var year=reversedMonths[endmonth];year<=12;year++)
-			{
+
+			for (var year = reversedMonths[endmonth]; year <= 12; year++) {
 				nextJobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>')
 				nexrJobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-			
-		}else
-		{
-			var nextjobStartYearDropdown=nextContainer.find('.jobStartYear');
-			var nextJobStartMonthDropdown=nextContainer.find('.jobStartMonth');
+
+		} else {
+			var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
+			var nextJobStartMonthDropdown = nextContainer.find('.jobStartMonth');
 			var nextjobEndYearDropdown = nextContainer.find('.jobEndYear');
-			var nextJobEndMonthDropdown=nextContainer.find('.jobEndMonth');
-			
+			var nextJobEndMonthDropdown = nextContainer.find('.jobEndMonth');
+
 			jobEndMonthDropdown.empty();
 			nextjobStartYearDropdown.empty();
 			nextjobEndYearDropdown.empty();
@@ -713,79 +688,69 @@ function updatejobEndYear(element)
 			nextJobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			nextJobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>');
-			for(var year=endyear;year<=currentYear;year++)
-			{
-				nextjobStartYearDropdown.append('<option value="'+year+'">' + year + '</option>');
-				nextjobEndYearDropdown.append('<option value="'+year+'">' + year + '</option>');
+			for (var year = endyear; year <= currentYear; year++) {
+				nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>');
+				nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>');
 			}
-			
-			for(var year=1;year<=12;year++)
-			{
+
+			for (var year = 1; year <= 12; year++) {
 				nextJobStartMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>')
 				nextJobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
 		}
-		
-	}else
-	{
+
+	} else {
 		// code for the month validation
 		var jobEndYearDropdown = workContainer.find('.jobEndYear');
-		var jobEndMonthDropdown=workContainer.find('.jobEndMonth');
+		var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 		var jobStartYearDropdown = workContainer.find('.jobStartYear');
-		var jobStartMonthDropdown=workContainer.find(".jobStartMonth");
+		var jobStartMonthDropdown = workContainer.find(".jobStartMonth");
 		var selectedEndYear = jobEndYearDropdown.val();
-		var selectedStartYear=jobStartYearDropdown.val();
-		var selectedStartMonth=jobStartMonthDropdown.val();
-		
+		var selectedStartYear = jobStartYearDropdown.val();
+		var selectedStartMonth = jobStartMonthDropdown.val();
+
 		jobEndMonthDropdown.empty();
 		jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
-		if(selectedEndYear === currentYearString)
-		{
-			var addsection=workContainer.find('.addSection');
+		if (selectedEndYear === currentYearString) {
+			var addsection = workContainer.find('.addSection');
 			addsection.hide();
 			workContainer.nextAll('.workContainer').remove();
-			for(var year=1;year<=currentMonth;year++)
-			{
+			for (var year = 1; year <= currentMonth; year++) {
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
-		}else if(selectedStartYear === selectedEndYear)
-		{
-			for(var year=reversedMonths[selectedStartMonth];year<=12;year++)
-			{
+		} else if (selectedStartYear === selectedEndYear) {
+			for (var year = reversedMonths[selectedStartMonth]; year <= 12; year++) {
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
 		}
-		else
-		{
-			for(var year=1;year<=12;year++)
-			{
+		else {
+			for (var year = 1; year <= 12; year++) {
 				jobEndMonthDropdown.append('<option value="' + months[year] + '">' + months[year] + '</option>');
 			}
 		}
 	}
-	
+
 }
-function nextContainer()
-{
+function nextContainer() {
 	var workContainer = $(this).closest('.workContainer');
 	var nextContainer = workContainer.next('.workContainer');
 	var currentYear = new Date().getFullYear();
 	const currentYearString = currentYear.toString();
 	const currentdate = new Date();
 	const currentMonth = currentdate.getMonth() + 1;
-	
+
 	var jobEndYearDropdown = workContainer.find('.jobEndYear');
 	var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
-	var selectedEndMonth=jobEndMonthDropdown.val();
-	var selectedEndYear = jobEndYearDropdown.val(); 
-	
+	var selectedEndMonth = jobEndMonthDropdown.val();
+	var selectedEndYear = jobEndYearDropdown.val();
+
 	var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
 	var nextjobEndYearDropdown = nextContainer.find('.jobEndYear');
-	var nextjobStartMonthDropdown=nextContainer.find('.jobStartMonth');
-	var nextjobEndMonthDropdown=nextContainer.find('.jobEndMonth');
-	
-	
+	var nextjobStartMonthDropdown = nextContainer.find('.jobStartMonth');
+	var nextjobEndMonthDropdown = nextContainer.find('.jobEndMonth');
+
+
 	nextjobStartYearDropdown.empty();
 	nextjobEndYearDropdown.empty();
 	nextjobStartMonthDropdown.empty();
@@ -794,55 +759,50 @@ function nextContainer()
 	nextjobEndYearDropdown.append('<option value="">' + 'Select' + '</option>')
 	nextjobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
 	nextjobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
-	
-	if(selectedEndYear === currentYearString && months[currentMonth] === selectedEndMonth)
-	{
-		
-		for (var year =selectedEndYear;year<=currentYear;year++) {
-		nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>')
-		nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>')
+
+	if (selectedEndYear === currentYearString && months[currentMonth] === selectedEndMonth) {
+
+		for (var year = selectedEndYear; year <= currentYear; year++) {
+			nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>')
+			nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>')
 		}
-		for(var j=1;j<=currentMonth;j++)
-		{
+		for (var j = 1; j <= currentMonth; j++) {
 			nextjobStartMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
 			nextjobEndMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
 		}
-	}else
-	{
-		if(selectedEndYear!=null && selectedEndMonth!=null)
-		{
+	} else {
+		if (selectedEndYear != null && selectedEndMonth != null) {
 			for (var year = selectedEndYear; year <= currentYear; year++) {
 				nextjobStartYearDropdown.append('<option value="' + year + '">' + year + '</option>')
 				nextjobEndYearDropdown.append('<option value="' + year + '">' + year + '</option>')
 			}
 		}
-		
+
 	}
-	
-	
+
+
 }
-function updateCurrentlyWorking(element)
-{
+function updateCurrentlyWorking(element) {
 	var workContainer = $(element).closest('.workContainer');
 	const jobEndYear = workContainer.find('.endyeardiv');
-    const jobEndMonth = workContainer.find('.endmonthdiv');
-    const jobEndYearBlank=workContainer.find('.jobEndYear');
-    const jobEndMonthBlank=workContainer.find('.jobEndMonth');
-    const addsection=workContainer.find(".addSection");
-	
+	const jobEndMonth = workContainer.find('.endmonthdiv');
+	const jobEndYearBlank = workContainer.find('.jobEndYear');
+	const jobEndMonthBlank = workContainer.find('.jobEndMonth');
+	const addsection = workContainer.find(".addSection");
+
 	if ($(element).prop('checked')) {
 		jobEndYearBlank.val("").trigger('change');
 		jobEndMonthBlank.val("").trigger('change');
-        jobEndMonth.hide();
-        jobEndYear.hide();
-        addsection.hide();
-    } else {
-		 jobEndYear.show();
-        jobEndMonth.show();
-         addsection.show();
-    }
-     workContainer.nextAll('.workContainer').remove();
-	
+		jobEndMonth.hide();
+		jobEndYear.hide();
+		addsection.hide();
+	} else {
+		jobEndYear.show();
+		jobEndMonth.show();
+		addsection.show();
+	}
+	workContainer.nextAll('.workContainer').remove();
+
 }
 /*function updateStartMonth(element)
 {
@@ -888,83 +848,72 @@ function updateCurrentlyWorking(element)
 		}
 	}
 }*/
-function updateStartMonth(element)
-{
+function updateStartMonth(element) {
 	var workContainer = $(element).closest('.workContainer');
 	var nextContainer = workContainer.next('.workContainer');
-	
+
 	var jobStartYearDropdown = workContainer.find(".jobStartYear");
 	var jobStartMonthDropdown = workContainer.find(".jobStartMonth");
 	var jobEndMonthDropdown = workContainer.find('.jobEndMonth');
 	var jobEndYearDropdown = workContainer.find('.jobEndYear');
-	
+
 	const startyear = jobStartYearDropdown.val();
 	const startmonth = jobStartMonthDropdown.val();
-	const endyear =  jobEndYearDropdown.val();
+	const endyear = jobEndYearDropdown.val();
 	const endmonth = jobEndMonthDropdown.val();
-	
-	if(nextContainer.length)
-	{
+
+	if (nextContainer.length) {
 		var jobStartYearDropdown = nextContainer.find(".jobStartYear");
 		var jobStartMonthDropdown = nextContainer.find(".jobStartMonth");
 		var jobEndMonthDropdown = nextContainer.find('.jobEndMonth');
 		var jobEndYearDropdown = nextContainer.find('.jobEndYear');
-		
+
 		const nextstartyear = jobStartYearDropdown.val();
 		const nextstartmonth = jobStartMonthDropdown.val();
-		const nextendyear =  jobEndYearDropdown.val();
+		const nextendyear = jobEndYearDropdown.val();
 		const nextendmonth = jobEndMonthDropdown.val();
-		
-		if(nextstartyear == nextendyear)
-		{
+
+		if (nextstartyear == nextendyear) {
 			jobEndMonthDropdown.empty();
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
-			for(var j=reversedMonths[nextstartmonth];j<=12;j++)
-			{
+			for (var j = reversedMonths[nextstartmonth]; j <= 12; j++) {
 				jobEndMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
 			}
 		}
-		
-	}else
-	{
-		if(startyear == endyear)
-		{
+
+	} else {
+		if (startyear == endyear) {
 			jobEndMonthDropdown.empty();
 			jobEndMonthDropdown.append('<option value="">' + 'Select' + '</option>')
-			for(var j=reversedMonths[startmonth];j<=12;j++)
-			{
+			for (var j = reversedMonths[startmonth]; j <= 12; j++) {
 				jobEndMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
 			}
 		}
 	}
-	
+
 
 }
-function updateEndMonth(element)
-{
+function updateEndMonth(element) {
 	var workContainer = $(element).closest('.workContainer');
 	var nextContainer = workContainer.next('.workContainer');
-	
-	
+
+
 	var jobEndYearDropdown = workContainer.find(".jobEndYear");
 	var jobEndMonthDropdown = workContainer.find(".jobEndMonth");
 	var nextjobStartMonthDropdown = nextContainer.find('.jobStartMonth');
 	var nextjobStartYearDropdown = nextContainer.find('.jobStartYear');
-	
+
 	const jobendyear = jobEndYearDropdown.val();
 	const jobendmonth = jobEndMonthDropdown.val();
-	
+
 	const nextjobstartyear = nextjobStartYearDropdown.val();
 	const nextjobstartmonth = nextjobStartMonthDropdown.val();
-	
-	if(nextContainer.length)
-	{
-		if(jobendyear === nextjobstartyear)
-		{
+
+	if (nextContainer.length) {
+		if (jobendyear === nextjobstartyear) {
 			nextjobStartMonthDropdown.empty();
 			nextjobStartMonthDropdown.append('<option value="">' + 'Select' + '</option>')
-			for(var j=reversedMonths[jobendmonth];j<=12;j++)
-			{
+			for (var j = reversedMonths[jobendmonth]; j <= 12; j++) {
 				nextjobStartMonthDropdown.append('<option value="' + months[j] + '">' + months[j] + '</option>')
 			}
 		}

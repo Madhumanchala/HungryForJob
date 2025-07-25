@@ -47,9 +47,6 @@ function jobpostingdetails(page)
 		}
 		if(isvalid)
 		{
-			sessionStorage.setItem('jobTitle', jobTittle);
-		    sessionStorage.setItem('experience', experience);
-		    sessionStorage.setItem('location', JSON.stringify(locationArray));
 		    
 			let form = document.createElement('form');
 			form.method = 'POST';

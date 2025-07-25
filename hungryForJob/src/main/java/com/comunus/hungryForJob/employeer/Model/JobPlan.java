@@ -23,4 +23,9 @@ public class JobPlan {
 	private String planSearches;
 	private String planValidity;
 	private String planCvViews;
+	
+	private String id;
+	private String jobTittle;
+	private String candidateName;
+	private String employername;
 }

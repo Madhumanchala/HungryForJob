@@ -1,9 +1,5 @@
 package com.comunus.hungryForJob.model;
 
-import java.util.List;
-
-import com.comunus.hungryForJob.employeer.Model.PricingDetails;
-
 import lombok.Data;
 
 @Data
@@ -95,4 +91,13 @@ public class Dashboard {
 	public String postingTest;
 	public String postingHired;
 	
+	public String salaryType;
+	public String hideSalary;
+	public String internStartType;
+	public String internStartDate;
+	public String internEndDate;
+	public String internStartWithin;
+	public String Duration;
+	public String noOfDays;
+	public String internFromSalary;
 }

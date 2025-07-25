@@ -66,10 +66,10 @@ public class AdminController {
 			log.info("Requesting URL: {}", url);
 
 			response = myWebClient.post(url, dash).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			log.info("Response status code: {}", response.getStatusCode());
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
@@ -86,7 +86,8 @@ public class AdminController {
 
 	@ResponseBody
 	@PostMapping("/updatePlanStatus")
-	public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(@RequestBody AdminModel adminmodel,HttpServletRequest request) {
+	public ServiceResponseWrapperModel<ResponseModel> updatePlanStatus(@RequestBody AdminModel adminmodel,
+			HttpServletRequest request) {
 		log.info("====== updatePlanStatus ======");
 		WebClientResponse response = null;
 		try {
@@ -95,10 +96,10 @@ public class AdminController {
 			log.info("======= updatePlanStatus ====== " + Url);
 
 			response = myWebClient.post(Url, adminmodel).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 
 			if (response.getStatusCode() == 200) {
 				// Parse the response
@@ -129,10 +130,10 @@ public class AdminController {
 			String url = Configs.urls.get(AdminApplicationConstant.RegisterPlanDetails).getUrl();
 
 			response = myWebClient.post(url, dash).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			log.info("Response status code: {}", response.getStatusCode());
 
 			if (response.getStatusCode() == 200) {
@@ -161,10 +162,10 @@ public class AdminController {
 			log.info("Requesting URL: {}", url);
 
 			response = myWebClient.post(url, adminmodel).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			log.info("Response status code: {}", response.getStatusCode());
 
 			if (response.getStatusCode() == 200) {
@@ -205,10 +206,10 @@ public class AdminController {
 			log.info("@@@@ searched job " + Url);
 			admin.setAdminstatus(statusvalue);
 			response = myWebClient.post(Url, admin).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
@@ -228,7 +229,7 @@ public class AdminController {
 
 		return "admindashboard";
 	}
-	
+
 	@PostMapping("/updateadminplandetails")
 	@ResponseBody
 	public ServiceResponseWrapperModel<ResponseModel> updateadminplandetails(Model model, HttpSession session,
@@ -241,10 +242,10 @@ public class AdminController {
 
 			response = myWebClient.post(url, dash).block();
 			log.info("Response status code: {}", response.getStatusCode());
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<ResponseModel> responseModel = objectMapper.readValue(response.getBody(),
@@ -258,48 +259,44 @@ public class AdminController {
 		}
 		return null;
 	}
-	
+
 	@GetMapping("/adminlogin")
-	public String adminlogin()
-	{
+	public String adminlogin() {
 		return "adminlogin";
 	}
-	
+
 	@PostMapping("/adminchangepassword")
-	public String adminChangePassword()
-	{
+	public String adminChangePassword() {
 		return "adminchangepassword";
 	}
-	
+
 	@PostMapping("/adminnewpassword")
 	@ResponseBody
-	public ServiceResponseWrapperModel<ResponseModel> newpassworadded(@RequestBody Dashboard dashboard,HttpSession session,HttpServletRequest request)
-	{
-		WebClientResponse response=null;
+	public ServiceResponseWrapperModel<ResponseModel> newpassworadded(@RequestBody Dashboard dashboard,
+			HttpSession session, HttpServletRequest request) {
+		WebClientResponse response = null;
 		try {
-			
-			if(session.getAttribute("operationId")!=null)
-			{
+
+			if (session.getAttribute("operationId") != null) {
 				dashboard.setUserId(session.getAttribute("operationId").toString());
-			}else
-			{
+			} else {
 				log.info("session is not set in userId");
 			}
-			String url=Configs.urls.get(EmployeerAppplicationConstant.NEW_PASSWORD).getUrl();
-			response=myWebClient.post(url,dashboard).block();
-			if(response.getToken() != null)
-			{
-				log.info("s.getToken() :"+response.getToken());
-				request.getSession().setAttribute("token","Bearer "+response.getToken());
+			String url = Configs.urls.get(EmployeerAppplicationConstant.NEW_PASSWORD).getUrl();
+			response = myWebClient.post(url, dashboard).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
 			}
-			if(response.getStatusCode() == 200)
-			{
-				ServiceResponseWrapperModel<ResponseModel> responsemodel = new ObjectMapper().readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {});
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = new ObjectMapper()
+						.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
 				return responsemodel;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("Exception is occured === "+e.getMessage());
+			log.info("Exception is occured === " + e.getMessage());
 			// TODO: handle exception
 		}
 		return null;

@@ -3,6 +3,7 @@ package com.comunus.hungryForJob.model;
 import java.util.List;
 
 import com.comunus.hungryForJob.employeer.Model.FolderDetails;
+import com.comunus.hungryForJob.employeer.Model.JobPlan;
 import com.comunus.hungryForJob.employeer.Model.JobPosting;
 import com.comunus.hungryForJob.employeer.Model.Menu;
 import com.comunus.hungryForJob.employeer.Model.PricingDetails;
@@ -82,4 +83,7 @@ public class ResponseModel {
 	private List<DropDown> interviewerPanel;
 	private List<DropDown> clients;
 	private List<DropDown> operatedByUser;
+	private List<JobPlan> interviewHistory;
+	public String paginationOffSet;
+	public String paginationTotalPages;
 }

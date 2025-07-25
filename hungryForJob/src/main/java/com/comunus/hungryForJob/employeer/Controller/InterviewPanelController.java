@@ -7,12 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 
@@ -23,6 +22,7 @@ import com.comunus.hungryForJob.config.WebClientResponse;
 import com.comunus.hungryForJob.constant.EmployeerAppplicationConstant;
 import com.comunus.hungryForJob.employeer.Model.SearchResp;
 import com.comunus.hungryForJob.employeer.Model.companyProfiledetails;
+import com.comunus.hungryForJob.model.ResponseModel;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,7 +42,7 @@ public class InterviewPanelController {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	@RequestMapping(value = "/interviewPanel", method = { RequestMethod.POST })
+	@PostMapping("/interviewPanel")
 	public String registerCompany(Model model, HttpServletRequest request, HttpSession session)
 			throws RestClientException, JsonProcessingException, URISyntaxException {
 
@@ -128,4 +128,80 @@ public class InterviewPanelController {
 		return responsemodel;
 	}
 
+	@PostMapping("/interviewerhistory")
+	public String interviewhistory(@RequestBody companyProfiledetails interviewerDetails, HttpServletRequest request,
+			HttpSession session) {
+		WebClientResponse response = null;
+		try {
+
+			String userId = null;
+			String companyId = null;
+			if (session.getAttribute("userId") != null) {
+				userId = session.getAttribute("userId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			if (session.getAttribute("companyId") != null) {
+				companyId = session.getAttribute("companyId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			companyProfiledetails companyprofiledetails = new companyProfiledetails();
+			companyprofiledetails.setUserId(userId);
+			companyprofiledetails.setCompanyId(companyId);
+			String url = Configs.urls.get(EmployeerAppplicationConstant.INTERVIEWER_HISTORY).getUrl();
+			response = myWebClient.post(url, companyprofiledetails).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+			} else {
+				log.info("Error in Response or service is not called");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception;
+			e.printStackTrace();
+			log.info("interview history ===== " + e.getMessage());
+		}
+		return "employerviews/interviewhistory";
+	}
+
+	@PostMapping("/invoicedownload")
+	public String invoiceDownload(HttpSession session,@RequestBody companyProfiledetails interviewerDetails) {
+		WebClientResponse response = null;
+		try {
+			
+			String userId = null;
+			String companyId = null;
+			if (session.getAttribute("userId") != null) {
+				userId = session.getAttribute("userId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			if (session.getAttribute("companyId") != null) {
+				companyId = session.getAttribute("companyId").toString();
+			} else {
+				log.info("Session expired or companyId  is not set");
+			}
+			interviewerDetails.setCompanyId(companyId);
+			interviewerDetails.setUserId(userId);
+			String url = Configs.urls.get(EmployeerAppplicationConstant.INTERVIEWER_HISTORY).getUrl();
+			response = myWebClient.post(url, interviewerDetails).block();
+//			if(response.getStatusCode() = 0)
+//			{
+//				downloaded the html elements of the single  
+//			}
+			
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			log.info("Exception is occured in invoicedownload  == " + e.getMessage());
+		}
+		return "employerviews/invoicedownloaad";
+	}
 }

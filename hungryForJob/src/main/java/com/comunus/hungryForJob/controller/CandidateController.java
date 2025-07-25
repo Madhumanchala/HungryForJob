@@ -3,6 +3,7 @@ package com.comunus.hungryForJob.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.time.Year;
+import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,21 +73,15 @@ public class CandidateController {
 			} else {
 				log.info("Session expired or candidateId is not set.");
 			}
-			CareerDetails career = new CareerDetails(); // changed
-			String jobtittle = request.getParameter("jobTitle") != null ? request.getParameter("jobTitle").toString()
-					: null;
-			String location = request.getParameter("location") != null ? request.getParameter("location").toString()
-					: null;
-			String experience = request.getParameter("experience") != null
-					? request.getParameter("experience").toString()
-					: null;
-			String offsetvalue = request.getParameter("paginationOffSet") != null
-					? request.getParameter("paginationOffSet").toString()
-					: "0";
-			career.setCandidateId(username); // changed
-			career.setJobTitleSearch(jobtittle); // changed
-			career.setLocationSearch(location); // changed
-			career.setExperienceSearch(experience); // changed
+			CareerDetails career = new CareerDetails();
+			String jobtittle = Optional.ofNullable(request.getParameter("jobTitle")).orElse("");
+			String location = Optional.ofNullable(request.getParameter("location")).orElse("");
+			String experience = Optional.ofNullable(request.getParameter("experience")).orElse("");
+			String offsetvalue = Optional.ofNullable(request.getParameter("paginationOffSet")).orElse("1");
+			career.setCandidateId(username);
+			career.setJobTitleSearch(jobtittle);
+			career.setLocationSearch(location);
+			career.setExperienceSearch(experience);
 			career.setPaginationOffSet(offsetvalue);
 			String loginSucessMessage = (String) request.getSession().getAttribute("loginSucessMessage");
 			log.info("====== candidateDashboard ===========");
@@ -112,10 +107,7 @@ public class CandidateController {
 					session.setAttribute("candidateEmail", responsemodel.getData().getCandidateEmail());
 					log.info("jobPostingDetails ========" + responsemodel.getData().getJobPostingDetails());
 					modelMap.addAttribute("jobPostingDetails", responsemodel.getData().getJobPostingDetails());
-//					 if(!responsemodel.getData().getJobPostingDetails().isEmpty())
-//					 {
 					session.setAttribute("profileImage", responsemodel.getData().getBase64ProfileImage());
-//					 }
 					int totalpointsint = 0;
 					if (responsemodel.getData().getTotalpoints() != null) {
 						double totalpoints = Double.valueOf(responsemodel.getData().getTotalpoints());
@@ -123,12 +115,15 @@ public class CandidateController {
 						session.setAttribute("totalpoints", String.valueOf(totalpointsint));
 					}
 					int paginationpages = 0;
-					if (responsemodel.getData().getPaginationTotalPages() != null) {
-						paginationpages = Integer.parseInt(responsemodel.getData().getPaginationTotalPages());
-					}
+					paginationpages = Integer.parseInt(responsemodel.getData().getPaginationTotalPages());
 					modelMap.addAttribute("totalpages", paginationpages);
-					modelMap.addAttribute("currentpage", offsetvalue);
+					log.info("Total pages are there ==== " + paginationpages);
+					modelMap.addAttribute("currentPage", offsetvalue);
 					modelMap.addAttribute("cities", responsemodel.getData().getAllCities());
+					modelMap.addAttribute("location", location);
+					modelMap.addAttribute("experience", experience);
+					modelMap.addAttribute("jobTitle", jobtittle);
+					modelMap.addAttribute("candidateId", username);
 				}
 			} else {
 				log.info("Error in response in service");
@@ -274,7 +269,7 @@ public class CandidateController {
 						session.setAttribute("year", resultYearString);
 						model.addAttribute("workstatus", isActive);
 
-					}else {
+					} else {
 						session.setAttribute("year", "1999");
 						model.addAttribute("newdob", 1999);
 						model.addAttribute("workstatus", false);
@@ -421,6 +416,8 @@ public class CandidateController {
 				log.info("Session expired or candidateId is not set.");
 			}
 			career.setCandidateId(username);
+			String pagenumber = request.getParameter("pageno");
+			career.setPaginationOffSet(Optional.ofNullable(pagenumber).map(Object::toString).orElse("1"));
 			String Url = Configs.urls.get(ApplicationConstant.GetAppliedJob).getUrl();
 			log.info("@@@@ candiate dashboard " + Url);
 			response = myWebClient.post(Url, career).block();
@@ -440,6 +437,8 @@ public class CandidateController {
 							responsemodel.getData().getCareerDetails().getBase64ProfileImage());
 
 				}
+				model.addAttribute("totalpages", responsemodel.getData().getCareerDetails().getPaginationTotalPages());
+				model.addAttribute("currentPage", career.getPaginationOffSet());
 			} else {
 				log.info(" Error in Response");
 			}
@@ -545,7 +544,7 @@ public class CandidateController {
 		}
 		return null;
 	}
-	
+
 //	public byte[] compressFile(MultipartFile file) throws Exception{
 //		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 //        try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
@@ -725,7 +724,7 @@ public class CandidateController {
 		return "error";
 
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/deleteSkill")
 	public APIErrorModel deleteSkill(@RequestBody CareerDetails careerDetails, HttpServletRequest request) {
@@ -740,7 +739,7 @@ public class CandidateController {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());
 			}
-			
+
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<CareerDetails> responsemodel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<CareerDetails>>() {
@@ -749,13 +748,13 @@ public class CandidateController {
 					return responsemodel.getErrors();
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/deleteEmployement")
 	public APIErrorModel deleteEmployement(@RequestBody CareerDetails careerDetails, HttpServletRequest request) {
@@ -770,7 +769,7 @@ public class CandidateController {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());
 			}
-			
+
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<CareerDetails> responsemodel = objectMapper.readValue(response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<CareerDetails>>() {
@@ -779,7 +778,7 @@ public class CandidateController {
 					return responsemodel.getErrors();
 				}
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -22,9 +22,15 @@ public class OnlineJobApplied {
 	public String companyName;
 	public String aboutCompany;
 	public String companyAddress;
-	
-	
-	
-	
+	public String jobType;
+	public String noOfDays;
+	public String internStartType;
+	public String hideSalaryDetails;
+	public String internStartDate;
+	public String internEndDate;
+	public String internStartWithin;
+	public String duration;
+	public String stipend;
+	public String stipendSal;
 	
 }

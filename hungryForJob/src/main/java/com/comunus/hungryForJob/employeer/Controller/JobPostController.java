@@ -1,5 +1,7 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -392,6 +394,11 @@ public class JobPostController {
 			} else {
 				log.info("Session expired or companyId is not set.");
 			}
+			jobpost.setPaginationOffSet(Optional.ofNullable(request.getParameter("paginationOffSet")).orElse("1"));
+			jobpost.setSearchValue(Optional.ofNullable(request.getParameter("searchValue")).orElse(""));
+			jobpost.setCategoryType(Optional.ofNullable(request.getParameter("categoryType")).orElse(""));
+			jobpost.setType(Optional.ofNullable(request.getParameter("type")).orElse(""));
+			
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.MANAGE_JOB_POST).getUrl();
 			response = myWebClient.post(Url, jobpost).block();
 
@@ -410,6 +417,12 @@ public class JobPostController {
 					model.addAttribute("cities", responsemodel.getData().getCities());
 					model.addAttribute("sessionUserId", session.getAttribute("userId").toString());
 					model.addAttribute("sessionRole", session.getAttribute("rolestatus").toString());
+					model.addAttribute("totalpages", responsemodel.getData().getPaginationTotalPages());
+					model.addAttribute("currentPage", jobpost.getPaginationOffSet());
+					model.addAttribute("searchvalue", jobpost.getSearchValue());
+					model.addAttribute("jobtype", jobpost.getJobType());
+					model.addAttribute("searchvalue", jobpost.getSearchValue());
+					model.addAttribute("categoryType", jobpost.getCategoryType());
 				}
 			}
 		} catch (Exception e) {
@@ -593,6 +606,7 @@ public class JobPostController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			log.info("Exception is occured === "+e.getMessage());
 		}
 		return null;
 	}
@@ -642,6 +656,7 @@ public class JobPostController {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			log.info("Exceptions is occured == "+e.getMessage());
 			e.printStackTrace();
 		}
 		return "employerviews/managejobpostdesc";

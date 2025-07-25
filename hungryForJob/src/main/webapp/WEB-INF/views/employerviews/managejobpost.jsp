@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -36,37 +35,40 @@
 					<div class="col-xl-12 col-lg-12 col-md-12">
 						<div class="manageJobstitle d-flex justify-content-between mb-3">
 							<h3 class="maintitle">Manage Jobs</h3>
-							<!-- <button class="btn-blue" onclick="findroute('jobPost')">
+							<button class="btn-blue" onclick="findroute('jobPost')">
 								<i class="bi bi-plus"></i> Post a job
-							</button> -->
+							</button>
 						</div>
 					</div>
 				</div>
 
+
 				<div class="sortbyjob">
-				<div class="col-xl-12 col-lg-12 col-md-12" style="display: flex; justify-content: space-between;">
 					<div class="form-groupsort">
 						<div class="input-group ">
 							<span class="input-group-text "> <i class="bi bi-search"></i></span>
 							<input type="text" class="form-control " id="searchBox"
 								placeholder="Search Job">
 						</div>
-					</div>
-					<button class="btn-blue" onclick="findroute('jobPost')" style="padding: 5px 15px; height: 35px;">
-						<i class="bi bi-plus"></i> Post a job
-					</button>
-					</div>
 
-					<%-- <div class="form-groupsort">
-						<select class="formselect " id="allCategories">
-							<option value="select">All Categories</option>
-							<c:forEach items="${listofjobpostdetails}" var="jobdetails">
-								<option value="${jobdetails.jobTittle}">${jobdetails.jobTittle}</option>
-							</c:forEach>
-						</select>
 					</div>
 
 					<div class="form-groupsort">
+						<select class="formselect" id="allCategories" name="categoryType">
+							<option value=""
+								<c:if test="${empty categoryType}">selected</c:if>>All
+								Categories</option>
+							<option value="job"
+								<c:if test="${categoryType eq 'job'}">selected</c:if>>
+								Job</option>
+							<option value="job internship"
+								<c:if test="${categoryType eq 'job internship'}">selected</c:if>>
+								Job Internship</option>
+						</select>
+					</div>
+
+
+					<%-- <div class="form-groupsort">
 						<select class="formselect " id="allStatus">
 							<option value="select">All Status</option>
 							<c:forEach items="${status}" var="status">
@@ -82,14 +84,12 @@
 								<option value="${city.id}">${city.name}</option>
 							</c:forEach>
 						</select>
-					</div> --%>
+					</div>  --%>
 				</div>
 
 
 				<div class="manageJobsbox">
 					<ul class="row " id="itemListBox">
-
-
 						<c:forEach items="${listofjobpostdetails}" var="jobdetails">
 							<li class="col-xl-4 col-lg-4 col-md-6 ">
 								<div class="card-listinner">
@@ -103,62 +103,11 @@
 									</div>
 									<div class="list-price">
 										<ul class="list-group list-group-horizontal">
-										
-											<%-- <c:if test="${jobdetails.jobType eq 'Job'}">
-												<li class="me-2"><img src="employer/img/year.svg">
+											<li class="me-2"><img src="employer/img/year.svg">
 												${jobdetails.minExp}-${jobdetails.maxExp}&nbsp;years</li>
-												
-												<li class="me-2"><img src="employer/img/inr.svg">
-												${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}</li>
-												
-											</c:if>
-											<c:if test="${jobdetails.jobType eq 'Internship'}">
-												<li class="me-2"><img src="employer/img/year.svg">
-												${jobdetails.internDuration}&nbsp;months</li>
-												
-												<c:if test="${jobdetails.internStipendConfirm eq 'YES'}">
-													<li class="me-2"><img src="employer/img/inr.svg">
-													${jobdetails.internStipendMoney}</li>
-												</c:if>
-												<c:if test="${jobdetails.internStipendConfirm eq 'NO'}">
-													<li class="me-2"><img src="employer/img/inr.svg">Unpaid</li>
-												</c:if>
-											</c:if> --%>
-											
-											<c:choose>
-											    <c:when test="${jobdetails.jobType eq 'Job'}">
-											        <li class="me-2">
-											            <img src="employer/img/year.svg" alt="Experience"> 
-											            ${jobdetails.minExp}-${jobdetails.maxExp} years
-											        </li>
-											        <li class="me-2">
-											            <img src="employer/img/inr.svg" alt="Salary">
-											            ${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
-											        </li>
-											    </c:when>
-											    <c:when test="${jobdetails.jobType eq 'Internship'}">
-											        <li class="me-2">
-											            <img src="employer/img/year.svg" alt="Internship Duration">
-											            ${jobdetails.internDuration} months
-											        </li>
-											        
-											        <c:choose>
-											            <c:when test="${jobdetails.internStipendConfirm eq 'YES'}">
-											                <li class="me-2">
-											                    <img src="employer/img/inr.svg" alt="Intern Stipend">
-											                    ${jobdetails.internStipendMoney}
-											                </li>
-											            </c:when>
-											            <c:otherwise>
-											                <li class="me-2">
-											                    <img src="employer/img/inr.svg" alt="Unpaid">
-											                    Unpaid
-											                </li>
-											            </c:otherwise>
-											        </c:choose>
-											    </c:when>
-											</c:choose>
-											
+											<li class="me-2"><img src="employer/img/inr.svg">
+												${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
+											</li>
 											<li class="me-2"><img src="employer/img/map.svg">
 												${jobdetails.jobloc}</li>
 										</ul>
@@ -189,6 +138,21 @@
 											<%-- <p>
 												Expired at <span>${jobdetails.endDate}</span>
 											</p> --%>
+										</div>
+										<%-- <div class="progress " role="progressbar"
+											aria-label="Basic example" aria-valuenow="25"
+											aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar ${jobdetails.status}"
+												style="width: ${jobdetails.statusBar}%"></div>
+										</div> --%>
+									</div>
+
+									<div class="createdby">
+										<div
+											class="postedtxt d-flex justify-content-between align-items-center">
+											<p>
+												Created by <span>${jobdetails.createdBy}</span>
+											</p>
 											<ul class="list-group list-group-horizontal">
 												<%-- 												<li class="list-group me-3" data-bs-toggle="tooltip"
 													onclick="insertjobpost(${jobdetails.id})"
@@ -273,34 +237,52 @@
 													href="#"><img src="employer/img/view3.svg"> </a></li>
 											</ul>
 										</div>
-										<%-- <div class="progress " role="progressbar"
-											aria-label="Basic example" aria-valuenow="25"
-											aria-valuemin="0" aria-valuemax="100">
-											<div class="progress-bar ${jobdetails.status}"
-												style="width: ${jobdetails.statusBar}%"></div>
-										</div> --%>
-									</div>
-
-									<div class="createdby">
-										<div
-											class="postedtxt d-flex justify-content-between align-items-center">
-											<p>
-												Created by <span>${jobdetails.createdBy}</span>
-											</p>
-											<p>
-												Operated by <span>${jobdetails.operatedBy}</span>
-											</p>
-										</div>
 									</div>
 								</div>
 							</li>
 						</c:forEach>
-
-						<p id="noResults" style="display: none; color: red;">No
-							results found</p>
-
 					</ul>
 				</div>
+				<ul class="pagination justify-content-end">
+					<c:if test="${totalpages != 0}">
+						<c:choose>
+							<c:when test="${currentPage == 1}">
+								<li class="page-item disabled"><a class="page-link"
+									href="#">Previous</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="#"
+									onclick="jobpostingdetails(${currentPage - 1})">Previous</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach var="i" begin="1" end="${totalpages}">
+							<c:choose>
+								<c:when test="${currentPage == i}">
+									<li class="page-item active"><a class="page-link" href="#"
+										onclick="jobpostingdetails(${i})">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" href="#"
+										onclick="jobpostingdetails(${i})">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${currentPage == totalpages}">
+								<li class="page-item disabled"><a class="page-link"
+									href="#">Next</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="#"
+									onclick="jobpostingdetails(${currentPage + 1})">Next</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+					<c:if test="${totalpages == 0}">
+						<p id="noResults" style="display: none; color: red;">No
+							results found</p>
+					</c:if>
+				</ul>
 			</div>
 		</section>
 
@@ -365,10 +347,10 @@
     });
 
 
-    $(document).ready(function () {
+     $(document).ready(function () {
       $('#searchBox').on('keyup', function () {
         var value = $(this).val().toLowerCase();
-        var hasMatch = false;
+        /* var hasMatch = false;
 
         $('#itemListBox  li').filter(function () {
           var match = $(this).text().toLowerCase().indexOf(value) > -1;
@@ -376,9 +358,21 @@
           if (match) hasMatch = true;
         });
 
-        $('#noResults').toggle(!hasMatch);
+        $('#noResults').toggle(!hasMatch);  */
+        if(value.length >= 3)
+        {
+        	jobpostingdetails();
+        }
+    	  
       });
-    });
+    }); 
+     
+     $(document).ready(function () {
+    	  $('#allCategories').on('change', function () {
+    	    jobpostingdetails();
+    	  });
+    	});
+
 
     $(document).ready(function () {
       $('#searchSelectBox').on('keyup', function () {
@@ -389,6 +383,7 @@
           $(this).toggle(text.indexOf(searchTerm) > -1);
         });
       });
+      $("#searchBox").val("${searchvalue}".replace(/%/g, ""));
     });
 
     function updateJobpost(id)
@@ -460,8 +455,152 @@
         document.body.appendChild(form);
         form.submit(); 
     }
-    
-    function insertInternshippost(id)
+   /*  function jobpostingdetails(page) {
+		
+    	var search = $("#searchBox").val();
+    	var jobtype = $("#allCategories").val();
+
+    	let form = document.createElement('form');
+    	form.method = 'POST';
+    	form.action = "managejobpost";
+    	
+    	if(search && jobtype)
+    	{
+    		let searchinput = document.createElement('input');
+    		searchinput.type = 'hidden';
+    		searchinput.name = 'searchValue';
+    		searchinput.value = "%"+search+"%";
+        	form.appendChild(searchinput);
+        	
+        	let categoryType = document.createElement('input');
+    		categoryType.type = 'hidden';
+    		categoryType.name = 'categoryType';
+    		categoryType.value = jobtype;
+        	form.appendChild(categoryType);
+        	
+        	
+        	let jobtype = document.createElement('input');
+        	jobtype.type = 'hidden';
+        	jobtype.name = 'type';
+        	jobtype.value = "allposttype";
+        	form.appendChild(jobtype);
+        	
+        	
+    	}
+    	else if(search)
+    	{
+    		let searchinput = document.createElement('input');
+    		searchinput.type = 'hidden';
+    		searchinput.name = 'searchValue';
+    		searchinput.value = "%"+search+"%";
+        	form.appendChild(searchinput);
+        	
+        	let jobtype = document.createElement('input');
+        	jobtype.type = 'hidden';
+        	jobtype.name = 'type';
+        	jobtype.value = "searchvalue";
+        	form.appendChild(jobtype);
+        	
+    	}
+    	else if(jobtype)
+    	{
+    		let categoryType = document.createElement('input');
+    		categoryType.type = 'hidden';
+    		categoryType.name = 'categoryType';
+    		categoryType.value = search;
+        	form.appendChild(categoryType);
+        	
+        	let jobtype = document.createElement('input');
+        	jobtype.type = 'hidden';
+        	jobtype.name = 'type';
+        	jobtype.value = "jobtype";
+        	form.appendChild(jobtype);
+    	}
+    	if(page === undefined)
+    	{
+    		page=1;
+    	}
+    	
+    	let paginationInput = document.createElement('input');
+    	paginationInput.type = 'hidden';
+    	paginationInput.name = 'paginationOffSet';
+    	paginationInput.value = page;
+    	form.appendChild(paginationInput);
+
+    	document.body.appendChild(form);
+    	form.submit();
+
+    } */
+    function jobpostingdetails(page) {
+        var search = $("#searchBox").val();
+        var jobtypeValue = $("#allCategories").val();
+
+        let form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "managejobpost";
+
+        if (search && jobtypeValue) {
+            let searchInput = document.createElement('input');
+            searchInput.type = 'hidden';
+            searchInput.name = 'searchValue';
+            searchInput.value = "%" + search + "%";
+            form.appendChild(searchInput);
+
+            let categoryType = document.createElement('input');
+            categoryType.type = 'hidden';
+            categoryType.name = 'categoryType';
+            categoryType.value = jobtypeValue;
+            form.appendChild(categoryType);
+
+            let typeInput = document.createElement('input');
+            typeInput.type = 'hidden';
+            typeInput.name = 'type';
+            typeInput.value = "allposttype";
+            form.appendChild(typeInput);
+
+        } else if (search) {
+            let searchInput = document.createElement('input');
+            searchInput.type = 'hidden';
+            searchInput.name = 'searchValue';
+            searchInput.value = "%" + search + "%";
+            form.appendChild(searchInput);
+
+            let typeInput = document.createElement('input');
+            typeInput.type = 'hidden';
+            typeInput.name = 'type';
+            typeInput.value = "searchvalue";
+            form.appendChild(typeInput);
+
+        } else if (jobtypeValue) {
+            let categoryType = document.createElement('input');
+            categoryType.type = 'hidden';
+            categoryType.name = 'categoryType';
+            categoryType.value = jobtypeValue;
+            form.appendChild(categoryType);
+
+            let typeInput = document.createElement('input');
+            typeInput.type = 'hidden';
+            typeInput.name = 'type';
+            typeInput.value = "jobtype";
+            form.appendChild(typeInput);
+        }
+
+        // Default to page 1 if page is undefined
+        if (page === undefined) {
+            page = 1;
+        }
+
+        let paginationInput = document.createElement('input');
+        paginationInput.type = 'hidden';
+        paginationInput.name = 'paginationOffSet';
+        paginationInput.value = page;
+        form.appendChild(paginationInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+   /*  function insertInternshippost(id)
     {
     	let form = document.createElement('form');
         form.method = 'POST'; 
@@ -477,7 +616,7 @@
 
         document.body.appendChild(form);
         form.submit(); 
-    }
+    } */
     
 
   </script>

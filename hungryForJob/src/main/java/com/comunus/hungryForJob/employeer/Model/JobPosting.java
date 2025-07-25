@@ -127,4 +127,7 @@ public class JobPosting {
 	
 	private String operatedBy;
 	private String operatedById;
+	private  String paginationOffSet;
+	private String searchValue;
+	private String categoryType;
 }

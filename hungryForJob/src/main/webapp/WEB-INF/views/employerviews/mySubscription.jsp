@@ -23,15 +23,16 @@
 <!-- <link rel="stylesheet" href="employer/css/dataTables.bootstrap5.css" /> -->
 <link href="employer/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 </head>
 
 <body>
-<div class="loader">
+	<div class="loader">
 		<img src="employer/img/loader.gif">
 	</div>
-	<%@include file="employerheader1.jsp"%> 
-	<%@include file="toaster.jsp" %>
+	<%@include file="employerheader1.jsp"%>
+	<%@include file="toaster.jsp"%>
 	<main id="main">
 		<section class="section-inner advancedsearch-section ">
 			<div class="container">
@@ -62,17 +63,20 @@
 										<div class="formchecks">
 											<ul>
 												<li><input type="radio" class="btn-check"
-													name="billing-history" id="All" onclick="statusplan('All')"> <label
-													class="btn" for="All"><span>All</span> </label></li>
+													name="billing-history" id="All" onclick="statusplan('All')">
+													<label class="btn" for="All"><span>All</span> </label></li>
 												<li><input type="radio" class="btn-check"
-													name="billing-history" id="Success" onclick="statusplan('Success')"> <label
-													class="btn" for="Success"><span>Success </span> </label></li>
+													name="billing-history" id="Success"
+													onclick="statusplan('Success')"> <label class="btn"
+													for="Success"><span>Success </span> </label></li>
 												<li><input type="radio" class="btn-check"
-													name="billing-history" id="Pending" onclick="statusplan('Pending')"> <label
-													class="btn" for="Pending"><span>Pending </span> </label></li>
+													name="billing-history" id="Pending"
+													onclick="statusplan('Pending')"> <label class="btn"
+													for="Pending"><span>Pending </span> </label></li>
 												<li><input type="radio" class="btn-check"
-													name="billing-history" id="Failed" onclick="statusplan('Failed')"> <label
-													class="btn" for="Failed"><span>Failed </span> </label></li>
+													name="billing-history" id="Failed"
+													onclick="statusplan('Failed')"> <label class="btn"
+													for="Failed"><span>Failed </span> </label></li>
 											</ul>
 										</div>
 									</div>
@@ -91,6 +95,7 @@
 														<th>Amount</th>
 														<th>Status</th>
 														<th>Action</th>
+														<th>Invoice</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -109,16 +114,20 @@
 																	${plandetails.status} </span></td>
 															<c:choose>
 																<c:when test="${plandetails.action eq 'Renewal'}">
-																	<td data-title="Action"><a href="#" onclick="plandetails(${plandetails.planId},'verifyDetails')">${plandetails.action}</a></td>
+																	<td data-title="Action"><a href="#"
+																		onclick="plandetails(${plandetails.planId},'verifyDetails')">${plandetails.action}</a></td>
 																</c:when>
 																<c:when test="${plandetails.status eq 'failure'}">
-																	<td data-title="Action"><a href="#" onclick="plandetails(${plandetails.id},'renewalplan')">${plandetails.action}
-																			</a></td>
+																	<td data-title="Action"><a href="#"
+																		onclick="plandetails(${plandetails.id},'renewalplan')">${plandetails.action}
+																	</a></td>
 																</c:when>
 																<c:otherwise>
 																	<td data-title="Action"><a>${plandetails.action}</a></td>
 																</c:otherwise>
 															</c:choose>
+															<td><a href="#" download
+																class="btn btn-sm btn-primary" onclick="invoicedownload()">Download</a></td>
 														</tr>
 													</c:forEach>
 												</tbody>
@@ -166,8 +175,9 @@
 							<div class="form-group">
 								<label for="Industry" class="form-label required">GSTIN
 									Number</label> <input type="text" name="gstnumber" id="gstnumber"
-									class="form-control" placeholder="Enter GST" onkeyup="checkgst(this,'gstnumber_error')" maxlength="15">
-									<span class="error" id="gstnumber_error"></span>
+									class="form-control" placeholder="Enter GST"
+									onkeyup="checkgst(this,'gstnumber_error')" maxlength="15">
+								<span class="error" id="gstnumber_error"></span>
 							</div>
 						</div>
 
@@ -196,7 +206,8 @@
 	<script src="employer/js/jquery.richtext.js"></script>
 	<script src="employer/js/main.js"></script>
 	<script src="employer/js/subscription.js"></script>
-	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -218,6 +229,22 @@
 			$('#billing-list').dataTable({});
 			$('.loader').hide();
 		});
+		
+		function invoicedownload(id)
+		{
+			let form = document.createElement('form');
+			form.method = 'POST';
+			form.action = "downloadinvoice";
+
+			let paginationInput = document.createElement('input');
+			paginationInput.type = 'hidden';
+			paginationInput.name = 'invoicedownload';
+			paginationInput.value = id;
+			form.appendChild(paginationInput);
+
+			document.body.appendChild(form);
+			form.submit();
+		}
 	</script>
 </body>
 

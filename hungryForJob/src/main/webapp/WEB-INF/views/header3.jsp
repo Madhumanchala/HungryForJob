@@ -174,9 +174,12 @@ $(document).ready(function () {
 	function fetchDetails() {
 		let jobTittle = $('#selectTittle').val();
 		let experience = $('#selectexp').val();
-		let locationValue = $('#selectLocation').val();
+		/* let locationValue = $('#selectLocation').val(); */
+		let locationText = $('#selectLocation option:selected').map(function() {
+		    return $(this).text().trim();
+		}).get();
 		let locationArray = []; // Initialize an empty array
-		locationArray.push(locationValue); // Push the value into the array
+		locationArray.push(locationText); // Push the value into the array
 		var isvalid=true;
 		if(jobTittle === "")
 		{
@@ -187,9 +190,6 @@ $(document).ready(function () {
 		}
 		if(isvalid)
 		{
-			sessionStorage.setItem('jobTitle', jobTittle);
-		    sessionStorage.setItem('experience', experience);
-		    sessionStorage.setItem('location', JSON.stringify(locationArray));
 		    
 			let form = document.createElement('form');
 			form.method = 'POST';
@@ -238,18 +238,18 @@ $(document).ready(function() {
         </c:forEach>
     ];
     
-    let storedJobTitle = sessionStorage.getItem('jobTitle');
-    let storedExperience = sessionStorage.getItem('experience');
-    let storedLocation = sessionStorage.getItem('location');
+    let storedJobTitle = "${jobTitle}";
+    let storedExperience = "${experience}";
+    let storedLocation = "${location}";
     let flattenedValue=[];
     if(storedLocation)
-    {
-    	let storedLocation = sessionStorage.getItem('location').toString();
-        
-        let parsedValue = JSON.parse(storedLocation.replace(/\\+/g, ''));
-        
+    {    
+        let parsedValue = storedLocation.split(',').map(item => item.trim());
+        let matchedIds = allCities
+        .filter(city => parsedValue.includes(city.name))
+        .map(city => city.id);
         // Flatten the array if it’s nested
-     	flattenedValue = parsedValue[0].map(item => parseInt(item, 10));
+     	flattenedValue = matchedIds;
     }
     
 
@@ -283,7 +283,26 @@ $(document).ready(function() {
     	let selectedText = $("#selectLocation option:selected").map(function() {
     	    return $(this).text();
     	}).get();
-    	$("#searchvalue").val(storedJobTitle+", "+storedExperience+" years, "+selectedText);
+    	
+    	if(storedJobTitle && storedExperience && selectedText.length > 0)
+    	{
+    		$("#searchvalue").val(storedJobTitle+"," +storedExperience+" years, "+selectedText);
+    		
+    	}else if(storedJobTitle && storedExperience)
+    	{
+    		$("#searchvalue").val(storedJobTitle+", "+storedExperience+" years");
+    		
+    	}else if(storedJobTitle && selectedText.length > 0)
+    	{
+    		$("#searchvalue").val(storedJobTitle+","+selectedText);
+    		
+    	}else if(storedJobTitle)
+    	{
+    		$("#searchvalue").val(storedJobTitle)
+    	}else
+    	{
+    		$("#searchvalue").val("Search By job,Company or skills");
+    	}
     }else
     {
     	 $("#searchvalue").attr("placeholder","Search by job, company or skills");

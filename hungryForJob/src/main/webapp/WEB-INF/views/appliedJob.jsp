@@ -2,7 +2,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDateTime"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String candidateId = (String) session.getAttribute("candidateId");
 %>
@@ -49,70 +49,129 @@ String candidateId = (String) session.getAttribute("candidateId");
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 recommended">
 								<h2>Applied Jobs</h2>
 							</div>
-
 							<c:forEach items="${jobapplied}" var="jobPosting">
-								<div class="col-xl-6 col-lg-6 col-md-12 ">
-									<div class="listbox">
-										<div class="d-flex justify-content-between ">
-											<div class="company-details">
-												<a href="#">
-													<h4>${jobPosting.jobHeading }</h4>
-													<p>${jobPosting.companyName}</p>
-												</a>
-											</div>
-											<div class="company-logo">
-												<img src="img/nikitis-Infocom.png">
-											</div>
-										</div>
-										<div class="list-price">
-											<ul>
-												<li><img src="img/year.svg">${jobPosting.fromYears} to  ${jobPosting.toYears}</li>
-												<li><img src="img/inr.svg">${jobPosting.minCtc} - ${jobPosting.maxCtc}</li>
-												<li><img src="img/map.svg">${jobPosting.location}</li>
-											</ul>
-										</div>
-										<div class="desc">
-										<p>
-											<img src="img/txt-details.svg"> ${jobPosting.jobDescription}
-										</p>
-										</div>
-										
-										<c:set var="startingDate" value="${jobPosting.createdDate}" ></c:set>
-										<%
-    // Assuming similar_job is an object with a createdDate property
-    String createdDateString = (String) pageContext.getAttribute("startingDate");; // Fetching the created date string
-    
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate createdDate = LocalDate.parse(createdDateString, inputFormatter);
-    LocalDate today = LocalDate.now();
-    
-    long days = ChronoUnit.DAYS.between(createdDate, today);
-    String postedDays;
-    
-    if (days > 365) {
-        long years = days / 365;
-        postedDays = years + (years == 1 ? " Year Ago" : " Years Ago");
-    } else if (days > 28) {
-        long months = days / 30;
-        postedDays = months + (months == 1 ? " Month Ago" : " Months Ago");
-    } else {
-        postedDays = days + (days == 1 ? " Day Ago" : " Days Ago");
-    }
-%>
-										<div class="daytxt">
-											<p><%= postedDays %></p>
-											<div class="applyNow">
-												<a href="#" onclick="viewDetails(${jobPosting.jobId})"> View Details
-												</a>
+								<c:choose>
+									<c:when test="${jobPosting.jobType eq 'Job'}">
+										<div class="col-xl-6 col-lg-6 col-md-12 ">
+											<div class="listbox">
+												<div class="d-flex justify-content-between ">
+													<div class="company-details">
+														<a href="#">
+															<h4>${jobPosting.jobHeading }</h4>
+															<p>${jobPosting.companyName}</p>
+														</a>
+													</div>
+													<div class="company-logo">
+														<img src="img/nikitis-Infocom.png">
+													</div>
+												</div>
+												<div class="list-price">
+													<ul>
+														<li><img src="img/year.svg">${jobPosting.fromYears}
+															to ${jobPosting.toYears}</li>
+														<li><img src="img/inr.svg">${jobPosting.minCtc}
+															- ${jobPosting.maxCtc}</li>
+														<li><img src="img/map.svg">${jobPosting.location}</li>
+													</ul>
+												</div>
+												<div class="desc">
+													<p>
+														<img src="img/txt-details.svg">
+														${jobPosting.jobDescription}
+													</p>
+												</div>
+												<div class="daytxt">
+													<p>${jobPosting.noOfDays}</p>
+													<div class="applyNow">
+														<a href="#" onclick="viewDetails(${jobPosting.jobId})">
+															View Details </a>
+													</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</div>
+									</c:when>
+									<c:when test="${jobPosting.jobType eq 'Internship'}">
+										<div class="col-xl-6 col-lg-6 col-md-12 ">
+											<div class="listbox">
+												<div class="d-flex justify-content-between ">
+													<div class="company-details">
+														<a href="#">
+															<h4>${jobPosting.jobHeading }</h4>
+															<p>${jobPosting.companyName}</p>
+														</a>
+													</div>
+													<div class="company-logo">
+														<img src="img/nikitis-Infocom.png">
+													</div>
+												</div>
+												<div class="list-price">
+													<ul>
+
+														<li><img src="img/year.svg">${jobPosting.duration}</li>
+														<c:if test="${jobPosting.stipend ne 'NO' }">
+															<li><img src="img/inr.svg">${jobPosting.stipendSal}</li>
+														</c:if>
+														<li><img src="img/map.svg">${jobPosting.location}</li>
+													</ul>
+												</div>
+												<div class="desc">
+													<p>
+														<img src="img/txt-details.svg">
+														${jobPosting.jobDescription}
+													</p>
+												</div>
+												<div class="daytxt">
+													<p>${jobPosting.noOfDays}</p>
+													<div class="applyNow">
+														<a href="#" onclick="viewDetails(${jobPosting.jobId})">
+															View Details </a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:when>
+								</c:choose>
 							</c:forEach>
-
-
-
 						</div>
+						<ul class="pagination justify-content-end">
+							<c:if test="${totalpages != 0}">
+								<c:choose>
+									<c:when test="${currentPage == 1}">
+										<li class="page-item disabled"><a class="page-link"
+											href="#">Previous</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="jobpostingdetails(${currentPage - 1})">Previous</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:forEach var="i" begin="1" end="${totalpages}">
+									<c:choose>
+										<c:when test="${currentPage == i}">
+											<li class="page-item active"><a class="page-link"
+												href="#" onclick="jobpostingdetails(${i})">${i}</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="page-item"><a class="page-link" href="#"
+												onclick="jobpostingdetails(${i})">${i}</a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${currentPage == totalpages}">
+										<li class="page-item disabled"><a class="page-link"
+											href="#">Next</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="page-item"><a class="page-link" href="#"
+											onclick="jobpostingdetails(${currentPage + 1})">Next</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+							<%-- <c:if test="${totalpages == 0}">
+ 									<h4> No records found </h4> 
+							</c:if> --%>
+						</ul>
 					</div>
 				</div>
 			</div>

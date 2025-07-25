@@ -55,5 +55,6 @@ public interface EmployeerAppplicationConstant {
 	String ADDCLIENT = "addClient";
 	String CLIENTDETAILS = "clientDetails";
 	String EDIT_INTERNSHIP_POST = "editinternshippost";
+	String INTERVIEWER_HISTORY = "interviewerhistory";
 
 }

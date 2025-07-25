@@ -2315,3 +2315,78 @@ function populateEditCompanyName() {
         );
     }
 }
+function validateMobileNumber(input) {
+    input.value = input.value.replace(/\D/g, '');
+
+    // Allow only if it starts with 9, 8, 7, or 6
+    if (input.value.length > 0 && !/^[6-9]/.test(input.value)) {
+      input.value = '';
+      $('.mobileno_error').text('Mobile number must start with 6, 7, 8, or 9');
+    }else{
+		 $('.mobileno_error').text('');
+	}
+  }
+
+  function deleteSkill(id) {
+	
+	$(".loader").show();
+	$.ajax({
+		url:"deleteSkill",
+		type:'post',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			id:id,
+              type:"deleteSkill"
+          }),
+		  success: function(response) {
+			if (response.errorCode == "0000") {
+				showToast("success","Deleted successfully");
+				setTimeout(function() {
+  					window.location.reload(true); // Reload with cache bypass
+			}, 2000); // 2000ms = 2 seconds
+			} else
+			{
+				showToast("info","please try again");
+			}
+			$('.loader').hide();
+		},
+		error: function(xhr, status, error) {
+			// Error callback
+          console.log("error ocurred"+error)
+          showToast("error","failed to update");
+          $('.loader').hide();
+		}
+	})
+  }
+  
+  function deleteEmployement(id) {
+  	
+  	$(".loader").show();
+  	$.ajax({
+  		url:"deleteEmployement",
+  		type:'post',
+  		contentType: 'application/json',
+  		data: JSON.stringify({
+  			id:id,
+                type:"deleteEmployement"
+            }),
+  		  success: function(response) {
+  			if (response.errorCode == "0000") {
+  				showToast("success","Deleted successfully");
+  				setTimeout(function() {
+    					window.location.reload(true); // Reload with cache bypass
+  			}, 2000); // 2000ms = 2 seconds
+  			} else
+  			{
+  				showToast("info","please try again");
+  			}
+  			$('.loader').hide();
+  		},
+  		error: function(xhr, status, error) {
+  			// Error callback
+            console.log("error ocurred"+error)
+            showToast("error","failed to update");
+            $('.loader').hide();
+  		}
+  	})
+    }

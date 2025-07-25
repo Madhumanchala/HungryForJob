@@ -50,6 +50,8 @@ public interface EmployeerAppplicationConstant {
 	String JOB_POST_INFO = "managejobinfo";
 	String INTERVIEWER_PANEL = "addNewInterviewer";
 	String INTERVIEWERDETAILS = "interviewerDetails";
+	String MANAGER_PANEL = "addNewManager";
+	String MANAGERDETAILS = "managerDetails";
 	String ADDCLIENT = "addClient";
 	String CLIENTDETAILS = "clientDetails";
 	String EDIT_INTERNSHIP_POST = "editinternshippost";

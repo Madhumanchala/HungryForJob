@@ -31,6 +31,7 @@ function postInternship(flag, id) {
 
 	jobType = $('#internship').val();
 	jobTittle = $('#Jobtitle').val();
+	var statusjob = $("#jobpoststatus").val();
 
 	var employmentTypeCheck = document.getElementsByName("employmentType");
 	for (const radio of employmentTypeCheck) {
@@ -83,12 +84,13 @@ function postInternship(flag, id) {
 	internReferenceCode = $('#referencecode').val();
 	noOfVacancy = $('#numberVacancies').val();
 	internCompanyName = $('#companyName').val();
-	internAboutCompany = $('#aboutCompany').val();
+	/*internAboutCompany = $('#aboutCompany').val();
 	internAboutCompany = internAboutCompany.replace(/<[^>]*>/g, '');
 	internCompanyAddress = $('#internCompanyAddress').text();
-	internTelephone = $('#Telephone').val();
+	internTelephone = $('#Telephone').val();*/
 	internEmailId = $('#emailId').val();
 	internReadyToReLocate = $('#includeCandidates').is(':checked');
+	var operatedby = $('#operatedby').val();
 
 	if (jobTittle == "") {
 		$('#internJobTittle').text("Field is required");
@@ -206,7 +208,7 @@ function postInternship(flag, id) {
 		$('#internOfVacancy').show();
 		isValid = false;
 	}
-	if (internCompanyName == "") {
+	/*if (internCompanyName == "") {
 		$('#InternCompanyDetails').text("Field is required");
 		$('#InternCompanyDetails').show();
 		isValid = false;
@@ -220,14 +222,19 @@ function postInternship(flag, id) {
 		$('#InternTelephone').text("Field is required");
 		$('#InternTelephone').show();
 		isValid = false;
-
 	}
 	if (internEmailId == "") {
 		$('#InternEmailId').text("Field is required");
 		$('#InternEmailId').show();
 		isValid = false;
 
-	}
+	} else {
+		if (!validateEmail(internEmailId)) {
+			$('#InternEmailId').text('Please Enter Valid Email').css({ "color": "red" });
+			$('#InternEmailId').show();
+			isValid = false;
+		}
+	}*/
 
 	if (isValid) {
 		$.ajax({
@@ -265,7 +272,9 @@ function postInternship(flag, id) {
 				internTelephone: internTelephone,
 				internEmailId: internEmailId,
 				internReadyToReLocate: internReadyToReLocate,
-				flag: flag
+				flag: flag,
+				status: statusjob,
+				operatedBy: operatedby,
 			}),
 			success: function(response) {
 				console.log('Job internship  successfully:', response);
@@ -399,7 +408,11 @@ function internEmailIdModal(id, value) {
 function internTelephoneModal(id, value) {
 	hideModal(id);
 	$('#internMobileNumber').text(value);
-
+	var internTelephone = $('#Telephone').val();
+	if (/^[6-9]/.test(internTelephone)) {
+		$('#Telephone').text(value);
+	}
+	
 	if (value) {
 		$('.jd-preview-main').show();
 	} else {
@@ -490,3 +503,102 @@ function jobDetailsValidation() {
 		$('.jd-preview-main').hide();
 	}
 }
+
+function validateMobileNumber(input) {
+    input.value = input.value.replace(/\D/g, '');
+
+    // Allow only if it starts with 9, 8, 7, or 6
+    if (input.value.length > 0 && !/^[6-9]/.test(input.value)) {
+      input.value = '';
+      $('#editMobileNo_error').text('Mobile number must start with 6, 7, 8, or 9');
+    }else{
+		 $('#editMobileNo_error').text('');
+	}
+  }
+
+  function validateEmail(email) {
+      let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailPattern.test(email);
+  }
+  
+  function submitForm() {
+  	$("#addClient").modal('hide');
+  	document.getElementById("clientNameError").innerText = "";
+  	
+  	// Get input values
+  	const name = document.getElementById("clientName").value.trim();
+  	
+  	if (name === "") {
+  		document.getElementById("clientNameError").innerText = "Client Name is required.";
+  		return false;
+  	}
+  	
+  	const formData = {
+  		name : $("#clientName").val(),
+  		flag : 'insert'
+  	};
+	document.getElementById("clientName").value = "";
+  	
+  	$.ajax({
+  		url : "addClient", // Change this to your actual controller/URL
+  		type : "POST",
+  		contentType : "application/json",
+  		data : JSON.stringify(formData),
+  		success : function(response) {
+  			if (response.errors.errorCode === "0000") {
+  				/*showToast("success", "Sucessfully Saved");
+  				setTimeout(function() {
+  					$(".loader").hide();
+  					$(".loader").css("display", "block");
+  					location.reload();
+  				}, 1000);*/
+				
+				showToast("success", "Sucessfully Saved");
+				setTimeout(function() {
+					$('#companyName').empty();
+					
+					// Optionally add a placeholder
+			        $('#companyName').append(
+			            $('<option>', {
+			                value: '',
+			                text: 'Select'
+			            })
+			        );
+
+			        // Loop through the response.data array and append options
+			        response.data.forEach(function(company) {
+			            $('#companyName').append(
+			                $('<option>', {
+			                    value: company.name, // or another unique id if you have one
+			                    text: company.name
+			                })
+			            );
+			        });
+				}, 1000);
+				
+  			} else if (response.errors.errorCode === "1001") {
+  				showToast("info", "Client already exists.");
+  				setTimeout(function() {
+  					$(".loader").hide();
+  					$(".loader").css("display", "block");
+  					location.reload();
+  				}, 1000);
+  			} else {
+  				showToast("error", "Please Try again later!!");
+  				setTimeout(function() {
+  					$(".loader").hide();
+  					$(".loader").css("display", "block");
+  					location.reload();
+  				}, 1000);
+  			}
+  		},
+  		error : function(xhr) {
+  			showToast("error", "Please Try again later!!");
+  			setTimeout(function() {
+  				$(".loader").hide();
+  				$(".loader").css("display", "block");
+  				location.reload();
+  			}, 1000);
+  		}
+  	});
+  }

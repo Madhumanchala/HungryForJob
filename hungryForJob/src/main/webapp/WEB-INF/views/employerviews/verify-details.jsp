@@ -144,6 +144,7 @@
 													id="flexCheckDefault"> <label
 													class="form-check-label" for="flexCheckDefault"> I
 													agree to the Terms & Conditions </label>
+												<span class="errors" id="terms_error"></span>
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">

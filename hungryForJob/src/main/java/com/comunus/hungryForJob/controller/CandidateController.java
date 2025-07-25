@@ -1,9 +1,9 @@
 package com.comunus.hungryForJob.controller;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.time.Year;
-import java.util.Optional;
+import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -545,6 +545,19 @@ public class CandidateController {
 		}
 		return null;
 	}
+	
+//	public byte[] compressFile(MultipartFile file) throws Exception{
+//		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
+//            InputStream inputStream = file.getInputStream()) {
+//            byte[] buffer = new byte[1024];
+//            int len;
+//            while ((len = inputStream.read(buffer)) != -1) {
+//                gzipOutputStream.write(buffer, 0, len);
+//            }
+//        }
+//        return byteArrayOutputStream.toByteArray();
+//	}
 
 	@ResponseBody
 	@PostMapping("/updateImage")
@@ -711,5 +724,65 @@ public class CandidateController {
 
 		return "error";
 
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteSkill")
+	public APIErrorModel deleteSkill(@RequestBody CareerDetails careerDetails, HttpServletRequest request) {
+		log.info("====== deleteSkill method has been called   ======");
+
+		WebClientResponse response = null;
+		try {
+			String Url = Configs.urls.get(ApplicationConstant.UpdateSkills).getUrl();
+			log.info("getEducationDetails  " + Url);
+			response = myWebClient.post(Url, careerDetails).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<CareerDetails> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<CareerDetails>>() {
+						});
+				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
+					return responsemodel.getErrors();
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@ResponseBody
+	@PostMapping("/deleteEmployement")
+	public APIErrorModel deleteEmployement(@RequestBody CareerDetails careerDetails, HttpServletRequest request) {
+		log.info("====== deleteEmployement method has been called   ======");
+
+		WebClientResponse response = null;
+		try {
+			String Url = Configs.urls.get(ApplicationConstant.UpdateSkills).getUrl();
+			log.info("getEducationDetails  " + Url);
+			response = myWebClient.post(Url, careerDetails).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<CareerDetails> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<CareerDetails>>() {
+						});
+				if (responsemodel.getErrors().getErrorCode().equals("0000")) {
+					return responsemodel.getErrors();
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

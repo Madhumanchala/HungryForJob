@@ -2,6 +2,8 @@ package com.comunus.hungryForJob.employeer.Model;
 
 import java.util.List;
 
+import com.comunus.hungryForJob.model.DropDown;
+
 import lombok.Data;
 
 @Data
@@ -122,5 +124,7 @@ public class JobPosting {
 	private String isVisible;
 	private String flag;
 	private List<String> perksAndBenefits;
-
+	
+	private String operatedBy;
+	private String operatedById;
 }

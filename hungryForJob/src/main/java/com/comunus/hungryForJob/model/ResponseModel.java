@@ -78,4 +78,8 @@ public class ResponseModel {
 	private List<JobPosting> educName;
 	private companyProfiledetails companyDetails;
 	private List<String> perksAndBenefits;
+	
+	private List<DropDown> interviewerPanel;
+	private List<DropDown> clients;
+	private List<DropDown> operatedByUser;
 }

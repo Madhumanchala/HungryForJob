@@ -110,7 +110,6 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 							<img src="admin/img/active.svg" alt="">
 						</div>
 					</div>
-
 					<div
 						class="d-flex align-items-center gap-3 pending2 dashboardIcon card-listinner">
 						<div class="dashboardDetails">
@@ -164,25 +163,24 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 									<h4>Company List</h4>
 									<div class="formchecks">
 										<ul>
-
+											<li><input type="radio" class="btn-check"
+												name="companyList" id="Active"
+												onchange="choosestatus('Active')"> <label
+												class="btn" for="Active"><span>Active </span> </label></li>
+											<li><input type="radio" class="btn-check"
+												name="companyList" id="Processing"
+												onchange="choosestatus('Processing')"> <label
+												class="btn" for="Processing"><span>Processing
+												</span> </label></li>
 											<li><input type="radio" class="btn-check"
 												name="companyList" id="Registered"
 												onchange="choosestatus('Registered')"> <label
 												class="btn" for="Registered"><span>Registered
 												</span> </label></li>
 											<li><input type="radio" class="btn-check"
-												name="companyList" id="Active"
-												onchange="choosestatus('Active')"> <label
-												class="btn" for="Active"><span>Active </span> </label></li>
-											<li><input type="radio" class="btn-check"
 												name="companyList" id="Pending"
 												onchange="choosestatus('Pending')"> <label
 												class="btn" for="Pending"><span>Pending </span> </label></li>
-											<li><input type="radio" class="btn-check"
-												name="companyList" id="Processing"
-												onchange="choosestatus('Processing')"> <label
-												class="btn" for="Processing"><span>Processing
-												</span> </label></li>
 											<li><input type="radio" class="btn-check"
 												name="companyList" id="Failure"
 												onchange="choosestatus('Failure')"> <label
@@ -462,7 +460,7 @@ String operationemailId = (String) session.getAttribute("operationemailId");
 			    });
 			}else
 			{
-				$("#Registered").prop("checked",true);
+				$("#Active").prop("checked",true);
 				$(".hideplan").hide();
 				$(".loader").hide();
 			}

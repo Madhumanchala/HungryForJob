@@ -21,6 +21,8 @@
 <link href="employer/css/richtext.min.css" rel="stylesheet" />
 <link href="employer/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
+<link href="admin/css/style.css" rel="stylesheet">
+<script src="employer/js/createusers.js"></script>
 </head>
 <body>
 	<div class="loader">
@@ -63,6 +65,7 @@
 								</div>
 							</div>
 						</div>
+						<%-- <p>${userdetails}</p> --%>
 						<div class="billing-history">
 							<div class="card">
 								<div
@@ -85,6 +88,7 @@
 													<th>Email Id</th>
 													<th>Contact No</th>
 													<!-- <th>Role</th> -->
+													<th>Status</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -100,13 +104,19 @@
 													<td>${userdetails.emailId}</a></td>
 													<td>${userdetails.mobileNo}</td>
 													<%-- <td>${userdetails.roleName}</td> --%>
+													<td data-title="Status">
+														<div class="plancheckbox">
+															<input type="checkbox" id="empStatus${userdetails.id}"
+																${userdetails.status == 1? 'checked':''} onchange="changeStatus('empStatus${userdetails.id}','${userdetails.id}')">
+														</div>
+													</td>
 													<td class="actions">
 														<span class="pencil" >
 															<i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#edituserdetails"  onclick="appendusers('${userdetails.userName}', '${userdetails.emailId}', '${userdetails.mobileNo}', '${userdetails.id}')"></i>
 														</span> 
-														<span>
+														<%-- <span>
 															<i class="bi bi-x-circle" onclick="deleteusers('${userdetails.id}')"></i>
-														</span>
+														</span> --%>
 													</td>
 												</tr>
 											 </c:forEach> 
@@ -277,7 +287,6 @@
 	<script src="employer/js/bootstrap-datepicker.min.js"></script>
 	<script src="employer/js/jquery.richtext.js"></script>
 	<script src="employer/js/main.js"></script>
-	<script src="employer/js/createusers.js"></script>
 	<script src="js/commonvalidation.js"></script>
 
 </body>

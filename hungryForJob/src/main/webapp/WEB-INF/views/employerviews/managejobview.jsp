@@ -134,11 +134,14 @@
 												<div class="card-box">
 													<div class="prfilesbox">
 														<div class="profileImgs">
-														    <c:if test="${not empty candidateDetails.candidateProfileImage}">
-																	<img src="data:image/jpeg;base64,${candidateDetails.candidateProfileImage}">
+															<c:if
+																test="${not empty candidateDetails.candidateProfileImage}">
+																<img
+																	src="data:image/jpeg;base64,${candidateDetails.candidateProfileImage}">
 															</c:if>
-															<c:if test="${empty candidateDetails.candidateProfileImage}">
-																	<img src="employer/img/profile-img.jpg">
+															<c:if
+																test="${empty candidateDetails.candidateProfileImage}">
+																<img src="employer/img/profile-img.jpg">
 															</c:if>
 														</div>
 														<div class="profilTxt">
@@ -160,14 +163,16 @@
 																${candidateDetails.candidateAppliedDate} </span>
 														</p>
 														<c:if test="${cardnames.id eq 4}">
-															<span class="${fn:toLowerCase(candidateDetails.hiringStatus)}"> ${candidateDetails.hiringStatus} </span>
+															<span
+																class="${fn:toLowerCase(candidateDetails.hiringStatus)}">
+																${candidateDetails.hiringStatus} </span>
 														</c:if>
 														<c:if test="${cardnames.id ne 4}">
 															<span data-bs-toggle="modal" data-bs-target="#stepModal"
-															onclick="changestatus('${cardnames.id}','${candidateDetails.candidateName}','${candidateDetails.id}','${candidateDetails.candidateId}')"><a
-															href="#"> <i class="bi bi-chevron-right"></i></a> </span>
+																onclick="changestatus('${cardnames.id}','${candidateDetails.candidateName}','${candidateDetails.id}','${candidateDetails.candidateId}')"><a
+																href="#"> <i class="bi bi-chevron-right"></i></a> </span>
 														</c:if>
-														
+
 													</div>
 												</div>
 											</c:if>
@@ -218,8 +223,8 @@
 								<div class="form-group">
 									<label for="interviewDate" class="required">Interview
 										Date</label> <input type="text" name="interviewDate"
-										id="interviewDate" class="form-control datepicker" readonly="readonly"
-										placeholder="Interview Date">
+										id="interviewDate" class="form-control datepicker"
+										readonly="readonly" placeholder="Interview Date">
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6 col-12">
@@ -236,7 +241,20 @@
 										name="jobTitle" id="jobTitle" class="form-control" disabled>
 								</div>
 							</div>
+							
 							<div class="col-lg-12 col-md-12 col-12">
+								<div class="form-group">
+									<label for="interviewerEmail" class="required">Interview Panel</label>
+										<select class="form-select form-control selet2Multiple" multiple="multiple" id="interviewerEmail" style="width: 100%;" placeholder="">
+										<option value="">Select</option>
+										<c:forEach items="${interviewPanel}" var="interviewPanel">
+											<option value="${interviewPanel.name}">${interviewPanel.name}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+							
+							<!-- <div class="col-lg-12 col-md-12 col-12">
 								<div class="form-group">
 									<label for="interviewPanel" class="required">Interview
 										Panel</label>
@@ -246,7 +264,8 @@
 											class="enter-mail-id" placeholder="Enter Interview Panel">
 									</div>
 								</div>
-							</div>
+							</div> -->
+
 							<div class="col-lg-6 col-md-6 col-12">
 								<div class="form-group">
 									<label for="interviewMode" class="required">Interview
@@ -284,8 +303,7 @@
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
-								<label for="reviewDescription">Description
-								</label>
+								<label for="reviewDescription">Description </label>
 								<textarea class="form-control" id="reviewDescription"
 									placeholder="Enter reviewDescription" maxlength="30"> </textarea>
 							</div>
@@ -360,10 +378,10 @@
 			 
 
 		$(document).ready(function() {
-			$(".selet2Multiple").select2({
+			$(".selet2Single").select2({
 				placeholder : "Select"
 			});
-			$(".selet2Single").select2({
+			$(".selet2Multiple").select2({
 				placeholder : "Select"
 			});
 		});
@@ -386,6 +404,12 @@
 			$("#statusvalue").select2({
 				dropdownParent : $("#statusvalue").parent()
 			});
+			
+			$("#interviewerEmail").select2({
+				dropdownParent : $("#interviewerEmail").parent()
+			});
+			
+			
 		});
 
 		$(document).ready(function() {
@@ -516,14 +540,13 @@
 						isvalid=false;
 						return
 					}
-					var interviewpanel = $("#interviewPanelAllMail").text().trim();
-					let emails = interviewpanel.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g) || [];
-					if(emails.length <= 0)
-					{
-						isvalid=false
-						showToast("info","please Enter valid email");
+					var emails = $("#interviewerEmail").val();
+					if (checkvalidation(emails)) {
+						showToast("info","please enter the interviewer");
+						isvalid=false;
 						return
 					}
+					
 					var interviewmode = $("#interviewMode").val();
 					if(checkvalidation(interviewmode))
 					{

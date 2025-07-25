@@ -1,5 +1,6 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import java.time.Year;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ import com.comunus.hungryForJob.employeer.Model.SearchResp;
 import com.comunus.hungryForJob.employeer.Model.companyProfiledetails;
 import com.comunus.hungryForJob.employeer.Model.managesearchmodel;
 import com.comunus.hungryForJob.model.CareerDetails;
+import com.comunus.hungryForJob.model.DropDown;
 import com.comunus.hungryForJob.model.ResponseModel;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
 /*import com.comunus.hungryForJobs.config.Configs;
@@ -79,6 +81,9 @@ public class SearchCandidateController {
 		log.info("Inside searchCandidates ");
 		WebClientResponse response = null;
 		WebClientResponse response1 = null;
+		
+		log.info("************* Admin Role? ****************** : " + session.getAttribute("rolestatus").toString());
+		
 		try {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.SEARCH_CANDIDATES).getUrl();
 			String Url1 = Configs.urls.get(EmployeerAppplicationConstant.FETCH_MENU).getUrl();
@@ -455,7 +460,7 @@ public class SearchCandidateController {
 	// sharhrukh
 	@PostMapping("/searchbyemail")
 	@ResponseBody
-	public String searchByEmail(@RequestBody SearchRequest data, HttpServletRequest request) {
+	public ServiceResponseWrapperModel<DropDown> searchByEmail(@RequestBody SearchRequest data, HttpServletRequest request) {
 		log.info(" addExistingFolder ========== " + data);
 		WebClientResponse response = null;
 		try {
@@ -467,14 +472,10 @@ public class SearchCandidateController {
 			}
 			log.info("response form the search Email APi ========== " + response);
 			if (response.getStatusCode() == 200) {
-				response.getBody();
-				if (response.getBody().equals("true")) {
-					return "User Found";
-				} else if (response.getBody().equals("false")) {
-					return "No User Found";
-				} else {
-					return "No User Found";
-				}
+				ServiceResponseWrapperModel<DropDown> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<DropDown>>() {
+						});
+				return responsemodel;
 			}
 
 		} catch (Exception e) {
@@ -485,6 +486,43 @@ public class SearchCandidateController {
 		return null;
 	}
 	// sharhrukh
+	
+	@PostMapping("/getCandidateDetails")
+	@ResponseBody
+	public ServiceResponseWrapperModel<ResponseModel> getCandidateDetails(@RequestBody ResponseModel data, Model model, HttpSession session, HttpServletRequest request) {
+		log.info("@@@@ getCandidateDetails  @@@@@ :");
+		
+		WebClientResponse response = null;
+		try {
+			String username = null;
+			if (data.getQualificationId() != null) {
+				username = data.getQualificationId();
+				log.info("@@@@ username  @@@@@ : " + username);
+			} else {
+				log.info("Session expired or candidateId is not set.");
+			}
+			String Url = Configs.urls.get(ApplicationConstant.MyProfile).getUrl();
+			log.info(" @@@@ myProfile" + Url);
+			response = myWebClient.post(Url, username).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				return responsemodel;
+			} else {
+				log.info("Error in Response");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("======= candidateDashboard =====" + e.getMessage());
+			// TODO: handle exception
+		}
+		return null;
+	}
 
 	@PostMapping("managesearch")
 	public String managesearch(HttpSession session, HttpServletRequest request, Model model) {

@@ -1,5 +1,7 @@
 package com.comunus.hungryForJob.employeer.Controller;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ import com.comunus.hungryForJob.model.ResponseModel;
 import com.comunus.hungryForJob.model.ServiceResponseWrapperModel;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.media.jfxmedia.logging.Logger;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -243,6 +246,16 @@ public class DashboardController {
 					}	
 					model.addAttribute("size", responsemodel.getData().getManageUserDetails().size());
 					log.info("sizof it == "+responsemodel.getData().getManageUserDetails().size()+"user access === "+responsemodel.getData().getUserdetails().getUserAccess());
+					
+					List<Dashboard> manageUserDetails = responsemodel.getData().getManageUserDetails();
+					int count = 0;
+					
+					for (int i = 0; i < manageUserDetails.size(); i++) {
+						if ("1".equals(manageUserDetails.get(i).getStatus())) {
+							count++;
+						}
+					}
+					log.info("********************* Count of Active Employees: " + count);
 				}
 			}
 			
@@ -283,7 +296,6 @@ public class DashboardController {
 			if(response.getStatusCode() == 200)
 			{
 				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(), new TypeReference<ServiceResponseWrapperModel<ResponseModel>>(){});
-				session.setAttribute("rolestatus", "");
 				return responsemodel;
 			}
 			

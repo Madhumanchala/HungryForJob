@@ -221,3 +221,47 @@ function deleteusers(id)
 		})
 	}
 }
+
+function changeStatus(id, empId) {
+	
+	var empStatus = $("#"+id).prop("checked");
+	var status = 0;
+	if (empStatus) {
+		status = 1;
+	}
+	
+	$.ajax({
+		url:"createuser",
+		type:'post',
+		contentType: 'application/json',
+		data: JSON.stringify({
+			id:empId,
+			status:status,
+			type:"changeStatus"
+        }),
+        success: function(response) {
+            // Success callback
+            if(response.errors.errorCode === "0000")
+            {
+				showToast("success","updated  successfully");
+				setTimeout(function() {
+					window.location.reload(true); // Reload with cache bypass
+				}, 2000); // 2000ms = 2 seconds
+			}else if(response.errors.errorCode === "1010")
+			{
+				showToast("info","Email is Already Existed");
+			}
+			else
+			{
+				showToast("info","please try again");
+			}
+			$('.loader').hide();
+        },
+        error: function(xhr, status, error) {
+            // Error callback
+            console.log("error ocurred"+error)
+            showToast("error","failed to update");
+            $('.loader').hide();
+        }
+	})
+}

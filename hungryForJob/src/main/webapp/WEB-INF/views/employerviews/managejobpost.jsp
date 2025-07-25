@@ -36,22 +36,25 @@
 					<div class="col-xl-12 col-lg-12 col-md-12">
 						<div class="manageJobstitle d-flex justify-content-between mb-3">
 							<h3 class="maintitle">Manage Jobs</h3>
-							<button class="btn-blue" onclick="findroute('jobPost')">
+							<!-- <button class="btn-blue" onclick="findroute('jobPost')">
 								<i class="bi bi-plus"></i> Post a job
-							</button>
+							</button> -->
 						</div>
 					</div>
 				</div>
 
-
 				<div class="sortbyjob">
+				<div class="col-xl-12 col-lg-12 col-md-12" style="display: flex; justify-content: space-between;">
 					<div class="form-groupsort">
 						<div class="input-group ">
 							<span class="input-group-text "> <i class="bi bi-search"></i></span>
 							<input type="text" class="form-control " id="searchBox"
 								placeholder="Search Job">
 						</div>
-
+					</div>
+					<button class="btn-blue" onclick="findroute('jobPost')" style="padding: 5px 15px; height: 35px;">
+						<i class="bi bi-plus"></i> Post a job
+					</button>
 					</div>
 
 					<%-- <div class="form-groupsort">
@@ -100,11 +103,62 @@
 									</div>
 									<div class="list-price">
 										<ul class="list-group list-group-horizontal">
-											<li class="me-2"><img src="employer/img/year.svg">
+										
+											<%-- <c:if test="${jobdetails.jobType eq 'Job'}">
+												<li class="me-2"><img src="employer/img/year.svg">
 												${jobdetails.minExp}-${jobdetails.maxExp}&nbsp;years</li>
-											<li class="me-2"><img src="employer/img/inr.svg">
-												${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
-											</li>
+												
+												<li class="me-2"><img src="employer/img/inr.svg">
+												${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}</li>
+												
+											</c:if>
+											<c:if test="${jobdetails.jobType eq 'Internship'}">
+												<li class="me-2"><img src="employer/img/year.svg">
+												${jobdetails.internDuration}&nbsp;months</li>
+												
+												<c:if test="${jobdetails.internStipendConfirm eq 'YES'}">
+													<li class="me-2"><img src="employer/img/inr.svg">
+													${jobdetails.internStipendMoney}</li>
+												</c:if>
+												<c:if test="${jobdetails.internStipendConfirm eq 'NO'}">
+													<li class="me-2"><img src="employer/img/inr.svg">Unpaid</li>
+												</c:if>
+											</c:if> --%>
+											
+											<c:choose>
+											    <c:when test="${jobdetails.jobType eq 'Job'}">
+											        <li class="me-2">
+											            <img src="employer/img/year.svg" alt="Experience"> 
+											            ${jobdetails.minExp}-${jobdetails.maxExp} years
+											        </li>
+											        <li class="me-2">
+											            <img src="employer/img/inr.svg" alt="Salary">
+											            ${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
+											        </li>
+											    </c:when>
+											    <c:when test="${jobdetails.jobType eq 'Internship'}">
+											        <li class="me-2">
+											            <img src="employer/img/year.svg" alt="Internship Duration">
+											            ${jobdetails.internDuration} months
+											        </li>
+											        
+											        <c:choose>
+											            <c:when test="${jobdetails.internStipendConfirm eq 'YES'}">
+											                <li class="me-2">
+											                    <img src="employer/img/inr.svg" alt="Intern Stipend">
+											                    ${jobdetails.internStipendMoney}
+											                </li>
+											            </c:when>
+											            <c:otherwise>
+											                <li class="me-2">
+											                    <img src="employer/img/inr.svg" alt="Unpaid">
+											                    Unpaid
+											                </li>
+											            </c:otherwise>
+											        </c:choose>
+											    </c:when>
+											</c:choose>
+											
 											<li class="me-2"><img src="employer/img/map.svg">
 												${jobdetails.jobloc}</li>
 										</ul>
@@ -135,21 +189,6 @@
 											<%-- <p>
 												Expired at <span>${jobdetails.endDate}</span>
 											</p> --%>
-										</div>
-										<%-- <div class="progress " role="progressbar"
-											aria-label="Basic example" aria-valuenow="25"
-											aria-valuemin="0" aria-valuemax="100">
-											<div class="progress-bar ${jobdetails.status}"
-												style="width: ${jobdetails.statusBar}%"></div>
-										</div> --%>
-									</div>
-
-									<div class="createdby">
-										<div
-											class="postedtxt d-flex justify-content-between align-items-center">
-											<p>
-												Created by <span>${jobdetails.createdBy}</span>
-											</p>
 											<ul class="list-group list-group-horizontal">
 												<%-- 												<li class="list-group me-3" data-bs-toggle="tooltip"
 													onclick="insertjobpost(${jobdetails.id})"
@@ -196,7 +235,8 @@
 															</c:when>
 														</c:choose>
 													</c:when>
-													<c:when test="${jobdetails.userId == sessionUserId}">
+													<%-- <c:when test="${jobdetails.userId == sessionUserId}"> --%>
+													<c:when test="${jobdetails.operatedById == sessionUserId}">
 														<%-- <li class="list-group me-3" data-bs-toggle="tooltip"
 															data-bs-placement="top" data-bs-title="Edit"
 															onclick="updateJobpost(${jobdetails.id})"><a><img
@@ -232,6 +272,24 @@
 													onclick="findNewroute('/managejobinfo',${jobdetails.id})"><a
 													href="#"><img src="employer/img/view3.svg"> </a></li>
 											</ul>
+										</div>
+										<%-- <div class="progress " role="progressbar"
+											aria-label="Basic example" aria-valuenow="25"
+											aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar ${jobdetails.status}"
+												style="width: ${jobdetails.statusBar}%"></div>
+										</div> --%>
+									</div>
+
+									<div class="createdby">
+										<div
+											class="postedtxt d-flex justify-content-between align-items-center">
+											<p>
+												Created by <span>${jobdetails.createdBy}</span>
+											</p>
+											<p>
+												Operated by <span>${jobdetails.operatedBy}</span>
+											</p>
 										</div>
 									</div>
 								</div>
@@ -403,7 +461,7 @@
         form.submit(); 
     }
     
-   /*  function insertInternshippost(id)
+    function insertInternshippost(id)
     {
     	let form = document.createElement('form');
         form.method = 'POST'; 
@@ -419,7 +477,7 @@
 
         document.body.appendChild(form);
         form.submit(); 
-    } */
+    }
     
 
   </script>

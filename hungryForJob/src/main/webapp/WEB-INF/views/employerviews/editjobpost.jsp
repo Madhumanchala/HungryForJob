@@ -613,10 +613,14 @@ String userId = (String) session.getAttribute("userId");
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="question-group">
 												<div class="form-group">
-													<h4>Company Details</h4>
+													<div class="d-flex justify-content-between align-items-center ">
+														<h4>Client Details</h4>
+														<button type="button" class="btn-blue mt-2 ml-3" data-bs-toggle="modal"
+															data-bs-target="#addClient">+ Add New Client</button>
+													</div>
 												</div>
 												<div class="row">
-													<div class="col-lg-12 col-md-12 col-sm-12">
+													<%-- <div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="companyName" class="required">Company
 																Name</label> <input type="text" class="form-control"
@@ -624,9 +628,22 @@ String userId = (String) session.getAttribute("userId");
 																value="${editjobpostdetails.companyName}"> <span
 																class="errors" id="companyName_error"></span>
 														</div>
+													</div> --%>
+													
+													<div class="col-lg-12 col-md-12 col-sm-12">
+														<div class="form-group">
+															<label for="companyName">Client Name</label> <select class="form-select form-control selet2Single"
+																id="companyName">
+																<option value="" selected>Select</option>
+																<c:forEach items="${client}" var="client">
+																	<option value="${client.name}"
+																		<c:if test="${editjobpostdetails.companyName == client.name}">selected</c:if>>${client.name}</option>
+																</c:forEach>
+															</select> <span class="errors" id="companyName_error"></span>
+														</div>
 													</div>
 
-													<div class="col-lg-12 col-md-12 col-sm-12">
+													<%-- <div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="aboutCompany" class="required">About
 																Company </label>
@@ -656,10 +673,11 @@ String userId = (String) session.getAttribute("userId");
 																oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 															<span class="errors" id="Telephone_error"></span>
 														</div>
-													</div>
+													</div> --%>
+													
 													<div class="col-lg-6 col-md-6 col-sm-12">
 														<div class="form-group">
-															<label for="emailId" class="required">Email Id </label> <input
+															<label for="emailId">Email Id </label> <input
 																type="text" class="form-control" id="emailId"
 																placeholder="Enter Email Id" onkeyup="changeEmailId()"
 																value="${editjobpostdetails.emailId}"> <span
@@ -683,6 +701,28 @@ String userId = (String) session.getAttribute("userId");
 												</select> <span class="errors" id="jobpoststatus"></span>
 											</div>
 										</div>
+										
+										<c:if test="${userRole == 'employeradmin'}">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label for="operatedby">Operated By</label>
+													<select class="form-select form-control selet2Single"
+														id="operatedby">
+														<option value="">Select</option>
+														
+														<%-- <c:forEach items="${operatedByUser}" var="operatedByUser">
+															<option value="${operatedByUser.id}">${operatedByUser.name}</option>
+														</c:forEach> --%>
+														
+														<c:forEach items="${operatedByUser}" var="operatedByUser">
+															<option value="${operatedByUser.id}"
+																<c:if test="${editjobpostdetails.operatedBy == operatedByUser.id}">selected</c:if>>${operatedByUser.name}</option>
+														</c:forEach>
+														
+													</select> <span class="errors" id="operatedby"></span>
+												</div>
+											</div>
+										</c:if>
 
 										<div class="col-lg-12 d-flex justify-content-end">
 											<!-- button type="button" class="btns-border">Save as
@@ -789,6 +829,40 @@ String userId = (String) session.getAttribute("userId");
 
 	</main>
 	<!-- End #main -->
+	
+	<!-- addCommentModal   -->
+	<div class="modal fade" id="addClient" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body pe-4 ps-4 py-4">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="clientName" class="form-label required">Client
+									Name</label> <input type="text" name="clientName" id="clientName"
+									class="form-control" placeholder="Enter Client Name">
+								<div class="text-danger" id="clientNameError"></div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btns" onclick="submitForm()">Submit</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
 	<!-- ======= Footer ======= -->
 	<%@include file="employerfooter.jsp"%>
 	<!-- End Footer -->

@@ -155,7 +155,6 @@ int yearInt = Integer.parseInt(year);
 
 							</div>
 
-
 							<div class="card-content">
 								<div
 									class="headtitle d-flex justify-content-between align-items-center">
@@ -168,7 +167,7 @@ int yearInt = Integer.parseInt(year);
 										</a>
 									</div>
 								</div>
-
+								
 								<div class="content-txt">
 									<c:forEach items="${employmentDetails}" var="emloyementDetails">
 										<div class="addEmployment">
@@ -217,6 +216,9 @@ int yearInt = Integer.parseInt(year);
 																</a>
 															</c:otherwise>
 														</c:choose>
+														<span>
+															<i class="bi bi-x-circle" onclick="deleteEmployement('${emloyementDetails.id}')"></i>
+														</span>
 													</div>
 												</div>
 												<%-- <div class="col-lg-4 col-md-6 col-sm-6 col-9 ">
@@ -236,7 +238,6 @@ int yearInt = Integer.parseInt(year);
 									</c:forEach>
 								</div>
 							</div>
-
 
 							<div class="card-content">
 								<div
@@ -262,13 +263,16 @@ int yearInt = Integer.parseInt(year);
 													<h5>${skills.years}.${skills.months}Yrs</h5>
 												</div>
 
-												<div class="col-lg-1 col-md-2 col-sm-1 col-3 ">
+												<div class="col-lg-1 col-md-2 col-sm-1 col-3 ml-5">
 													<div>
 														<a href="#" data-bs-toggle="modal"
 															data-bs-target="#skillsEditModal" class="editBtn2"
 															onclick="editSkillsDetails(${skills.id},'${skills.years}.${skills.months}','${skills.techName}')">
 															<img src="img/edit-2.svg">
 														</a>
+														<span>
+															<i class="bi bi-x-circle" onclick="deleteSkill('${skills.id}')"></i>
+														</span>
 													</div>
 												</div>
 											</div>
@@ -444,7 +448,7 @@ int yearInt = Integer.parseInt(year);
 								<label for="mobileNo" class="form-label required">Mobile
 									No </label> <input type="text" name="mobileNo" id="mobileNo"
 									class="form-control" placeholder="Enter Mobile No"
-									maxlength="10"><span class="mobileno_error errorfield"></span>
+									maxlength="10" oninput="validateMobileNumber(this)"><span class="mobileno_error errorfield"></span>
 							</div>
 						</div>
 
@@ -533,7 +537,7 @@ int yearInt = Integer.parseInt(year);
 							id="editQualificationModal">
 							<div class="form-group">
 								<label for="editQualification" class="form-label">Highest
-									Qualififcation/ Degree currently pursuing</label> <select
+									Qualification/ Degree currently pursuing</label> <select
 									name="editQualification" id="editQualification"
 									class="form-control selet2Single" style="width: 100%">
 									<option>Select</option>

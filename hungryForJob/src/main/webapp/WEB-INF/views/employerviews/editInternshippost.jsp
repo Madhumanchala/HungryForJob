@@ -159,7 +159,7 @@
 												<label for="educationalQualification" class="required">Educational
 													qualification </label> <select
 													class="form-select form-control selet2Multiple"
-													id="educationalQualification"
+													id="educationalQualification" multiple="multiple"
 													onchange="hideModal('internEducationQualification')">
 													<option value="">Select</option>
 													<c:forEach items="${education}" var="education">
@@ -439,10 +439,10 @@
 											<div class="row">
 												<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 													<div class="form-group">
-														<label for="referencecode" class="">Reference
-															code</label> <input type="text" class="form-control"
-															id="referencecode" placeholder="Enter Reference code"
-															maxlength="30" value="${editjobpostdetails.reference}"
+														<label for="referencecode" class="">Reference code</label>
+														<input type="text" class="form-control" id="referencecode"
+															placeholder="Enter Reference code" maxlength="30"
+															value="${editjobpostdetails.reference}"
 															onkeyup="hideModal('internReferenceCode_error')">
 														<span class="errors" id="internReferenceCode_error"></span>
 													</div>
@@ -464,21 +464,32 @@
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="question-group">
 												<div class="form-group">
-													<h4>Company Details</h4>
+													<div class="d-flex justify-content-between align-items-center ">
+														<h4>Client Details</h4>
+														<button type="button" class="btn-blue mt-2 ml-3" data-bs-toggle="modal"
+															data-bs-target="#addClient">+ Add New Client</button>
+													</div>
 												</div>
 												<div class="row">
 													<div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
-															<label for="companyName" class="required">Company
-																Name</label> <input type="text" class="form-control"
+															<label for="companyName">Client Name</label>
+															<%-- <input type="text" class="form-control"
 																id="companyName"
 																value="${editjobpostdetails.companyName}"
-																onkeyup="internCompanyModal('InternCompanyDetails',this.value)">
-															<span class="errors" id="InternCompanyDetails"></span>
+																onkeyup="internCompanyModal('InternCompanyDetails',this.value)"> --%>
+															<select class="form-select form-control selet2Single"
+																id="companyName">
+																<option value="">Select</option>
+																<c:forEach items="${client}" var="client">
+																	<option value="${client.name}"
+																		<c:if test="${client.name == editjobpostdetails.companyName}">Selected</c:if>>${client.name}</option>
+																</c:forEach>
+															</select> <span class="errors" id="InternCompanyDetails"></span>
 														</div>
 													</div>
 
-													<div class="col-lg-12 col-md-12 col-sm-12">
+													<%-- <div class="col-lg-12 col-md-12 col-sm-12">
 														<div class="form-group">
 															<label for="aboutCompany" class="required">About
 																Company </label>
@@ -505,13 +516,13 @@
 																placeholder="Enter Telephone" maxlength="10"
 																value="${editjobpostdetails.telephoneNumber}"
 																onkeyup="internTelephoneModal('InternTelephone',this.value)"
-																oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-															<span class="errors" id="InternTelephone"></span>
+																oninput="validateMobileNumber(this)"> <span
+																class="errors" id="InternTelephone"></span>
 														</div>
-													</div>
+													</div> --%>
 													<div class="col-lg-6 col-md-6 col-sm-12">
 														<div class="form-group">
-															<label for="emailId" class="required">Email Id </label> <input
+															<label for="emailId">Email Id </label> <input
 																type="text" class="form-control" id="emailId"
 																placeholder="Enter Email Id "
 																value="${editjobpostdetails.emailId}"
@@ -519,11 +530,35 @@
 															<span class="errors" id="InternEmailId"></span>
 														</div>
 													</div>
-
-
 												</div>
 											</div>
 										</div>
+
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label for="jobpoststatus" class="required">Status </label>
+												<select class="form-select form-control selet2Single"
+													id="jobpoststatus">
+													<c:forEach items="${masterstatus}" var="masterstatus">
+														<option value="${masterstatus.id}">${masterstatus.name}</option>
+													</c:forEach>
+												</select> <span class="errors" id="jobpoststatus"></span>
+											</div>
+										</div>
+										<c:if test="${userRole == 'employeradmin'}">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group">
+													<label for="operatedby">Operated By</label>
+													<select class="form-select form-control selet2Single"
+														id="operatedby">
+														<option value="">Select</option>
+														<c:forEach items="${operatedByUser}" var="operatedByUser">
+															<option value="${operatedByUser.id}">${operatedByUser.name}</option>
+														</c:forEach>
+													</select> <span class="errors" id="operatedby"></span>
+												</div>
+											</div>
+										</c:if>
 
 										<div class="col-lg-12 d-flex justify-content-end">
 											<button type="submit" class="btns-border">Save as
@@ -591,6 +626,40 @@
 		</section>
 	</main>
 	<!-- End #main -->
+	
+	<!-- addCommentModal   -->
+	<div class="modal fade" id="addClient" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body pe-4 ps-4 py-4">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="form-group">
+								<label for="clientName" class="form-label required">Client
+									Name</label> <input type="text" name="clientName" id="clientName"
+									class="form-control" placeholder="Enter Client Name">
+								<div class="text-danger" id="clientNameError"></div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btns" onclick="submitForm()">Submit</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
 	<!-- ======= Footer ======= -->
 	<footer id="footer" class="footer">
 		<div class="container">
@@ -742,6 +811,17 @@
 					//
 				});
 	</script>
+	<!-- <script type="text/javascript">
+		var internStipendConfirm = "${editjobpostdetails.internStipendConfirm}";
+		
+		const stipendDiv = document.getElementById('stipendOnOff');
+		if (internStipendConfirm === 'YES') {
+			stipendDiv.style.display = 'block';
+		} else {
+			stipendDiv.style.display = 'none';
+		}
+		
+	</script> -->
 </body>
 
 </html>

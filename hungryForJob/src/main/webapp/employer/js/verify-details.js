@@ -49,6 +49,13 @@ function saveplanDetails()
 		$('#utrDate_error').show();
 		isvalid=false;
 	}
+	if ($('#flexCheckDefault').is(':checked')) {
+	    console.log('Terms and conditions accepted.');
+	} else {
+		$('#terms_error').text("Please accept the terms and conditions");
+		$('#terms_error').show();
+		isvalid=false;
+	}
 	if(isvalid)
 	{
 			$.ajax({

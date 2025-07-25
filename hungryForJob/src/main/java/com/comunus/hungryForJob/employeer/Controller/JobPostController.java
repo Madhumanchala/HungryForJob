@@ -53,11 +53,22 @@ public class JobPostController {
 	@PostMapping("/jobPost")
 	public String jobPost(Model model, HttpServletRequest request, HttpSession session) {
 		log.info("Inside jobPost ");
+		JobPosting jobPosting = new JobPosting();
 		WebClientResponse response = null;
 		try {
+			
+			if (session.getAttribute("companyId") != null) {
+				String companyId = session.getAttribute("companyId").toString();
+				String userId = session.getAttribute("userId").toString();
+				jobPosting.setCompanyId(companyId);
+				jobPosting.setUserId(userId);
+			} else {
+				log.info("Session expired or companyId is not set.");
+			}
+			
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.JOB_POSTING).getUrl();
 			log.info("@@@@ jobPost " + Url);
-			response = myWebClient.post(Url, null).block();
+			response = myWebClient.post(Url, jobPosting).block();
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());
@@ -75,6 +86,9 @@ public class JobPostController {
 					model.addAttribute("role", responsemodel.getData().getJobPostingRole());
 					model.addAttribute("education", responsemodel.getData().getJobPostingEducationQualification());
 					model.addAttribute("masterstattus", responsemodel.getData().getJobPostStatus());
+					model.addAttribute("operatedByUser", responsemodel.getData().getOperatedByUser());
+					model.addAttribute("clients", responsemodel.getData().getClients());
+					model.addAttribute("userRole", session.getAttribute("rolestatus").toString());
 					model.addAttribute("isVisibleFlag", session.getAttribute("isVisible").toString());
 				} else {
 					log.info(" Error Ocuured in Service");
@@ -98,6 +112,10 @@ public class JobPostController {
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.SAVE_JOB_POSTING).getUrl();
 			log.info("@@@@ saveJobPost " + Url);
 
+			if (jobpost.getOperatedBy() == null || jobpost.getOperatedBy().equals("")) {
+				jobpost.setOperatedBy(jobpost.getUserId());
+			}
+			
 			if (session.getAttribute("isVisible") != null) {
 				jobpost.setIsVisible(session.getAttribute("isVisible").toString());
 			} else {
@@ -158,14 +176,25 @@ public class JobPostController {
 	}
 
 	@PostMapping("/jobInternship")
-	public String jobInternShip(Model model, HttpServletRequest request) {
+	public String jobInternShip(Model model, HttpServletRequest request, HttpSession session) {
 
 		log.info("Inside jobPost ");
+		JobPosting jobPosting = new JobPosting();
 		WebClientResponse response = null;
 		try {
+			
+			if (session.getAttribute("companyId") != null) {
+				String companyId = session.getAttribute("companyId").toString();
+				String userId = session.getAttribute("userId").toString();
+				jobPosting.setCompanyId(companyId);
+				jobPosting.setUserId(userId);
+			} else {
+				log.info("Session expired or companyId is not set.");
+			}
+			
 			String Url = Configs.urls.get(EmployeerAppplicationConstant.JOB_POSTING).getUrl();
 			log.info("@@@@ jobPost Internship " + Url);
-			response = myWebClient.post(Url, null).block();
+			response = myWebClient.post(Url, jobPosting).block();
 
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
@@ -184,6 +213,10 @@ public class JobPostController {
 					model.addAttribute("role", responsemodel.getData().getJobPostingRole());
 					model.addAttribute("education", responsemodel.getData().getJobPostingEducationQualification());
 					model.addAttribute("perksAndBenfists", responsemodel.getData().getInternPerksAndBenefits());
+					model.addAttribute("masterstattus", responsemodel.getData().getJobPostStatus());
+					model.addAttribute("operatedByUser", responsemodel.getData().getOperatedByUser());
+					model.addAttribute("client", responsemodel.getData().getClients());
+					model.addAttribute("userRole", session.getAttribute("rolestatus").toString());
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
@@ -204,6 +237,10 @@ public class JobPostController {
 		WebClientResponse response = null;
 		try {
 
+			if (jobpost.getOperatedBy() == null || jobpost.getOperatedBy().equals("")) {
+				jobpost.setOperatedBy(jobpost.getUserId());
+			}
+			
 			if (session.getAttribute("isVisible") != null) {
 				jobpost.setIsVisible(session.getAttribute("isVisible").toString());
 			} else {
@@ -423,6 +460,9 @@ public class JobPostController {
 					model.addAttribute("education", responsemodel.getData().getJobPostingEducationQualification());
 					model.addAttribute("editjobpostdetails", responsemodel.getData().getEditJobpostingDetails());
 					model.addAttribute("masterstatus", responsemodel.getData().getJobPostStatus());
+					model.addAttribute("client", responsemodel.getData().getClients());
+					model.addAttribute("operatedByUser", responsemodel.getData().getOperatedByUser());
+					model.addAttribute("userRole", session.getAttribute("rolestatus").toString());
 					log.info("data jobpost ==" + responsemodel.getData().getEditJobpostingDetails());
 				} else {
 					log.info(" Error Ocuured in Service");
@@ -508,6 +548,7 @@ public class JobPostController {
 					model.addAttribute("jobpostdetails", responsemodel.getData().getJobPostDetailsView());
 					model.addAttribute("jobpostId", jobpost.getId());
 					model.addAttribute("interviewmode", responsemodel.getData().getInterviewMode());
+					model.addAttribute("interviewPanel", responsemodel.getData().getInterviewerPanel());
 				} else {
 					log.info(" Error Ocuured in Service");
 				}
@@ -648,6 +689,9 @@ public class JobPostController {
 					model.addAttribute("editjobpostdetails", responsemodel.getData().getEditJobpostingDetails());
 					model.addAttribute("masterstatus", responsemodel.getData().getJobPostStatus());
 					model.addAttribute("perksAndBenfists", responsemodel.getData().getInternPerksAndBenefits());
+					model.addAttribute("userRole", session.getAttribute("rolestatus").toString());
+					model.addAttribute("client", responsemodel.getData().getClients());
+					model.addAttribute("operatedByUser", responsemodel.getData().getOperatedByUser());
 
 					model.addAttribute("savedperksList",
 							responsemodel.getData().getEditJobpostingDetails().getPerksAndBenefits());

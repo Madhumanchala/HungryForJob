@@ -23,6 +23,7 @@ String candidateId = (String) session.getAttribute("candidateId");
 <link href="fonts/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/select2.min.css" rel="stylesheet" />
+<script src="js/candidateDashboard.js"></script>
 </head>
 <style>
 .desc {
@@ -166,7 +167,6 @@ String candidateId = (String) session.getAttribute("candidateId");
 	<%@include file="footer.jsp"%>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/candidateDashboard.js"></script>
 	<script src="js/menu.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/jquery.min.js"></script>

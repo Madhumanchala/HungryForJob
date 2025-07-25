@@ -32,7 +32,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Controller
 @Log4j2
-public class ClientController {
+public class ManagerPanelController {
 
 	@Autowired
 	WebClientConfig myWebClient;
@@ -42,8 +42,8 @@ public class ClientController {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	@RequestMapping(value = "/clientDetails", method = { RequestMethod.POST })
-	public String clientDetails(Model model, HttpServletRequest request, HttpSession session)
+	@RequestMapping(value = "/managerPanel", method = { RequestMethod.POST })
+	public String managerPanel(Model model, HttpServletRequest request, HttpSession session)
 			throws RestClientException, JsonProcessingException, URISyntaxException {
 
 		WebClientResponse response = null;
@@ -64,18 +64,18 @@ public class ClientController {
 			companyProfiledetails companyprofiledetails = new companyProfiledetails();
 			companyprofiledetails.setUserId(userId);
 			companyprofiledetails.setCompanyId(companyId);
-			String url = Configs.urls.get(EmployeerAppplicationConstant.CLIENTDETAILS).getUrl();
+			String url = Configs.urls.get(EmployeerAppplicationConstant.MANAGERDETAILS).getUrl();
 			response = myWebClient.post(url, companyprofiledetails).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			if (response.getStatusCode() == 200) {
 				ServiceResponseWrapperModel<List<companyProfiledetails>> responsemodel = objectMapper.readValue(
 						response.getBody(),
 						new TypeReference<ServiceResponseWrapperModel<List<companyProfiledetails>>>() {
 						});
-				model.addAttribute("clientDetails", responsemodel.getData());
+				model.addAttribute("managerDetails", responsemodel.getData());
 			} else {
 				log.info("Error in Response or service is not called");
 			}
@@ -84,39 +84,39 @@ public class ClientController {
 			e.printStackTrace();
 		}
 
-		return "employerviews/clientDetails";
+		return "employerviews/managerpanel";
 	}
-
-	@PostMapping("/addClient")
+	
+	@PostMapping("/addNewManager")
 	@ResponseBody
-	public ServiceResponseWrapperModel<List<companyProfiledetails>> addNewClient(
-			@RequestBody companyProfiledetails interviewerDetails, HttpServletRequest request, HttpSession session) {
+	public ServiceResponseWrapperModel<SearchResp> addNewManager(
+			@RequestBody companyProfiledetails managerDetails, HttpServletRequest request, HttpSession session) {
 		WebClientResponse response = null;
-		ServiceResponseWrapperModel<List<companyProfiledetails>> responsemodel = null;
+		ServiceResponseWrapperModel<SearchResp> responsemodel = null;
 
 		if (session.getAttribute("userId") != null) {
 			String userId = session.getAttribute("userId").toString();
-			interviewerDetails.setUserId(userId);
+			managerDetails.setUserId(userId);
 		} else {
 			log.info("Session expired or userId is not set.");
 		}
 		if (session.getAttribute("companyId") != null) {
 			String companyId = session.getAttribute("companyId").toString();
-			interviewerDetails.setCompanyId(companyId);
+			managerDetails.setCompanyId(companyId);
 		} else {
 			log.info("Session expired or userId  is not set");
 		}
 
 		try {
-			String Url = Configs.urls.get(EmployeerAppplicationConstant.ADDCLIENT).getUrl();
-			response = myWebClient.post(Url, interviewerDetails).block();
-			if(response.getToken()!=null) {
-				  log.info("s.getToken() :"+response.getToken());
-				  request.getSession().setAttribute("token","Bearer "+response.getToken());
-	    	 }
+			String Url = Configs.urls.get(EmployeerAppplicationConstant.MANAGER_PANEL).getUrl();
+			response = myWebClient.post(Url, managerDetails).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
 			if (response.getStatusCode() == 200) {
 				responsemodel = objectMapper.readValue(response.getBody(),
-						new TypeReference<ServiceResponseWrapperModel<List<companyProfiledetails>>>() {
+						new TypeReference<ServiceResponseWrapperModel<SearchResp>>() {
 						});
 			}
 
@@ -127,5 +127,4 @@ public class ClientController {
 		}
 		return responsemodel;
 	}
-
 }

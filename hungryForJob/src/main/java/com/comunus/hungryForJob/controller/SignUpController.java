@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 //import org.apache.catalina.connector.Response;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -542,10 +545,29 @@ public class SignUpController {
 		List<Map<String, Object>> response= new ArrayList<>();
 		try {
 			
-			RestTemplate restTemplate = new RestTemplate();
+//			RestTemplate restTemplate = new RestTemplate();
+//			String pincode = request.getParameter("pincode");
+//			String url = "https://api.postalpincode.in/pincode/" + pincode;
+//			 response = restTemplate.getForObject(url, List.class);
+			
 			String pincode = request.getParameter("pincode");
-			String url = "https://api.postalpincode.in/pincode/" + pincode;
-			 response = restTemplate.getForObject(url, List.class);
+	        String url = "https://api.postalpincode.in/pincode/" + pincode;
+
+	        // Add User-Agent header to avoid being blocked
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.set("User-Agent", "Spring-RestTemplate/1.0");
+
+	        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+	        RestTemplate restTemplate = new RestTemplate();
+	        ResponseEntity<List> res = restTemplate.exchange(
+	            url,
+	            HttpMethod.GET,
+	            entity,
+	            List.class
+	        );
+
+	        response = res.getBody();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

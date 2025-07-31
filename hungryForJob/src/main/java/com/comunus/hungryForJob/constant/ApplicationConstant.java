@@ -39,5 +39,7 @@ public interface ApplicationConstant {
 	String EMPLOYER_ADD_CANDIDATES="empaddCandidates";
 	String FORGETPASSWORDVERIFY="ForgotPassVerifyEmail";
 	String RESENDOTPCANDIADTE="resendotpcandidate";
-
+	String FETCHFIELDDETAILS = "fetchFieldDetails";
+	String RECUITERUPDATESCANDIDATE = "recruiterUpdatesCandidate";
+	String RECUITERADDSCANDIDATE = "recruiterAddsCandidate";
 }

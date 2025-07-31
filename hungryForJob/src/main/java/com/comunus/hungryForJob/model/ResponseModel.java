@@ -86,4 +86,7 @@ public class ResponseModel {
 	private List<JobPlan> interviewHistory;
 	public String paginationOffSet;
 	public String paginationTotalPages;
+	
+	public String candidateId;
+	public String companyId;
 }

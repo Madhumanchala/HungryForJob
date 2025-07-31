@@ -221,15 +221,17 @@ public class CandidateController {
 		log.info("@@@@ myProfile  @@@@@ :");
 		WebClientResponse response = null;
 		try {
+			ResponseModel data = new ResponseModel();
 			String username = null;
 			if (session.getAttribute("candidateId") != null) {
 				username = session.getAttribute("candidateId").toString();
 			} else {
 				log.info("Session expired or candidateId is not set.");
 			}
+			data.setCandidateId(username);
 			String Url = Configs.urls.get(ApplicationConstant.MyProfile).getUrl();
 			log.info(" @@@@ myProfile" + Url);
-			response = myWebClient.post(Url, username).block();
+			response = myWebClient.post(Url, data).block();
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());
@@ -507,7 +509,7 @@ public class CandidateController {
 	@ResponseBody
 	@PostMapping("/uploadResume")
 	public ResponseEntity<String> updateCv(HttpSession session, HttpServletRequest request,
-			@RequestParam("resume_doc") MultipartFile file) {
+			@RequestParam("resume_doc") MultipartFile file, @RequestParam("candidateId") String id) {
 		log.info("====== updateCv   ======");
 
 		SignUp signup = new SignUp();
@@ -517,7 +519,7 @@ public class CandidateController {
 			if (session.getAttribute("candidateId") != null) {
 				username = session.getAttribute("candidateId").toString();
 			} else {
-				log.info("Session expired or candidateId is not set.");
+				username = id;
 			}
 			signup.setCandidateId(username);
 			signup.setFiletype(file.getContentType());
@@ -635,6 +637,7 @@ public class CandidateController {
 	}
 
 //    shahrukh
+	// Not using anywhere Start
 	@GetMapping("/addcandidates")
 	public String addcandidates(Model model, HttpSession session, HttpServletRequest request) {
 
@@ -677,6 +680,7 @@ public class CandidateController {
 		return "addCandidates";
 	}
 //  shahrukh
+	// Not using anywhere End
 
 	@PostMapping("employerCandidateprofile")
 	public String getCandidateDetails(@RequestParam("candidateId") String candidateId, Model model, HttpSession session,
@@ -684,11 +688,13 @@ public class CandidateController {
 
 		log.info("@@@@ myProfile  @@@@@ :" + candidateId);
 
+		CareerDetails careerDetails = new CareerDetails();
+		careerDetails.setCandidateId(candidateId);
 		WebClientResponse response = null;
 		try {
 			String Url = Configs.urls.get(ApplicationConstant.GET_CANDIDATE_BY_ID).getUrl();
 			log.info("@@@@ candiate dashboard " + Url);
-			response = myWebClient.post(Url, candidateId).block();
+			response = myWebClient.post(Url, careerDetails).block();
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());
@@ -782,6 +788,102 @@ public class CandidateController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	@ResponseBody
+	@PostMapping("/fetchFieldDetails")
+	public ServiceResponseWrapperModel<ResponseModel> fetchFieldDetails(HttpServletRequest request, HttpSession session) {
+		WebClientResponse response = null;
+		try {
+			ResponseModel responseModel = new ResponseModel();
+			String companyId = null;
+			if (session.getAttribute("companyId") != null) {
+				companyId = session.getAttribute("companyId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			responseModel.setCompanyId(companyId);
+			String Url = Configs.urls.get(ApplicationConstant.FETCHFIELDDETAILS).getUrl();
+			log.info(" @@@@ myProfile" + Url);
+			response = myWebClient.post(Url, responseModel).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				return responsemodel;
+				
+			} else {
+				log.info("Error in Response");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@PostMapping("/recruiterUpdatesCandidate")
+	public ServiceResponseWrapperModel<ResponseModel> recruiterUpdatesCandidate(@RequestBody CareerDetails career, HttpServletRequest request, HttpSession session) {
+		WebClientResponse response = null;
+		try {
+			String Url = Configs.urls.get(ApplicationConstant.RECUITERUPDATESCANDIDATE).getUrl();
+			log.info(" @@@@ myProfile" + Url);
+			log.info(" @@@@ career" + career);
+			response = myWebClient.post(Url, career).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				return responsemodel;
+				
+			} else {
+				log.info("Error in Response");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@PostMapping("/recruiterAddsCandidate")
+	public ServiceResponseWrapperModel<ResponseModel> recruiterAddsCandidate(@RequestBody CareerDetails career, HttpServletRequest request) {
+		WebClientResponse response = null;
+		try {
+			String Url = Configs.urls.get(ApplicationConstant.RECUITERADDSCANDIDATE).getUrl();
+			log.info(" @@@@ career" + career);
+			response = myWebClient.post(Url, career).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<ResponseModel> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<ResponseModel>>() {
+						});
+				return responsemodel;
+				
+			} else {
+				log.info("Error in Response");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 }

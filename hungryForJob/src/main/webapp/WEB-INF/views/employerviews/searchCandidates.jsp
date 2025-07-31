@@ -23,6 +23,7 @@
 <link href="employer/css/richtext.min.css" rel="stylesheet" />
 <link href="employer/css/daterangepicker.css" rel="stylesheet" />
 <link href="employer/css/style.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div class="loader">
@@ -1086,20 +1087,36 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				    <input type="hidden" id="existingUserId">
+				<input type="hidden" id="existingUserId">
 				<div class="modal-body pe-4 ps-4 py-4">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<div class="form-group">
 								<label for="Industry" class="form-label required">Email
 								</label> <input type="text" name="email" id="Industry"
-									class="form-control" placeholder="Enter Email">
+									class="form-control" placeholder="Enter Email"> <span
+									class="errors" id="Industry_error"></span>
 							</div>
 							<div class="row" id="editProfile" style="display: none;">
 								<span class="pencil">
-									<i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#edituserdetails"
-									onclick="fetchCandidateDetails()" >
-									Edit Profile</i>
+										<i class="bi bi-pencil-square" data-bs-toggle="modal"
+											data-bs-target="#edituserdetails"
+											onclick="fetchCandidateDetails()"> Edit Profile</i>
+								</span>
+							</div>
+
+							<div class="row" id="viewProfile" style="display: none;">
+								<span class="pencil">
+										<i class="bi bi-pencil-square" data-bs-toggle="modal"
+											onclick="viewCandidateProfile()"> View Profile</i>
+								</span>
+							</div>
+
+							<div class="row" id="addProfile" style="display: none;">
+								<span class="pencil">
+										<i class="bi bi-pencil-square" data-bs-toggle="modal"
+											data-bs-target="#adduserdetails"
+											onclick="fetchFieldsForAdd()"> Add Profile</i>
 								</span>
 							</div>
 						</div>
@@ -1115,714 +1132,669 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="modal fade" id="" data-user-id="" tabindex="-1"
-		aria-labelledby="exampleModalLabel">
-		<div class="modal-dialog  ">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Edit Candidate</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="educationDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				        Education Details
-				      </button>
-				    </h2>
-				    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="educationDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        <%-- <div class="content-txt">
-							<div class="row">
-								<c:choose>
-									<c:when
-										test="${educationDetails.qualificationtype == '12th' or educationDetails.qualificationtype == '10th'}">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<p>Qualification</p>
-											<h5 class="ssc_marks">${educationDetails.qualificationtype}</h5>
-										</div>
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<p>${educationDetails.qualificationtype}Marks</p>
-											<h5 class="hsc_marks">${educationDetails.marks}</h5>
-										</div>
-									</c:when>
-									<c:when
-										test="${educationDetails.qualificationtype == 'Below 10th'}">
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<p>Qualification</p>
-											<h5 class="ssc_marks">${educationDetails.qualificationtype}</h5>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="row">
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Course</p>
-												<input type="text" name="email" id="candidateCourse"
-												class="form-control" placeholder="Enter Email">
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Specialization</p>
-												<input type="text" name="email" id="candidateCourse"
-												class="form-control" placeholder="Enter Email">
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Institute</p>
-												<input type="text" name="email" id="candidateCourse"
-												class="form-control" placeholder="Enter Email">
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Course Start Year</p>
-												<input type="text" name="email" id="candidateCourse"
-												class="form-control" placeholder="Enter Email">
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Course End Year</p>
-												<input type="text" name="email" id="candidateCourse"
-												class="form-control" placeholder="Enter Email">
-											</div>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</div> --%>
-						
-						<div class="modal-body">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12"
-							id="editQualificationModal">
-							<div class="form-group">
-								<label for="editQualification" class="form-label">Highest
-									Qualification/ Degree currently pursuing</label> <select
-									name="editQualification" id="editQualification"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editQualification_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
-							<div class="form-group">
-								<label for="editcourse" class="form-label">Course</label> <select
-									name="editcourse" id="editcourse"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcourse_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="specializationModal">
-							<div class="form-group">
-								<label for="editspecialization" class="form-label">Specialization
-								</label> <select name="editspecialization" id="editspecialization"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editspecialization_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseTypeModal">
-							<div class="form-group">
-								<label for="editcoursetype" class="form-label">Course
-									Type</label> <select name="editcoursetype" id="editcoursetype"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcoursetype_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseStartYearModal">
-							<div class="form-group">
-								<label for="CourseStartYear" class="form-label required">Course
-									Start Year</label> <select name="CourseStartYear" id="CourseStartYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseStartYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseEndYearModal">
-							<div class="form-group">
-								<label for="CourseEndYear" class="form-label" id="yearType">
-								</label> <select name="CourseEndYear" id="CourseEndYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseEndYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="instituteModal">
-							<div class="form-group">
-								<label for="editInstitute" class="form-label">Institute
-								</label> <select name="editInstitute" id="editInstitute"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="newInstituteModal">
-							<div class="form-group">
-								<label for="newInstitute" class="form-label">Enter the
-									New Institute</label> <input type="text" name="newInstitute"
-									id="newInstitute" class="form-control"
-									placeholder="Enter NewInstitute"><span
-									class="newInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="gradingSystemModal">
-							<div class="form-group">
-								<label for="editgradingsystem" class="form-label">Grading
-									System</label> <select name="editgradingsystem" id="editgradingsystem"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editgradingsystem_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editGradeModal">
-							<div class="form-group">
-								<label for="editgrade" class="form-label" id="marksLabel"></label>
-								<input type="text" name="editgrade" id="editgrade"
-									class="form-control" placeholder="" maxlength="3"><span
-									class="editgrade_error errorfield"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-						
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="employmentDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-				        Employment
-				      </button>
-				    </h2>
-				    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="employmentDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="skills">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-				        Skills
-				      </button>
-				    </h2>
-				    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="skills" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="personalDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-				        Personal Details
-				      </button>
-				    </h2>
-				    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="personalDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="careerDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-				        Career Details
-				      </button>
-				    </h2>
-				    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="careerDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-					<button type="button"
-						onclick="search(document.getElementById('Industry').value)"
-						class="btns">Submit</button>
-				</div>
 
-			</div>
-		</div>
-	</div>
-	
 	<div class="modal fade" id="edituserdetails" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		aria-labelledby="exampleModalLabel">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Education
+					<h5 class="modal-title" id="exampleModalLabel">Candidate
 						Details</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				
+
 				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="educationDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-				        Education Details
-				      </button>
-				    </h2>
-				    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="educationDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				      
-				      <div class="modal-body">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12"
-							id="editQualificationModal">
-							<div class="form-group">
-								<label for="editQualification" class="form-label">Highest
-									Qualification/ Degree currently pursuing</label> <select
-									name="editQualification" id="editQualification"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editQualification_error errorfield"></span>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="educationDetails">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								Personal Details</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="educationDetails"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="editQualificationModal">
+											<div class="form-group">
+												<label for="email" class="required">Email</label> <input
+													type="text" class="form-control" id="email" name="email"
+													placeholder="Enter Email Id" disabled> <span
+													class="errors" id="email_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
+											<div class="form-group">
+												<label for="fullName" class="required">Full Name</label> <input
+													type="text" class="form-control" id="fullName"
+													name="fullName" placeholder="Enter Full Name"> <span
+													class="errors" id="fullName_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
+											<div class="form-group">
+												<label for="gender" class="form-label required">Gender
+												</label>
+												<div class="serving ">
+													<ul>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="editmale" value="male"
+															style="margin: 5px" autocomplete="off"
+															onchange="hideErrorByClass('genderError')"> <label
+															class="btn" for="male"><span>Male</span> </label></li>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="editfemale" value="female"
+															style="margin: 5px" autocomplete="off"
+															onchange="hideErrorByClass('genderError')"> <label
+															class="btn" for="female"><span>Female</span> </label></li>
+													</ul>
+													<span class="genderError errorfield"
+														style="color: red; font-weight: 500; font-size: 12px;"></span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="specializationModal">
+											<div class="form-group">
+												<label for="mobileNumber" class="required">Contact
+													Number</label> <input type="text" class="form-control"
+													id="mobileNumber" name="mobileNumber"
+													placeholder="Enter Contact Number" maxlength="10">
+												<span class="errors" id="mobileNumber_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="courseTypeModal">
+											<div class="form-group">
+												<!-- <label for="highQualification">Highest
+													Qualification</label> <input type="text" class="form-control"
+													name="highQualification" id="highQualification"
+													placeholder="Enter Highest Qualification"> <span
+													class="errors" id="highQualification_error"></span> -->
+													
+												<label class="form-label">Highest Qualification</label> <select
+														name="highQualification" id="highQualification"
+														class="form-control select2Single" style="width: 100%">
+														<option value="">Select</option>
+													</select> <span class="highQualification_error errorfield"
+														style="color: red"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseStartYearModal">
+											<div class="form-group">
+												<label for="endyear">Passing Year</label> <input type="text"
+													class="form-control" id="endyear" name="endyear"
+													placeholder="Enter Passing Year"> <span
+													class="errors" id="endyear_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseEndYearModal">
+											<div class="form-group">
+												<label for="currentLocation" class="required">Current
+													Location</label> <input type="text" class="form-control"
+													id="currentLocation" placeholder="Enter Current Location">
+												<span class="errors" id="currentLocation_error"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
-							<div class="form-group">
-								<label for="editcourse" class="form-label">Course</label> <select
-									name="editcourse" id="editcourse"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcourse_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="specializationModal">
-							<div class="form-group">
-								<label for="editspecialization" class="form-label">Specialization
-								</label> <select name="editspecialization" id="editspecialization"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editspecialization_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseTypeModal">
-							<div class="form-group">
-								<label for="editcoursetype" class="form-label">Course
-									Type</label> <select name="editcoursetype" id="editcoursetype"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcoursetype_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseStartYearModal">
-							<div class="form-group">
-								<label for="CourseStartYear" class="form-label required">Course
-									Start Year</label> <select name="CourseStartYear" id="CourseStartYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseStartYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseEndYearModal">
-							<div class="form-group">
-								<label for="CourseEndYear" class="form-label" id="yearType">
-								</label> <select name="CourseEndYear" id="CourseEndYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseEndYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="instituteModal">
-							<div class="form-group">
-								<label for="editInstitute" class="form-label">Institute
-								</label> <select name="editInstitute" id="editInstitute"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="newInstituteModal">
-							<div class="form-group">
-								<label for="newInstitute" class="form-label">Enter the
-									New Institute</label> <input type="text" name="newInstitute"
-									id="newInstitute" class="form-control"
-									placeholder="Enter NewInstitute"><span
-									class="newInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="gradingSystemModal">
-							<div class="form-group">
-								<label for="editgradingsystem" class="form-label">Grading
-									System</label> <select name="editgradingsystem" id="editgradingsystem"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editgradingsystem_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editGradeModal">
-							<div class="form-group">
-								<label for="editgrade" class="form-label" id="marksLabel"></label>
-								<input type="text" name="editgrade" id="editgrade"
-									class="form-control" placeholder="" maxlength="3"><span
-									class="editgrade_error errorfield"></span>
-							</div>
-						</div>
-					</div>
-				</div>
-				      
-					</div>
-					</div>
-					<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="employmentDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-				        Employment
-				      </button>
-				    </h2>
-				    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="employmentDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        <div class="content-txt">
-									<c:forEach items="${employmentDetails}" var="emloyementDetails">
-										<div class="addEmployment">
+						<h2 class="accordion-header" id="employmentDetails">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="true" aria-controls="collapseTwo">Work
+								Details</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse show"
+							aria-labelledby="employmentDetails"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<div class="content-txt">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label class="form-label required">Total
+												Experience</label>
 											<div class="row">
-												<div class="col-lg-4 col-md-6 col-sm-6 ">
-													<p>Company Name</p>
-													<h5>${emloyementDetails.companyName}</h5>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-6">
+													<label class="form-label">Years</label> <select
+														name="edityearsExp" id="edityearsExp"
+														class="form-control select2Single" style="width: 100%">
+														<option value="">Select</option>
+													</select> <span class="edityearsExp_error errorfield"
+														style="color: red"></span>
 												</div>
-												<div class="col-lg-3 col-md-3 col-sm-3 ">
-													<p>Job Title</p>
-													<h5>${emloyementDetails.jobTittle}</h5>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-6">
+													<label class="form-label">Months</label> <select
+														name="editmonthsExp" id="editmonthsExp"
+														class="form-control select2Single" style="width: 100%">
+														<option value="">Select</option>
+														<!-- Dynamically populate options for months -->
+													</select> <span class="editmonthsExp_error errorfield"
+														style="color: red"></span>
 												</div>
-												<div class="col-lg-4 col-md-4 col-sm-4 col-9 ">
-													<p>Start / End Date</p>
-													<c:choose>
-														<c:when
-															test="${emloyementDetails.workingStatus eq 'Active'}">
-															<h5>Present - ${emloyementDetails.startMonth}
-																${emloyementDetails.startYear}</h5>
-														</c:when>
-														<c:otherwise>
-															<h5>${emloyementDetails.startMonth}
-																${emloyementDetails.startYear} TO
-																${emloyementDetails.endMonth}
-																${emloyementDetails.endYear}</h5>
-														</c:otherwise>
-													</c:choose>
-												</div>
-												<div class="col-lg-1 col-md-1 col-sm-1 col-3 ">
-													<div>
-
-														<c:choose>
-															<c:when
-																test="${emloyementDetails.workingStatus eq 'Active'}">
-																<a href="#" data-bs-toggle="modal"
-																	data-bs-target="#employmentEditModal" class="editBtn2"
-																	onclick="getEditemploymentdetailsPresent(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}')">
-																	<img src="img/edit-2.svg">
-																</a>
-															</c:when>
-															<c:otherwise>
-																<a href="#" data-bs-toggle="modal"
-																	data-bs-target="#employmentEditModal" class="editBtn2"
-																	onclick="getEditemploymentdetails(${emloyementDetails.id},'${emloyementDetails.companyName}','${emloyementDetails.jobTittle}',${emloyementDetails.startYear},'${emloyementDetails.startMonth}',${emloyementDetails.endYear},'${emloyementDetails.endMonth}')">
-																	<img src="img/edit-2.svg">
-																</a>
-															</c:otherwise>
-														</c:choose>
-														<span>
-															<i class="bi bi-x-circle" onclick="deleteEmployement('${emloyementDetails.id}')"></i>
-														</span>
-													</div>
-												</div>
-												<%-- <div class="col-lg-4 col-md-6 col-sm-6 col-9 ">
-													<p>Start Month</p>
-													<h5>${emloyementDetails.startMonth}</h5>
-												</div> --%>
-												<%-- <div class="col-lg-4 col-md-6 col-sm-6 col-9 ">
-													<p>End Year</p>
-													<h5>${emloyementDetails.endYear}</h5>
-												</div>
-												<div class="col-lg-3 col-md-6 col-sm-6 col-9 ">
-													<p>End month</p>
-													<h5>${emloyementDetails.endMonth}</h5>
-												</div> --%>
+											</div>
+											<span class="editTotalexperience_error errorfield"></span>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6"
+											id="hideShowNoticePeriod">
+											<div class="form-group">
+												<label for="existnoticePeriod" class="form-label">
+													Notice Period(in Days) </label> <input type="text"
+													name="existnoticePeriod" id="existnoticePeriod"
+													class="form-control" placeholder="Enter Notice Period"
+													maxlength="2"> <span
+													class="existnoticePeriod_error errorfield"></span>
 											</div>
 										</div>
-									</c:forEach>
+									</div>
+									<!-- <div class="col-lg-6 col-md-6 col-sm-6"
+										id="hideShowNoticePeriod">
+										<div class="form-group">
+											<label for="currentOrganization" class="form-label">
+												Current Organization </label> <input type="text"
+												name="currentOrganization" id="currentOrganization"
+												class="form-control"
+												placeholder="Enter Current Organization"> <span
+												class="currentOrganization_error errorfield"></span>
+										</div>
+									</div> -->
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="editServingNoticePeriod" class="form-label">Serving
+												Notice Period</label><br>
+											<div class="workstatus row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="editServingNoticePeriod"
+														id="editServingNoticePeriodYes" autocomplete="off"
+														value="Yes" class="btn-check"> <label class="btn"
+														for="editServingNoticePeriodYes"><span> Yes
+													</span> </label>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="editServingNoticePeriod"
+														value="No" id="editServingNoticePeriodNo"
+														autocomplete="off" class="btn-check"> <label
+														class="btn" for="editServingNoticePeriodNo"><span>No
+													</span> </label>
+												</div>
+											</div>
+											<span class="editServingNoticePeriod_error errorfield"
+												style="color: red"></span>
+										</div>
+									</div>
+
+									<!-- <div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group preferredlocation">
+											<label for="preferredlocation" class="form-label">Preferred
+												Work Location</label> <select name="preferredlocation"
+												id="preferredlocation"
+												class="form-select form-control selet2Multiple"
+												multiple="multiple">
+											</select><span class="CurrentLocation_error errorfield"></span>
+										</div>
+										
+										<div class="form-group preferredlocation">
+										<label for="preferredlocation">Preferred
+										Work Location </label> <input type="text" class="form-control selet2Multiple"
+											name="preferredlocation" id="preferredlocation"
+											placeholder="Select Location" multiple="multiple"> <span
+											class="errors" id="preferredlocationss_error"></span>
+										</div>
+									</div> -->
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group preferredlocation">
+											<label for="preferredlocation">Preferred Work
+												Location</label> <select class="form-control selet2Multiple"
+												name="preferredlocation" id="preferredlocation"
+												multiple="multiple" style="width: 100%;">
+												<!-- options will be populated here -->
+											</select> <span class="errors" id="preferredlocations_error"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group addskills">
+											<label for="addskills" class="form-label required">Skills</label>
+											<select name="addskills" id="addskills"
+												class="form-select form-control selet2Multiple"
+												style="width: 100%" multiple="multiple">
+												<option value="">Select</option>
+											</select> <span class="addskills_error errorfield"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="currentCtc" class="form-label">Current
+												CTC </label> <input type="text" name="currentCtc" id="currentCtc"
+												class="form-control" placeholder="Enter Current Ctc"
+												maxlength="20"><span
+												class="currentCtc_error errorfield" style="color: red"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="expectedCtc" class="form-label">Expected
+												CTC </label> <input type="text" name="expectedCtc" id="expectedCtc"
+												class="form-control" placeholder="Enter Expected Ctc"
+												maxlength="20"><span
+												class="expectedCtc_error errorfield" style="color: red"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<label for="editOfferInHand" class="form-label">Offer
+												in Hand</label>
+											<div class="workstatus row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="editOfferInHand"
+														id="editOfferInHandYes" autocomplete="off" value="Yes"
+														class="btn-check"> <label class="btn"
+														for="editOfferInHandYes"><span> Yes </span> </label>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="editOfferInHand" value="No"
+														id="editOfferInHandNo" autocomplete="off"
+														class="btn-check"> <label class="btn"
+														for="editOfferInHandNo"><span>No </span> </label>
+												</div>
+											</div>
+											<span class="editOfferInHand_error errorfield"
+												style="color: red"></span>
+										</div>
+									</div>
+
+									<div
+										class="col-xl-6 col-lg-6 col-md-9 col-sm-12 d-flex align-items-center justify-content-between">
+										<div class="form-group">
+											<label for="resume_doc" class="form-label">Upload
+												your resume here.</label> <input type="file" name="resume_doc"
+												id="resume_doc" class="form-control"> <span
+												style="font-size: 12px;">(Only pdf, doc and docx type
+												are allowed and file size upTo 2mb)</span><br> <span
+												class="resume_error errorfield" style="color: red"></span>
+										</div>
+										<div class="cvUpload">
+											<a class="btns" id="cvUpload" onclick="updateCv()">Upload</a>
+										</div>
+									</div>
+
+									<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<label for="resume_doc" class="form-label">Upload
+												your resume here.</label> <input type="file" name="resume_doc"
+												id="resume_doc" class="form-control"
+												accept=".pdf,.doc,.docx">
+											<div
+												class="d-flex align-items-center justify-content-between">
+												<span style="font-size: 12px;">(Only pdf, doc and
+													docx type are allowed and file size upTo 2mb)</span>
+											</div>
+											<div class="errorfield" style="color: red;"></div>
+										</div>
+										<div class="col-xl-3 col-lg-2 col-md-3 col-sm-12 ">
+											<div class="cvUpload">
+												<a class="btns" id="cvUpload" onclick="updateCv()">Upload</a>
+											</div>
+										</div>
+									</div> -->
 								</div>
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="skills">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-				        Skills
-				      </button>
-				    </h2>
-				    <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="skills" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="personalDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-				        Personal Details
-				      </button>
-				    </h2>
-				    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="personalDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        <div class="content-txt">
-									<div class="row">
-										<div class="col-lg-4 col-md-6 col-sm-6 ">
-											<p>Name</p>
-											<h5 id="peronalNames">${personalDetails.fullName}</h5>
+							</div>
+						</div>
+						<h2 class="accordion-header" id="remarks">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="true" aria-controls="collapseThree">Remarks</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse show"
+							aria-labelledby="remarks" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<div class="content-txt">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group applyJob">
+											<label for="applyJob" class="form-label">Jobs</label> <select
+												name="applyJob" id="applyJob"
+												class="form-select form-control selet2Single"
+												style="width: 100%">
+												<option value="">Select</option>
+											</select> <span class="applyJob_error errorfield"></span>
 										</div>
-
-										<div class="col-lg-4 col-md-6 col-sm-6 ">
-											<p>Mobile No</p>
-											<h5 id="personalMobileNos">${personalDetails.mobileNumber}</h5>
-										</div>
-
-										<div class="col-lg-4 col-md-6 col-sm-6 ">
-											<p>Email Address</p>
-											<h5 id="personalEmailInputs">
-												<%-- <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-													data-cfemail="f993969197d7959c9e9c979db99e94989095d79a9694">${personalDetails.emailInput}</a> --%>
-												${personalDetails.emailInput}
-											</h5>
-										</div>
-										<div class="col-lg-4 col-md-6 col-sm-6 ">
-											<p>Work Status</p>
-											<h5 id="personalWorkStatus">${personalDetails.work_status}</h5>
-										</div>
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<p>State</p>
-											<h5 id="stateFetch">${careerDetails.state}</h5>
-										</div>
-										<div class="col-lg-4 col-md-6 col-sm-6">
-											<p>Current Location</p>
-											<h5 id="cityLocation">${careerDetails.city}</h5>
-										</div>
-
 									</div>
 								</div>
-				        
-				      </div>
-				    </div>
-				  </div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="accordion" id="accordionExample">
-				  <div class="accordion-item">
-				    <h2 class="accordion-header" id="careerDetails">
-				      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-				        Career Details
-				      </button>
-				    </h2>
-				    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="careerDetails" data-bs-parent="#accordionExample">
-				      <div class="accordion-body">
-				        
-				        <div class="content-txt">
-									<div class="row">
-										<div class="row">
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Current CTC</p>
-												<h5 id="currentctcfetch">${careerDetails.currentCtc}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Expected CTC</p>
-												<h5 id="expectedctcFetch">${careerDetails.expectedCtc}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Total Experience</p>
-												<h5 id="totalExpfetch">${careerDetails.totalExperience}
-												</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Serving Notice Period</p>
-												<h5 id="serviceNoticePeriodFetch">${careerDetails.serviceNoticePeriod}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Notice Period</p>
-												<h5 id="noticePeriodFetch">${careerDetails.noticePeriod}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Ready to Relocate</p>
-												<h5 id="readyTolocateFetch">${careerDetails.readyToRelocate}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Offer in Hand</p>
-												<h5 id="offerInHandFetch">${careerDetails.offerInHand}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Offer CTC</p>
-												<h5 id="offerCtcFetch">${careerDetails.offeredCtc}</h5>
-											</div>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Work From Home</p>
-												<h5 id="workFromHomeFetch">${careerDetails.workFromHome}</h5>
-											</div>
-											<%-- <div class="col-lg-4 col-md-6 col-sm-6">
-												<p>State</p>
-												<h5 id="stateFetch">${careerDetails.state}</h5>
-											</div> --%>
-											<%-- <div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Current Location</p>
-												<h5 id="cityLocation">${careerDetails.city}</h5>
-											</div> --%>
-											<div class="col-lg-4 col-md-6 col-sm-6">
-												<p>Preferred Location</p>
-												<div class="row">
-													<c:forEach items="${preferedLocation}" var="loc"
-														varStatus="status">
-														<c:set var="myVar"
-															value="${status.first ? '' : myVar} ${loc.name} ${status.last ? '' : ','}" />
-													</c:forEach>
-													<h5 id="preferedlocation">${myVar}</h5>
-												</div>
-
-											</div>
-											<div class="col-lg-12 col-md-6 col-sm-6">
-												<p>Resume Headline</p>
-												<h5 id="resmeHeadlineFetch">${careerDetails.resumeheadline}</h5>
-											</div>
-										</div>
-
-									</div>
-								</div>
-				        
-				      </div>
-				    </div>
-				  </div>
-				</div>
-					</div>
-					</div>
-				<!-- <div class="modal-body">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12"
-							id="editQualificationModal">
-							<div class="form-group">
-								<label for="editQualification" class="form-label">Highest
-									Qualification/ Degree currently pursuing</label> <select
-									name="editQualification" id="editQualification"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editQualification_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
-							<div class="form-group">
-								<label for="editcourse" class="form-label">Course</label> <select
-									name="editcourse" id="editcourse"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcourse_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="specializationModal">
-							<div class="form-group">
-								<label for="editspecialization" class="form-label">Specialization
-								</label> <select name="editspecialization" id="editspecialization"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editspecialization_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseTypeModal">
-							<div class="form-group">
-								<label for="editcoursetype" class="form-label">Course
-									Type</label> <select name="editcoursetype" id="editcoursetype"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editcoursetype_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseStartYearModal">
-							<div class="form-group">
-								<label for="CourseStartYear" class="form-label required">Course
-									Start Year</label> <select name="CourseStartYear" id="CourseStartYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseStartYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="courseEndYearModal">
-							<div class="form-group">
-								<label for="CourseEndYear" class="form-label" id="yearType">
-								</label> <select name="CourseEndYear" id="CourseEndYear"
-									class="form-control selet2Single" style="width: 100%">
-									<option value="">Select</option>
-								</select><span class="CourseEndYear_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="instituteModal">
-							<div class="form-group">
-								<label for="editInstitute" class="form-label">Institute
-								</label> <select name="editInstitute" id="editInstitute"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="newInstituteModal">
-							<div class="form-group">
-								<label for="newInstitute" class="form-label">Enter the
-									New Institute</label> <input type="text" name="newInstitute"
-									id="newInstitute" class="form-control"
-									placeholder="Enter NewInstitute"><span
-									class="newInstitute_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="gradingSystemModal">
-							<div class="form-group">
-								<label for="editgradingsystem" class="form-label">Grading
-									System</label> <select name="editgradingsystem" id="editgradingsystem"
-									class="form-control selet2Single" style="width: 100%">
-									<option>Select</option>
-								</select><span class="editgradingsystem_error errorfield"></span>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12" id="editGradeModal">
-							<div class="form-group">
-								<label for="editgrade" class="form-label" id="marksLabel"></label>
-								<input type="text" name="editgrade" id="editgrade"
-									class="form-control" placeholder="" maxlength="3"><span
-									class="editgrade_error errorfield"></span>
-							</div>
-						</div>
-					</div>
-				</div> -->
 				<div class="modal-footer">
 					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
 					<button type="button" class="btns"
-						onclick="updateEducationDetails()">Submit</button>
+						onclick="recruiterUpdatesCandidate()">Submit</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
-	
+
+	<div class="modal fade" id="adduserdetails" tabindex="-1"
+		aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Candidate
+						Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="educationDetails">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								Personal Details</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="educationDetails"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="editQualificationModal">
+											<div class="form-group">
+												<label for="addemail" class="required">Email</label> <input type="text"
+													class="form-control" id="addemail" name="addemail"
+													placeholder="Enter Email Id"> <span class="errors"
+													id="addemail_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="addfullNameDiv">
+											<div class="form-group">
+												<label for="addfullName" class="required">Full Name</label> <input
+													type="text" class="form-control" id="addfullName"
+													name="addfullName" placeholder="Enter Full Name"> <span
+													class="errors" id="addfullName_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="addGender">
+											<div class="form-group">
+												<label for="gender" class="form-label required">Gender </label>
+												<div class="serving ">
+													<ul>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="male" value="male" style="margin: 5px"
+															autocomplete="off"
+															onchange="hideErrorByClass('genderError')"> <label
+															class="btn" for="male"><span>Male</span> </label></li>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="female" value="female"
+															style="margin: 5px" autocomplete="off"> <label
+															class="btn" for="female"><span>Female</span> </label></li>
+													</ul>
+													<span class="genderError errorfield"
+														style="color: red; font-weight: 500; font-size: 12px;"></span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="specializationModal">
+											<div class="form-group">
+												<label for="addmobileNumber" class="required">Contact Number</label> <input
+													type="text" class="form-control" id="addmobileNumber"
+													name="addmobileNumber" maxlength="10"
+													placeholder="Enter Contact Number"> <span
+													class="errors" id="addmobileNumber_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="qualification">
+											<div class="form-group">
+												<label for="addhighestQualification">Highest
+													Qualification</label> <select class="form-control"
+													name="addhighestQualification" id="addhighestQualification"
+													style="width: 100%;">
+													<option value="">Select Qualification</option>
+												</select> <span class="errors" id="addhighestQualification_error"></span>
+											</div>
+										</div>
+
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseStartYearModal">
+											<div class="form-group">
+												<label for="addendyear">Passing Year</label> <input
+													type="text" class="form-control" id="addendyear"
+													name="addendyear" placeholder="Enter Passing Year">
+												<span class="errors" id="addendyear_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseEndYearModal">
+											<div class="form-group">
+												<label for="addCurrentLocation" class="required">Current Location</label> <input
+													type="text" class="form-control" id="addCurrentLocation"
+													placeholder="Enter Current Location"> <span
+													class="errors" id="addCurrentLocation_error"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion" id="accordionExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="employmentDetails">
+									<button class="accordion-button" type="button"
+										data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+										aria-expanded="true" aria-controls="collapseTwo">
+										Work Details</button>
+								</h2>
+								<div id="collapseTwo" class="accordion-collapse collapse show"
+									aria-labelledby="employmentDetails"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<div class="content-txt">
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="form-group">
+													<label class="form-label required">Total Experience</label>
+													<div class="row">
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<label class="form-label">Years</label> <select
+																name="addyearsExp" id="addyearsExp"
+																class="form-control select2Single" style="width: 100%">
+																<option value="">Select</option>
+															</select> <span class="addyearsExp_error errorfield"
+																style="color: red"></span>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<label class="form-label">Months</label> <select
+																name="addmonthsExp" id="addmonthsExp"
+																class="form-control select2Single" style="width: 100%">
+																<option value="">Select</option>
+																<!-- Dynamically populate options for months -->
+															</select> <span class="addmonthsExp_error errorfield"
+																style="color: red"></span>
+														</div>
+													</div>
+													<span class="addTotalexperience_error errorfield"></span>
+												</div>
+											</div>
+											<div class="col-lg-6 col-md-6 col-sm-12"
+												id="hideShowNoticePeriod">
+												<div class="form-group">
+													<label for="addnoticePeriod" class="form-label">
+														Notice Period(in Days) </label> <input type="text"
+														name="addnoticePeriod" id="addnoticePeriod"
+														class="form-control" placeholder="Enter Notice Period"
+														maxlength="2"> <span
+														class="addnoticePeriod_error errorfield"></span>
+												</div>
+											</div>
+											<!-- <div class="col-lg-6 col-md-6 col-sm-6"
+												id="hideShowNoticePeriod">
+												<div class="form-group">
+													<label for="addcurrentOrganization" class="form-label">
+														Current Organization </label> <input type="text"
+														name="addcurrentOrganization" id="addcurrentOrganization"
+														class="form-control"
+														placeholder="Enter Current Organization"> <span
+														class="addcurrentOrganization_error errorfield"></span>
+												</div>
+											</div> -->
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="form-group">
+													<label for="addServingNoticePeriod" class="form-label">Serving
+														Notice Period</label><br>
+													<div class="workstatus row">
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<input type="radio" name="addServingNoticePeriod"
+																id="addServingNoticePeriodYes" autocomplete="off"
+																value="Yes" class="btn-check"> <label
+																class="btn" for="addServingNoticePeriodYes"><span>
+																	Yes </span> </label>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<input type="radio" name="addServingNoticePeriod"
+																value="No" id="addServingNoticePeriodYesNo"
+																autocomplete="off" class="btn-check"> <label
+																class="btn" for="addServingNoticePeriodYesNo"><span>No
+															</span> </label>
+														</div>
+													</div>
+													<span class="addServingNoticePeriod_error errorfield"
+														style="color: red"></span>
+												</div>
+											</div>
+
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group addpreferredlocation">
+													<label for="addpreferredlocation" class="form-label">Preferred
+														Work Location</label> <select name="addpreferredlocation"
+														id="addpreferredlocation"
+														class="form-select form-control selet2Multiple"
+														multiple="multiple" style="width: 100%;">
+														<option value="">Select</option>
+													</select><span class="addpreferredlocation_error errorfield"></span>
+												</div>
+											</div>
+
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<div class="form-group addnewskills">
+													<label for="addnewskills" class="form-label required">Skills</label>
+													<select name="addnewskills" id="addnewskills"
+														class="form-select form-control selet2Multiple"
+														style="width: 100%" multiple="multiple">
+														<option value="">Select</option>
+													</select> <span class="addnewskills_error errorfield"></span>
+												</div>
+											</div>
+
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="form-group">
+													<label for="addcurrentCtc" class="form-label">Current
+														CTC </label> <input type="text" name="addcurrentCtc"
+														id="addcurrentCtc" class="form-control"
+														placeholder="Enter Current Ctc" maxlength="20"><span
+														class="addcurrentCtc_error errorfield" style="color: red"></span>
+												</div>
+											</div>
+
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="form-group">
+													<label for="addexpectedCtc" class="form-label">Expected
+														CTC </label> <input type="text" name="addexpectedCtc"
+														id="addexpectedCtc" class="form-control"
+														placeholder="Enter Expected Ctc" maxlength="20"><span
+														class="addexpectedCtc_error errorfield" style="color: red"></span>
+												</div>
+											</div>
+
+											<div class="col-lg-6 col-md-6 col-sm-12">
+												<div class="form-group">
+													<label for="addOfferInHand" class="form-label">Offer
+														in Hand</label>
+													<div class="workstatus row">
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<input type="radio" name="addOfferInHand"
+																id="addOfferInHandYes" autocomplete="off" value="Yes"
+																class="btn-check"> <label class="btn"
+																for="addOfferInHandYes"><span> Yes </span> </label>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+															<input type="radio" name="addOfferInHand" value="No"
+																id="addOfferInHandNo" autocomplete="off"
+																class="btn-check"> <label class="btn"
+																for="addOfferInHandNo"><span>No </span> </label>
+														</div>
+													</div>
+													<span class="addOfferInHand_error errorfield"
+														style="color: red"></span>
+												</div>
+											</div>
+
+											<div class="col-xl-6 col-lg-6 col-md-9 col-sm-12 ">
+												<div class="form-group">
+													<label for="addresume_doc" class="form-label">Upload
+														your resume here.</label> <input type="file" name="addresume_doc"
+														id="addresume_doc" class="form-control"> <span
+														style="font-size: 12px;">(Only pdf, doc and docx
+														type are allowed and file size upTo 2mb)</span><br> <span
+														class="addresume_doc_error errorfield" style="color: red"></span>
+												</div>
+											</div>
+											<div class="col-xl-3 col-lg-2 col-md-3 col-sm-12 ">
+												<div class="cvUpload">
+													<a class="btns" id="cvUpload" onclick="addCv()">Upload</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<h2 class="accordion-header" id="remarks">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="true" aria-controls="collapseThree">Remarks</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse show"
+							aria-labelledby="remarks" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<div class="content-txt">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group applyJob">
+											<label for="addApplyJob" class="form-label">Jobs</label> <select
+												name="addApplyJob" id="addApplyJob"
+												class="form-select form-control selet2Single"
+												style="width: 100%">
+												<option value="">Select</option>
+											</select> <span class="addApplyJob_error errorfield"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btns"
+						onclick="recruiterAddsCandidate()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<%@include file="employerfooter.jsp"%>
 
 	<script src="employer/js/jquery.min.js"></script>
@@ -1930,59 +1902,6 @@
 											});
 						});
 	</script>
-
-	<script type="text/javascript">
-		function search(email) {
-			$.ajax({
-				url : "/searchbyemail",
-				type : "POST",
-				contentType : "application/json",
-				data : JSON.stringify({
-					"email" : email
-
-				}),
-				success : function(response) {
-					console.log("Response received:", response);
-					if (response.errors.errorMessage === 'true') {
-						
-						let userId = response.data.id;
-						showToast("info", "Email already exists.");
-						document.getElementById('editProfile').style.display = "block";
-						
-						$("#existingUserId").val(userId);
-					    
-					} else if (response.errors.errorMessage === 'false') {
-						showToast("info", "No user found or some condition did not match.");
-					}
-				},
-				error : function(xhr, status, error) {
-					console.log("error ========== " + error);
-				}
-			});
-		}
-	</script>
-	<script type="text/javascript">
-	function fetchCandidateDetails() {
-	 	var id = document.getElementById('existingUserId').value;
-		$.ajax({
-			url : "/getCandidateDetails",
-			type : "POST",
-			contentType : "application/json",
-			data : JSON.stringify({
-				"qualificationId" : id
-			}),
-			success : function(response) {
-				console.log("Response received: " + JSON.stringify(response.data.skills));
-				console.log("Response received: " + JSON.stringify(response.data.educationDetails));
-				var carrerDetails = response.data.skills;
-				var inputField = document.getElementById("candidateCourse");
-			},
-			error : function(xhr, status, error) {
-				console.log("error: " + error);
-			}
-		});
-	}
-	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -1994,6 +1913,37 @@
 			sessionStorage.setItem("companyId", "${companyId}");
 			sessionStorage.setItem("userId", "${userId}");
 		});
+	</script>
+	<script>
+		const yearEditExperience = document.getElementById("edityearsExp");
+		const yearAddExperience = document.getElementById("addyearsExp");
+		for (let i = 0; i <= 40; i++) {
+			const option = document.createElement("option");
+			option.value = i;
+			option.text = i;
+			yearEditExperience.appendChild(option);
+		}
+		for (let i = 0; i <= 40; i++) {
+			const option = document.createElement("option");
+			option.value = i;
+			option.text = i;
+			yearAddExperience.appendChild(option);
+		}
+
+		const monthEditExperience = document.getElementById("editmonthsExp");
+		const monthAddExperience = document.getElementById("addmonthsExp");
+		for (let i = 0; i <= 12; i++) {
+			const option = document.createElement("option");
+			option.value = i;
+			option.text = i;
+			monthEditExperience.appendChild(option);
+		}
+		for (let i = 0; i <= 12; i++) {
+			const option = document.createElement("option");
+			option.value = i;
+			option.text = i;
+			monthAddExperience.appendChild(option);
+		}
 	</script>
 </body>
 

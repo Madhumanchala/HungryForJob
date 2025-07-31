@@ -27,6 +27,7 @@ public class SearchReq {
 	private String readyToLocate;
 	private String activein;
 	private String lastActive;
+	private String lastlogin;
 
 	private String searchId;
 	private String searchName;

@@ -16,6 +16,8 @@ public class CareerDetails {
 	public String workFromHome;
 	public String readyToRelocate;
 	public List<String> preferredLocation;
+	public List<String> candidateSkills;
+	public String qualification;
 	public String serviceNoticePeriod;
 	public String noticePeriod;
 	public String lastWorkingDate;
@@ -68,4 +70,10 @@ public class CareerDetails {
 	public String paginationTotalPages;
 	public String cvUploadedDate;
 	
+	public String fullName;
+	public String contactNumber;
+	public String passingYear;
+	public String gender;
+	public String companyId;
+	private String currentOrganization;
 }

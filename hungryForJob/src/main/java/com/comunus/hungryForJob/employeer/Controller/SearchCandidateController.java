@@ -460,7 +460,7 @@ public class SearchCandidateController {
 	// sharhrukh
 	@PostMapping("/searchbyemail")
 	@ResponseBody
-	public ServiceResponseWrapperModel<DropDown> searchByEmail(@RequestBody SearchRequest data, HttpServletRequest request) {
+	public ServiceResponseWrapperModel<SearchReq> searchByEmail(@RequestBody SearchRequest data, HttpServletRequest request) {
 		log.info(" addExistingFolder ========== " + data);
 		WebClientResponse response = null;
 		try {
@@ -472,8 +472,8 @@ public class SearchCandidateController {
 			}
 			log.info("response form the search Email APi ========== " + response);
 			if (response.getStatusCode() == 200) {
-				ServiceResponseWrapperModel<DropDown> responsemodel = objectMapper.readValue(response.getBody(),
-						new TypeReference<ServiceResponseWrapperModel<DropDown>>() {
+				ServiceResponseWrapperModel<SearchReq> responsemodel = objectMapper.readValue(response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<SearchReq>>() {
 						});
 				return responsemodel;
 			}
@@ -495,15 +495,23 @@ public class SearchCandidateController {
 		WebClientResponse response = null;
 		try {
 			String username = null;
-			if (data.getQualificationId() != null) {
-				username = data.getQualificationId();
+			if (data.getCandidateId() != null) {
+				username = data.getCandidateId();
 				log.info("@@@@ username  @@@@@ : " + username);
 			} else {
 				log.info("Session expired or candidateId is not set.");
 			}
+			
+			String companyId = null;
+			if (session.getAttribute("companyId") != null) {
+				companyId = session.getAttribute("companyId").toString();
+				data.setCompanyId(companyId);
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
 			String Url = Configs.urls.get(ApplicationConstant.MyProfile).getUrl();
 			log.info(" @@@@ myProfile" + Url);
-			response = myWebClient.post(Url, username).block();
+			response = myWebClient.post(Url, data).block();
 			if (response.getToken() != null) {
 				log.info("s.getToken() :" + response.getToken());
 				request.getSession().setAttribute("token", "Bearer " + response.getToken());

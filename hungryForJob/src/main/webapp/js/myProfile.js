@@ -7,6 +7,7 @@ function geteducationDetailsByid(id) {
 			"candidateId": candidateId
 		},
 		success: function(response) {
+			console.log("************* : ", response);
 			if (qualificationsType == "12th" || qualificationsType == "10th") {
 				$('#editCourseModal').hide();
 				$('#specializationModal').hide();
@@ -912,6 +913,7 @@ function getTechnologyDetails() {
 		url: "getTechnologyDetails",
 		method: "POST",
 		success: function(response) {
+		console.log("*************** : " + response.data);
 			if (Array.isArray(response.data.skills)) {
 				var data = response.data.skills
 				$('#addskills').empty();
@@ -1448,7 +1450,7 @@ function getCarrerDetails() {
 	var experiencemonths = $('#editmonthsExp');
 	experiencemonths.empty();
 	experiencemonths.append('<option value="" class="experience">Select Months</option>');
-	for (var i = 0; i <= 11; i++) {
+	for (var i = 0; i <= 12; i++) {
 		experiencemonths.append('<option value="' + i + '">' + i + '</option>');
 	}
 	if(year)

@@ -103,11 +103,48 @@
 									</div>
 									<div class="list-price">
 										<ul class="list-group list-group-horizontal">
-											<li class="me-2"><img src="employer/img/year.svg">
+											<%-- <li class="me-2"><img src="employer/img/year.svg">
 												${jobdetails.minExp}-${jobdetails.maxExp}&nbsp;years</li>
 											<li class="me-2"><img src="employer/img/inr.svg">
 												${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
 											</li>
+											<li class="me-2"><img src="employer/img/map.svg">
+												${jobdetails.jobloc}</li> --%>
+												
+											<c:choose>
+											    <c:when test="${jobdetails.jobType eq 'Job'}">
+											        <li class="me-2">
+											            <img src="employer/img/year.svg" alt="Experience"> 
+											            ${jobdetails.minExp}-${jobdetails.maxExp} years
+											        </li>
+											        <li class="me-2">
+											            <img src="employer/img/inr.svg" alt="Salary">
+											            ${jobdetails.salaryFigureMin}-${jobdetails.salaryFigureMax}
+											        </li>
+											    </c:when>
+											    <c:when test="${jobdetails.jobType eq 'Internship'}">
+											        <li class="me-2">
+											            <img src="employer/img/year.svg" alt="Internship Duration">
+											            ${jobdetails.internDuration} months
+											        </li>
+											        
+											        <c:choose>
+											            <c:when test="${jobdetails.internStipendConfirm eq 'YES'}">
+											                <li class="me-2">
+											                    <img src="employer/img/inr.svg" alt="Intern Stipend">
+											                    ${jobdetails.internStipendMoney}
+											                </li>
+											            </c:when>
+											            <c:otherwise>
+											                <li class="me-2">
+											                    <img src="employer/img/inr.svg" alt="Unpaid">
+											                    Unpaid
+											                </li>
+											            </c:otherwise>
+											        </c:choose>
+											    </c:when>
+											</c:choose>
+											
 											<li class="me-2"><img src="employer/img/map.svg">
 												${jobdetails.jobloc}</li>
 										</ul>
@@ -129,6 +166,24 @@
 										</div>
 									</div>
 
+									<%-- <div class="postedby">
+										<div
+											class="postedtxt d-flex justify-content-between align-items-center">
+											<p>
+												Posted by <span>${jobdetails.startDate}</span>
+											</p>
+											<p>
+												Expired at <span>${jobdetails.endDate}</span>
+											</p>
+										</div>
+										<div class="progress " role="progressbar"
+											aria-label="Basic example" aria-valuenow="25"
+											aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar ${jobdetails.status}"
+												style="width: ${jobdetails.statusBar}%"></div>
+										</div>
+									</div> --%>
+									
 									<div class="postedby">
 										<div
 											class="postedtxt d-flex justify-content-between align-items-center">
@@ -138,21 +193,6 @@
 											<%-- <p>
 												Expired at <span>${jobdetails.endDate}</span>
 											</p> --%>
-										</div>
-										<%-- <div class="progress " role="progressbar"
-											aria-label="Basic example" aria-valuenow="25"
-											aria-valuemin="0" aria-valuemax="100">
-											<div class="progress-bar ${jobdetails.status}"
-												style="width: ${jobdetails.statusBar}%"></div>
-										</div> --%>
-									</div>
-
-									<div class="createdby">
-										<div
-											class="postedtxt d-flex justify-content-between align-items-center">
-											<p>
-												Created by <span>${jobdetails.createdBy}</span>
-											</p>
 											<ul class="list-group list-group-horizontal">
 												<%-- 												<li class="list-group me-3" data-bs-toggle="tooltip"
 													onclick="insertjobpost(${jobdetails.id})"
@@ -237,7 +277,117 @@
 													href="#"><img src="employer/img/view3.svg"> </a></li>
 											</ul>
 										</div>
+										<%-- <div class="progress " role="progressbar"
+											aria-label="Basic example" aria-valuenow="25"
+											aria-valuemin="0" aria-valuemax="100">
+											<div class="progress-bar ${jobdetails.status}"
+												style="width: ${jobdetails.statusBar}%"></div>
+										</div> --%>
 									</div>
+									
+									<div class="createdby">
+										<div
+											class="postedtxt d-flex justify-content-between align-items-center">
+											<p>
+												Created by <span>${jobdetails.createdBy}</span>
+											</p>
+											<p>
+												Operated by <span>${jobdetails.operatedBy}</span>
+											</p>
+										</div>
+									</div>
+
+									<%-- <div class="createdby">
+										<div
+											class="postedtxt d-flex justify-content-between align-items-center">
+											<p>
+												Created by <span>${jobdetails.createdBy}</span>
+											</p>
+											<ul class="list-group list-group-horizontal">
+																								<li class="list-group me-3" data-bs-toggle="tooltip"
+													onclick="insertjobpost(${jobdetails.id})"
+													data-bs-placement="top" data-bs-title="Copy"><a><img
+														src="employer/img/copy.svg"> </a></li>
+
+												<c:choose>
+													<c:when test="${jobdetails.jobType == 'Job'}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															onclick="insertjobpost(${jobdetails.id})"
+															data-bs-placement="top" data-bs-title="Copy"><a><img
+																src="employer/img/copy.svg"> </a></li>
+													</c:when>
+													<c:when test="${jobdetails.jobType == 'Internship'}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															onclick="insertInternshippost(${jobdetails.id})"
+															data-bs-placement="top" data-bs-title="Copy"><a><img
+																src="employer/img/copy.svg"> </a></li>
+													</c:when>
+												</c:choose>
+
+
+												<!-- ***************************** Edit job and inetrship handle for employeer and Admin ****************************************** -->
+												<c:choose>
+													<c:when test="${sessionRole == 'employeradmin'}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															onclick="updateJobpost(${jobdetails.id})"><a><img
+																src="employer/img/edit3.svg"></a></li>
+
+														<c:choose>
+															<c:when test="${jobdetails.jobType == 'Job'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateJobpost(${jobdetails.id})"><a><img
+																		src="employer/img/edit3.svg"></a></li>
+															</c:when>
+															<c:when test="${jobdetails.jobType == 'Internship'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateInternshipPost(${jobdetails.id})">
+																	<a><img src="employer/img/edit3.svg"></a>
+																</li>
+															</c:when>
+														</c:choose>
+													</c:when>
+													<c:when test="${jobdetails.userId == sessionUserId}">
+													<c:when test="${jobdetails.operatedById == sessionUserId}">
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															onclick="updateJobpost(${jobdetails.id})"><a><img
+																src="employer/img/edit3.svg"></a></li>
+														<c:choose>
+															<c:when test="${jobdetails.jobType == 'Job'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateJobpost(${jobdetails.id})"><a><img
+																		src="employer/img/edit3.svg"></a></li>
+															</c:when>
+															<c:when test="${jobdetails.jobType == 'Internship'}">
+																<li class="list-group me-3" data-bs-toggle="tooltip"
+																	data-bs-placement="top" data-bs-title="Edit"
+																	onclick="updateInternshipPost(${jobdetails.id})">
+																	<a><img src="employer/img/edit3.svg"></a>
+																</li>
+															</c:when>
+														</c:choose>
+
+													</c:when>
+													<c:otherwise>
+														<li class="list-group me-3" data-bs-toggle="tooltip"
+															data-bs-placement="top" data-bs-title="Edit"
+															style="pointer-events: none; opacity: 0.5; cursor: not-allowed;">
+															<a><img src="employer/img/edit3.svg"></a>
+														</li>
+													</c:otherwise>
+												</c:choose>
+
+												<li class="list-group me-3" data-bs-toggle="tooltip"
+													data-bs-placement="top" data-bs-title="View"
+													onclick="findNewroute('/managejobinfo',${jobdetails.id})"><a
+													href="#"><img src="employer/img/view3.svg"> </a></li>
+											</ul>
+										</div>
+									</div> --%>
 								</div>
 							</li>
 						</c:forEach>
@@ -455,7 +605,7 @@
         document.body.appendChild(form);
         form.submit(); 
     }
-   /*  function jobpostingdetails(page) {
+   function jobpostingdetails(page) {
 		
     	var search = $("#searchBox").val();
     	var jobtype = $("#allCategories").val();
@@ -530,7 +680,7 @@
     	document.body.appendChild(form);
     	form.submit();
 
-    } */
+    }
     function jobpostingdetails(page) {
         var search = $("#searchBox").val();
         var jobtypeValue = $("#allCategories").val();
@@ -600,7 +750,7 @@
         form.submit();
     }
 
-   /*  function insertInternshippost(id)
+   function insertInternshippost(id)
     {
     	let form = document.createElement('form');
         form.method = 'POST'; 
@@ -616,10 +766,10 @@
 
         document.body.appendChild(form);
         form.submit(); 
-    } */
+    }
     
 
   </script>
 </body>
 
-</html>
+</html>s

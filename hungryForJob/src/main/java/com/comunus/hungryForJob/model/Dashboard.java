@@ -97,7 +97,7 @@ public class Dashboard {
 	public String internStartDate;
 	public String internEndDate;
 	public String internStartWithin;
-	public String Duration;
+	public String duration;
 	public String noOfDays;
 	public String internFromSalary;
 }

@@ -137,7 +137,7 @@
 												</div>
 												<div class="list-price">
 													<ul>
-														<li><img src="img/icon-clock.svg">${jobPosting.Duration}</li>
+														<li><img src="img/icon-clock.svg">${jobPosting.duration}</li>
 														<c:choose>
 															<c:when test="${hideSalary  = '1'}">
 																<li><img src="img/inr.svg">Not disclosed</li>

@@ -1353,7 +1353,7 @@
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group preferredlocation">
 											<label for="preferredlocation">Preferred Work
-												Location</label> <select class="form-control selet2Multiple"
+												Location (Maximum 5) </label> <select class="form-control selet2Multiple"
 												name="preferredlocation" id="preferredlocation"
 												multiple="multiple" style="width: 100%;">
 												<!-- options will be populated here -->
@@ -1363,7 +1363,7 @@
 
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group addskills">
-											<label for="addskills" class="form-label required">Skills</label>
+											<label for="addskills" class="form-label required">Skills (Maximum 5)</label>
 											<select name="addskills" id="addskills"
 												class="form-select form-control selet2Multiple"
 												style="width: 100%" multiple="multiple">
@@ -1679,7 +1679,7 @@
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="form-group addpreferredlocation">
 													<label for="addpreferredlocation" class="form-label">Preferred
-														Work Location</label> <select name="addpreferredlocation"
+														Work Location (Maximum 5)</label> <select name="addpreferredlocation"
 														id="addpreferredlocation"
 														class="form-select form-control selet2Multiple"
 														multiple="multiple" style="width: 100%;">
@@ -1690,7 +1690,7 @@
 
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="form-group addnewskills">
-													<label for="addnewskills" class="form-label required">Skills</label>
+													<label for="addnewskills" class="form-label required">Skills (Maximum 5)</label>
 													<select name="addnewskills" id="addnewskills"
 														class="form-select form-control selet2Multiple"
 														style="width: 100%" multiple="multiple">

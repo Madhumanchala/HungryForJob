@@ -851,7 +851,8 @@ function fetchCandidateDetails() {
 				preferredlocation.append('<option value="' + allCities[i].id + '"' + isSelected + '>' + allCities[i].name + '</option>');
 			}
 			$("#preferredlocation").select2({
-				dropdownParent: $("#edituserdetails")
+				dropdownParent: $("#edituserdetails"),
+				maximumSelectionLength: 5
 			});
 			$('#preferredlocation').trigger('change');
 
@@ -883,7 +884,8 @@ function fetchCandidateDetails() {
 				selectedSkills.append('<option value="' + allSkills[i].id + '"' + isSelected + '>' + allSkills[i].name + '</option>');
 			}
 			$("#addskills").select2({
-				dropdownParent: $("#edituserdetails")
+				dropdownParent: $("#edituserdetails"),
+				maximumSelectionLength: 5
 			});
 			$('#addskills').trigger('change');
 
@@ -1184,6 +1186,10 @@ function addCv() {
 }
 
 function fetchFieldsForAdd() {
+	document.getElementById('editProfile').style.display = "none";
+	document.getElementById('viewProfile').style.display = "none";
+	document.getElementById('addProfile').style.display = "none";
+	document.getElementById('Industry').value = '';
 	$.ajax({
 		url: "/fetchFieldDetails",
 		type: "POST",
@@ -1202,7 +1208,8 @@ function fetchFieldsForAdd() {
 				dropdownskill.appendChild(option);
 			});
 			$("#addnewskills").select2({
-				dropdownParent: $("#adduserdetails")
+				dropdownParent: $("#adduserdetails"),
+				maximumSelectionLength: 5
 			});
 			$('#addnewskills').trigger('change');
 
@@ -1234,7 +1241,8 @@ function fetchFieldsForAdd() {
 				dropdownLocation.appendChild(option);
 			});
 			$("#addpreferredlocation").select2({
-				dropdownParent: $("#adduserdetails")
+				dropdownParent: $("#adduserdetails"),
+				maximumSelectionLength: 5
 			});
 			$('#addpreferredlocation').trigger('change');
 

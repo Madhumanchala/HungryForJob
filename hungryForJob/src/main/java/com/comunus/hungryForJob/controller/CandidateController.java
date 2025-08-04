@@ -509,7 +509,7 @@ public class CandidateController {
 	@ResponseBody
 	@PostMapping("/uploadResume")
 	public ResponseEntity<String> updateCv(HttpSession session, HttpServletRequest request,
-			@RequestParam("resume_doc") MultipartFile file, @RequestParam("candidateId") String id) {
+			@RequestParam("resume_doc") MultipartFile file, @RequestParam(value = "candidateId", required = false) String id) {
 		log.info("====== updateCv   ======");
 
 		SignUp signup = new SignUp();

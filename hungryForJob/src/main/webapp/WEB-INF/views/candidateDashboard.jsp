@@ -137,17 +137,20 @@
 												</div>
 												<div class="list-price">
 													<ul>
-														<li><img src="img/icon-clock.svg">${jobPosting.duration}</li>
+														<li><img src="img/icon-clock.svg">${jobPosting.duration} months</li>
 														<c:choose>
 															<c:when test="${hideSalary  = '1'}">
 																<li><img src="img/inr.svg">Not disclosed</li>
 															</c:when>
-															<c:when
+															<%-- <c:when
 																test="${empty jobPosting.fromCtc or jobPosting.fromCtc eq 'null' or empty jobPosting.toCtc or jobPosting.toCtc eq 'null'}">
 																<li><img src="img/inr.svg">0-0</li>
+															</c:when> --%>
+															<c:when test="${not empty jobPosting.internFromSalary}">
+																<li><img src="img/inr.svg">${jobPosting.internFromSalary}</li>
 															</c:when>
 															<c:otherwise>
-																<li><img src="img/inr.svg">${jobPosting.internFromSalary}</li>
+																<li><img src="img/inr.svg">Unpaid</li>
 															</c:otherwise>
 														</c:choose>
 														<li><img src="img/map.svg">${jobPosting.location}</li>

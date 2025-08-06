@@ -1098,25 +1098,30 @@
 									class="errors" id="Industry_error"></span>
 							</div>
 							<div class="row" id="editProfile" style="display: none;">
-								<span class="pencil">
-										<i class="bi bi-pencil-square" data-bs-toggle="modal"
-											data-bs-target="#edituserdetails"
-											onclick="fetchCandidateDetails()"> Edit Profile</i>
+								<span class="pencil"> <i class="bi bi-pencil-square"
+									data-bs-toggle="modal" data-bs-target="#edituserdetails"
+									onclick="fetchCandidateDetails()"> Edit Profile</i>
+								</span>
+							</div>
+
+							<div class="row" id="applyProfile" style="display: none;">
+								<span class="pencil"> <i class="bi bi-pencil-square"
+									data-bs-toggle="modal" data-bs-target="#applyJobProfile"
+									onclick="fetchCandidateDetails()">Edit Profile</i>
 								</span>
 							</div>
 
 							<div class="row" id="viewProfile" style="display: none;">
-								<span class="pencil">
-										<i class="bi bi-pencil-square" data-bs-toggle="modal"
-											onclick="viewCandidateProfile()"> View Profile</i>
+								<span class="pencil"> <i class="bi bi-pencil-square"
+									data-bs-toggle="modal" onclick="viewCandidateProfile()">
+										View Profile</i>
 								</span>
 							</div>
 
 							<div class="row" id="addProfile" style="display: none;">
-								<span class="pencil">
-										<i class="bi bi-pencil-square" data-bs-toggle="modal"
-											data-bs-target="#adduserdetails"
-											onclick="fetchFieldsForAdd()"> Add Profile</i>
+								<span class="pencil"> <i class="bi bi-pencil-square"
+									data-bs-toggle="modal" data-bs-target="#adduserdetails"
+									onclick="fetchFieldsForAdd()"> Add Profile</i>
 								</span>
 							</div>
 						</div>
@@ -1215,13 +1220,13 @@
 													name="highQualification" id="highQualification"
 													placeholder="Enter Highest Qualification"> <span
 													class="errors" id="highQualification_error"></span> -->
-													
+
 												<label class="form-label">Highest Qualification</label> <select
-														name="highQualification" id="highQualification"
-														class="form-control select2Single" style="width: 100%">
-														<option value="">Select</option>
-													</select> <span class="highQualification_error errorfield"
-														style="color: red"></span>
+													name="highQualification" id="highQualification"
+													class="form-control select2Single" style="width: 100%">
+													<option value="">Select</option>
+												</select> <span class="highQualification_error errorfield"
+													style="color: red"></span>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12"
@@ -1260,8 +1265,7 @@
 								<div class="content-txt">
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group">
-											<label class="form-label required">Total
-												Experience</label>
+											<label class="form-label required">Total Experience</label>
 											<div class="row">
 												<div class="col-lg-3 col-md-3 col-sm-3 col-6">
 													<label class="form-label">Years</label> <select
@@ -1353,9 +1357,10 @@
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group preferredlocation">
 											<label for="preferredlocation">Preferred Work
-												Location (Maximum 5) </label> <select class="form-control selet2Multiple"
-												name="preferredlocation" id="preferredlocation"
-												multiple="multiple" style="width: 100%;">
+												Location (Maximum 5) </label> <select
+												class="form-control selet2Multiple" name="preferredlocation"
+												id="preferredlocation" multiple="multiple"
+												style="width: 100%;">
 												<!-- options will be populated here -->
 											</select> <span class="errors" id="preferredlocations_error"></span>
 										</div>
@@ -1363,8 +1368,8 @@
 
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group addskills">
-											<label for="addskills" class="form-label required">Skills (Maximum 5)</label>
-											<select name="addskills" id="addskills"
+											<label for="addskills" class="form-label required">Skills
+												(Maximum 5)</label> <select name="addskills" id="addskills"
 												class="form-select form-control selet2Multiple"
 												style="width: 100%" multiple="multiple">
 												<option value="">Select</option>
@@ -1471,6 +1476,422 @@
 											</select> <span class="applyJob_error errorfield"></span>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group editCandidateStatus">
+												<label for="editCandidateStatus" class="form-label">Candidate
+													Status</label> <select name="editCandidateStatus"
+													id="editCandidateStatus"
+													class="form-select form-control selet2Single"
+													style="width: 100%">
+													<option value="">Select</option>
+												</select> <span class="editCandidateStatus_error errorfield"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group editCurrentStatus">
+												<label for="editCurrentStatus" class="form-label">Current
+													Status</label> <select name="editCurrentStatus"
+													id="editCurrentStatus"
+													class="form-select form-control selet2Single"
+													style="width: 100%">
+													<option value="">Select</option>
+												</select> <span class="editCurrentStatus_error errorfield"></span>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group candidateRemarks">
+											<label for="candidateRemarks">Remarks</label>
+											<textarea class="candidateRemarks" name="candidateRemarks"
+												id="candidateRemarks"></textarea>
+											<span class="errors"
+												class="candidateRemarks_error errorfield"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+					<button type="button" class="btns"
+						onclick="recruiterUpdatesCandidate()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="applyJobProfile" tabindex="-1"
+		aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Candidate
+						Details</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="educationDetails">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseOne"
+								aria-expanded="true" aria-controls="collapseOne">
+								Personal Details</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show"
+							aria-labelledby="educationDetails"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="editQualificationModal">
+											<div class="form-group">
+												<label for="applyemail" class="required">Email</label> <input
+													type="text" class="form-control" id="applyemail" name="applyemail"
+													placeholder="Enter Email Id" disabled> <span
+													class="errors" id="applyemail_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
+											<div class="form-group">
+												<label for="applyfullName" class="required">Full Name</label> <input
+													type="text" class="form-control" id="applyfullName"
+													name="applyfullName" placeholder="Enter Full Name" disabled> <span
+													class="errors" id="applyfullName_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="editCourseModal">
+											<div class="form-group">
+												<label for="applygender" class="form-label required">Gender
+												</label>
+												<div class="serving ">
+													<ul>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="applymale" value="male"
+															style="margin: 5px" autocomplete="off"
+															onchange="hideErrorByClass('genderError')" disabled> <label
+															class="btn" for="male"><span>Male</span> </label></li>
+														<li><input type="radio" class="btn-check"
+															name="gender" id="applyfemale" value="female"
+															style="margin: 5px" autocomplete="off"
+															onchange="hideErrorByClass('genderError')" disabled> <label
+															class="btn" for="female"><span>Female</span> </label></li>
+													</ul>
+													<span class="genderError errorfield"
+														style="color: red; font-weight: 500; font-size: 12px;"></span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="specializationModal">
+											<div class="form-group">
+												<label for="applymobileNumber" class="required">Contact
+													Number</label> <input type="text" class="form-control"
+													id="applymobileNumber" name="applymobileNumber"
+													placeholder="Enter Contact Number" maxlength="10" disabled>
+												<span class="errors" id="applymobileNumber_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12" id="courseTypeModal">
+											<div class="form-group">
+												<!-- <label for="highQualification">Highest
+													Qualification</label> <input type="text" class="form-control"
+													name="highQualification" id="highQualification"
+													placeholder="Enter Highest Qualification"> <span
+													class="errors" id="highQualification_error"></span> -->
+
+												<label class="form-label">Highest Qualification</label> <select
+													name="applyhighQualification" id="applyhighQualification"
+													class="form-control select2Single" style="width: 100%" disabled>
+													<option value="">Select</option>
+												</select> <span class="applyhighQualification_error errorfield"
+													style="color: red"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseStartYearModal">
+											<div class="form-group">
+												<label for="applyendyear">Passing Year</label> <input type="text"
+													class="form-control" id="applyendyear" name="applyendyear"
+													placeholder="Enter Passing Year" disabled> <span
+													class="errors" id="applyendyear_error"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12"
+											id="courseEndYearModal">
+											<div class="form-group">
+												<label for="applycurrentLocation" class="required">Current
+													Location</label> <input type="text" class="form-control"
+													id="applycurrentLocation" placeholder="Enter Current Location" disabled>
+												<span class="errors" id="currentLocation_error"></span>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<h2 class="accordion-header" id="employmentDetails">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+								aria-expanded="true" aria-controls="collapseTwo">Work
+								Details</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse show"
+							aria-labelledby="employmentDetails"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<div class="content-txt">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group">
+											<label class="form-label required">Total Experience</label>
+											<div class="row">
+												<div class="col-lg-3 col-md-3 col-sm-3 col-6">
+													<label class="form-label">Years</label> <select
+														name="applyyearsExp" id="applyyearsExp"
+														class="form-control select2Single" style="width: 100%" disabled>
+														<option value="">Select</option>
+													</select> <span class="applyyearsExp_error errorfield"
+														style="color: red"></span>
+												</div>
+												<div class="col-lg-3 col-md-3 col-sm-3 col-6">
+													<label class="form-label">Months</label> <select
+														name="applymonthsExp" id="applymonthsExp"
+														class="form-control select2Single" style="width: 100%" disabled>
+														<option value="">Select</option>
+														<!-- Dynamically populate options for months -->
+													</select> <span class="applymonthsExp_error errorfield"
+														style="color: red"></span>
+												</div>
+											</div>
+											<span class="applyTotalexperience_error errorfield"></span>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6"
+											id="hideShowNoticePeriod">
+											<div class="form-group">
+												<label for="applyexistnoticePeriod" class="form-label">
+													Notice Period(in Days) </label> <input type="text"
+													name="applyexistnoticePeriod" id="applyexistnoticePeriod"
+													class="form-control" placeholder="Enter Notice Period"
+													maxlength="2" disabled> <span
+													class="applyexistnoticePeriod_error errorfield"></span>
+											</div>
+										</div>
+									</div>
+									<!-- <div class="col-lg-6 col-md-6 col-sm-6"
+										id="hideShowNoticePeriod">
+										<div class="form-group">
+											<label for="currentOrganization" class="form-label">
+												Current Organization </label> <input type="text"
+												name="currentOrganization" id="currentOrganization"
+												class="form-control"
+												placeholder="Enter Current Organization"> <span
+												class="currentOrganization_error errorfield"></span>
+										</div>
+									</div> -->
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="applyServingNoticePeriod" class="form-label">Serving
+												Notice Period</label><br>
+											<div class="workstatus row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="applyServingNoticePeriod"
+														id="applyServingNoticePeriodYes" autocomplete="off"
+														value="Yes" class="btn-check" disabled> <label class="btn"
+														for="applyServingNoticePeriodYes"><span> Yes
+													</span> </label>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="applyServingNoticePeriod"
+														value="No" id="applyServingNoticePeriodNo"
+														autocomplete="off" class="btn-check" disabled> <label
+														class="btn" for="applyServingNoticePeriodNo"><span>No
+													</span> </label>
+												</div>
+											</div>
+											<span class="applyServingNoticePeriod_error errorfield"
+												style="color: red"></span>
+										</div>
+									</div>
+
+									<!-- <div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group preferredlocation">
+											<label for="preferredlocation" class="form-label">Preferred
+												Work Location</label> <select name="preferredlocation"
+												id="preferredlocation"
+												class="form-select form-control selet2Multiple"
+												multiple="multiple">
+											</select><span class="CurrentLocation_error errorfield"></span>
+										</div>
+										
+										<div class="form-group preferredlocation">
+										<label for="preferredlocation">Preferred
+										Work Location </label> <input type="text" class="form-control selet2Multiple"
+											name="preferredlocation" id="preferredlocation"
+											placeholder="Select Location" multiple="multiple"> <span
+											class="errors" id="preferredlocationss_error"></span>
+										</div>
+									</div> -->
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group applypreferredlocation">
+											<label for="applypreferredlocation">Preferred Work
+												Location (Maximum 5) </label> <select
+												class="form-control selet2Multiple" name="applypreferredlocation"
+												id="applypreferredlocation" multiple="multiple"
+												style="width: 100%;" disabled>
+												<!-- options will be populated here -->
+											</select> <span class="errors" id="applypreferredlocation_error"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group applyaddskills">
+											<label for="applyaddskills" class="form-label required">Skills
+												(Maximum 5)</label> <select name="applyaddskills" id="applyaddskills"
+												class="form-select form-control selet2Multiple"
+												style="width: 100%" multiple="multiple" disabled>
+												<option value="">Select</option>
+											</select> <span class="applyaddskills_error errorfield"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="applycurrentCtc" class="form-label">Current
+												CTC </label> <input type="text" name="applycurrentCtc" id="applycurrentCtc"
+												class="form-control" placeholder="Enter Current Ctc"
+												maxlength="20" disabled><span
+												class="applycurrentCtc_error errorfield" style="color: red"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group">
+											<label for="applyexpectedCtc" class="form-label">Expected
+												CTC </label> <input type="text" name="applyexpectedCtc" id="applyexpectedCtc"
+												class="form-control" placeholder="Enter Expected Ctc"
+												maxlength="20" disabled><span
+												class="applyexpectedCtc_error errorfield" style="color: red"></span>
+										</div>
+									</div>
+
+									<div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<label for="applyOfferInHand" class="form-label">Offer
+												in Hand</label>
+											<div class="workstatus row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="applyOfferInHand"
+														id="applyOfferInHandYes" autocomplete="off" value="Yes"
+														class="btn-check" disabled> <label class="btn"
+														for="applyOfferInHandYes"><span> Yes </span> </label>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-6">
+													<input type="radio" name="applyOfferInHand" value="No"
+														id="applyOfferInHandNo" autocomplete="off"
+														class="btn-check" disabled> <label class="btn"
+														for="applyOfferInHandNo"><span>No </span> </label>
+												</div>
+											</div>
+											<span class="applyOfferInHand_error errorfield"
+												style="color: red"></span>
+										</div>
+									</div>
+
+									<div
+										class="col-xl-6 col-lg-6 col-md-9 col-sm-12 d-flex align-items-center justify-content-between">
+										<div class="form-group">
+											<label for="applyresume_doc" class="form-label">Upload
+												your resume here.</label> <input type="file" name="applyresume_doc"
+												id="resume_doc" class="form-control"> <span
+												style="font-size: 12px;">(Only pdf, doc and docx type
+												are allowed and file size upTo 2mb)</span><br> <span
+												class="applyresume_doc_error errorfield" style="color: red"></span>
+										</div>
+										<div class="cvUpload">
+											<a class="btns" id="cvUpload" onclick="updateCv()">Upload</a>
+										</div>
+									</div>
+
+									<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+										<div class="form-group">
+											<label for="resume_doc" class="form-label">Upload
+												your resume here.</label> <input type="file" name="resume_doc"
+												id="resume_doc" class="form-control"
+												accept=".pdf,.doc,.docx">
+											<div
+												class="d-flex align-items-center justify-content-between">
+												<span style="font-size: 12px;">(Only pdf, doc and
+													docx type are allowed and file size upTo 2mb)</span>
+											</div>
+											<div class="errorfield" style="color: red;"></div>
+										</div>
+										<div class="col-xl-3 col-lg-2 col-md-3 col-sm-12 ">
+											<div class="cvUpload">
+												<a class="btns" id="cvUpload" onclick="updateCv()">Upload</a>
+											</div>
+										</div>
+									</div> -->
+								</div>
+							</div>
+						</div>
+						<h2 class="accordion-header" id="remarks">
+							<button class="accordion-button" type="button"
+								data-bs-toggle="collapse" data-bs-target="#collapseThree"
+								aria-expanded="true" aria-controls="collapseThree">Remarks</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse show"
+							aria-labelledby="remarks" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<div class="content-txt">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group applyEditJob">
+											<label for="applyEditJob" class="form-label">Jobs</label> <select
+												name="applyEditJob" id="applyEditJob"
+												class="form-select form-control selet2Single"
+												style="width: 100%">
+												<option value="">Select</option>
+											</select> <span class="applyEditJob_error errorfield"></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group candidateStatus">
+												<label for="candidateStatus" class="form-label">Candidate
+													Status</label> <select name="candidateStatus" id="candidateStatus"
+													class="form-select form-control selet2Single"
+													style="width: 100%">
+													<option value="">Select</option>
+												</select> <span class="candidateStatus_error errorfield"></span>
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group currentStatus">
+												<label for="currentStatus" class="form-label">Current
+													Status</label> <select name="currentStatus" id="currentStatus"
+													class="form-select form-control selet2Single"
+													style="width: 100%">
+													<option value="">Select</option>
+												</select> <span class="currentStatus_error errorfield"></span>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="form-group candidateRemarks">
+											<label for="candidateRemarks">Remarks</label>
+											<textarea class="candidateRemarks" name="candidateRemarks"
+												id="candidateRemarks"></textarea>
+											<span class="errors"
+												class="candidateRemarks_error errorfield"></span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -1514,23 +1935,24 @@
 										<div class="col-lg-6 col-md-6 col-sm-12"
 											id="editQualificationModal">
 											<div class="form-group">
-												<label for="addemail" class="required">Email</label> <input type="text"
-													class="form-control" id="addemail" name="addemail"
-													placeholder="Enter Email Id"> <span class="errors"
-													id="addemail_error"></span>
+												<label for="addemail" class="required">Email</label> <input
+													type="text" class="form-control" id="addemail"
+													name="addemail" placeholder="Enter Email Id"> <span
+													class="errors" id="addemail_error"></span>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12" id="addfullNameDiv">
 											<div class="form-group">
-												<label for="addfullName" class="required">Full Name</label> <input
-													type="text" class="form-control" id="addfullName"
+												<label for="addfullName" class="required">Full Name</label>
+												<input type="text" class="form-control" id="addfullName"
 													name="addfullName" placeholder="Enter Full Name"> <span
 													class="errors" id="addfullName_error"></span>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12" id="addGender">
 											<div class="form-group">
-												<label for="gender" class="form-label required">Gender </label>
+												<label for="gender" class="form-label required">Gender
+												</label>
 												<div class="serving ">
 													<ul>
 														<li><input type="radio" class="btn-check"
@@ -1551,9 +1973,9 @@
 										<div class="col-lg-6 col-md-6 col-sm-12"
 											id="specializationModal">
 											<div class="form-group">
-												<label for="addmobileNumber" class="required">Contact Number</label> <input
-													type="text" class="form-control" id="addmobileNumber"
-													name="addmobileNumber" maxlength="10"
+												<label for="addmobileNumber" class="required">Contact
+													Number</label> <input type="text" class="form-control"
+													id="addmobileNumber" name="addmobileNumber" maxlength="10"
 													placeholder="Enter Contact Number"> <span
 													class="errors" id="addmobileNumber_error"></span>
 											</div>
@@ -1581,8 +2003,9 @@
 										<div class="col-lg-6 col-md-6 col-sm-12"
 											id="courseEndYearModal">
 											<div class="form-group">
-												<label for="addCurrentLocation" class="required">Current Location</label> <input
-													type="text" class="form-control" id="addCurrentLocation"
+												<label for="addCurrentLocation" class="required">Current
+													Location</label> <input type="text" class="form-control"
+													id="addCurrentLocation"
 													placeholder="Enter Current Location"> <span
 													class="errors" id="addCurrentLocation_error"></span>
 											</div>
@@ -1679,8 +2102,8 @@
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="form-group addpreferredlocation">
 													<label for="addpreferredlocation" class="form-label">Preferred
-														Work Location (Maximum 5)</label> <select name="addpreferredlocation"
-														id="addpreferredlocation"
+														Work Location (Maximum 5)</label> <select
+														name="addpreferredlocation" id="addpreferredlocation"
 														class="form-select form-control selet2Multiple"
 														multiple="multiple" style="width: 100%;">
 														<option value="">Select</option>
@@ -1690,8 +2113,8 @@
 
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="form-group addnewskills">
-													<label for="addnewskills" class="form-label required">Skills (Maximum 5)</label>
-													<select name="addnewskills" id="addnewskills"
+													<label for="addnewskills" class="form-label required">Skills
+														(Maximum 5)</label> <select name="addnewskills" id="addnewskills"
 														class="form-select form-control selet2Multiple"
 														style="width: 100%" multiple="multiple">
 														<option value="">Select</option>

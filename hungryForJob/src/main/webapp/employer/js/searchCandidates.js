@@ -747,7 +747,7 @@ function search(email) {
 					let userId = response.data.id;
 					showToast("info", "Email already exists.");
 					if (response.data.lastlogin) {
-						document.getElementById('editProfile').style.display = "none";
+						document.getElementById('applyProfile').style.display = "block";
 						document.getElementById('addProfile').style.display = "none";
 						document.getElementById('viewProfile').style.display = "block";
 					} else {
@@ -778,6 +778,7 @@ function fetchCandidateDetails() {
 	document.getElementById('editProfile').style.display = "none";
 	document.getElementById('viewProfile').style.display = "none";
 	document.getElementById('addProfile').style.display = "none";
+	document.getElementById('applyProfile').style.display = "none";
 	document.getElementById('Industry').value = '';
 
 	var id = document.getElementById('existingUserId').value;
@@ -791,6 +792,7 @@ function fetchCandidateDetails() {
 		success: function(response) {
 			console.log(response);
 
+			// Edit Section
 			document.getElementById('fullName').value = response.data.signup.fullName;
 			document.getElementById('mobileNumber').value = response.data.signup.mobileNumber;
 			document.getElementById('currentCtc').value = response.data.careerDetails.currentCtc;
@@ -798,6 +800,16 @@ function fetchCandidateDetails() {
 			document.getElementById('existnoticePeriod').value = response.data.careerDetails.noticePeriod;
 			document.getElementById('endyear').value = response.data.educationDetails.endYear;
 			document.getElementById('currentLocation').value = response.data.careerDetails.city;
+			
+			// Apply Job Section
+			document.getElementById('applyfullName').value = response.data.signup.fullName;
+			document.getElementById('applyemail').value = response.data.signup.emailInput;
+			document.getElementById('applymobileNumber').value = response.data.signup.mobileNumber;
+			document.getElementById('applycurrentCtc').value = response.data.careerDetails.currentCtc;
+			document.getElementById('applyexpectedCtc').value = response.data.careerDetails.expectedCtc;
+			document.getElementById('applyexistnoticePeriod').value = response.data.careerDetails.noticePeriod;
+			document.getElementById('applyendyear').value = response.data.educationDetails.endYear;
+			document.getElementById('applycurrentLocation').value = response.data.careerDetails.city;
 
 			const totalExp = response.data.careerDetails.totalExperience;
 
@@ -809,6 +821,15 @@ function fetchCandidateDetails() {
 				$('#edityearsExp').val(years).trigger('change');
 				$('#editmonthsExp').val(months).trigger('change');
 			}
+			
+			if (totalExp) {
+				const parts = totalExp.split(".");
+				const years = parts[0];
+				const months = parts[1] || "0";
+				
+				$('#applyyearsExp').val(years).trigger('change');
+				$('#applymonthsExp').val(months).trigger('change');
+			}
 
 			/*document.getElementById('currentOrganization').value = 
 				response.data.employeelastWorkedCompany && 
@@ -818,27 +839,34 @@ function fetchCandidateDetails() {
 					: '';*/
 			const qualificationValue = response.data.educationDetails.qualificationtype;
 			document.getElementById('highQualification').value = qualificationValue;
+			document.getElementById('applyhighQualification').value = qualificationValue;
 
 			var gender = response.data.signup.gender;
 			if (gender.toUpperCase() === "MALE") {
 				$("#editmale").prop('checked', true);
+				$("#applymale").prop('checked', true);
 
 			} else {
 				$("#editfemale").prop('checked', true);
+				$("#applyfemale").prop('checked', true);
 			}
 
 			var serviceNoticePeriod = response.data.careerDetails.serviceNoticePeriod;
 			if (serviceNoticePeriod.toUpperCase() === "YES") {
 				$("#editServingNoticePeriodYes").prop('checked', true);
+				$("#applyServingNoticePeriodYes").prop('checked', true);
 			} else {
 				$("#editServingNoticePeriodNo").prop('checked', true);
+				$("#applyServingNoticePeriodNo").prop('checked', true);
 			}
 
 			var offerInHand = response.data.careerDetails.offerInHand;
 			if (offerInHand.toUpperCase() === "YES") {
 				$("#editOfferInHandYes").prop('checked', true);
+				$("#applyOfferInHandYes").prop('checked', true);
 			} else {
 				$("#editOfferInHandNo").prop('checked', true);
+				$("#applyOfferInHandNo").prop('checked', true);
 			}
 			
 			const locationString = response.data.viewPreferredLocation.map(location => String(location.name));
@@ -855,9 +883,18 @@ function fetchCandidateDetails() {
 				maximumSelectionLength: 5
 			});
 			$('#preferredlocation').trigger('change');
+			
+			
+			// Apply Job Preferred Location Section
+			var applypreferredlocation = $('#applypreferredlocation');
+			applypreferredlocation.empty();
+			for (var i = 0; i < allCities.length; i++) {
+				var isSelected = locationString.includes(allCities[i].name) ? ' selected' : '';
+				applypreferredlocation.append('<option value="' + allCities[i].id + '"' + isSelected + '>' + allCities[i].name + '</option>');
+			}
 
 
-			// Jobs
+			// Edit Candidate Jobs
 			const job = response.data.jobPostingRole;
 			const dropdownJobs = document.getElementById('applyJob');
 
@@ -874,6 +911,91 @@ function fetchCandidateDetails() {
 			$('#applyJob').trigger('change');
 			
 			
+			// Apply Jobs from candidate
+			const applyJob = response.data.jobPostingRole;
+			const dropdownApplyJobs = document.getElementById('applyEditJob');
+
+			applyJob.forEach(function(item) {
+				const option = document.createElement('option');
+				option.value = item.id;
+				option.textContent = item.name;
+				dropdownApplyJobs.appendChild(option);
+			});
+
+			$("#applyEditJob").select2({
+				dropdownParent: $("#applyJobProfile")
+			});
+			$('#applyEditJob').trigger('change');
+			
+			
+			// Candidate Status in Apply Job
+			const candidateStatus = response.data.candidateStatus;
+			const dropdownCandidateStatus = document.getElementById('candidateStatus');
+
+			candidateStatus.forEach(function(item) {
+				const option = document.createElement('option');
+				option.value = item.id;
+				option.textContent = item.name;
+				dropdownCandidateStatus.appendChild(option);
+			});
+
+			$("#candidateStatus").select2({
+				dropdownParent: $("#applyJobProfile")
+			});
+			$('#candidateStatus').trigger('change');
+			
+			
+			// Current Status in Apply Job
+			const currentStatus = response.data.currentStatus;
+			const dropdownCurrentStatus = document.getElementById('currentStatus');
+
+			currentStatus.forEach(function(item) {
+				const option = document.createElement('option');
+				option.value = item.id;
+				option.textContent = item.name;
+				dropdownCurrentStatus.appendChild(option);
+			});
+
+			$("#currentStatus").select2({
+				dropdownParent: $("#applyJobProfile")
+			});
+			$('#currentStatus').trigger('change');
+			
+			
+			// Candidate Status in Apply Job
+			const editCandidateStatus = response.data.candidateStatus;
+			const dropdownEditCandidateStatus = document.getElementById('editCandidateStatus');
+
+			editCandidateStatus.forEach(function(item) {
+				const option = document.createElement('option');
+				option.value = item.id;
+				option.textContent = item.name;
+				dropdownEditCandidateStatus.appendChild(option);
+			});
+
+			$("#editCandidateStatus").select2({
+				dropdownParent: $("#edituserdetails")
+			});
+			$('#editCandidateStatus').trigger('change');
+			
+			// Current Status in Apply Job
+			const editCurrentStatus = response.data.currentStatus;
+			const dropdownEditCurrentStatus = document.getElementById('editCurrentStatus');
+
+			editCurrentStatus.forEach(function(item) {
+				const option = document.createElement('option');
+				option.value = item.id;
+				option.textContent = item.name;
+				dropdownEditCurrentStatus.appendChild(option);
+			});
+
+			$("#editCurrentStatus").select2({
+				dropdownParent: $("#edituserdetails")
+			});
+			$('#editCurrentStatus').trigger('change');
+			
+			
+			// Skills
 			const skillsString = response.data.skills.map(skill => String(skill.techName));
 			const allSkills = response.data.jobPostingSkills;
 			
@@ -888,6 +1010,18 @@ function fetchCandidateDetails() {
 				maximumSelectionLength: 5
 			});
 			$('#addskills').trigger('change');
+			
+			
+			// Apply Job Skills Section
+			const applyskillsString = response.data.skills.map(skill => String(skill.techName));
+			const applyallSkills = response.data.jobPostingSkills;
+			
+			var applyselectedSkills = $('#applyaddskills');
+			applyselectedSkills.empty();
+			for (var i = 0; i < applyallSkills.length; i++) {
+				var isSelected = applyskillsString.includes(applyallSkills[i].name) ? ' selected' : '';
+				applyselectedSkills.append('<option value="' + applyallSkills[i].id + '"' + isSelected + '>' + applyallSkills[i].name + '</option>');
+			}
 
 
 			// Qualification
@@ -900,10 +1034,10 @@ function fetchCandidateDetails() {
 				option.textContent = item.name;
 				dropdownqualification.appendChild(option);
 			});
-
 			$("#highQualification").select2({
 				dropdownParent: $("#edituserdetails")
 			});
+			
 
 			// === Set selected qualification based on name ===
 			const selectedQualificationName = response.data.educationDetails.qualificationtype;
@@ -1189,6 +1323,7 @@ function fetchFieldsForAdd() {
 	document.getElementById('editProfile').style.display = "none";
 	document.getElementById('viewProfile').style.display = "none";
 	document.getElementById('addProfile').style.display = "none";
+	document.getElementById('applyProfile').style.display = "none";
 	document.getElementById('Industry').value = '';
 	$.ajax({
 		url: "/fetchFieldDetails",

@@ -47,9 +47,9 @@
 							<div class="card">
 								<div class="d-flex justify-content-between align-items-center ">
 									<h4>Interviewers</h4>
-									<button class="btn-blue mt-2 ml-3" data-bs-toggle="modal"
+									<!-- <button class="btn-blue mt-2 ml-3" data-bs-toggle="modal"
 										data-bs-target="#addnewnterviewer">+ Add New
-										Interviewer</button>
+										Interviewer</button> -->
 								</div>
 								<div class="line2"></div>
 								<div class="col-12 pt-0 p-3">
@@ -64,8 +64,8 @@
 														<th>Name</th>
 														<th>Email</th>
 														<th>Phone</th>
-														<th>Status</th>
-														<th>Action</th>
+														<!-- <th>Status</th>
+														<th>Action</th> -->
 													</tr>
 												</thead>
 												<tbody>
@@ -79,7 +79,7 @@
 															<td data-title="interviewerMobile">${interviewDetails.mobileNumber}
 															</td>
 
-															<td data-title="status">
+															<%-- <td data-title="status">
 																<div class="plancheckbox">
 																	<input type="checkbox"
 																		id="status${interviewDetails.id}"
@@ -90,7 +90,7 @@
 															<td data-title="Action"><span class="edit"
 																data-bs-toggle="modal" data-bs-target="#editInterviewer"
 																onclick="getEditDetails('${interviewDetails.id}','${interviewDetails.name}','${interviewDetails.emailId}','${interviewDetails.mobileNumber}','${interviewDetails.status}')"><i
-																	class="bi bi-pencil-square"></i></span></td>
+																	class="bi bi-pencil-square"></i></span></td> --%>
 														</tr>
 													</c:forEach>
 												</tbody>

@@ -24,6 +24,7 @@ String empoyerCompanyName=session.getAttribute("employerCompanyName").toString()
                       <a onclick="route('mysubscription')" id="mysubscription"><img src="employer/img/my-subscription.svg" alt=""> My Subscription</a>
                       <!-- <a href="#"><img src="" alt=""> Settting </a> -->
                       <a onclick="route('manageuser')" id="manageuser"><img src="employer/img/manage-users.svg" alt="">Manage users</a>
+                      <a onclick="route('adminInterviewPanel')" id="interviewPanel"><img src="employer/img/manage-users.svg" alt="">Interview Panel</a>
                     </div>
                   </div>
                 </div>

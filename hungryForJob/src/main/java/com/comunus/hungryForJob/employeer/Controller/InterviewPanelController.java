@@ -86,6 +86,51 @@ public class InterviewPanelController {
 
 		return "employerviews/interviewpanel";
 	}
+	
+	@PostMapping("/adminInterviewPanel")
+	public String adminInterviewPanel(Model model, HttpServletRequest request, HttpSession session)
+			throws RestClientException, JsonProcessingException, URISyntaxException {
+
+		WebClientResponse response = null;
+		try {
+
+			String userId = null;
+			String companyId = null;
+			if (session.getAttribute("userId") != null) {
+				userId = session.getAttribute("userId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			if (session.getAttribute("companyId") != null) {
+				companyId = session.getAttribute("companyId").toString();
+			} else {
+				log.info("Session expired or userId  is not set");
+			}
+			companyProfiledetails companyprofiledetails = new companyProfiledetails();
+			companyprofiledetails.setUserId(userId);
+			companyprofiledetails.setCompanyId(companyId);
+			String url = Configs.urls.get(EmployeerAppplicationConstant.INTERVIEWERDETAILS).getUrl();
+			response = myWebClient.post(url, companyprofiledetails).block();
+			if (response.getToken() != null) {
+				log.info("s.getToken() :" + response.getToken());
+				request.getSession().setAttribute("token", "Bearer " + response.getToken());
+			}
+			if (response.getStatusCode() == 200) {
+				ServiceResponseWrapperModel<List<companyProfiledetails>> responsemodel = objectMapper.readValue(
+						response.getBody(),
+						new TypeReference<ServiceResponseWrapperModel<List<companyProfiledetails>>>() {
+						});
+				model.addAttribute("interviewDetails", responsemodel.getData());
+			} else {
+				log.info("Error in Response or service is not called");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception;
+			e.printStackTrace();
+		}
+
+		return "employerviews/adminInterviewPanel";
+	}
 
 	@PostMapping("/addNewInterviewer")
 	@ResponseBody

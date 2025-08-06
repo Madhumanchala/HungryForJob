@@ -89,4 +89,7 @@ public class ResponseModel {
 	
 	public String candidateId;
 	public String companyId;
+	
+	private List<DropDown> candidateStatus;
+	private List<DropDown> currentStatus;
 }
